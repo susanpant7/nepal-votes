@@ -1,0 +1,16 @@
+using NepalVotes.Domain.Common;
+using NepalVotes.Domain.ElectoralGeographies.Enums;
+
+namespace NepalVotes.Domain.ElectoralGeographies.Entities;
+
+public class Municipality : BaseAuditableEntity
+{
+    public int MunicipalityId { get; set; }
+    public string MunicipalityName { get; set; }
+    public MunicipalityType MunicipalityType { get; set; }
+    
+    public int DistrictId { get; set; }
+    public District District { get; set; }
+
+    public ICollection<Ward> Wards { get; set; } = new List<Ward>();
+}
