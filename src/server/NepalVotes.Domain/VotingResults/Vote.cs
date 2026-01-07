@@ -1,13 +1,13 @@
-using NepalVotes.Domain.Candidates.Entity;
+using NepalVotes.Domain.Candidates;
 using NepalVotes.Domain.Common;
-using NepalVotes.Domain.ElectoralGeographies.Entities;
+using NepalVotes.Domain.ElectoralGeographies;
 
-namespace NepalVotes.Domain.VotingResults.Entities;
+namespace NepalVotes.Domain.VotingResults;
 
 public class Vote : BaseAuditableEntity
 {
     public long VoteId { get; set; }
-    public string CastFrom { get; set; }
+    public string VotedFromLocation { get; set; }
 
     public int CandidateId { get; set; }
     public Candidate Candidate { get; set; }

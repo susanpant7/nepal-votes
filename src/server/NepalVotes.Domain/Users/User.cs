@@ -1,8 +1,7 @@
 using NepalVotes.Domain.Common;
-using NepalVotes.Domain.ElectoralGeographies.Entities;
-using NepalVotes.Domain.Users.Enums;
+using NepalVotes.Domain.ElectoralGeographies;
 
-namespace NepalVotes.Domain.Users.Entities;
+namespace NepalVotes.Domain.Users;
 
 public class User : BaseAuditableEntity
 {

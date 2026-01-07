@@ -1,8 +1,7 @@
 using NepalVotes.Domain.Common;
-using NepalVotes.Domain.MediaFiles.Entities;
-using NepalVotes.Domain.Users.Enums;
+using NepalVotes.Domain.MediaFiles;
 
-namespace NepalVotes.Domain.Users.Entities;
+namespace NepalVotes.Domain.Users;
 
 public class UserDocument : BaseAuditableEntity
 {
@@ -10,8 +9,8 @@ public class UserDocument : BaseAuditableEntity
     public UserDocumentType DocumentType { get; set; }
     public string ReviewComment { get; set; }
     
-    public int MediaFileId { get; set; }
-    public MediaFile MediaFile { get; set; }
+    public int UserDocumentMediaFileId { get; set; }
+    public MediaFile UserDocumentMediaFile { get; set; }
     
     public int UserId { get; set; }
     public User User { get; set; }

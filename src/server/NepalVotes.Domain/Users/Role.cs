@@ -1,4 +1,4 @@
-namespace NepalVotes.Domain.Users.Entities;
+namespace NepalVotes.Domain.Users;
 
 public class Role
 {

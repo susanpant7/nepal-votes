@@ -1,7 +1,6 @@
 using NepalVotes.Domain.Common;
-using NepalVotes.Domain.ElectoralGeographies.Enums;
 
-namespace NepalVotes.Domain.ElectoralGeographies.Entities;
+namespace NepalVotes.Domain.ElectoralGeographies;
 
 public class Municipality : BaseAuditableEntity
 {

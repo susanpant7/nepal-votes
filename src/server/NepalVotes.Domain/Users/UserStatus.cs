@@ -1,4 +1,4 @@
-namespace NepalVotes.Domain.Users.Enums;
+namespace NepalVotes.Domain.Users;
 
 public enum UserStatus
 {

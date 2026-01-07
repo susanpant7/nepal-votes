@@ -1,4 +1,4 @@
-namespace NepalVotes.Domain.ElectoralGeographies.Enums;
+namespace NepalVotes.Domain.ElectoralGeographies;
 
 public enum MunicipalityType
 {

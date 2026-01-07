@@ -1,6 +1,6 @@
 using NepalVotes.Domain.Common;
 
-namespace NepalVotes.Domain.ElectoralGeographies.Entities;
+namespace NepalVotes.Domain.ElectoralGeographies;
 
 public class District : BaseAuditableEntity
 {
