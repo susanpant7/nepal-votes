@@ -1,0 +1,95 @@
+how I build data access layer:
+code first approach
+code defines/designs the database
+create your entity class and the table schemas with full control from your code
+how?
+create your entity classes
+create your applcation db context class
+define your configurations : using data annotations or fluent api
+create migrations
+update database
+the changes are reflected in your database
+
+my choice:
+keep the entity classes clean
+evenn there are data annotations that can design your table, it cannot fulfill all of your table schema requirements:
+for eg, it can create required column, max length on a column etc but it fails on cases like delete behaviours, composite
+primary keys etc. In such case, you would need to create fluent api
+by doing so, i noticed that we eventually end up writing our table design in two different places
+so my choice: fluent api
+
+and how do we configure the fluent api?
+create a configuration class
+for eg, if we are configuring for User entity, we create a UserConfiguration class
+then inside it, we can define our configuration
+also, we do not need to manually register every configuration file in the application db context class
+this magical line handles it all
+modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+this makes the table design cleaner
+
+=================================================================
+=================================================================
+=================================================================
+
+How I Build the Data Access Layer (Code-First Approach)
+
+I use the code-first approach, where the code defines and drives the database design.
+
+In this approach:
+
+You create your entity classes
+
+You create the ApplicationDbContext
+
+You define table schemas using data annotations or the Fluent API
+
+You generate migrations
+
+You update the database
+
+The database schema is created or updated directly from your code
+
+My Approach
+
+I prefer to keep entity classes clean.
+
+While data annotations are useful for simple constraints—like required fields or maximum lengths—they fall short when dealing with more advanced schema requirements, such as:
+
+Delete behaviors
+
+Composite primary keys
+
+Complex relationships
+
+In those cases, you inevitably need to use the Fluent API anyway.
+
+What I noticed over time is that mixing data annotations and Fluent API results in the table design being spread across two different places, which hurts readability and maintainability.
+
+So I made a clear choice: use Fluent API only.
+
+Configuring Fluent API the Right Way
+
+Instead of configuring everything inside ApplicationDbContext, I use separate configuration classes.
+
+For example:
+
+For a User entity, I create a UserConfiguration class
+
+All table-related configuration for User lives there
+
+To avoid manually registering each configuration class, I rely on this single line:
+
+modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+
+This automatically picks up and applies all configuration classes in the assembly.
+
+Result
+
+Entity classes stay clean and focused
+
+Table configuration is centralized and explicit
+
+The data access layer becomes easier to read, maintain, and scale
+
+Clean code, clean schema.
