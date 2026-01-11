@@ -69,7 +69,7 @@ async function refreshTokenAndSave() {
     const response = await authApiClient.get('api/auth/refresh');
     const { accessToken } = response.data;
 
-    useAuthStore.getState().setAccessToken(accessToken);
+    useAuthStore.getState().login(accessToken);
     return accessToken;
 }
 
