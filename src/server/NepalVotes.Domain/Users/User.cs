@@ -17,6 +17,8 @@ public class User : BaseAuditableEntity
     public ICollection<Role> Roles { get; set; }
     
     public ICollection<UserDocument> UserDocuments { get; set; }
+    
+    public ICollection<UserOtp> UserOtps { get; set; }
 
     public int VotingPlaceId { get; set; }
     public VotingPlace VotingPlace { get; set; }

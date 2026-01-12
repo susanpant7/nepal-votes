@@ -27,6 +27,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserDocument> UserDocuments { get; set; }
+    public DbSet<UserOtp> UserOtps { get; set; }
     
     public DbSet<Vote> Votes { get; set; }
 
