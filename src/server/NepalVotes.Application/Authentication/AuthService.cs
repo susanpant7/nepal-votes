@@ -8,7 +8,7 @@ namespace NepalVotes.Application.Authentication;
 public class AuthService(IConfiguration configuration, IUserService userService, IOtpService otpService)
     : IAuthService
     {
-        public async Task<ApiResponse<bool>> GenerateOtpForLogin(OtpRequest request)
+        public async Task<ApiResponse<bool>> GenerateOtpForLogin(GenerateOtpRequest request)
         {
             var user = await userService.GetUserByMobileNumber(request.MobileNumber);
             if (user == null) return ApiResponse<bool>.ErrorResponse("User not found", 404);
@@ -16,7 +16,7 @@ public class AuthService(IConfiguration configuration, IUserService userService,
             return await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Login, user.UserId);
         }
         
-        public async Task<ApiResponse<bool>> VerifyOtpForLogin(OtpRequest request)
+        public async Task<ApiResponse<bool>> VerifyOtpForLogin(VerifyOtpRequest request)
         {
             var user = await userService.GetUserByMobileNumber(request.MobileNumber);
             if (user == null) return ApiResponse<bool>.ErrorResponse("User not found", 404);

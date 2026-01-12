@@ -12,7 +12,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     
     [AllowAnonymous]
     [HttpPost("generate-otp")]
-    public async Task<ActionResult> GenerateOtp(OtpRequest request)
+    public async Task<ActionResult> GenerateOtp(GenerateOtpRequest request)
     {
         var result = await authService.GenerateOtpForLogin(request);
         return result.ToActionResult();
@@ -20,7 +20,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     
     [AllowAnonymous]
     [HttpPost("verify-otp")]
-    public async Task<ActionResult> VerifyOtp(OtpRequest request)
+    public async Task<ActionResult> VerifyOtp(VerifyOtpRequest request)
     {
         var result = await authService.VerifyOtpForLogin(request);
         return result.ToActionResult();
