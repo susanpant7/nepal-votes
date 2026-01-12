@@ -9,7 +9,7 @@ namespace NepalVotes.Domain.Candidates;
 public class Candidate : BaseAuditableEntity
 {
     public int CandidateId { get; set; }
-    
+    public DateTimeOffset CreationDate { get; set; }
     public int UserId { get; set; }
     public User User { get; set; } = null!;
     
