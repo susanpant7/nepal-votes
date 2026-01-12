@@ -1,7 +1,7 @@
 using NepalVotes.Application.ResponseHelpers;
 using NepalVotes.Domain.Users;
 
-namespace NepalVotes.Application.Users;
+namespace NepalVotes.Application.Authentication;
 
 public interface IOtpService
 {

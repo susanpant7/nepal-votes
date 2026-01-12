@@ -1,4 +1,4 @@
-namespace NepalVotes.Application.Users;
+namespace NepalVotes.Application.Authentication;
 
 public interface IOtpHashingService
 {

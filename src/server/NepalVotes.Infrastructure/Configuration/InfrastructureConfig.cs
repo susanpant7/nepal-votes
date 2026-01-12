@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NepalVotes.Application.Authentication;
 using NepalVotes.Application.Users;
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.Users;

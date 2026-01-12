@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NepalVotes.Application.ResponseHelpers;
+using NepalVotes.Application.Users;
 using NepalVotes.Domain.Users;
 
-namespace NepalVotes.Application.Users;
+namespace NepalVotes.Application.Authentication;
 
 public class AuthService(IConfiguration configuration, IUserService userService, IOtpService otpService)
     : IAuthService

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using NepalVotes.Application.Authentication;
 using NepalVotes.Application.Users;
 
 namespace NepalVotes.Infrastructure.Hashers;

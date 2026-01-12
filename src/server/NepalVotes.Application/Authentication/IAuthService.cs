@@ -1,6 +1,6 @@
 ﻿using NepalVotes.Application.ResponseHelpers;
 
-namespace NepalVotes.Application.Users;
+namespace NepalVotes.Application.Authentication;
 
 public interface IAuthService
 {

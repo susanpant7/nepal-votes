@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using NepalVotes.Application.Authentication;
 using NepalVotes.Application.Users;
 
 namespace NepalVotes.Application.Configuration;

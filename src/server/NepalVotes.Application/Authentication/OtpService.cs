@@ -2,7 +2,7 @@ using NepalVotes.Application.ResponseHelpers;
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.Users;
 
-namespace NepalVotes.Application.Users;
+namespace NepalVotes.Application.Authentication;
 
 public class OtpService(IUserRepository userRepository, IUserOtpRepository otpRepository, 
     IOtpHashingService otpHashingService, IUnitOfWork unitOfWork) : IOtpService
