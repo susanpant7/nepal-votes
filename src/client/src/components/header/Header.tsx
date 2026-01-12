@@ -28,11 +28,11 @@ export default function Header() {
                     {/* Desktop Nav: Shown next to logo */}
                     <nav className="hidden md:flex items-center gap-1">
                         {items.map((item) => (
-                            <Button key={item.label} variant="ghost" asChild size="sm">
-                                <a href={item.href} className="flex items-center gap-2">
+                            <Button asChild key={item.label} variant="ghost" size="sm">
+                                <Link to={item.href} className="flex items-center gap-2">
                                     <item.icon className="h-4 w-4" />
                                     {item.label}
-                                </a>
+                                </Link>
                             </Button>
                         ))}
                     </nav>
@@ -61,7 +61,7 @@ export default function Header() {
                     )}
 
                     <div className="h-6 w-px bg-border mx-2" /> {/* Subtle Divider */}
-
+                    {user?.userName}
                     <ModeToggle />
                 </div>
 

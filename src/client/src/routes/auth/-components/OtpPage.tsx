@@ -6,6 +6,7 @@ import { useState } from "react"
 import * as React from "react"
 import { useAuthStore } from "@/stores/useAuthStore"
 import { useNavigate } from "@tanstack/react-router"
+import AuthApi from "@/routes/auth/-api/AuthApi.ts";
 
 interface OtpPageProps {
     mobileNumber: string
@@ -17,13 +18,14 @@ const OtpPage = ({ mobileNumber }: OtpPageProps) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-
-        if (otp === "123456") {
-            alert("Login successful")
-            useAuthStore.getState().loginAsAdmin()
-            await navigate({ to: "/admin" })
-        } else {
-            alert("Invalid OTP")
+        
+        let otpVerified = await AuthApi.verifyOtp({
+            mobileNumber: mobileNumber,
+            providedOtp: otp
+        })
+        if (otpVerified?.accessToken) {
+            useAuthStore.getState().login(otpVerified.accessToken)
+            await navigate({ to: '/profile' as any })
         }
     }
 

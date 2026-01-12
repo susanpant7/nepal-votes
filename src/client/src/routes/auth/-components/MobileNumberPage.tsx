@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Phone } from "lucide-react"
 import { useState } from "react"
 import * as React from "react"
-import { SendOtp } from "@/routes/auth/-api/AuthApi"
+import AuthApi from "@/routes/auth/-api/AuthApi.ts";
 
 interface MobileNumberPageProps {
     onOtpSent: (mobileNumber: string) => void
@@ -16,7 +16,7 @@ const MobileNumberPage = ({ onOtpSent }: MobileNumberPageProps) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        const otpResp = SendOtp(mobileNumber)
+        const otpResp = await AuthApi.getOtp({mobileNumber:mobileNumber})
         if (otpResp) {
             alert("An OTP has been sent to your mobile number")
             onOtpSent(mobileNumber)

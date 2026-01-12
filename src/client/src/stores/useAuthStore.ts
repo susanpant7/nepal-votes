@@ -1,8 +1,10 @@
 import { create } from 'zustand';
 import { jwtDecode } from 'jwt-decode'
+import {ClaimType} from "@/lib/claims.ts";
 
 export interface User {
-    id: string
+    userId: number
+    userName: string
     mobileNumber: string
     email: string
     role: string[]
@@ -10,11 +12,13 @@ export interface User {
 }
 
 interface JwtPayload {
-    sub: string  
-    email: string
-    mobileNumber: string
-    role: string[]
+    [ClaimType.NAME]: string
+    [ClaimType.USER_ID]: number
+    [ClaimType.PHONE]: string
+    [ClaimType.ROLE]: string | string[]
     exp: number
+    iss: string
+    aud: string
 }
 
 interface AuthState {
@@ -22,8 +26,6 @@ interface AuthState {
     user: User | null
     login: (token: string) => void
     logout: () => void
-    loginAsAdmin: () => void
-    loginAsUser: () => void
 }
 
 export const useAuthStore = create<AuthState>((set)=>({
@@ -32,13 +34,14 @@ export const useAuthStore = create<AuthState>((set)=>({
     
     login: (token: string) => {
         const decoded = jwtDecode<JwtPayload>(token)
-
+        let roles = getRolesFromToken(decoded);
         const user: User = {
-            id: decoded.sub,
-            email: decoded.email,
-            mobileNumber: decoded.mobileNumber,
-            role: decoded.role,
-            isAdmin: decoded.role.includes("Admin")
+            userId: decoded[ClaimType.USER_ID] as number,
+            userName: decoded[ClaimType.NAME] as string,
+            mobileNumber: decoded[ClaimType.PHONE] as string,
+            email: "",
+            role: roles,
+            isAdmin: roles.includes("ADMIN") || roles.includes("SUPER_ADMIN"),
         }
 
         set({
@@ -51,27 +54,12 @@ export const useAuthStore = create<AuthState>((set)=>({
             accessToken: null,
             user: null,
         }),
-    
-    loginAsAdmin: () => 
-        set({
-            accessToken:"admin-token",
-            user:{
-                id: 'admin-1',
-                email: 'admin@example.com',
-                mobileNumber: '9999999999',
-                role: ['Admin'],
-                isAdmin: true
-            }
-        }),
-    loginAsUser: () =>
-        set({
-            accessToken:"user-token",
-            user:{
-                id: 'user-1',
-                email: 'user@example.com',
-                mobileNumber: '8888888888',
-                role: ['User'],
-                isAdmin: false
-            }
-        })
 }));
+
+const getRolesFromToken = (decoded: any): string[] => {
+    const role =
+        decoded[ClaimType.ROLE]
+
+    if (!role) return []
+    return Array.isArray(role) ? role : [role]
+}

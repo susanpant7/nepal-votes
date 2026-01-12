@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useAuthStore } from "../stores/useAuthStore.ts";
 
-const serverUrl = import.meta.env.VITE_API_BASE_URL || 'https://localhost:5001/';
+const serverUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5119/';
 
 // the default api instance for all app requests
 const apiClient = axios.create({
@@ -31,7 +31,19 @@ apiClient.interceptors.request.use(
 let refreshTokenPromise: Promise<string> | null = null;
 
 apiClient.interceptors.response.use(
-    (response) => response,
+    (response) =>
+    {
+        const { success, message, data } = response.data;
+        if (success !== true) {
+            const errorMessage = message || "An error occurred";
+            alert(message);
+            return Promise.reject(new Error(errorMessage));
+        }
+        if (message) {
+            alert(message);
+        }
+        return data;
+    },
     async (error) => {
         const originalRequest = error.config;
 
@@ -60,6 +72,11 @@ apiClient.interceptors.response.use(
             }
         }
 
+        if (error.response) {
+            const { message } = error.response.data;
+            alert(`Error: ${message}`);
+        }
+        
         return Promise.reject(error);
     }
 );
