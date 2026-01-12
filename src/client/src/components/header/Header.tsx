@@ -10,7 +10,7 @@ export default function Header() {
 
     const items = getNavItems(user)
     const isLoggedIn = user !== null
-    const onLogoutClick = () => {
+    const onSignOutClick = () => {
         useAuthStore.getState().logout()
     }
     
@@ -44,18 +44,18 @@ export default function Header() {
                         <Button
                             variant="ghost"
                             size="sm"
-                            onClick={onLogoutClick}
+                            onClick={onSignOutClick}
                             className="gap-2"
                         >
                             <LogOut className="h-4 w-4" />
-                            <span className="hidden sm:inline">Logout</span>
+                            <span className="hidden sm:inline">Sign Out</span>
                         </Button>
                     ) : (
                         /* Use asChild to merge the Link and Button behaviors */
                         <Button asChild variant="default" size="sm" className="gap-2">
-                            <Link to="/login">
+                            <Link to="/auth">
                                 <LogIn className="h-4 w-4" />
-                                <span className="hidden sm:inline">Login</span>
+                                <span className="hidden sm:inline">Sign In</span>
                             </Link>
                         </Button>
                     )}
