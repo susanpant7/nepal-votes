@@ -12,6 +12,7 @@ public static class ApplicationConfig
         services.AddScoped<IAuthService , AuthService>();
         services.AddScoped<IUserService , UserService>();
         services.AddScoped<IOtpService , OtpService>();
+        services.AddScoped<IUserRefreshTokenService , UserRefreshTokenService>();
 
         return services;
     }

@@ -4,8 +4,7 @@ using NepalVotes.Domain.Users;
 
 namespace NepalVotes.Application.Authentication;
 
-public class OtpService(IUserRepository userRepository, IUserOtpRepository otpRepository, 
-    IOtpHashingService otpHashingService, IUnitOfWork unitOfWork) : IOtpService
+public class OtpService(IUserOtpRepository otpRepository, IOtpHashingService otpHashingService) : IOtpService
 {
     public async Task<ApiResponse<bool>> GenerateAndSaveOtp(string mobile, UserOtpType type,  int userId)
     {
@@ -24,7 +23,6 @@ public class OtpService(IUserRepository userRepository, IUserOtpRepository otpRe
         };
 
         await otpRepository.AddOtpAsync(otpEntry);
-        await unitOfWork.SaveChangesAsync();
         
         return ApiResponse<bool>.SuccessResponse(true, "OTP Generated Successfully: "+ plainOtp );
     }
@@ -39,7 +37,6 @@ public class OtpService(IUserRepository userRepository, IUserOtpRepository otpRe
         if (!isVerified) return ApiResponse<bool>.ErrorResponse("OTP Not Verified");
         
         latestOtp.IsUsed = true;
-        await unitOfWork.SaveChangesAsync();
         
         return ApiResponse<bool>.SuccessResponse(true, "OTP Verified");
     }

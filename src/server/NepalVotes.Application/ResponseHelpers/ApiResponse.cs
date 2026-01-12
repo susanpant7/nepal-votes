@@ -8,9 +8,9 @@ public class ApiResponse<T>
     public bool Success { get; set; }
 
     /// <summary>
-    /// Title for client (success/info/error)
+    /// Message for client (success/info/error)
     /// </summary>
-    public string? Title { get; set; }
+    public string? Message { get; set; }
 
     /// <summary>
     /// HTTP status code or custom status identifier
@@ -40,20 +40,20 @@ public class ApiResponse<T>
     // Convenience constructors
     public ApiResponse() { }
 
-    public ApiResponse(T data, bool success = true, string? title = null, int status = 200, IEnumerable<string>? errors = null, object? meta = null)
+    public ApiResponse(T data, bool success = true, string? message = null, int status = 200, IEnumerable<string>? errors = null, object? meta = null)
     {
         Data = data;
         Success = success;
-        Title = title;
+        Message = message;
         Status = status;
         Errors = errors;
         Meta = meta;
     }
 
     // Static helpers
-    public static ApiResponse<T> SuccessResponse(T data, string title = "Api Request Success", int status = 200, object? meta = null)
-        => new ApiResponse<T>(data, true, title, status, null, meta);
+    public static ApiResponse<T> SuccessResponse(T data, string message = "Api Request Success", int status = 200, object? meta = null)
+        => new ApiResponse<T>(data, true, message, status, null, meta);
 
-    public static ApiResponse<T> ErrorResponse(string title, int status = 400, IEnumerable<string>? errors = null, object? meta = null)
-        => new ApiResponse<T>(default!, false, title, status, errors, meta);
+    public static ApiResponse<T> ErrorResponse(string message, int status = 400, IEnumerable<string>? errors = null, object? meta = null)
+        => new ApiResponse<T>(default!, false, message, status, errors, meta);
 }

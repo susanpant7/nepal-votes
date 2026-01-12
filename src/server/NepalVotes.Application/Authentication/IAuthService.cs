@@ -5,5 +5,5 @@ namespace NepalVotes.Application.Authentication;
 public interface IAuthService
 {
     Task<ApiResponse<bool>> GenerateOtpForLogin(GenerateOtpRequest request);
-    Task<ApiResponse<bool>> VerifyOtpForLogin(VerifyOtpRequest request);
+    Task<ApiResponse<TokenResponse>> VerifyOtpForLogin(VerifyOtpRequest request);
 }

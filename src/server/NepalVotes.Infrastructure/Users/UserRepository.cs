@@ -10,8 +10,13 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     public async Task<User?> GetByMobileNumberAsync(string mobileNumber)
     {
         return await context.Users
+            .FirstOrDefaultAsync(u => u.MobileNumber == mobileNumber);
+    }
+    
+    public async Task<User?> GetWithRolesByMobileNumberAsync(string mobileNumber)
+    {
+        return await context.Users
             .Include(u => u.Roles)             // Eager load Roles
-            .Include(u => u.VotingPlace)       // Load Voting Location
             .FirstOrDefaultAsync(u => u.MobileNumber == mobileNumber);
     }
 }

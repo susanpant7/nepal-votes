@@ -9,4 +9,9 @@ public class UserService(IUserRepository userRepository) : IUserService
         return await userRepository.GetByMobileNumberAsync(mobileNumber);
     }
     
+    public async Task<User?> GetUserWithRolesByMobileNumber(string mobileNumber)
+    {
+        return await userRepository.GetWithRolesByMobileNumberAsync(mobileNumber);
+    }
+    
 }
