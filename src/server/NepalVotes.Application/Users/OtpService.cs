@@ -20,7 +20,7 @@ public class OtpService(IUserRepository userRepository, IUserOtpRepository otpRe
             UserId = userId,
             HashedOtpCode = hashedOtp,
             UserOtpType = type,
-            ExpiryDate = DateTime.UtcNow.AddMinutes(1)
+            ExpiryDate = DateTimeOffset.UtcNow.AddMinutes(1)
         };
 
         await otpRepository.AddOtpAsync(otpEntry);

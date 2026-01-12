@@ -29,7 +29,7 @@ public class AuditInterceptor(IHttpContextAccessor httpContextAccessor) : SaveCh
     {
         if (context == null) return;
 
-        var now = DateTime.UtcNow;
+        var now = DateTimeOffset.UtcNow;
         var currentUserId = GetCurrentUserId();
 
         // Handle CreatedAt, CreatedBy, UpdatedAt, UpdatedBy

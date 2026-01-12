@@ -17,7 +17,7 @@ public class UserOtpRepository(ApplicationDbContext context) : IUserOtpRepositor
             .Where(x => x.UserId == userId && 
                         x.UserOtpType == type && 
                         !x.IsUsed && 
-                        x.ExpiryDate > DateTime.UtcNow)
+                        x.ExpiryDate > DateTimeOffset.UtcNow)
             .OrderByDescending(x => x.CreatedAt)
             .FirstOrDefaultAsync();
     }

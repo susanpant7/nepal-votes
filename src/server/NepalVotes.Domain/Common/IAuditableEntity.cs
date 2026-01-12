@@ -1,8 +1,8 @@
 namespace NepalVotes.Domain.Common;
 public interface IAuditableEntity
 {
-    DateTime CreatedAt { get; set; }
+    DateTimeOffset CreatedAt { get; set; }
     int? CreatedBy { get; set; }
-    DateTime? UpdatedAt { get; set; }
+    DateTimeOffset? UpdatedAt { get; set; }
     int? UpdatedBy { get; set; }
 }

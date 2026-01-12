@@ -35,7 +35,7 @@ public class ApiResponse<T>
     /// <summary>
     /// Timestamp of the response
     /// </summary>
-    public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
 
     // Convenience constructors
     public ApiResponse() { }

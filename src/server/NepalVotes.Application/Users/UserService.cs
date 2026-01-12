@@ -63,7 +63,7 @@ public class UserService(IUserRepository userRepository) : IUserService
     //         {
     //             UserId = userId,
     //             RefreshToken = refreshToken,
-    //             RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(expiryInDays)
+    //             RefreshTokenExpiryTime = DateTimeOffset.UtcNow.AddDays(expiryInDays)
     //         };
     //
     //         await userRepository.AddUserLoginTokenAsync(loginToken);
@@ -71,7 +71,7 @@ public class UserService(IUserRepository userRepository) : IUserService
     //     else
     //     {
     //         loginToken.RefreshToken = refreshToken;
-    //         loginToken.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+    //         loginToken.RefreshTokenExpiryTime = DateTimeOffset.UtcNow.AddDays(7);
     //     }
     //
     //     await userRepository.SaveChangesAsync();

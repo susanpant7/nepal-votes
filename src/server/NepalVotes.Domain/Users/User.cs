@@ -11,8 +11,8 @@ public class User : BaseAuditableEntity
     public string LastName { get; set; }
     public string MobileNumber { get; set; }
     public UserStatus Status { get; set; } = UserStatus.Requested;
-    public DateTime RequestDate { get; set; }
-    public DateTime? ApprovedDate { get; set; }
+    public DateTimeOffset RequestDate { get; set; }
+    public DateTimeOffset? ApprovedDate { get; set; }
 
     public ICollection<Role> Roles { get; set; }
     
