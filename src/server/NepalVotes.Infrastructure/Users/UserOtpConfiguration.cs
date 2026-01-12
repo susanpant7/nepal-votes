@@ -20,6 +20,11 @@ public class UserOtpConfiguration : IEntityTypeConfiguration<UserOtp>
 
         builder.Property(x => x.AttemptCount)
             .HasDefaultValue(0);
+        
+        builder.Property(x => x.UserOtpType)
+            .IsRequired()
+            .HasDefaultValue(UserOtpType.Login)
+            .HasSentinel(0); // Tells EF: If value is 0, use the DB default (Login)
 
         // One-to-Many Relationship (User -> many UserOtps)
         builder.HasOne(x => x.User)
