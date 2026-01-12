@@ -1,4 +1,4 @@
-namespace NepalVotes.Application.Responses;
+namespace NepalVotes.Application.ResponseHelpers;
 
 public class ApiResponse<T>
 {

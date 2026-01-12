@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using NepalVotes.Application.Responses;
+using NepalVotes.Application.ResponseHelpers;
 
-namespace NepalVotes.Api.Extensions;
+namespace NepalVotes.Api.ResponseExtensions;
 
 public static class ApiResponseExtensions
 {

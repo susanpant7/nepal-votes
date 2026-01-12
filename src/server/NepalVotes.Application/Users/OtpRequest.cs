@@ -5,5 +5,6 @@ namespace NepalVotes.Application.Users;
 public record OtpRequest(
     [Required]
     [Phone] 
-    string MobileNumber
+    string MobileNumber,
+    string? ProvidedOtp
 );
