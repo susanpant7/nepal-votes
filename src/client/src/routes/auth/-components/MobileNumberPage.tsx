@@ -14,13 +14,13 @@ interface MobileNumberPageProps {
 const MobileNumberPage = ({ onOtpSent }: MobileNumberPageProps) => {
     const [mobileNumber, setMobileNumber] = useState("")
     const [loading, setLoading] = useState<boolean>(false)
+    
     const handleSubmit = async (e: React.FormEvent) => {
         setLoading(true)
         e.preventDefault()
         try {
             const otpResp = await AuthApi.getOtp({mobileNumber:mobileNumber})
             if (otpResp) {
-                alert("An OTP has been sent to your mobile number")
                 onOtpSent(mobileNumber)
             }
         } catch (e) {
