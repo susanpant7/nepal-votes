@@ -1,4 +1,5 @@
 import apiClient from "@/api/apiClient.ts";
+import authApiClient from "@/api/authApiClient.ts";
 
 export interface OtpRequest {
     mobileNumber: string;
@@ -12,15 +13,15 @@ export interface VerifyOtpRequest {
 export interface TokenResponse {
     accessToken: string;
     refreshToken: string;
-    expiresAt: string; // DateTimeOffset string
+    expiresAt: string;
 }
 
 const AuthApi = {
     getOtp: async (payload: OtpRequest): Promise<boolean> => {
         return await apiClient.post('/api/auth/generate-otp', payload);
     },
-    verifyOtp: async (payload: VerifyOtpRequest): Promise<TokenResponse> => {
-        return await apiClient.post('/api/auth/verify-otp', payload)
+    login: async (payload: VerifyOtpRequest): Promise<TokenResponse> => {
+        return await authApiClient.post('/api/auth/login', payload)
     }
 }
 export default AuthApi;

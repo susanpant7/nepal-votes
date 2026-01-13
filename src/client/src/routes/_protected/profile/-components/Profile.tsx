@@ -1,20 +1,21 @@
 import {useAuthStore} from "@/stores/useAuthStore.ts";
-import { use, Suspense } from 'react'
+import { use } from 'react'
+import profileApi from "@/routes/_protected/profile/-api/profile-api.ts";
 
-function fetchData() {
-    return fetch('https://api.example.com/data')
-        .then(response => response.json());
-}
 
-const dataPromise = fetchData()
+const userProfilePromise = profileApi.getUserProfile();
 
 const Profile = () => {
     const user = useAuthStore.getState().user;
-    const data = use(dataPromise)
+    const data = use(userProfilePromise)
+    
     return (
         <div>
             Hello {user?.userName}
             Your mobile is {user?.mobileNumber}
+            
+            Your profile:
+            {data.votingPlaceAddress}
         </div>
     );
 };

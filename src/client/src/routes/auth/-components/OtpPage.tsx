@@ -6,9 +6,9 @@ import { useState, useEffect } from "react"
 import * as React from "react"
 import { useAuthStore } from "@/stores/useAuthStore"
 import { useNavigate } from "@tanstack/react-router"
-import AuthApi from "@/routes/auth/-api/AuthApi.ts";
 import { Spinner } from "@/components/ui/spinner.tsx";
 import { notify } from "@/lib/notifications";
+import AuthApi from "@/routes/auth/-api/auth-api.ts";
 
 interface OtpPageProps {
     mobileNumber: string
@@ -46,12 +46,11 @@ const OtpPage = ({ mobileNumber, resendOtp }: OtpPageProps) => {
 
         setLoading(true)
         try {
-            const tokenResp = await AuthApi.verifyOtp({
+            const tokenResp = await AuthApi.login({
                 mobileNumber: mobileNumber,
                 providedOtp: otp
             })
 
-            useAuthStore.getState().login(tokenResp.accessToken)
             notify.success("Successfully logged in")
             await navigate({ to: '/profile' as any })
         } catch (err: any) {
