@@ -2,9 +2,11 @@ import * as React from 'react'
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import Header from "@/components/header/Header.tsx";
 import {Toaster} from "@/components/ui/sonner.tsx";
+import NotFoundPage from "@/components/NotFoundPage.tsx";
 
 export const Route = createRootRoute({
   component: RootComponent,
+    notFoundComponent: NotFoundPage
 })
 
 function RootComponent() {
