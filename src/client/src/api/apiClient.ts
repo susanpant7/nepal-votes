@@ -1,25 +1,32 @@
-import axios from 'axios';
+import axios, { type  InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from "../stores/useAuthStore.ts";
+import {notify} from "@/lib/notifications.ts";
 
 const serverUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5119/';
 
-// the default api instance for all app requests
-const apiClient = axios.create({
+export const apiClient = axios.create({
     baseURL: serverUrl,
 });
 
-// Dedicated instance ONLY for auth (no interceptors)
-// This avoids the "infinite loop" risk entirely
 const authApiClient = axios.create({
     baseURL: serverUrl,
-    withCredentials: true // to send the Refresh Token cookie
+    withCredentials: true,
 });
 
-// Request Interceptor: Attach the Token
+let refreshTokenPromise: Promise<string> | null = null;
+
+async function handleTokenRefresh(): Promise<string> {
+    const response = await authApiClient.get('api/auth/refresh');
+    const { accessToken } = response.data.data;
+
+    useAuthStore.getState().login(accessToken);
+    return accessToken;
+}
+
 apiClient.interceptors.request.use(
-    (config) => {
+    (config: InternalAxiosRequestConfig) => {
         const token = useAuthStore.getState().accessToken;
-        if (token) {
+        if (token && config.headers) {
             config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
@@ -27,67 +34,53 @@ apiClient.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// Response Interceptor: Handle 401s
-let refreshTokenPromise: Promise<string> | null = null;
-
 apiClient.interceptors.response.use(
-    (response) =>
-    {
+    (response) => {
         const { success, message, data } = response.data;
+
         if (success !== true) {
-            const errorMessage = message || "An error occurred";
-            alert(message);
+            const errorMessage = message || "Some error occurred";
+            notify.error(errorMessage);
             return Promise.reject(new Error(errorMessage));
         }
+
         if (message) {
-            alert(message);
+            notify.success(message);
         }
+
         return data;
     },
     async (error) => {
         const originalRequest = error.config;
 
-        // Condition: Unauthorized + Not already retried
+        // Handle 401 Unauthorized & Token Refresh
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
             try {
-                // If a refresh is already in progress, wait for it
                 if (!refreshTokenPromise) {
-                    refreshTokenPromise = refreshTokenAndSave();
+                    refreshTokenPromise = handleTokenRefresh();
                 }
 
                 const newToken = await refreshTokenPromise;
-
-                // Update the failed request and replay it
                 originalRequest.headers.Authorization = `Bearer ${newToken}`;
                 return apiClient(originalRequest);
 
             } catch (refreshError) {
-                // Refresh failed (e.g., refresh token expired) -> Nuke the session
                 useAuthStore.getState().logout();
                 return Promise.reject(refreshError);
             } finally {
-                refreshTokenPromise = null; // Reset for the next time access expires
+                refreshTokenPromise = null;
             }
         }
 
-        if (error.response) {
-            const { message } = error.response.data;
-            alert(`Error: ${message}`);
+        if (error.response?.status !== 401) {
+            const errorMessage = error.response?.data?.message || "Something went wrong";
+            notify.error(errorMessage);
         }
-        
+
         return Promise.reject(error);
     }
 );
-
-// Helper function
-async function refreshTokenAndSave() {
-    const response = await authApiClient.get('api/auth/refresh');
-    const { accessToken } = response.data;
-
-    useAuthStore.getState().login(accessToken);
-    return accessToken;
-}
 
 export default apiClient;
