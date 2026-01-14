@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { jwtDecode } from 'jwt-decode'
 import {ClaimType} from "@/lib/claims.ts";
+import AuthApi from "@/routes/auth/-api/auth-api.ts";
 
 export interface User {
     userId: number
@@ -24,36 +25,35 @@ interface JwtPayload {
 interface AuthState {
     accessToken: string | null
     user: User | null
+    appIsInitializing: boolean
     login: (token: string) => void
     logout: () => void
+    refreshAuth: () => Promise<void>
 }
 
-export const useAuthStore = create<AuthState>((set)=>({
+export const useAuthStore = create<AuthState>((set,get)=>({
     accessToken: null,
     user: null,
+    appIsInitializing: true,
     
     login: (token: string) => {
-        const decoded = jwtDecode<JwtPayload>(token)
-        let roles = getRolesFromToken(decoded);
-        const user: User = {
-            userId: decoded[ClaimType.USER_ID] as number,
-            userName: decoded[ClaimType.NAME] as string,
-            mobileNumber: decoded[ClaimType.PHONE] as string,
-            email: "",
-            role: roles,
-            isAdmin: roles.includes("ADMIN") || roles.includes("SUPER_ADMIN"),
-        }
-
-        set({
-            accessToken: token,
-            user,
-        })
+        const user = createUserFromToken(token);
+        set({ accessToken: token, user, appIsInitializing: false });
     },
     logout: () =>
         set({
             accessToken: null,
             user: null,
         }),
+    refreshAuth: async (): Promise<void> => {
+        try {
+            const response = await AuthApi.refresh();
+            get().login(response.accessToken);
+        } catch (error) {
+            console.error("error when refershing auth ", error);
+            set({accessToken: null, user: null, appIsInitializing: false});
+        }
+    },
 }));
 
 const getRolesFromToken = (decoded: any): string[] => {
@@ -63,3 +63,16 @@ const getRolesFromToken = (decoded: any): string[] => {
     if (!role) return []
     return Array.isArray(role) ? role : [role]
 }
+
+const createUserFromToken = (token: string): User => {
+    const decoded = jwtDecode<JwtPayload>(token);
+    let roles = getRolesFromToken(decoded);
+    return {
+        userId: decoded[ClaimType.USER_ID] as number,
+        userName: decoded[ClaimType.NAME] as string,
+        mobileNumber: decoded[ClaimType.PHONE] as string,
+        email: "",
+        role: roles,
+        isAdmin: roles.includes("ADMIN") || roles.includes("SUPER_ADMIN"),
+    };
+};

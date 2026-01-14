@@ -63,6 +63,7 @@ public class AuthService(IConfiguration configuration, IUserService userService,
                 return ApiResponse<TokenResponse>.ErrorResponse(validateResponse.Message??"Unable to refresh token");
 
             var tokenResponse = await CreateTokenResponse(validateResponse.Data!);
+            await unitOfWork.SaveChangesAsync();
             return new ApiResponse<TokenResponse>(tokenResponse);
         }
         

@@ -10,7 +10,7 @@ namespace NepalVotes.Api.Authentication;
 [ApiController]
 public class AuthController(IAuthService authService) : ControllerBase
 {
-    
+    private const  string RefreshTokenCookieName = "RefreshToken";
     [AllowAnonymous]
     [HttpPost("generate-otp")]
     public async Task<ActionResult> GenerateOtp(GenerateOtpRequest request)
@@ -39,7 +39,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     public async Task<ActionResult> RefreshToken()
     {
         // Get refresh token from HttpOnly cookie
-        if (!Request.Cookies.TryGetValue("RefreshToken", out var refreshToken))
+        if (!Request.Cookies.TryGetValue(RefreshTokenCookieName, out var refreshToken))
         {
             var result = ApiResponse<TokenResponse>.ErrorResponse("No refresh token",401);
             return result.ToActionResult();
@@ -67,8 +67,16 @@ public class AuthController(IAuthService authService) : ControllerBase
             Expires = DateTimeOffset.UtcNow.AddDays(tokenResponse.RefreshTokenExpiryInDays)
         };
 
-        Response.Cookies.Append("refreshToken", tokenResponse.RefreshToken, cookieOptions);
+        Response.Cookies.Append(RefreshTokenCookieName, tokenResponse.RefreshToken, cookieOptions);
         tokenResponse.RefreshToken = string.Empty;
+    }
+    
+    [AllowAnonymous]
+    [HttpGet("logout")]
+    public ActionResult Logout()
+    {
+        Response.Cookies.Delete(RefreshTokenCookieName);
+        return ApiResponse<bool>.SuccessResponse(true,"User logged out").ToActionResult();
     }
 
 }

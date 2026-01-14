@@ -50,7 +50,7 @@ const OtpPage = ({ mobileNumber, resendOtp }: OtpPageProps) => {
                 mobileNumber: mobileNumber,
                 providedOtp: otp
             })
-
+            useAuthStore.getState().login(tokenResp.accessToken)
             notify.success("Successfully logged in")
             await navigate({ to: '/profile' as any })
         } catch (err: any) {

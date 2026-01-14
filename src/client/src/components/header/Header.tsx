@@ -4,13 +4,15 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { getNavItems } from "./nav-config";
 import {Link} from "@tanstack/react-router";
 import {useAuthStore} from "@/stores/useAuthStore.ts";
+import AuthApi from "@/routes/auth/-api/auth-api.ts";
 
 export default function Header() {
     const user = useAuthStore((state) => state.user)
 
     const items = getNavItems(user)
     const isLoggedIn = user !== null
-    const onSignOutClick = () => {
+    const onSignOutClick = async () => {
+        await AuthApi.logout();
         useAuthStore.getState().logout()
     }
     

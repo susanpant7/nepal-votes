@@ -1,7 +1,6 @@
 import axios, { type  InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from "../stores/useAuthStore.ts";
 import {notify} from "@/lib/notifications.ts";
-import {handleTokenRefresh} from "@/api/auth-api-client.ts";
 
 const serverUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5119/';
 
@@ -9,7 +8,7 @@ export const apiClient = axios.create({
     baseURL: serverUrl,
 });
 
-let refreshTokenPromise: Promise<string> | null = null;
+let refreshTokenPromise: Promise<void> | null = null;
 
 apiClient.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
@@ -17,7 +16,6 @@ apiClient.interceptors.request.use(
         if (token && config.headers) {
             config.headers.Authorization = `Bearer ${token}`;
         }
-        alert(token)
         return config;
     },
     (error) => Promise.reject(error)
@@ -48,10 +46,12 @@ apiClient.interceptors.response.use(
 
             try {
                 if (!refreshTokenPromise) {
-                    refreshTokenPromise = handleTokenRefresh();
+                    refreshTokenPromise = useAuthStore.getState().refreshAuth();
                 }
 
-                const newToken = await refreshTokenPromise;
+                await refreshTokenPromise;
+                const newToken = useAuthStore.getState().accessToken;
+                if (!newToken) throw new Error("Refresh failed");
                 originalRequest.headers.Authorization = `Bearer ${newToken}`;
                 return apiClient(originalRequest);
 
