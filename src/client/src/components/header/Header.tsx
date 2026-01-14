@@ -2,18 +2,31 @@ import { LogOut, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { getNavItems } from "./nav-config";
-import {Link} from "@tanstack/react-router";
+import {Link, useNavigate} from "@tanstack/react-router";
 import {useAuthStore} from "@/stores/useAuthStore.ts";
 import AuthApi from "@/routes/auth/-api/auth-api.ts";
+import {useOverlayStore} from "@/stores/useOverlayStore.ts";
 
 export default function Header() {
     const user = useAuthStore((state) => state.user)
-
+    const logout = useAuthStore((state) => state.logout)
+    const showOverlay = useOverlayStore(store=>store.showOverlay)
+    const hideOverlay = useOverlayStore(store=>store.hideOverlay)
+    
     const items = getNavItems(user)
     const isLoggedIn = user !== null
+    const navigate = useNavigate()
     const onSignOutClick = async () => {
-        await AuthApi.logout();
-        useAuthStore.getState().logout()
+        try {
+            showOverlay()
+            await AuthApi.logout();
+            logout();
+            await navigate({to:'/'})
+        } catch (e) {
+            
+        } finally {
+            hideOverlay()
+        }
     }
     
     return (
@@ -31,7 +44,16 @@ export default function Header() {
                     <nav className="hidden md:flex items-center gap-1">
                         {items.map((item) => (
                             <Button asChild key={item.label} variant="ghost" size="sm">
-                                <Link to={item.href} className="flex items-center gap-2">
+                                <Link
+                                    to={item.href}
+                                    activeProps={{
+                                        className: "bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 font-medium"
+                                    }}
+                                    inactiveProps={{
+                                        className: "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                    }}
+                                    className="flex items-center gap-2 rounded-md px-3 py-2 transition-all"
+                                >
                                     <item.icon className="h-4 w-4" />
                                     {item.label}
                                 </Link>

@@ -9,6 +9,7 @@ import { useNavigate } from "@tanstack/react-router"
 import { Spinner } from "@/components/ui/spinner.tsx";
 import { notify } from "@/lib/notifications";
 import AuthApi from "@/routes/auth/-api/auth-api.ts";
+import {useOverlayStore} from "@/stores/useOverlayStore.ts";
 
 interface OtpPageProps {
     mobileNumber: string
@@ -16,6 +17,8 @@ interface OtpPageProps {
 }
 
 const OtpPage = ({ mobileNumber, resendOtp }: OtpPageProps) => {
+    const showOverlay = useOverlayStore(store=>store.showOverlay)
+    const hideOverlay = useOverlayStore(store=>store.hideOverlay)
     const [otp, setOtp] = useState("")
     const [loading, setLoading] = useState(false)
     const resetTimeInSeconds = 6;
@@ -43,7 +46,8 @@ const OtpPage = ({ mobileNumber, resendOtp }: OtpPageProps) => {
             notify.warning("Please enter the full OTP code");
             return;
         }
-
+        
+        showOverlay()
         setLoading(true)
         try {
             const tokenResp = await AuthApi.login({
@@ -57,6 +61,7 @@ const OtpPage = ({ mobileNumber, resendOtp }: OtpPageProps) => {
             setOtp("")
         } finally {
             setLoading(false)
+            hideOverlay()
         }
     }
 

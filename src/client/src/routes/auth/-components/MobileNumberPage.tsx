@@ -6,6 +6,7 @@ import { useState } from "react"
 import * as React from "react"
 import {Spinner} from "@/components/ui/spinner.tsx";
 import AuthApi from "@/routes/auth/-api/auth-api.ts";
+import {useOverlayStore} from "@/stores/useOverlayStore.ts";
 
 interface MobileNumberPageProps {
     onOtpSent: (mobileNumber: string) => void
@@ -14,9 +15,11 @@ interface MobileNumberPageProps {
 const MobileNumberPage = ({ onOtpSent }: MobileNumberPageProps) => {
     const [mobileNumber, setMobileNumber] = useState("")
     const [loading, setLoading] = useState<boolean>(false)
-    
+    const showOverlay = useOverlayStore(store=>store.showOverlay)
+    const hideOverlay = useOverlayStore(store=>store.hideOverlay)
     const handleSubmit = async (e: React.FormEvent) => {
         setLoading(true)
+        showOverlay()
         e.preventDefault()
         try {
             const otpResp = await AuthApi.getOtp({mobileNumber:mobileNumber})
@@ -27,6 +30,7 @@ const MobileNumberPage = ({ onOtpSent }: MobileNumberPageProps) => {
             
         } finally {
             setLoading(false)
+            hideOverlay()
         }
         
     }
