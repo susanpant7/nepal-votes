@@ -21,6 +21,7 @@ const OtpPage = ({ mobileNumber, resendOtp }: OtpPageProps) => {
     const hideOverlay = useOverlayStore(store=>store.hideOverlay)
     const [otp, setOtp] = useState("")
     const [loading, setLoading] = useState(false)
+    //TODO: update this value to 60
     const resetTimeInSeconds = 6;
     const [timer, setTimer] = useState(resetTimeInSeconds) 
     const navigate = useNavigate()

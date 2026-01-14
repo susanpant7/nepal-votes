@@ -11,6 +11,8 @@ namespace NepalVotes.Api.Authentication;
 public class AuthController(IAuthService authService) : ControllerBase
 {
     private const  string RefreshTokenCookieName = "RefreshToken";
+    
+    // TODO: add a logic to ensure that the user does not send too may requests to generate otp
     [AllowAnonymous]
     [HttpPost("generate-otp")]
     public async Task<ActionResult> GenerateOtp(GenerateOtpRequest request)
