@@ -1,5 +1,7 @@
 import {createFileRoute, Outlet, redirect} from '@tanstack/react-router'
 import {useAuthStore} from "@/stores/useAuthStore.ts";
+import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar.tsx";
+import {AdminSidebar} from "@/components/admin-sidebar/admin-sidebar.tsx";
 
 export const Route = createFileRoute('/_admin')({
     beforeLoad: async () => {
@@ -14,9 +16,15 @@ export const Route = createFileRoute('/_admin')({
 })
 
 function AdminComponent() {
-  return <div className="protected-layout flex flex-col min-h-screen">
-      <div className="container mx-auto px-4 py-6">
-          <Outlet />
-      </div>
-  </div>
+  return (
+      <SidebarProvider>
+          <AdminSidebar />
+          <main>
+              <SidebarTrigger />
+              <div className="p-5">
+                <Outlet />
+              </div>
+          </main>
+      </SidebarProvider>
+  )
 }

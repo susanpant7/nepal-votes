@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/_admin/electoral-geographies/')({
+export const Route = createFileRoute('/_admin/admin/electoral-geographies/')({
   component: RouteComponent,
 })
 

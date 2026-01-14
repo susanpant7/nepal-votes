@@ -14,7 +14,9 @@ import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as ProtectedProfileIndexRouteImport } from './routes/_protected/profile/index'
-import { Route as AdminElectoralGeographiesIndexRouteImport } from './routes/_admin/electoral-geographies/index'
+import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin/index'
+import { Route as AdminAdminPoliticalPartiesIndexRouteImport } from './routes/_admin/admin/political-parties/index'
+import { Route as AdminAdminElectoralGeographiesIndexRouteImport } from './routes/_admin/admin/electoral-geographies/index'
 
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
@@ -39,24 +41,39 @@ const ProtectedProfileIndexRoute = ProtectedProfileIndexRouteImport.update({
   path: '/profile/',
   getParentRoute: () => ProtectedRoute,
 } as any)
-const AdminElectoralGeographiesIndexRoute =
-  AdminElectoralGeographiesIndexRouteImport.update({
-    id: '/electoral-geographies/',
-    path: '/electoral-geographies/',
+const AdminAdminIndexRoute = AdminAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAdminPoliticalPartiesIndexRoute =
+  AdminAdminPoliticalPartiesIndexRouteImport.update({
+    id: '/admin/political-parties/',
+    path: '/admin/political-parties/',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminAdminElectoralGeographiesIndexRoute =
+  AdminAdminElectoralGeographiesIndexRouteImport.update({
+    id: '/admin/electoral-geographies/',
+    path: '/admin/electoral-geographies/',
     getParentRoute: () => AdminRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthIndexRoute
-  '/electoral-geographies': typeof AdminElectoralGeographiesIndexRoute
+  '/admin': typeof AdminAdminIndexRoute
   '/profile': typeof ProtectedProfileIndexRoute
+  '/admin/electoral-geographies': typeof AdminAdminElectoralGeographiesIndexRoute
+  '/admin/political-parties': typeof AdminAdminPoliticalPartiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthIndexRoute
-  '/electoral-geographies': typeof AdminElectoralGeographiesIndexRoute
+  '/admin': typeof AdminAdminIndexRoute
   '/profile': typeof ProtectedProfileIndexRoute
+  '/admin/electoral-geographies': typeof AdminAdminElectoralGeographiesIndexRoute
+  '/admin/political-parties': typeof AdminAdminPoliticalPartiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -64,22 +81,38 @@ export interface FileRoutesById {
   '/_admin': typeof AdminRouteWithChildren
   '/_protected': typeof ProtectedRouteWithChildren
   '/auth/': typeof AuthIndexRoute
-  '/_admin/electoral-geographies/': typeof AdminElectoralGeographiesIndexRoute
+  '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_protected/profile/': typeof ProtectedProfileIndexRoute
+  '/_admin/admin/electoral-geographies/': typeof AdminAdminElectoralGeographiesIndexRoute
+  '/_admin/admin/political-parties/': typeof AdminAdminPoliticalPartiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/electoral-geographies' | '/profile'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/admin'
+    | '/profile'
+    | '/admin/electoral-geographies'
+    | '/admin/political-parties'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/electoral-geographies' | '/profile'
+  to:
+    | '/'
+    | '/auth'
+    | '/admin'
+    | '/profile'
+    | '/admin/electoral-geographies'
+    | '/admin/political-parties'
   id:
     | '__root__'
     | '/'
     | '/_admin'
     | '/_protected'
     | '/auth/'
-    | '/_admin/electoral-geographies/'
+    | '/_admin/admin/'
     | '/_protected/profile/'
+    | '/_admin/admin/electoral-geographies/'
+    | '/_admin/admin/political-parties/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -126,22 +159,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedProfileIndexRouteImport
       parentRoute: typeof ProtectedRoute
     }
-    '/_admin/electoral-geographies/': {
-      id: '/_admin/electoral-geographies/'
-      path: '/electoral-geographies'
-      fullPath: '/electoral-geographies'
-      preLoaderRoute: typeof AdminElectoralGeographiesIndexRouteImport
+    '/_admin/admin/': {
+      id: '/_admin/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminAdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/admin/political-parties/': {
+      id: '/_admin/admin/political-parties/'
+      path: '/admin/political-parties'
+      fullPath: '/admin/political-parties'
+      preLoaderRoute: typeof AdminAdminPoliticalPartiesIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/admin/electoral-geographies/': {
+      id: '/_admin/admin/electoral-geographies/'
+      path: '/admin/electoral-geographies'
+      fullPath: '/admin/electoral-geographies'
+      preLoaderRoute: typeof AdminAdminElectoralGeographiesIndexRouteImport
       parentRoute: typeof AdminRoute
     }
   }
 }
 
 interface AdminRouteChildren {
-  AdminElectoralGeographiesIndexRoute: typeof AdminElectoralGeographiesIndexRoute
+  AdminAdminIndexRoute: typeof AdminAdminIndexRoute
+  AdminAdminElectoralGeographiesIndexRoute: typeof AdminAdminElectoralGeographiesIndexRoute
+  AdminAdminPoliticalPartiesIndexRoute: typeof AdminAdminPoliticalPartiesIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminElectoralGeographiesIndexRoute: AdminElectoralGeographiesIndexRoute,
+  AdminAdminIndexRoute: AdminAdminIndexRoute,
+  AdminAdminElectoralGeographiesIndexRoute:
+    AdminAdminElectoralGeographiesIndexRoute,
+  AdminAdminPoliticalPartiesIndexRoute: AdminAdminPoliticalPartiesIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
