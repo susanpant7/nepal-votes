@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import {ThemeProvider} from "@/components/theme-provider.tsx";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ScreenOverlay from "@/components/overlay/ScreenOverlay.tsx";
 
 
 const queryClient = new QueryClient({
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
           <QueryClientProvider client={queryClient}>
+            <ScreenOverlay />
             <App />
           </QueryClientProvider>
       </ThemeProvider>
