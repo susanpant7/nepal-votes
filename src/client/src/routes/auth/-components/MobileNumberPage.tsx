@@ -4,8 +4,8 @@ import { Label } from "@/components/ui/label"
 import { Phone } from "lucide-react"
 import { useState } from "react"
 import * as React from "react"
-import AuthApi from "@/routes/auth/-api/AuthApi.ts";
 import {Spinner} from "@/components/ui/spinner.tsx";
+import AuthApi from "@/routes/auth/-api/auth-api.ts";
 
 interface MobileNumberPageProps {
     onOtpSent: (mobileNumber: string) => void

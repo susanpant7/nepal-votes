@@ -1,18 +1,22 @@
-import {createFileRoute, redirect} from '@tanstack/react-router'
+import {createFileRoute, Outlet, redirect} from '@tanstack/react-router'
 import {useAuthStore} from "@/stores/useAuthStore.ts";
 
 export const Route = createFileRoute('/_admin')({
     beforeLoad: async () => {
         const user = useAuthStore.getState().user;
-        if (!user?.isAdmin) {
+        if (!user) {
             throw redirect({
                 to: '/',
             })
         }
     },
-    component: RouteComponent,
+    component: AdminComponent,
 })
 
-function RouteComponent() {
-  return <div>Hello "/_admin"!</div>
+function AdminComponent() {
+  return <div className="protected-layout flex flex-col min-h-screen">
+      <div className="container mx-auto px-4 py-6">
+          <Outlet />
+      </div>
+  </div>
 }

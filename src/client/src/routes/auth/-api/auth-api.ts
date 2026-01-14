@@ -1,5 +1,5 @@
-import apiClient from "@/api/apiClient.ts";
-import authApiClient from "@/api/authApiClient.ts";
+import apiClient from "@/api/api-client.ts";
+import authApiClient from "@/api/auth-api-client.ts";
 
 export interface OtpRequest {
     mobileNumber: string;

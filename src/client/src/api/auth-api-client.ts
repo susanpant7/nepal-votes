@@ -21,7 +21,7 @@ authApiClient.interceptors.response.use(
         if (message) {
             notify.success(message);
         }
-        
+
         if(data?.accessToken) {
             useAuthStore.getState().login(data?.accessToken);
             return data.accessToken;

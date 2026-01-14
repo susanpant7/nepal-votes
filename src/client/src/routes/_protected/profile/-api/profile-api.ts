@@ -1,4 +1,4 @@
-import apiClient from "@/api/apiClient.ts";
+import apiClient from "@/api/api-client.ts";
 
 
 export interface UserProfile {

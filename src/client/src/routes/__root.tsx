@@ -5,7 +5,7 @@ import {Toaster} from "@/components/ui/sonner.tsx";
 import NotFoundPage from "@/components/NotFoundPage.tsx";
 
 export const Route = createRootRoute({
-  component: RootComponent,
+    component: RootComponent,
     notFoundComponent: NotFoundPage
 })
 

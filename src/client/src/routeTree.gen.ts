@@ -14,6 +14,7 @@ import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as ProtectedProfileIndexRouteImport } from './routes/_protected/profile/index'
+import { Route as AdminElectoralGeographiesIndexRouteImport } from './routes/_admin/electoral-geographies/index'
 
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
@@ -38,42 +39,52 @@ const ProtectedProfileIndexRoute = ProtectedProfileIndexRouteImport.update({
   path: '/profile/',
   getParentRoute: () => ProtectedRoute,
 } as any)
+const AdminElectoralGeographiesIndexRoute =
+  AdminElectoralGeographiesIndexRouteImport.update({
+    id: '/electoral-geographies/',
+    path: '/electoral-geographies/',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthIndexRoute
+  '/electoral-geographies': typeof AdminElectoralGeographiesIndexRoute
   '/profile': typeof ProtectedProfileIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthIndexRoute
+  '/electoral-geographies': typeof AdminElectoralGeographiesIndexRoute
   '/profile': typeof ProtectedProfileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_admin': typeof AdminRoute
+  '/_admin': typeof AdminRouteWithChildren
   '/_protected': typeof ProtectedRouteWithChildren
   '/auth/': typeof AuthIndexRoute
+  '/_admin/electoral-geographies/': typeof AdminElectoralGeographiesIndexRoute
   '/_protected/profile/': typeof ProtectedProfileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/profile'
+  fullPaths: '/' | '/auth' | '/electoral-geographies' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/profile'
+  to: '/' | '/auth' | '/electoral-geographies' | '/profile'
   id:
     | '__root__'
     | '/'
     | '/_admin'
     | '/_protected'
     | '/auth/'
+    | '/_admin/electoral-geographies/'
     | '/_protected/profile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ProtectedRoute: typeof ProtectedRouteWithChildren
   AuthIndexRoute: typeof AuthIndexRoute
 }
@@ -115,8 +126,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedProfileIndexRouteImport
       parentRoute: typeof ProtectedRoute
     }
+    '/_admin/electoral-geographies/': {
+      id: '/_admin/electoral-geographies/'
+      path: '/electoral-geographies'
+      fullPath: '/electoral-geographies'
+      preLoaderRoute: typeof AdminElectoralGeographiesIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminElectoralGeographiesIndexRoute: typeof AdminElectoralGeographiesIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminElectoralGeographiesIndexRoute: AdminElectoralGeographiesIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface ProtectedRouteChildren {
   ProtectedProfileIndexRoute: typeof ProtectedProfileIndexRoute
@@ -132,7 +160,7 @@ const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   ProtectedRoute: ProtectedRouteWithChildren,
   AuthIndexRoute: AuthIndexRoute,
 }

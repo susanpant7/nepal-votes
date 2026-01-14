@@ -1,7 +1,7 @@
 import axios, { type  InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from "../stores/useAuthStore.ts";
 import {notify} from "@/lib/notifications.ts";
-import {handleTokenRefresh} from "@/api/authApiClient.ts";
+import {handleTokenRefresh} from "@/api/auth-api-client.ts";
 
 const serverUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5119/';
 
@@ -22,7 +22,7 @@ apiClient.interceptors.request.use(
     },
     (error) => Promise.reject(error)
 );
-    
+
 apiClient.interceptors.response.use(
     (response) => {
         const { success, message, data } = response.data;
