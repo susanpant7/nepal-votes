@@ -11,6 +11,13 @@ public class UserRefreshTokenRepository (ApplicationDbContext context) : IUserRe
         return await context.UserRefreshTokens
             .FirstOrDefaultAsync(x => x.UserId == userId);
     }
+
+    public async Task<UserRefreshToken?> GetUserRefreshTokenByRefreshTokenAsync(string refreshToken)
+    {
+        return await context.UserRefreshTokens
+            .FirstOrDefaultAsync(x => x.RefreshToken == refreshToken
+            && x.RefreshTokenExpiryTime > DateTime.UtcNow);
+    }
     
     public async Task AddUserRefreshTokenAsync(UserRefreshToken token)
     {

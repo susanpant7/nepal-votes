@@ -20,6 +20,13 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .FirstOrDefaultAsync(u => u.MobileNumber == mobileNumber);
     }
     
+    public async Task<User?> GetUserWithRolesByUserIdAsync(int userId)
+    {
+        return await context.Users
+            .Include(u => u.Roles)
+            .FirstOrDefaultAsync(u => u.UserId == userId);
+    }
+    
     public async Task<User?> GetUserWithVotingPlaceByUserIdAsync(int userId)
     {
         return await context.Users

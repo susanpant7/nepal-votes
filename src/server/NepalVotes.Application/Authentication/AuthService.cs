@@ -56,4 +56,25 @@ public class AuthService(IConfiguration configuration, IUserService userService,
             };
         }
         
+        public async Task<ApiResponse<TokenResponse>> RefreshTokensAsync(string refreshToken)
+        {
+            var validateResponse = await ValidateRefreshTokenAsync(refreshToken);
+            if (!validateResponse.Success)
+                return ApiResponse<TokenResponse>.ErrorResponse(validateResponse.Message??"Unable to refresh token");
+
+            var tokenResponse = await CreateTokenResponse(validateResponse.Data!);
+            return new ApiResponse<TokenResponse>(tokenResponse);
+        }
+        
+        private async Task<ApiResponse<User>> ValidateRefreshTokenAsync(string refreshToken)
+        {
+            var userRefreshToken = await userService.GetUserRefreshToken(refreshToken);
+            if (userRefreshToken is null)
+                return ApiResponse<User>.ErrorResponse("Token does not exist. Invalid refresh token");
+            if (userRefreshToken.RefreshTokenExpiryTime <= DateTime.UtcNow )
+                return ApiResponse<User>.ErrorResponse("Refresh token expired");
+            var user = await userService.GetUserWithRolesByUserId(userRefreshToken.UserId);
+            return ApiResponse<User>.SuccessResponse(user!,"Refresh token valid");
+        }
+        
     }

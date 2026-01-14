@@ -3,7 +3,8 @@ using NepalVotes.Domain.Users;
 
 namespace NepalVotes.Application.Users;
 
-public class UserService(IUserRepository userRepository) : IUserService
+public class UserService(IUserRepository userRepository, IUserRefreshTokenRepository refreshTokenRepository) 
+    : IUserService
 {
     public async Task<User?> GetUserByMobileNumber(string mobileNumber)
     {
@@ -15,6 +16,11 @@ public class UserService(IUserRepository userRepository) : IUserService
         return await userRepository.GetUserWithRolesByMobileNumberAsync(mobileNumber);
     }
     
+    public async Task<User?> GetUserWithRolesByUserId(int userId)
+    {
+        return await userRepository.GetUserWithRolesByUserIdAsync(userId);
+    }
+    
     public async Task<ApiResponse<UserProfile>> GetUserProfileAsync(int userId)
     {
         var user = await userRepository.GetUserWithVotingPlaceByUserIdAsync(userId);
@@ -22,5 +28,10 @@ public class UserService(IUserRepository userRepository) : IUserService
             ApiResponse<UserProfile>.ErrorResponse("User not found",404) 
             : 
             ApiResponse<UserProfile>.SuccessResponse(user.ToUserProfile());
+    }
+    
+    public async Task<UserRefreshToken?> GetUserRefreshToken(string refreshToken)
+    {
+        return await refreshTokenRepository.GetUserRefreshTokenByRefreshTokenAsync(refreshToken);
     }
 }
