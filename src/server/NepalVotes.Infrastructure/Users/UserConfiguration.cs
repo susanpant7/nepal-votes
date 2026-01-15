@@ -47,5 +47,14 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasMany(u => u.Roles)
             .WithMany(r => r.Users)
             .UsingEntity(j => j.ToTable("UserRoles"));
+        
+        // Computed column and indexing it
+        builder.Property(u => u.FullName)
+            .HasComputedColumnSql(
+                $"([{nameof(User.FirstName)}] + ' ' + ISNULL([{nameof(User.MiddleName)}], '') + ' ' + [{nameof(User.LastName)}])", 
+                stored: true
+            );
+        builder.HasIndex(u => u.FullName)
+            .HasDatabaseName("IX_User_FullName");
     }
 }
