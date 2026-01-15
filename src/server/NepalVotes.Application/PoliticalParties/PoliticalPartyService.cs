@@ -9,7 +9,7 @@ public class PoliticalPartyService(IPoliticalPartyRepository repository) : IPoli
     {
         var parties = await repository.GetAllPartiesAsync();
         
-        var partiesInfo = parties.Select(party => party.ToUserProfile()).ToList();
+        var partiesInfo = parties.Select(party => party.ToPartyInfo()).ToList();
 
         return partiesInfo.Count == 0 ? 
             ApiResponse<IEnumerable<PoliticalPartyInfo>>.SuccessResponse(partiesInfo, "No political parties found.") 
