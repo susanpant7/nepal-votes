@@ -86,7 +86,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
                     onClick={() => inputRef.current?.click()}
                     className="dark:border-gray-700 dark:text-gray-200"
                 >
-                    {value ? "Change Image" : "Select Image"}
+                    {value ? "Change " : "Select "} {label}
                 </Button>
                 {value && (
                     <Button

@@ -4,7 +4,7 @@ import {ChevronLeft} from "lucide-react";
 import type {PoliticalPartyInfo} from "@/routes/_admin/admin/political-parties/-api.ts";
 import {Label} from "@/components/ui/label.tsx";
 import {Input} from "@/components/ui/input.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import * as React from "react";
 import {ImageField} from "@/components/ui/image-field.tsx";
 
@@ -33,10 +33,21 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
     
     const [disableSave, setDisableSave] = useState<boolean>(true);
 
+    useEffect(() => {
+        setDisableSave(
+            !partyDetails.politicalPartyName?.trim() || 
+            !partyDetails.partySymbolContent
+        );
+    }, [partyDetails]);
+    
     const onPartyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const partyName = e.target.value
         setPartyDetails((prev)=>({...prev, politicalPartyName: partyName}))
-        setDisableSave(!partyName?.trim())
+    }
+
+    const onPartyLeaderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const partyName = e.target.value
+        setPartyDetails((prev)=>({...prev, politicalPartyName: partyName}))
     }
 
     const onPartySymbolChange = (file: File | null) => {
@@ -71,13 +82,19 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
             </div>
 
             <form onSubmit={onSubmit}>
-                <div className="grid w-full max-w-sm items-center gap-3">
+                <div className="grid w-full items-center gap-3">
                     <Label htmlFor="partyName">Party Name :</Label>
                     <Input id="partyName" type="text" value={partyDetails.politicalPartyName}
                     onChange={onPartyNameChange}/>
                 </div>
 
-                <div className="grid w-full max-w-sm items-center gap-3">
+                <div className="grid w-full items-center gap-3">
+                    <Label htmlFor="partyName">Party Leader :</Label>
+                    <Input id="partyName" type="text" value={partyDetails.partyLeaderName}
+                           onChange={onPartyLeaderChange}/>
+                </div>
+
+                <div className="grid w-full items-center gap-3">
                     <ImageField
                         label="Party Symbol"
                         value={partyDetails.partySymbolContent}
