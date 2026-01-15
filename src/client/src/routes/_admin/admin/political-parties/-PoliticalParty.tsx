@@ -1,15 +1,19 @@
 import {usePoliticalPartyQuery} from "@/routes/_admin/admin/political-parties/-api-query.ts";
 import PoliticalPartiesTable from "@/routes/_admin/admin/political-parties/-PoliticalPartiesTable.tsx";
-import type {PoliticalPartyInfo} from "@/routes/_admin/admin/political-parties/-api.ts";
 import {Skeleton} from "@/components/ui/skeleton.tsx";
+import {useNavigate} from "@tanstack/react-router";
 
 const PoliticalParty = () => {
     const {data, isLoading, isError} = usePoliticalPartyQuery();
 
-    const handleEdit = (party: PoliticalPartyInfo) => {
-        console.log("Edit party:", party.politicalPartyId);
-        // Logic to open Dialog/Modal
+    const navigate = useNavigate();
+    const onEditParty = async (politicalPartyId: number) => {
+        await navigate({to:'/admin/political-parties/$partyId', params:{partyId:politicalPartyId}})
     };
+    
+    const onAddParty = async () => {
+        await navigate({to:'/admin/political-parties/add'})
+    }
     
     if(isLoading) {
         return (
@@ -26,8 +30,8 @@ const PoliticalParty = () => {
     return (
         <PoliticalPartiesTable
             parties={data || []}
-            onEdit={handleEdit}
-            onAdd={() => alert("Open Add Modal")}
+            onEdit={onEditParty}
+            onAdd={onAddParty}
             onDelete={(id) => alert("Delete ID: "+ id)}
         />
     );

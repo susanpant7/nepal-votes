@@ -10,12 +10,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Edit, Plus, Trash2, User } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 export interface PoliticalPartiesTableProps {
     parties: PoliticalPartyInfo[];
-    onEdit: (party: PoliticalPartyInfo) => void;
-    onDelete: (id: number) => void;
+    onEdit: (politicalPartyId: number) => void;
+    onDelete: (politicalPartyId: number) => void;
     onAdd: () => void;
 }
 
@@ -39,11 +38,9 @@ const PoliticalPartiesTable = (props: PoliticalPartiesTableProps) => {
                 <Table>
                     <TableHeader>
                         <TableRow className="hover:bg-transparent border-b border-border/60">
-                            {/* Increased width and padding for the Symbol column */}
                             <TableHead className="w-25 pb-4">Symbol</TableHead>
                             <TableHead className="pb-4">Party Name</TableHead>
                             <TableHead className="pb-4">Party Leader</TableHead>
-                            <TableHead className="pb-4">Status</TableHead>
                             <TableHead className="text-right pb-4">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -86,22 +83,13 @@ const PoliticalPartiesTable = (props: PoliticalPartiesTableProps) => {
                                             </span>
                                         </div>
                                     </TableCell>
-
-                                    <TableCell className="py-5">
-                                        <Badge
-                                            variant="outline"
-                                            className="px-3 py-0.5 font-medium rounded-full bg-background"
-                                        >
-                                            Active
-                                        </Badge>
-                                    </TableCell>
-
+                                    
                                     <TableCell className="text-right py-5">
                                         <div className="flex justify-end gap-3">
                                             <Button
                                                 variant="outline"
                                                 size="sm"
-                                                onClick={() => props.onEdit(party)}
+                                                onClick={() => props.onEdit(party.politicalPartyId)}
                                                 className="h-9 px-3 border-border/50 hover:bg-primary hover:text-primary-foreground transition-all"
                                             >
                                                 <Edit className="mr-2 h-4 w-4" />

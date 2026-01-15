@@ -17,6 +17,8 @@ import { Route as ProtectedProfileIndexRouteImport } from './routes/_protected/p
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin/index'
 import { Route as AdminAdminPoliticalPartiesIndexRouteImport } from './routes/_admin/admin/political-parties/index'
 import { Route as AdminAdminElectoralGeographiesIndexRouteImport } from './routes/_admin/admin/electoral-geographies/index'
+import { Route as AdminAdminPoliticalPartiesAddRouteImport } from './routes/_admin/admin/political-parties/add'
+import { Route as AdminAdminPoliticalPartiesPartyIdRouteImport } from './routes/_admin/admin/political-parties/$partyId'
 
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
@@ -58,12 +60,26 @@ const AdminAdminElectoralGeographiesIndexRoute =
     path: '/admin/electoral-geographies/',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminAdminPoliticalPartiesAddRoute =
+  AdminAdminPoliticalPartiesAddRouteImport.update({
+    id: '/admin/political-parties/add',
+    path: '/admin/political-parties/add',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminAdminPoliticalPartiesPartyIdRoute =
+  AdminAdminPoliticalPartiesPartyIdRouteImport.update({
+    id: '/admin/political-parties/$partyId',
+    path: '/admin/political-parties/$partyId',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthIndexRoute
   '/admin': typeof AdminAdminIndexRoute
   '/profile': typeof ProtectedProfileIndexRoute
+  '/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
+  '/admin/political-parties/add': typeof AdminAdminPoliticalPartiesAddRoute
   '/admin/electoral-geographies': typeof AdminAdminElectoralGeographiesIndexRoute
   '/admin/political-parties': typeof AdminAdminPoliticalPartiesIndexRoute
 }
@@ -72,6 +88,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthIndexRoute
   '/admin': typeof AdminAdminIndexRoute
   '/profile': typeof ProtectedProfileIndexRoute
+  '/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
+  '/admin/political-parties/add': typeof AdminAdminPoliticalPartiesAddRoute
   '/admin/electoral-geographies': typeof AdminAdminElectoralGeographiesIndexRoute
   '/admin/political-parties': typeof AdminAdminPoliticalPartiesIndexRoute
 }
@@ -83,6 +101,8 @@ export interface FileRoutesById {
   '/auth/': typeof AuthIndexRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_protected/profile/': typeof ProtectedProfileIndexRoute
+  '/_admin/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
+  '/_admin/admin/political-parties/add': typeof AdminAdminPoliticalPartiesAddRoute
   '/_admin/admin/electoral-geographies/': typeof AdminAdminElectoralGeographiesIndexRoute
   '/_admin/admin/political-parties/': typeof AdminAdminPoliticalPartiesIndexRoute
 }
@@ -93,6 +113,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/admin'
     | '/profile'
+    | '/admin/political-parties/$partyId'
+    | '/admin/political-parties/add'
     | '/admin/electoral-geographies'
     | '/admin/political-parties'
   fileRoutesByTo: FileRoutesByTo
@@ -101,6 +123,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/admin'
     | '/profile'
+    | '/admin/political-parties/$partyId'
+    | '/admin/political-parties/add'
     | '/admin/electoral-geographies'
     | '/admin/political-parties'
   id:
@@ -111,6 +135,8 @@ export interface FileRouteTypes {
     | '/auth/'
     | '/_admin/admin/'
     | '/_protected/profile/'
+    | '/_admin/admin/political-parties/$partyId'
+    | '/_admin/admin/political-parties/add'
     | '/_admin/admin/electoral-geographies/'
     | '/_admin/admin/political-parties/'
   fileRoutesById: FileRoutesById
@@ -180,17 +206,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminElectoralGeographiesIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_admin/admin/political-parties/add': {
+      id: '/_admin/admin/political-parties/add'
+      path: '/admin/political-parties/add'
+      fullPath: '/admin/political-parties/add'
+      preLoaderRoute: typeof AdminAdminPoliticalPartiesAddRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/admin/political-parties/$partyId': {
+      id: '/_admin/admin/political-parties/$partyId'
+      path: '/admin/political-parties/$partyId'
+      fullPath: '/admin/political-parties/$partyId'
+      preLoaderRoute: typeof AdminAdminPoliticalPartiesPartyIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminAdminIndexRoute: typeof AdminAdminIndexRoute
+  AdminAdminPoliticalPartiesPartyIdRoute: typeof AdminAdminPoliticalPartiesPartyIdRoute
+  AdminAdminPoliticalPartiesAddRoute: typeof AdminAdminPoliticalPartiesAddRoute
   AdminAdminElectoralGeographiesIndexRoute: typeof AdminAdminElectoralGeographiesIndexRoute
   AdminAdminPoliticalPartiesIndexRoute: typeof AdminAdminPoliticalPartiesIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAdminIndexRoute: AdminAdminIndexRoute,
+  AdminAdminPoliticalPartiesPartyIdRoute:
+    AdminAdminPoliticalPartiesPartyIdRoute,
+  AdminAdminPoliticalPartiesAddRoute: AdminAdminPoliticalPartiesAddRoute,
   AdminAdminElectoralGeographiesIndexRoute:
     AdminAdminElectoralGeographiesIndexRoute,
   AdminAdminPoliticalPartiesIndexRoute: AdminAdminPoliticalPartiesIndexRoute,
