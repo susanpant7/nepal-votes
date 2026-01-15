@@ -15,4 +15,13 @@ public class PoliticalPartyService(IPoliticalPartyRepository repository) : IPoli
             ApiResponse<IEnumerable<PoliticalPartyInfo>>.SuccessResponse(partiesInfo, "No political parties found.") 
             : ApiResponse<IEnumerable<PoliticalPartyInfo>>.SuccessResponse(partiesInfo);
     }
+    
+    public async Task<ApiResponse<PoliticalPartyInfo>> GetByIdAsync(int id)
+    {
+        var party = await repository.GetByIdAsync(id);
+
+        return party == null ? 
+            ApiResponse<PoliticalPartyInfo>.ErrorResponse("No political parties found.", 404) 
+            : ApiResponse<PoliticalPartyInfo>.SuccessResponse(party.ToPartyInfo());
+    }
 }

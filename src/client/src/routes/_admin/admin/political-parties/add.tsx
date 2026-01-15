@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import AddEditPoliticalParty from "./-AddEditPoliticalParty.tsx";
 
 export const Route = createFileRoute('/_admin/admin/political-parties/add')({
   component: AddPoliticalParty,
@@ -7,7 +8,7 @@ export const Route = createFileRoute('/_admin/admin/political-parties/add')({
 function AddPoliticalParty() {
   return (
       <div>
-        Adding the new political party
+        <AddEditPoliticalParty />
       </div>
   )
 }

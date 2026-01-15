@@ -11,5 +11,8 @@ export interface PoliticalPartyInfo{
 export const PoliticalPartyApi = {
     getPoliticalParties: async () : Promise<PoliticalPartyInfo[]> => {
         return await ApiClient.get("/api/political-parties");
+    },
+    getPoliticalPartyById: async (id:number) : Promise<PoliticalPartyInfo> => {
+        return await ApiClient.get(`/api/political-parties/${id}`);  
     }
 }

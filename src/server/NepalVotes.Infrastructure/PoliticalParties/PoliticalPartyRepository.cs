@@ -14,4 +14,12 @@ public class PoliticalPartyRepository(ApplicationDbContext context) : IPolitical
             .AsNoTracking()
             .ToListAsync();
     }
+    
+    public async Task<PoliticalParty?> GetByIdAsync(int id)
+    {
+        return await context.PoliticalParties
+            .Include(p => p.PartyLeader)
+            .Include(p => p.SymbolMediaFile)
+            .FirstOrDefaultAsync(p => p.PoliticalPartyId == id);
+    }
 }

@@ -17,4 +17,13 @@ public class PoliticalPartyController(IPoliticalPartyService partyService) : Con
 
         return response.ToActionResult();
     }
+    
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var partyResponse = await partyService.GetByIdAsync(id);
+
+        return partyResponse.ToActionResult();
+    }
+    
 }

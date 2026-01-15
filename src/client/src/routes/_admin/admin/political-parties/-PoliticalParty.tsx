@@ -4,7 +4,7 @@ import {Skeleton} from "@/components/ui/skeleton.tsx";
 import {useNavigate} from "@tanstack/react-router";
 
 const PoliticalParty = () => {
-    const {data, isLoading, isError} = usePoliticalPartyQuery();
+    const {data, isLoading, isError} = usePoliticalPartyQuery.getParties();
 
     const navigate = useNavigate();
     const onEditParty = async (politicalPartyId: number) => {

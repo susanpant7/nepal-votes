@@ -5,4 +5,5 @@ namespace NepalVotes.Application.PoliticalParties;
 public interface IPoliticalPartyService
 {
     Task<ApiResponse<IEnumerable<PoliticalPartyInfo>>> GetPartiesAsync();
+    Task<ApiResponse<PoliticalPartyInfo>> GetByIdAsync(int id);
 }
