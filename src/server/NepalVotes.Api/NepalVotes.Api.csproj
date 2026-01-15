@@ -13,7 +13,6 @@
     <ItemGroup>
       <Folder Include="ElectoralGeographies\" />
       <Folder Include="MediaFiles\" />
-      <Folder Include="PoliticalParties\" />
     </ItemGroup>
 
     <ItemGroup>

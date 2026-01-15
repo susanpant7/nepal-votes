@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using NepalVotes.Application.Authentication;
+using NepalVotes.Application.PoliticalParties;
 using NepalVotes.Application.Users;
 
 namespace NepalVotes.Application.Configuration;
@@ -13,6 +14,7 @@ public static class ApplicationConfig
         services.AddScoped<IUserService , UserService>();
         services.AddScoped<IOtpService , OtpService>();
         services.AddScoped<IUserRefreshTokenService , UserRefreshTokenService>();
+        services.AddScoped<IPoliticalPartyService , PoliticalPartyService>();
 
         return services;
     }
