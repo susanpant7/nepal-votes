@@ -3,3 +3,13 @@ api rsponse body - using interceptors
 handling tokens - access and refresh token for jwt
 in the axios
 
+============================================================================================
+        .tolilst, enumerable, queryable in ef core
+============================================================================================
+list ==> query executes at the sql server => returns all the data in dot net runtime memory
+queryable ==> only the query is prepared -> add further filters (where conditions)
+enumerable ==> query executes at the sql server ==> BUT all result is not sent to dot net memory
+            => when looping, one row is sent at a time
+            
+
+

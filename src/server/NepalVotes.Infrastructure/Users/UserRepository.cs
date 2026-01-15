@@ -33,4 +33,19 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .Include(u => u.VotingPlace)
             .FirstOrDefaultAsync(u => u.UserId == userId);
     }
+    
+    public async Task<List<User>> SearchUsersAsync(string searchText)
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+            return [];
+
+        searchText = searchText.Trim();
+
+        return await context.Users
+            .Where(u => EF.Functions.Like(u.FullName, $"%{searchText}%"))
+            .OrderBy(u => u.FullName)
+            .Take(100)
+            .ToListAsync();
+    }
+
 }

@@ -34,4 +34,14 @@ public class UserService(IUserRepository userRepository, IUserRefreshTokenReposi
     {
         return await refreshTokenRepository.GetUserRefreshTokenByRefreshTokenAsync(refreshToken);
     }
+    
+    public async Task<ApiResponse<List<User>>> SearchUsersAsync(string searchText)
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return ApiResponse<List<User>>.SuccessResponse([],"Empty search text");
+        }
+        var users = await userRepository.SearchUsersAsync(searchText);
+        return ApiResponse<List<User>>.SuccessResponse(users);
+    }
 }

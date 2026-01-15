@@ -9,7 +9,7 @@ export interface UserProfile {
 
 const ProfileApi = {
     getUserProfile: async (): Promise<UserProfile> => {
-        return await apiClient.get('/api/user-profile');
+        return await apiClient.get('/api/users/profile');
     },
 
 }

@@ -6,4 +6,5 @@ public interface IUserRepository
     Task<User?> GetUserWithRolesByMobileNumberAsync(string mobileNumber);
     Task<User?> GetUserWithRolesByUserIdAsync(int userId);
     Task<User?> GetUserWithVotingPlaceByUserIdAsync(int userId);
+    Task<List<User>> SearchUsersAsync(string searchText);
 }
