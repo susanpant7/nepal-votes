@@ -1,5 +1,5 @@
 import {useAuthStore} from "@/stores/useAuthStore.ts";
-import {userProfileQuery} from "@/features/user-profile/api/user-profile.query.ts";
+import {userProfileQuery} from "@/features/users/user-profile/api/user-profile.query.ts";
 
 export const UserProfilePage = () => {
     const user = useAuthStore(state => state.user);

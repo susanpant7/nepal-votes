@@ -43,8 +43,8 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
     }
 
     const onPartyLeaderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const partyName = e.target.value
-        setPartyDetails((prev)=>({...prev, politicalPartyName: partyName}))
+        const partyLeaderName = e.target.value
+        setPartyDetails((prev)=>({...prev, partyLeaderName: partyLeaderName}))
     }
 
     const onPartySymbolChange = (file: File | null) => {

@@ -1,6 +1,6 @@
-import type {UserProfile} from "@/routes/_protected/profile/-api/profile-api.ts";
-import {USER_PROFILE_ENDPOINTS} from "@/features/user-profile/api/user-profile.endpoints.ts";
 import apiClient from "@/api/api.client.ts";
+import type {UserProfile} from "@/features/users/user-profile/types/user-profile.types.ts";
+import {USER_PROFILE_ENDPOINTS} from "@/features/users/user-profile/api/user-profile.endpoints.ts";
 
 export const UserProfileApi = {
     getUserProfile: async (): Promise<UserProfile> => {

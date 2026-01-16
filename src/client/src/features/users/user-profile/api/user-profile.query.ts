@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {UserProfileApi} from "@/features/user-profile/api/user-profile.api.ts";
+import {UserProfileApi} from "@/features/users/user-profile/api/user-profile.api.ts";
 
 const USER_PROFILE_KEYS = {
     profile: ['userProfile'] as const,
