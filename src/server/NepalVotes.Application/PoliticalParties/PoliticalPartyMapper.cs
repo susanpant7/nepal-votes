@@ -9,6 +9,7 @@ public class PoliticalPartyInfo
     public string PoliticalPartyName { get; set; } = null!;
     
     public string PartyLeaderName { get; set; }
+    public int PartyLeaderId { get; set; }
 
     public byte[] PartySymbolContent { get; set; }
 
@@ -28,6 +29,7 @@ public static class PoliticalPartyMapper
             PartySymbolContentType = party.SymbolMediaFile.ContentType,
             PartySymbolFileName = party.SymbolMediaFile.FileName,
             PartyLeaderName = party.PartyLeader.FirstName + " " + party.PartyLeader.MiddleName + " " + party.PartyLeader.LastName,
+            PartyLeaderId = party.PartyLeader.UserId
         };
     }
 }

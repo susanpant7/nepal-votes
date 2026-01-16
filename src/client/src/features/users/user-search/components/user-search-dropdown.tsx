@@ -1,0 +1,93 @@
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import { useDebounce } from "@/hooks/use-debounce";
+import {useUserSearchQuery} from "@/features/users/user-search/api/user-search.query.ts";
+import {useState} from "react";
+
+interface UserSearchDropdownProps {
+    onSelect: (userId: number) => void;
+    currentUserName?: string | null;
+}
+
+export function UserSearchDropdown({onSelect,currentUserName}: UserSearchDropdownProps) {
+    const [open, setOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState(currentUserName??"");
+    const [selectedUser, setSelectedUser] = useState<string | null>(currentUserName??null);
+
+    const debouncedQuery = useDebounce(searchValue, 300);
+    const { data: users, isLoading } = useUserSearchQuery(debouncedQuery);
+
+    return (
+        <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+                <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-75 justify-between"
+                >
+                    {selectedUser ? selectedUser : "Search users..."}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-75 p-0">
+                <Command shouldFilter={false}> {/* Important: Disable client-side filtering */}
+                    <CommandInput
+                        placeholder="Type name"
+                        value={searchValue}
+                        onValueChange={setSearchValue}
+                    />
+                    <CommandList>
+                        {isLoading && (
+                            <div className="flex items-center justify-center p-4">
+                                <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                            </div>
+                        )}
+
+                        {!isLoading && users?.length === 0 && (
+                            <CommandEmpty>No users found.</CommandEmpty>
+                        )}
+
+                        <CommandGroup>
+                            {users?.map((user) => (
+                                <CommandItem
+                                    key={user.userId}
+                                    value={user.userId.toString()}
+                                    onSelect={() => {
+                                        setSelectedUser(user.fullName);
+                                        setOpen(false);
+                                        onSelect(user.userId);
+                                    }}
+                                >
+                                    <Check
+                                        className={cn(
+                                            "mr-2 h-4 w-4",
+                                            selectedUser === user.fullName ? "opacity-100" : "opacity-0"
+                                        )}
+                                    />
+                                    <div className="flex flex-col">
+                                        <span>{user.fullName}</span>
+                                    </div>
+                                </CommandItem>
+                            ))}
+                        </CommandGroup>
+                    </CommandList>
+                </Command>
+            </PopoverContent>
+        </Popover>
+    );
+}

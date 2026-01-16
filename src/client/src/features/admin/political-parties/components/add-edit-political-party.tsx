@@ -10,6 +10,7 @@ import type {
     AddEditPoliticalPartyRequest,
     PoliticalPartyInfo
 } from "@/features/admin/political-parties/types/admin.political-parties.types.ts";
+import {UserSearchDropdown} from "@/features/users/user-search/components/user-search-dropdown.tsx";
 
 export interface AddEditPoliticalPartyProps {
     isEdit?: boolean,
@@ -24,7 +25,7 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
     const [partyDetails,setPartyDetails] = useState<AddEditPoliticalPartyRequest>({
         politicalPartyId: politicalPartyInfo?.politicalPartyId || 0,
         politicalPartyName: politicalPartyInfo?.politicalPartyName||"",
-        partyLeaderName: politicalPartyInfo?.partyLeaderName||"",
+        partyLeaderId: politicalPartyInfo?.partyLeaderId || 0,
         partySymbolContent: politicalPartyInfo?.partySymbolContent || null,
     })
     
@@ -41,10 +42,9 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
         const partyName = e.target.value
         setPartyDetails((prev)=>({...prev, politicalPartyName: partyName}))
     }
-
-    const onPartyLeaderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const partyLeaderName = e.target.value
-        setPartyDetails((prev)=>({...prev, partyLeaderName: partyLeaderName}))
+    
+    const onPartyLeaderSelected = (partyLeaderId: number) => {
+        setPartyDetails((prev)=>({...prev, partyLeaderId: partyLeaderId}))
     }
 
     const onPartySymbolChange = (file: File | null) => {
@@ -87,8 +87,8 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
 
                 <div className="grid w-full items-center gap-3">
                     <Label htmlFor="partyName">Party Leader :</Label>
-                    <Input id="partyName" type="text" value={partyDetails.partyLeaderName}
-                           onChange={onPartyLeaderChange}/>
+                    <UserSearchDropdown onSelect={onPartyLeaderSelected} 
+                                        currentUserName={politicalPartyInfo?.partyLeaderName??""} />
                 </div>
 
                 <div className="grid w-full items-center gap-3">

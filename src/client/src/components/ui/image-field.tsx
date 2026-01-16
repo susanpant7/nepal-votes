@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {ImageIcon} from "lucide-react";
 
 export interface ImageFieldProps {
     label: string;
@@ -84,9 +85,10 @@ export const ImageField: React.FC<ImageFieldProps> = ({
                     type="button"
                     variant="outline"
                     onClick={() => inputRef.current?.click()}
-                    className="dark:border-gray-700 dark:text-gray-200"
+                    className="flex items-center gap-2 dark:border-gray-700 dark:text-gray-200"
                 >
-                    {value ? "Change " : "Select "} {label}
+                    <ImageIcon className="h-4 w-4" />
+                    {value ? "Change" : "Select"} {label}
                 </Button>
                 {value && (
                     <Button

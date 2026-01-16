@@ -3,6 +3,7 @@ export interface PoliticalPartyInfo{
     politicalPartyId: number;
     politicalPartyName: string;
     partyLeaderName: string;
+    partyLeaderId: number;
     partySymbolContent: string;
     partySymbolContentType: string;
     partySymbolFileName: string;
@@ -12,7 +13,7 @@ export interface PoliticalPartyInfo{
 export interface AddEditPoliticalPartyRequest{
     politicalPartyId: number,
     politicalPartyName: string,
-    partyLeaderName: string,
+    partyLeaderId: number,
     partySymbolContent: File | string | null,
 }
 // responses
