@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { jwtDecode } from 'jwt-decode'
-import {ClaimType} from "@/lib/claims.ts";
-import AuthApi from "@/routes/auth/-api/auth-api.ts";
+import {AuthApi} from "@/features/auth/api/auth.api.ts";
+import {ClaimType} from "@/features/auth/constants/auth.constants.ts";
 
 export interface User {
     userId: number
@@ -47,10 +47,10 @@ export const useAuthStore = create<AuthState>((set,get)=>({
         }),
     refreshAuth: async (): Promise<void> => {
         try {
-            const response = await AuthApi.refresh();
+            const response = await AuthApi.refreshToken();
             get().login(response.accessToken);
         } catch (error) {
-            console.error("error when refershing auth ", error);
+            console.error("error when refreshing auth ", error);
             set({accessToken: null, user: null, appIsInitializing: false});
         }
     },

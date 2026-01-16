@@ -1,8 +1,8 @@
 import * as React from 'react'
 import {Outlet, createRootRoute, useLocation} from '@tanstack/react-router'
-import Header from "@/components/header/Header.tsx";
 import {Toaster} from "@/components/ui/sonner.tsx";
-import NotFoundPage from "@/components/NotFoundPage.tsx";
+import {NotFoundPage} from "@/features/errors/pages/not-found-page.tsx";
+import {Header} from "@/components/header/header.tsx";
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -16,7 +16,7 @@ function RootComponent() {
       <React.Fragment>
           <Toaster richColors closeButton position="top-right" />
           {!hideHeader && <Header />}
-          <main >
+          <main>
               <Outlet />
           </main>
       </React.Fragment>

@@ -2,9 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import {ThemeProvider} from "@/components/theme-provider.tsx";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ScreenOverlay from "@/components/overlay/ScreenOverlay.tsx";
+import {ThemeProvider} from "@/components/theme/theme.provider.tsx";
+import {ScreenOverlay} from "@/components/overlay/screen-overlay.tsx";
 
 
 const queryClient = new QueryClient({

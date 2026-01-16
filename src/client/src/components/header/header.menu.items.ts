@@ -1,0 +1,26 @@
+import { ShieldCheck, User2, Home } from "lucide-react";
+import type {User} from "@/stores/useAuthStore.ts";
+import {ROUTES} from "@/lib/app.routes.urls.ts";
+
+export type NavItem = {
+    label: string;
+    href: string;
+    icon: any;
+};
+
+export const headerMenuItems = (user: User | null): NavItem[] => {
+    const publicItems: NavItem[] = [
+        { label: "Home", href: ROUTES.HOME, icon: Home },
+    ];
+
+    const privateItems: NavItem[] = [
+        { label: "Profile", href: ROUTES.USER_PROFILE, icon: User2 },
+    ];
+
+    const adminItems: NavItem[] = [
+        { label: "Admin Panel", href: ROUTES.ADMIN_PANEL, icon: ShieldCheck },
+    ];
+    if (user?.isAdmin) return [...publicItems, ...privateItems, ...adminItems];
+    if (user) return [...publicItems, ...privateItems];
+    return [...publicItems];
+};
