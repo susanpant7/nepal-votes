@@ -1,4 +1,4 @@
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {AdminPoliticalPartyApi} from "@/features/admin/political-parties/api/admin.political-parties.api.ts";
 import type {
     AddEditPoliticalPartyRequest
@@ -10,11 +10,14 @@ export const ADMIN_POLITICAL_PARTY_KEYS = {
     addPoliticalParty: ['addPoliticalParty'] as const,
     editPoliticalParty: ['updatePoliticalParty'] as const,
 };
+
 export const useAdminPoliticalPartyQuery =  {
     getParties: ()=>
         useQuery({
             queryKey: ADMIN_POLITICAL_PARTY_KEYS.getPoliticalParties,
             queryFn: AdminPoliticalPartyApi.getPoliticalParties,
+            refetchOnMount: true,
+            staleTime: 5 * 60 * 1000,
         }),
     getPartyById: (id:number) =>
         useQuery({
@@ -24,15 +27,32 @@ export const useAdminPoliticalPartyQuery =  {
         }),
 };
 
-export const useAdminPoliticalPartyMutation =  {
-    addPoliticalParty: () =>
-        useMutation({
-            mutationFn: (party:AddEditPoliticalPartyRequest) => 
-                AdminPoliticalPartyApi.addPoliticalParty(party),
-        }),
-    updatePoliticalParty: () =>
-        useMutation({
-            mutationFn: (party:AddEditPoliticalPartyRequest) => 
-                AdminPoliticalPartyApi.editPoliticalParty(party),
-        }),
-}
+export const useAdminPoliticalPartyMutation = () => {
+    const invalidateParties = refreshPoliticalParties();
+
+    const addPoliticalParty = useMutation({
+        mutationFn: (party: AddEditPoliticalPartyRequest) =>
+            AdminPoliticalPartyApi.addPoliticalParty(party),
+        onSuccess: invalidateParties,
+    });
+
+    const updatePoliticalParty = useMutation({
+        mutationFn: (party: AddEditPoliticalPartyRequest) =>
+            AdminPoliticalPartyApi.editPoliticalParty(party),
+        onSuccess: invalidateParties,
+    });
+
+    return {
+        addPoliticalParty,
+        updatePoliticalParty,
+    };
+};
+
+const refreshPoliticalParties = () => {
+    const queryClient = useQueryClient();
+
+    return () =>
+        queryClient.invalidateQueries({
+            queryKey: ADMIN_POLITICAL_PARTY_KEYS.getPoliticalParties,
+        });
+};

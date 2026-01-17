@@ -24,10 +24,8 @@ export interface AddEditPoliticalPartyProps {
 
 const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
     const {isEdit, politicalPartyInfo} = props;
-    const showOverlay = useOverlayStore(store=>store.showOverlay)
-    const hideOverlay = useOverlayStore(store=>store.hideOverlay)
-    const addPartyMutation = useAdminPoliticalPartyMutation.addPoliticalParty();
-    const updatePartyMutation =useAdminPoliticalPartyMutation.updatePoliticalParty();
+    const { showOverlay, hideOverlay } = useOverlayStore();
+    const { addPoliticalParty, updatePoliticalParty } = useAdminPoliticalPartyMutation();
     
     const navigate = useNavigate();
     
@@ -66,9 +64,9 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
         e.preventDefault()
         try {
             if(partyDetails.politicalPartyId > 0)
-                await updatePartyMutation.mutateAsync(partyDetails);
+                await updatePoliticalParty.mutateAsync(partyDetails);
             else
-                await addPartyMutation.mutateAsync(partyDetails);
+                await addPoliticalParty.mutateAsync(partyDetails);
             await navigate({to:ROUTES.ADMIN_POLITICAL_PARTIES})
         } catch (e){
             console.log(e)
@@ -84,7 +82,7 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
                     <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => navigate({ to: "/admin/political-parties" })}
+                        onClick={() => navigate({ to: ROUTES.ADMIN_POLITICAL_PARTIES })}
                         className="mb-2 -ml-2 text-muted-foreground"
                     >
                         <ChevronLeft className="mr-1 h-4 w-4" /> Back to Parties
