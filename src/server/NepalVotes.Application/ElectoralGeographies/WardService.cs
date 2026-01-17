@@ -1,0 +1,64 @@
+using NepalVotes.Application.ResponseHelpers;
+using NepalVotes.Domain.Common;
+using NepalVotes.Domain.ElectoralGeographies;
+
+namespace NepalVotes.Application.ElectoralGeographies;
+
+public class WardService(IWardRepository repo, IUnitOfWork unitOfWork) : IWardService
+{
+    public async Task<ApiResponse<IEnumerable<WardInfo>>> GetByMunicipalityIdAsync(int municipalityId)
+    {
+        var wards = await repo.GetByMunicipalityIdAsync(municipalityId);
+        var wardsInfo = wards.Select(w => w.ToInfo()).ToList();
+
+        return wardsInfo.Count == 0
+            ? ApiResponse<IEnumerable<WardInfo>>.SuccessResponse(wardsInfo, "No wards found for this municipality.")
+            : ApiResponse<IEnumerable<WardInfo>>.SuccessResponse(wardsInfo);
+    }
+
+    public async Task<ApiResponse<WardInfo?>> GetByIdAsync(int id)
+    {
+        var ward = await repo.GetByIdAsync(id);
+        return ward == null
+            ? ApiResponse<WardInfo?>.SuccessResponse(null, "Ward not found.")
+            : ApiResponse<WardInfo?>.SuccessResponse(ward.ToInfo());
+    }
+
+    public async Task<ApiResponse<bool>> AddAsync(AddWardRequest request)
+    {
+        if (await repo.ExistsByNameAsync(request.WardName, request.MunicipalityId))
+            return ApiResponse<bool>.ErrorResponse("Ward name must be unique in the municipality.");
+
+        var entity = new Ward
+        {
+            WardName = request.WardName,
+            WardNumber = request.WardNumber,
+            MunicipalityId = request.MunicipalityId
+        };
+
+        await repo.AddAsync(entity);
+        await unitOfWork.SaveChangesAsync();
+        
+        return ApiResponse<bool>.SuccessResponse(true, "Ward added successfully.");
+    }
+
+    public async Task<ApiResponse<bool>> UpdateAsync(UpdateWardRequest request)
+    {
+        if (await repo.ExistsByNameAsync(request.WardName, request.MunicipalityId, request.WardId))
+            return ApiResponse<bool>.ErrorResponse("Ward name must be unique in the municipality.");
+
+        var entity = new Ward
+        {
+            WardId = request.WardId,
+            WardName = request.WardName,
+            WardNumber = request.WardNumber,
+            MunicipalityId = request.MunicipalityId
+        };
+
+        await repo.UpdateAsync(entity);
+        await unitOfWork.SaveChangesAsync();
+        
+        return ApiResponse<bool>.SuccessResponse(true, "Ward updated successfully.");
+    }
+
+}

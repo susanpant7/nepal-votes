@@ -4,9 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using NepalVotes.Application.Authentication;
 using NepalVotes.Application.Users;
 using NepalVotes.Domain.Common;
+using NepalVotes.Domain.ElectoralGeographies;
 using NepalVotes.Domain.PoliticalParties;
 using NepalVotes.Domain.Users;
 using NepalVotes.Infrastructure.Authentication;
+using NepalVotes.Infrastructure.ElectoralGeographies;
 using NepalVotes.Infrastructure.Hashers;
 using NepalVotes.Infrastructure.Persistence;
 using NepalVotes.Infrastructure.PoliticalParties;
@@ -35,7 +37,11 @@ public static class InfrastructureConfig
         services.AddScoped<IUserOtpRepository, UserOtpRepository>();
         services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
         services.AddScoped<IPoliticalPartyRepository, PoliticalPartyRepository>();
-        
+        services.AddScoped<IProvinceRepository, ProvinceRepository>();
+        services.AddScoped<IDistrictRepository, DistrictRepository>();
+        services.AddScoped<IMunicipalityRepository, MunicipalityRepository>();
+        services.AddScoped<IWardRepository, WardRepository>();
+        services.AddScoped<IVotingPlaceRepository, VotingPlaceRepository>();
 
         // Register UnitOfWork
         services.AddScoped<IUnitOfWork, UnitOfWork>();

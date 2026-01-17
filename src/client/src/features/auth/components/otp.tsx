@@ -10,6 +10,7 @@ import { Spinner } from "@/components/ui/spinner.tsx";
 import {useOverlayStore} from "@/stores/useOverlayStore.ts";
 import {showNotification} from "@/components/toaster/toaster.utils.ts";
 import {AuthApi} from "@/features/auth/api/auth.api.ts";
+import {ROUTES} from "@/lib/app.routes.urls.ts";
 
 interface OtpProps {
     mobileNumber: string
@@ -17,12 +18,10 @@ interface OtpProps {
 }
 
 export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
-    const showOverlay = useOverlayStore(store=>store.showOverlay)
-    const hideOverlay = useOverlayStore(store=>store.hideOverlay)
+    const {showOverlay,hideOverlay} = useOverlayStore();
     const [otp, setOtp] = useState("")
     const [loading, setLoading] = useState(false)
-    //TODO: update this value to 60
-    const resetTimeInSeconds = 6;
+    const resetTimeInSeconds = 60;
     const [timer, setTimer] = useState(resetTimeInSeconds) 
     const navigate = useNavigate()
 
@@ -57,7 +56,7 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
             })
             useAuthStore.getState().login(tokenResp.accessToken)
             showNotification.success("Successfully logged in")
-            await navigate({ to: '/profile' as any })
+            await navigate({ to: ROUTES.USER_PROFILE as any })
         } catch (err: any) {
             setOtp("")
         } finally {

@@ -9,11 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProtectedUserProfileRouteImport } from './routes/_protected/user-profile'
-import { Route as ProtectedAuthRouteImport } from './routes/_protected/auth'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin/index'
 import { Route as AdminAdminPoliticalPartiesIndexRouteImport } from './routes/_admin/admin/political-parties/index'
 import { Route as AdminAdminElectoralGeographiesIndexRouteImport } from './routes/_admin/admin/electoral-geographies/index'
@@ -21,6 +21,11 @@ import { Route as AdminAdminElectoralConstituenciesIndexRouteImport } from './ro
 import { Route as AdminAdminPoliticalPartiesAddRouteImport } from './routes/_admin/admin/political-parties/add'
 import { Route as AdminAdminPoliticalPartiesPartyIdRouteImport } from './routes/_admin/admin/political-parties/$partyId'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
   getParentRoute: () => rootRouteImport,
@@ -37,11 +42,6 @@ const IndexRoute = IndexRouteImport.update({
 const ProtectedUserProfileRoute = ProtectedUserProfileRouteImport.update({
   id: '/user-profile',
   path: '/user-profile',
-  getParentRoute: () => ProtectedRoute,
-} as any)
-const ProtectedAuthRoute = ProtectedAuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
   getParentRoute: () => ProtectedRoute,
 } as any)
 const AdminAdminIndexRoute = AdminAdminIndexRouteImport.update({
@@ -82,7 +82,7 @@ const AdminAdminPoliticalPartiesPartyIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof ProtectedAuthRoute
+  '/auth': typeof AuthRoute
   '/user-profile': typeof ProtectedUserProfileRoute
   '/admin': typeof AdminAdminIndexRoute
   '/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
@@ -93,7 +93,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof ProtectedAuthRoute
+  '/auth': typeof AuthRoute
   '/user-profile': typeof ProtectedUserProfileRoute
   '/admin': typeof AdminAdminIndexRoute
   '/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
@@ -107,7 +107,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_admin': typeof AdminRouteWithChildren
   '/_protected': typeof ProtectedRouteWithChildren
-  '/_protected/auth': typeof ProtectedAuthRoute
+  '/auth': typeof AuthRoute
   '/_protected/user-profile': typeof ProtectedUserProfileRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_admin/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
@@ -144,7 +144,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_admin'
     | '/_protected'
-    | '/_protected/auth'
+    | '/auth'
     | '/_protected/user-profile'
     | '/_admin/admin/'
     | '/_admin/admin/political-parties/$partyId'
@@ -158,10 +158,18 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   ProtectedRoute: typeof ProtectedRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_protected': {
       id: '/_protected'
       path: ''
@@ -188,13 +196,6 @@ declare module '@tanstack/react-router' {
       path: '/user-profile'
       fullPath: '/user-profile'
       preLoaderRoute: typeof ProtectedUserProfileRouteImport
-      parentRoute: typeof ProtectedRoute
-    }
-    '/_protected/auth': {
-      id: '/_protected/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof ProtectedAuthRouteImport
       parentRoute: typeof ProtectedRoute
     }
     '/_admin/admin/': {
@@ -266,12 +267,10 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface ProtectedRouteChildren {
-  ProtectedAuthRoute: typeof ProtectedAuthRoute
   ProtectedUserProfileRoute: typeof ProtectedUserProfileRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
-  ProtectedAuthRoute: ProtectedAuthRoute,
   ProtectedUserProfileRoute: ProtectedUserProfileRoute,
 }
 
@@ -283,6 +282,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   ProtectedRoute: ProtectedRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
