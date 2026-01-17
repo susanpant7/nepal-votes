@@ -26,4 +26,51 @@ public class PoliticalPartyController(IPoliticalPartyService partyService) : Con
         return partyResponse.ToActionResult();
     }
     
+    [HttpPost]
+    public async Task<IActionResult> Add([FromForm] AddEditPoliticalPartyApiRequest request)
+    {
+        byte[]? fileContent = null;
+        
+        using var ms = new MemoryStream();
+        await request.PartySymbolFile.CopyToAsync(ms);
+        fileContent = ms.ToArray();
+
+        var addRequest = new AddPoliticalPartyRequest(
+            request.PoliticalPartyName,
+            request.PartyLeaderId,
+            fileContent,
+            request.PartySymbolFile.FileName,
+            request.PartySymbolFile.ContentType,
+            request.PartySymbolFile.Length
+        );
+
+        await partyService.AddPoliticalPartyAsync(addRequest);
+        return Ok();
+    }
+    
+    [HttpPut]
+    public async Task<IActionResult> Edit([FromForm] EditPoliticalPartyApiRequest request)
+    {
+        byte[]? fileContent = null;
+        if (request.PartySymbolFile != null)
+        {
+            using var ms = new MemoryStream();
+            await request.PartySymbolFile.CopyToAsync(ms);
+            fileContent = ms.ToArray();
+        }
+
+        var command = new EditPoliticalPartyRequest(
+            request.PartyLeaderId,
+            request.PoliticalPartyName,
+            request.PartyLeaderId,
+            fileContent,
+            request.PartySymbolFile?.FileName,
+            request.PartySymbolFile?.ContentType,
+            request.PartySymbolFile?.Length ?? 0
+        );
+
+        await partyService.EditPoliticalPartyAsync(command);
+        return Ok();
+    }
+    
 }

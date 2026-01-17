@@ -22,4 +22,15 @@ public class PoliticalPartyRepository(ApplicationDbContext context) : IPolitical
             .Include(p => p.SymbolMediaFile)
             .FirstOrDefaultAsync(p => p.PoliticalPartyId == id);
     }
+    
+    public async Task AddPoliticalPartyAsync(PoliticalParty party)
+    {
+        await context.PoliticalParties.AddAsync(party);
+    }
+
+    public Task UpdatePoliticalPartyAsync(PoliticalParty party)
+    {
+        context.PoliticalParties.Update(party);
+        return Task.CompletedTask;
+    }
 }

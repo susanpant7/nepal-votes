@@ -6,4 +6,6 @@ public interface IPoliticalPartyService
 {
     Task<ApiResponse<IEnumerable<PoliticalPartyInfo>>> GetPartiesAsync();
     Task<ApiResponse<PoliticalPartyInfo>> GetByIdAsync(int id);
+    Task<ApiResponse<bool>> AddPoliticalPartyAsync(AddPoliticalPartyRequest request);
+    Task<ApiResponse<bool>> EditPoliticalPartyAsync(EditPoliticalPartyRequest request);
 }
