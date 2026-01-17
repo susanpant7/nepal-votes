@@ -11,6 +11,11 @@ import type {
     PoliticalPartyInfo
 } from "@/features/admin/political-parties/types/admin.political-parties.types.ts";
 import {UserSearchDropdown} from "@/features/users/user-search/components/user-search-dropdown.tsx";
+import {useOverlayStore} from "@/stores/useOverlayStore.ts";
+import {
+    useAdminPoliticalPartyMutation,
+} from "@/features/admin/political-parties/api/admin.political-parties.query.ts";
+import {ROUTES} from "@/lib/app.routes.urls.ts";
 
 export interface AddEditPoliticalPartyProps {
     isEdit?: boolean,
@@ -19,6 +24,10 @@ export interface AddEditPoliticalPartyProps {
 
 const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
     const {isEdit, politicalPartyInfo} = props;
+    const showOverlay = useOverlayStore(store=>store.showOverlay)
+    const hideOverlay = useOverlayStore(store=>store.hideOverlay)
+    const addPartyMutation = useAdminPoliticalPartyMutation.addPoliticalParty();
+    const updatePartyMutation =useAdminPoliticalPartyMutation.updatePoliticalParty();
     
     const navigate = useNavigate();
     
@@ -53,8 +62,19 @@ const AddEditPoliticalParty = (props:AddEditPoliticalPartyProps) => {
     };
     
     const onSubmit = async (e: React.FormEvent) => {
+        showOverlay();
         e.preventDefault()
-        console.log("FORM DATA:", partyDetails);
+        try {
+            if(partyDetails.politicalPartyId > 0)
+                await updatePartyMutation.mutateAsync(partyDetails);
+            else
+                await addPartyMutation.mutateAsync(partyDetails);
+            await navigate({to:ROUTES.ADMIN_POLITICAL_PARTIES})
+        } catch (e){
+            console.log(e)
+        } finally {
+            hideOverlay();
+        }
     };
     
     return (

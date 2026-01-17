@@ -44,8 +44,8 @@ public class PoliticalPartyController(IPoliticalPartyService partyService) : Con
             request.PartySymbolFile.Length
         );
 
-        await partyService.AddPoliticalPartyAsync(addRequest);
-        return Ok();
+        var response = await partyService.AddPoliticalPartyAsync(addRequest);
+        return response.ToActionResult();
     }
     
     [HttpPut]
@@ -59,8 +59,8 @@ public class PoliticalPartyController(IPoliticalPartyService partyService) : Con
             fileContent = ms.ToArray();
         }
 
-        var command = new EditPoliticalPartyRequest(
-            request.PartyLeaderId,
+        var editRequest = new EditPoliticalPartyRequest(
+            request.PoliticalPartyId,
             request.PoliticalPartyName,
             request.PartyLeaderId,
             fileContent,
@@ -69,8 +69,8 @@ public class PoliticalPartyController(IPoliticalPartyService partyService) : Con
             request.PartySymbolFile?.Length ?? 0
         );
 
-        await partyService.EditPoliticalPartyAsync(command);
-        return Ok();
+        var response = await partyService.EditPoliticalPartyAsync(editRequest);
+        return response.ToActionResult();
     }
     
 }

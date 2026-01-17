@@ -70,12 +70,9 @@ public class PoliticalPartyService(IPoliticalPartyRepository repository,
             party.SymbolMediaFile.ContentType = request.PartySymbolContentType;
             party.SymbolMediaFile.Size = request.PartySymbolSize;
         }
-        else
-        {
-            return ApiResponse<bool>.ErrorResponse("Party must have a media file to update.", 404);
-        }
 
         await repository.UpdatePoliticalPartyAsync(party);
+        await unitOfWork.SaveChangesAsync();
         
         return ApiResponse<bool>.SuccessResponse(true, $"Political party {request.PoliticalPartyName} updated successfuly");
 
