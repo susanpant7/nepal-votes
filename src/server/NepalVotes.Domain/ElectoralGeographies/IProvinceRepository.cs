@@ -7,4 +7,5 @@ public interface IProvinceRepository
     Task AddAsync(Province entity);
     Task UpdateAsync(Province entity);
     Task<bool> ExistsByNameAsync(string name, int? excludeId = null);
+    Task DeleteAsync(Province province);
 }

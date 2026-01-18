@@ -38,10 +38,10 @@ public class VotingPlacesController(IVotingPlaceService votingPlaceService) : Co
         return response.ToActionResult();
     }
     
-    [HttpGet]
-    public async Task<IActionResult> GetVotingPlacesByWardId([FromQuery] int wardId)
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteVotingPlace(int id)
     {
-        var response = await votingPlaceService.GetByWardIdAsync(wardId);
+        var response = await votingPlaceService.DeleteAsync(id);
         return response.ToActionResult();
     }
 }

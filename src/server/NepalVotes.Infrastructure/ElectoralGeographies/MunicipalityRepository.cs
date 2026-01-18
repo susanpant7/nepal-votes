@@ -10,7 +10,7 @@ public class MunicipalityRepository(ApplicationDbContext context) : IMunicipalit
         await context.Municipalities.AsNoTracking().Where(m => m.DistrictId == districtId).ToListAsync();
 
     public async Task<Municipality?> GetByIdAsync(int id) =>
-        await context.Municipalities.AsNoTracking().FirstOrDefaultAsync(m => m.MunicipalityId == id);
+        await context.Municipalities.FirstOrDefaultAsync(m => m.MunicipalityId == id);
 
     public Task AddAsync(Municipality entity)
     {
@@ -27,4 +27,16 @@ public class MunicipalityRepository(ApplicationDbContext context) : IMunicipalit
     public async Task<bool> ExistsByNameAsync(string name, int districtId, int? excludeId = null) =>
         await context.Municipalities
             .AnyAsync(m => m.MunicipalityName == name && m.DistrictId == districtId && (!excludeId.HasValue || m.MunicipalityId != excludeId));
+    
+    public async Task<bool> AnyByDistrictIdAsync(int districtId)
+    {
+        return await context.Municipalities
+            .AnyAsync(m => m.DistrictId == districtId);
+    }
+
+    public Task DeleteAsync(Municipality municipality)
+    {
+        context.Municipalities.Remove(municipality);
+        return Task.CompletedTask;
+    }
 }

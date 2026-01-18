@@ -4,7 +4,8 @@ using NepalVotes.Domain.ElectoralGeographies;
 
 namespace NepalVotes.Application.ElectoralGeographies;
 
-public class WardService(IWardRepository repo, IUnitOfWork unitOfWork) : IWardService
+public class WardService(IWardRepository repo, IVotingPlaceRepository votingPlaceRepository,
+    IUnitOfWork unitOfWork) : IWardService
 {
     public async Task<ApiResponse<IEnumerable<WardInfo>>> GetByMunicipalityIdAsync(int municipalityId)
     {
@@ -59,6 +60,22 @@ public class WardService(IWardRepository repo, IUnitOfWork unitOfWork) : IWardSe
         await unitOfWork.SaveChangesAsync();
         
         return ApiResponse<bool>.SuccessResponse(true, "Ward updated successfully.");
+    }
+
+    public async Task<ApiResponse<bool>> DeleteAsync(int wardId)
+    {
+        if (await votingPlaceRepository.AnyByWardIdAsync(wardId))
+            return ApiResponse<bool>.ErrorResponse(
+                "Ward cannot be deleted because it has voting places.");
+
+        var ward = await repo.GetByIdAsync(wardId);
+        if (ward == null)
+            return ApiResponse<bool>.ErrorResponse("Ward not found.");
+
+        await repo.DeleteAsync(ward);
+        await unitOfWork.SaveChangesAsync();
+        
+        return ApiResponse<bool>.SuccessResponse(true, "Ward deleted successfully.");
     }
 
 }

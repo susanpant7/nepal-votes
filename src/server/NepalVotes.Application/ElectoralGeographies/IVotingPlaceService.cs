@@ -8,4 +8,5 @@ public interface IVotingPlaceService
     Task<ApiResponse<VotingPlaceInfo?>> GetByIdAsync(int id);
     Task<ApiResponse<bool>> AddAsync(AddVotingPlaceRequest request);
     Task<ApiResponse<bool>> UpdateAsync(UpdateVotingPlaceRequest request);
+    Task<ApiResponse<bool>> DeleteAsync(int votingPlaceId);
 }

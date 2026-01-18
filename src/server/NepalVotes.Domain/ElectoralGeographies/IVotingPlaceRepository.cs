@@ -7,4 +7,6 @@ public interface IVotingPlaceRepository
     Task AddAsync(VotingPlace entity);
     Task UpdateAsync(VotingPlace entity);
     Task<bool> ExistsByAddressAsync(string address, int wardId, int? excludeId = null);
+    Task<bool> AnyByWardIdAsync(int wardId);
+    Task DeleteAsync(VotingPlace votingPlace);
 }

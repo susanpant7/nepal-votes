@@ -8,4 +8,5 @@ public interface IMunicipalityService
     Task<ApiResponse<MunicipalityInfo?>> GetByIdAsync(int id);
     Task<ApiResponse<bool>> AddAsync(AddMunicipalityRequest request);
     Task<ApiResponse<bool>> UpdateAsync(UpdateMunicipalityRequest request);
+    Task<ApiResponse<bool>> DeleteAsync(int municipalityId);
 }

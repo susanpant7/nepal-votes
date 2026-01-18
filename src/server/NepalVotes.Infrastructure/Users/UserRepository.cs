@@ -47,5 +47,11 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .Take(100)
             .ToListAsync();
     }
+    
+    public async Task<bool> AnyByVotingPlaceIdAsync(int votingPlaceId)
+    {
+        return await context.Users
+            .AnyAsync(u => u.VotingPlaceId == votingPlaceId);
+    }
 
 }

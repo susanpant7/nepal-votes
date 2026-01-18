@@ -4,7 +4,8 @@ using NepalVotes.Domain.ElectoralGeographies;
 
 namespace NepalVotes.Application.ElectoralGeographies;
 
-public class ProvinceService(IProvinceRepository repo, IUnitOfWork unitOfWork) : IProvinceService
+public class ProvinceService(IProvinceRepository repo, IDistrictRepository districtRepository,
+    IUnitOfWork unitOfWork) : IProvinceService
 {
     public async Task<ApiResponse<IEnumerable<ProvinceInfo>>> GetAllAsync()
     {
@@ -55,6 +56,22 @@ public class ProvinceService(IProvinceRepository repo, IUnitOfWork unitOfWork) :
         await unitOfWork.SaveChangesAsync();
         
         return ApiResponse<bool>.SuccessResponse(true, "Province updated successfully.");
+    }
+    
+    public async Task<ApiResponse<bool>> DeleteAsync(int provinceId)
+    {
+        if (await districtRepository.AnyByProvinceIdAsync(provinceId))
+            return ApiResponse<bool>.ErrorResponse(
+                "Province cannot be deleted because it has districts.");
+
+        var province = await repo.GetByIdAsync(provinceId);
+        if (province == null)
+            return ApiResponse<bool>.ErrorResponse("Province not found.");
+
+        await repo.DeleteAsync(province);
+        await unitOfWork.SaveChangesAsync();
+        
+        return ApiResponse<bool>.SuccessResponse(true, "Province deleted successfully.");
     }
 
 }

@@ -10,7 +10,7 @@ public class DistrictRepository(ApplicationDbContext context) : IDistrictReposit
         await context.Districts.AsNoTracking().Where(d => d.ProvinceId == provinceId).ToListAsync();
 
     public async Task<District?> GetByIdAsync(int id) =>
-        await context.Districts.AsNoTracking().FirstOrDefaultAsync(d => d.DistrictId == id);
+        await context.Districts.FirstOrDefaultAsync(d => d.DistrictId == id);
 
     public Task AddAsync(District entity)
     {
@@ -27,4 +27,16 @@ public class DistrictRepository(ApplicationDbContext context) : IDistrictReposit
     public async Task<bool> ExistsByNameAsync(string name, int provinceId, int? excludeId = null) =>
         await context.Districts
             .AnyAsync(d => d.DistrictName == name && d.ProvinceId == provinceId && (!excludeId.HasValue || d.DistrictId != excludeId));
+    
+    public async Task<bool> AnyByProvinceIdAsync(int provinceId)
+    {
+        return await context.Districts
+            .AnyAsync(d => d.ProvinceId == provinceId);
+    }
+
+    public Task DeleteAsync(District district)
+    {
+        context.Districts.Remove(district);
+        return Task.CompletedTask;
+    }
 }

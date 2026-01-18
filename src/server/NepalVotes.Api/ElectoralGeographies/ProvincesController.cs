@@ -37,4 +37,11 @@ public class ProvincesController(IProvinceService provinceService) : ControllerB
         var response = await provinceService.UpdateAsync(request with { ProvinceId = id });
         return response.ToActionResult();
     }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteProvince(int id)
+    {
+        var response = await provinceService.DeleteAsync(id);
+        return response.ToActionResult();
+    }
 }

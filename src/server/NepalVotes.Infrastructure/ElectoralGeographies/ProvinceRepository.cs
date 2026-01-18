@@ -10,7 +10,7 @@ public class ProvinceRepository(ApplicationDbContext context) : IProvinceReposit
         await context.Provinces.AsNoTracking().ToListAsync();
 
     public async Task<Province?> GetByIdAsync(int id) =>
-        await context.Provinces.AsNoTracking().FirstOrDefaultAsync(p => p.ProvinceId == id);
+        await context.Provinces.FirstOrDefaultAsync(p => p.ProvinceId == id);
 
     public Task AddAsync(Province entity)
     {
@@ -27,4 +27,10 @@ public class ProvinceRepository(ApplicationDbContext context) : IProvinceReposit
     public async Task<bool> ExistsByNameAsync(string name, int? excludeId = null) =>
         await context.Provinces
             .AnyAsync(p => p.ProvinceName == name && (!excludeId.HasValue || p.ProvinceId != excludeId));
+    
+    public Task DeleteAsync(Province province)
+    {
+        context.Provinces.Remove(province);
+        return Task.CompletedTask;
+    }
 }

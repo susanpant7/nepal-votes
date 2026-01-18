@@ -7,4 +7,6 @@ public interface IMunicipalityRepository
     Task AddAsync(Municipality entity);
     Task UpdateAsync(Municipality entity);
     Task<bool> ExistsByNameAsync(string name, int districtId, int? excludeId = null);
+    Task<bool> AnyByDistrictIdAsync(int districtId);
+    Task DeleteAsync(Municipality municipality);
 }

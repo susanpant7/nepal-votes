@@ -8,4 +8,5 @@ public interface IWardService
     Task<ApiResponse<WardInfo?>> GetByIdAsync(int id);
     Task<ApiResponse<bool>> AddAsync(AddWardRequest request);
     Task<ApiResponse<bool>> UpdateAsync(UpdateWardRequest request);
+    Task<ApiResponse<bool>> DeleteAsync(int wardId);
 }

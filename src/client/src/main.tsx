@@ -5,6 +5,7 @@ import App from './App.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {ThemeProvider} from "@/components/theme/theme.provider.tsx";
 import {ScreenOverlay} from "@/components/overlay/screen-overlay.tsx";
+import {ConfirmProvider} from "@/components/confirm/confirm-dialogbox.provider.tsx";
 
 
 const queryClient = new QueryClient({
@@ -22,11 +23,13 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+      <ConfirmProvider>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
           <QueryClientProvider client={queryClient}>
             <ScreenOverlay />
             <App />
           </QueryClientProvider>
       </ThemeProvider>
+      </ConfirmProvider>
   </StrictMode>,
 )

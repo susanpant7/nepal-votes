@@ -1,10 +1,12 @@
 using NepalVotes.Application.ResponseHelpers;
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.ElectoralGeographies;
+using NepalVotes.Domain.Users;
 
 namespace NepalVotes.Application.ElectoralGeographies;
 
-public class VotingPlaceService(IVotingPlaceRepository repo, IUnitOfWork unitOfWork) : IVotingPlaceService
+public class VotingPlaceService(IVotingPlaceRepository repo, IUserRepository userRepository,
+    IUnitOfWork unitOfWork) : IVotingPlaceService
 {
     public async Task<ApiResponse<IEnumerable<VotingPlaceInfo>>> GetByWardIdAsync(int wardId)
     {
@@ -57,6 +59,22 @@ public class VotingPlaceService(IVotingPlaceRepository repo, IUnitOfWork unitOfW
         await unitOfWork.SaveChangesAsync();
         
         return ApiResponse<bool>.SuccessResponse(true, "Voting place updated successfully.");
+    }
+
+    public async Task<ApiResponse<bool>> DeleteAsync(int votingPlaceId)
+    {
+        if (await userRepository.AnyByVotingPlaceIdAsync(votingPlaceId))
+            return ApiResponse<bool>.ErrorResponse(
+                "Voting place cannot be deleted because users are assigned to it.");
+
+        var votingPlace = await repo.GetByIdAsync(votingPlaceId);
+        if (votingPlace == null)
+            return ApiResponse<bool>.ErrorResponse("Voting place not found.");
+
+        await repo.DeleteAsync(votingPlace);
+        await unitOfWork.SaveChangesAsync();
+        
+        return ApiResponse<bool>.SuccessResponse(true, "Voting place deleted successfully.");
     }
 
 }

@@ -38,4 +38,11 @@ public class MunicipalitiesController(IMunicipalityService municipalityService) 
         return response.ToActionResult();
     }
     
+        
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteMunicipality(int id)
+    {
+        var response = await municipalityService.DeleteAsync(id);
+        return response.ToActionResult();
+    }
 }

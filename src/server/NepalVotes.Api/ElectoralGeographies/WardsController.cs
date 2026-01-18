@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NepalVotes.Api.ResponseExtensions;
 using NepalVotes.Application.ElectoralGeographies;
+using NepalVotes.Domain.Exceptions;
 
 namespace NepalVotes.Api.ElectoralGeographies;
 
@@ -11,7 +12,7 @@ namespace NepalVotes.Api.ElectoralGeographies;
 public class WardsController(IWardService wardService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetWardsByMunicipality([FromQuery] int municipalityId)
+    public async Task<IActionResult> GetWardsByMunicipalityId([FromQuery] int municipalityId)
     {
         var response = await wardService.GetByMunicipalityIdAsync(municipalityId);
         return response.ToActionResult();
@@ -38,10 +39,10 @@ public class WardsController(IWardService wardService) : ControllerBase
         return response.ToActionResult();
     }
     
-    [HttpGet]
-    public async Task<IActionResult> GetWardsByMunicipalityId([FromQuery] int municipalityId)
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteWard(int id)
     {
-        var response = await wardService.GetByMunicipalityIdAsync(municipalityId);
+        var response = await wardService.DeleteAsync(id);
         return response.ToActionResult();
     }
 }

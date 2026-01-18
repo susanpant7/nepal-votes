@@ -144,4 +144,32 @@ export const AdminElectoralGeographyApi = {
             ),
             request
         ),
+
+    // -------- DELETE --------
+
+    deleteProvince: async (provinceId: number): Promise<boolean> => 
+        apiClient.delete(
+            ADMIN_ELECTORAL_GEOGRAPHY_ENDPOINTS.DELETE_PROVINCE(provinceId)
+        ),
+
+    deleteDistrict: async (districtId: number): Promise<boolean> =>
+        apiClient.delete(
+            ADMIN_ELECTORAL_GEOGRAPHY_ENDPOINTS.DELETE_DISTRICT(districtId)
+        ),
+
+    deleteMunicipality: async (municipalityId: number): Promise<boolean> =>
+        apiClient.delete(
+            ADMIN_ELECTORAL_GEOGRAPHY_ENDPOINTS.DELETE_MUNICIPALITY(municipalityId)
+        ),
+
+    deleteWard: async (wardId: number): Promise<boolean> =>
+        apiClient.delete(
+            ADMIN_ELECTORAL_GEOGRAPHY_ENDPOINTS.DELETE_WARD(wardId)
+        ),
+
+    deleteVotingPlace: async (votingPlaceId: number): Promise<boolean> =>
+        apiClient.delete(
+            ADMIN_ELECTORAL_GEOGRAPHY_ENDPOINTS.DELETE_VOTING_PLACE(votingPlaceId)
+        ),
+
 };

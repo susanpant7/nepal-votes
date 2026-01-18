@@ -10,7 +10,7 @@ public class VotingPlaceRepository(ApplicationDbContext context) : IVotingPlaceR
         await context.VotingPlaces.AsNoTracking().Where(v => v.WardId == wardId).ToListAsync();
 
     public async Task<VotingPlace?> GetByIdAsync(int id) =>
-        await context.VotingPlaces.AsNoTracking().FirstOrDefaultAsync(v => v.VotingPlaceId == id);
+        await context.VotingPlaces.FirstOrDefaultAsync(v => v.VotingPlaceId == id);
 
     public Task AddAsync(VotingPlace entity)
     {
@@ -27,4 +27,16 @@ public class VotingPlaceRepository(ApplicationDbContext context) : IVotingPlaceR
     public async Task<bool> ExistsByAddressAsync(string address, int wardId, int? excludeId = null) =>
         await context.VotingPlaces
             .AnyAsync(v => v.VotingPlaceAddress == address && v.WardId == wardId && (!excludeId.HasValue || v.VotingPlaceId != excludeId));
+    
+    public async Task<bool> AnyByWardIdAsync(int wardId)
+    {
+        return await context.VotingPlaces
+            .AnyAsync(v => v.WardId == wardId);
+    }
+
+    public Task DeleteAsync(VotingPlace votingPlace)
+    {
+        context.VotingPlaces.Remove(votingPlace);
+        return Task.CompletedTask;
+    }
 }
