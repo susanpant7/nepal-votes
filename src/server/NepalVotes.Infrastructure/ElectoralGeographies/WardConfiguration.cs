@@ -34,6 +34,7 @@ public class WardConfiguration : IEntityTypeConfiguration<Ward>
         builder.HasOne(p => p.Constituency)
             .WithMany(p => p.Wards)
             .HasForeignKey(f=>f.ConstituencyId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

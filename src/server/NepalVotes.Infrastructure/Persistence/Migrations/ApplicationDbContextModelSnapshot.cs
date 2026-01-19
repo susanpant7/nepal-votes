@@ -260,7 +260,7 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WardId"));
 
-                    b.Property<int>("ConstituencyId")
+                    b.Property<int?>("ConstituencyId")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -719,8 +719,7 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
                     b.HasOne("NepalVotes.Domain.ElectoralGeographies.Constituency", "Constituency")
                         .WithMany("Wards")
                         .HasForeignKey("ConstituencyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("NepalVotes.Domain.ElectoralGeographies.Municipality", "Municipality")
                         .WithMany("Wards")

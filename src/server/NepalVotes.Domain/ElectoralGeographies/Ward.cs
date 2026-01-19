@@ -11,8 +11,8 @@ public class Ward : BaseAuditableEntity
     public int MunicipalityId { get; set; }
     public Municipality Municipality { get; set; }
 
-    public int ConstituencyId { get; set; }
-    public Constituency Constituency { get; set; }
+    public int? ConstituencyId { get; set; }
+    public Constituency? Constituency { get; set; }
 
     public ICollection<VotingPlace> VotingPlaces { get; set; } = new List<VotingPlace>();
 }
