@@ -10,40 +10,41 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { ArrowUpCircle } from "lucide-react";
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.tsx";
 import { GeographicModalLayout } from "@/features/admin/electoral-geographies/components/GeographicModalLayout.tsx";
 import React, { useState } from "react";
 import type {
   AddDistrictRequest,
   DistrictInfo,
+  ProvinceInfo,
   UpdateDistrictRequest,
 } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { useConfirm } from "@/components/confirm/confirm-dialogbox.provider.tsx";
-import { MunicipalitiesTable } from "@/features/admin/electoral-geographies/components/MunicipalitiesTable.tsx";
-import GeographicTableContainer from "@/features/admin/electoral-geographies/components/GeographicTableContainer.tsx";
+import {
+  GeographicTableContainer,
+  type GoBackProps,
+} from "@/features/admin/electoral-geographies/components/GeographicTableContainer.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { TABLE_THEME_CLASS } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.constants.ts";
-import { ExpandCollapseIcon } from "@/components/expand-collapse-icon/expand-collapse-icon.tsx";
 import { EditDeleteAction } from "@/components/actions/edit-delete-action.tsx";
+import { Button } from "@/components/ui/button.tsx";
 
 export interface DistrictsTableProps {
-  parentId: number;
-  parentName: string;
+  province: ProvinceInfo;
+  viewMunicipalities: (district: DistrictInfo) => void;
+  goBackProps: GoBackProps;
 }
 export const DistrictsTable = ({
-  parentId,
-  parentName,
+  province,
+  viewMunicipalities,
+  goBackProps,
 }: DistrictsTableProps) => {
   const { data, isLoading, isError, refetch } =
-    useAdminElectoralGeographyQuery.getDistrictsByProvinceId(parentId);
+    useAdminElectoralGeographyQuery.getDistrictsByProvinceId(
+      province.provinceId,
+    );
   const { addDistrict, updateDistrict } = useAdminElectoralGeographyMutation();
   const { deleteDistrict } = useAdminElectoralGeographyMutation();
-  const [expandedRowId, setExpandedRowId] = useState<string | number | null>(
-    null,
-  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addEditDistrict, setAddEditDistrict] = useState<Partial<DistrictInfo>>(
     {},
@@ -67,7 +68,7 @@ export const DistrictsTable = ({
 
   const handleSave = async () => {
     try {
-      addEditDistrict.provinceId = parentId;
+      addEditDistrict.provinceId = province.provinceId;
       if (addEditDistrict.districtId) {
         await updateDistrict.mutateAsync(
           addEditDistrict as UpdateDistrictRequest,
@@ -81,10 +82,6 @@ export const DistrictsTable = ({
     }
   };
 
-  const toggleRow = (id: number) => {
-    setExpandedRowId((prevId) => (prevId === id ? null : id));
-  };
-
   const handleDeleteClick = async (id: number) => {
     const isConfirmed = await confirm({
       title: "Delete District?",
@@ -92,14 +89,15 @@ export const DistrictsTable = ({
     });
 
     if (isConfirmed) {
-      if (expandedRowId == id) {
-        setExpandedRowId(null);
-      }
       await deleteDistrict.mutateAsync({
         districtId: id,
-        provinceId: parentId,
+        provinceId: province.provinceId,
       });
     }
+  };
+
+  const onViewMunicipalities = (district: DistrictInfo) => {
+    viewMunicipalities(district);
   };
 
   return (
@@ -110,16 +108,15 @@ export const DistrictsTable = ({
       errorMessage="Failed to load districts table."
     >
       <GeographicTableContainer
-        themeClassName={TABLE_THEME_CLASS.DISTRICT}
-        module="District"
+        module="Districts"
         onAdd={handleAddClick}
-        hierarchy={`Viewing districts in ${parentName}`}
+        goBackProps={goBackProps}
       >
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow>
-              <TableHead className="w-12"></TableHead>
-              <TableHead>Province Name</TableHead>
+              <TableHead>District Name</TableHead>
+              <TableHead className="w-20"></TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -137,48 +134,23 @@ export const DistrictsTable = ({
             )}
 
             {data?.map((district, index) => {
-              const isExpanded = expandedRowId === district.districtId;
-              const expandedIndex = data.findIndex(
-                (p) => p.districtId === expandedRowId,
-              );
-              if (expandedRowId !== null && index > expandedIndex) {
-                // Only show the "View All" helper on the very next index to avoid repeating it
-                if (index === expandedIndex + 1) {
-                  return (
-                    <TableRow key="view-all-helper" className="bg-muted/5">
-                      <TableCell colSpan={4} className="p-0">
-                        <Button
-                          variant="ghost"
-                          className="w-full h-12 rounded-none border-b border-dashed gap-2 text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all"
-                          onClick={() => setExpandedRowId(null)}
-                        >
-                          <ArrowUpCircle className="h-4 w-4" />
-                          <span className="font-medium">
-                            You are viewing {data[expandedIndex].districtName}{" "}
-                            municipalities. Click to view all districts.
-                          </span>
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  );
-                }
-                // Hide the rest of the rows to keep the focus on the expanded sub-table
-                return null;
-              }
               return (
                 <>
                   <TableRow
                     key={index}
                     className="cursor-pointer hover:bg-muted/30"
                   >
-                    <TableCell>
-                      <ExpandCollapseIcon
-                        onClick={() => toggleRow(district.districtId)}
-                        isExpanded={isExpanded}
-                      />
-                    </TableCell>
                     <TableCell className="font-medium">
                       {district.districtName}
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      <Button
+                        variant="link"
+                        className="h-auto p-0 text-blue-600 hover:text-blue-800"
+                        onClick={() => onViewMunicipalities(district)}
+                      >
+                        View Municipalities
+                      </Button>
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-2">
@@ -191,22 +163,6 @@ export const DistrictsTable = ({
                       </div>
                     </TableCell>
                   </TableRow>
-
-                  {expandedRowId === district.districtId && (
-                    <TableRow className="bg-muted/20 hover:bg-muted/20">
-                      <TableCell colSpan={4} className="p-0">
-                        <MunicipalitiesTable
-                          parentId={district.districtId}
-                          parentName={
-                            parentName +
-                            " > " +
-                            district.districtName +
-                            " district"
-                          }
-                        />
-                      </TableCell>
-                    </TableRow>
-                  )}
                 </>
               );
             })}

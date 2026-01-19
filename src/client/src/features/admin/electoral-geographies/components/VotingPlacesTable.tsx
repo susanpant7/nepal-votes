@@ -17,24 +17,27 @@ import type {
   AddVotingPlaceRequest,
   VotingPlaceInfo,
   UpdateVotingPlaceRequest,
+  WardInfo,
 } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { useConfirm } from "@/components/confirm/confirm-dialogbox.provider.tsx";
-import GeographicTableContainer from "@/features/admin/electoral-geographies/components/GeographicTableContainer.tsx";
+import {
+  GeographicTableContainer,
+  type GoBackProps,
+} from "@/features/admin/electoral-geographies/components/GeographicTableContainer.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { TABLE_THEME_CLASS } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.constants.ts";
 import { EditDeleteAction } from "@/components/actions/edit-delete-action.tsx";
 
 export interface VotingPlacesTableProps {
-  parentId: number;
-  parentName: string;
+  ward: WardInfo;
+  goBackProps: GoBackProps;
 }
 export const VotingPlacesTable = ({
-  parentId,
-  parentName,
+  ward,
+  goBackProps,
 }: VotingPlacesTableProps) => {
   const { data, isLoading, isError, refetch } =
-    useAdminElectoralGeographyQuery.getVotingPlacesByWardId(parentId);
+    useAdminElectoralGeographyQuery.getVotingPlacesByWardId(ward.wardId);
   const { addVotingPlace, updateVotingPlace } =
     useAdminElectoralGeographyMutation();
   const { deleteVotingPlace } = useAdminElectoralGeographyMutation();
@@ -67,7 +70,7 @@ export const VotingPlacesTable = ({
 
   const handleSave = async () => {
     try {
-      addEditVotingPlace.wardId = parentId;
+      addEditVotingPlace.wardId = ward.wardId;
       if (addEditVotingPlace.votingPlaceId) {
         await updateVotingPlace.mutateAsync(
           addEditVotingPlace as UpdateVotingPlaceRequest,
@@ -92,7 +95,7 @@ export const VotingPlacesTable = ({
     if (isConfirmed) {
       await deleteVotingPlace.mutateAsync({
         votingPlaceId: id,
-        wardId: parentId,
+        wardId: ward.wardId,
       });
     }
   };
@@ -105,10 +108,9 @@ export const VotingPlacesTable = ({
       errorMessage="Failed to load voting places table."
     >
       <GeographicTableContainer
-        themeClassName={TABLE_THEME_CLASS.VOTING_PLACE}
-        module="VotingPlace"
+        module="Voting Places"
         onAdd={handleAddClick}
-        hierarchy={`Viewing voting places in ${parentName}`}
+        goBackProps={goBackProps}
       >
         <Table>
           <TableHeader className="bg-muted/50">
