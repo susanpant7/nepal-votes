@@ -2,7 +2,7 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 
 export interface ExpandCollapseIconProps {
-  onClick?: () => void;
+  onClick: () => void;
   isExpanded: boolean;
 }
 export const ExpandCollapseIcon = (props: ExpandCollapseIconProps) => {
