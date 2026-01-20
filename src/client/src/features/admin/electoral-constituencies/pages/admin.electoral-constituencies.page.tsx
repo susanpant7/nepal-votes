@@ -3,14 +3,14 @@ import { ConstituencySelectionContainer } from "@/features/admin/electoral-const
 
 export const AdminElectoralConstituenciesPage = () => {
   return (
-    <div className="flex w-full gap-4 overflow-hidden min-h-0">
+    <div className="w-full gap-4 flex">
       {/* Geography */}
-      <div className="flex-7 flex flex-col min-h-0 border rounded-lg ">
+      <div className="flex-6 border rounded-lg ">
         <GeographicLocationContainer />
       </div>
 
       {/* Constituency */}
-      <div className="flex-3 border rounded-lg">
+      <div className="flex-4 border rounded-lg">
         <ConstituencySelectionContainer />
       </div>
     </div>
