@@ -39,4 +39,11 @@ public class WardRepository(ApplicationDbContext context) : IWardRepository
         context.Wards.Remove(ward);
         return Task.CompletedTask;
     }
+    
+    public async Task<IEnumerable<Ward>> GetByIdsAsync(IEnumerable<int> wardIds)
+    {
+        return await context.Wards
+            .Where(w => wardIds.Contains(w.WardId))
+            .ToListAsync();
+    }
 }

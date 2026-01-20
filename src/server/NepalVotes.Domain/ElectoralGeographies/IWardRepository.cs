@@ -9,4 +9,5 @@ public interface IWardRepository
     Task<bool> ExistsByNameAsync(string name, int municipalityId, int? excludeId = null);
     Task<bool> AnyByMunicipalityIdAsync(int municipalityId);
     Task DeleteAsync(Ward ward);
+    Task<IEnumerable<Ward>> GetByIdsAsync(IEnumerable<int> wardIds);
 }
