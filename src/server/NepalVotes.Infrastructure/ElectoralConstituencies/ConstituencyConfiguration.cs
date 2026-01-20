@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NepalVotes.Domain.ElectoralConstituencies;
 using NepalVotes.Domain.ElectoralGeographies;
 
-namespace NepalVotes.Infrastructure.ElectoralGeographies;
+namespace NepalVotes.Infrastructure.ElectoralConstituencies;
 
 public class ConstituencyConfiguration : IEntityTypeConfiguration<Constituency>
 {

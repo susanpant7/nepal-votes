@@ -1,4 +1,5 @@
 using NepalVotes.Domain.Common;
+using NepalVotes.Domain.ElectoralConstituencies;
 using NepalVotes.Domain.ElectoralGeographies;
 using NepalVotes.Domain.MediaFiles;
 using NepalVotes.Domain.PoliticalParties;

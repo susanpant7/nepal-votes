@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NepalVotes.Domain.Candidates;
+using NepalVotes.Domain.ElectoralConstituencies;
 using NepalVotes.Domain.ElectoralGeographies;
 using NepalVotes.Domain.MediaFiles;
 using NepalVotes.Domain.PoliticalParties;

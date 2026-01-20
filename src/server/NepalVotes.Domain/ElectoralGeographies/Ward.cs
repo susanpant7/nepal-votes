@@ -1,4 +1,5 @@
 using NepalVotes.Domain.Common;
+using NepalVotes.Domain.ElectoralConstituencies;
 
 namespace NepalVotes.Domain.ElectoralGeographies;
 

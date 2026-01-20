@@ -1,7 +1,8 @@
 using NepalVotes.Domain.Candidates;
 using NepalVotes.Domain.Common;
+using NepalVotes.Domain.ElectoralGeographies;
 
-namespace NepalVotes.Domain.ElectoralGeographies;
+namespace NepalVotes.Domain.ElectoralConstituencies;
 
 public class Constituency : BaseAuditableEntity
 {
