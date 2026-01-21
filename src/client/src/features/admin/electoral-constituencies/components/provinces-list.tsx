@@ -1,6 +1,6 @@
 import { useAdminElectoralGeographyQuery } from "@/features/admin/electoral-geographies/api/admin.electoral-geographies.query.ts";
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.tsx";
-import { ProvinceItem } from "@/features/admin/electoral-constituencies/components/ProvinceItem.tsx";
+import { ProvinceItem } from "@/features/admin/electoral-constituencies/components/province-item.tsx";
 
 export const ProvincesList = () => {
   const { data, isLoading, isError, refetch } =

@@ -1,4 +1,4 @@
-import { ProvincesList } from "@/features/admin/electoral-constituencies/components/ProvincesList.tsx";
+import { ProvincesList } from "@/features/admin/electoral-constituencies/components/provinces-list.tsx";
 
 export const GeographicLocationContainer = () => {
   return (

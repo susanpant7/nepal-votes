@@ -1,12 +1,11 @@
-import type { ProvinceInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { useState } from "react";
+import type { DistrictInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { ExpandCollapseIcon } from "@/components/expand-collapse-icon/expand-collapse-icon.tsx";
-import { DistrictsList } from "@/features/admin/electoral-constituencies/components/DistrictsList.tsx";
-
-export interface ProvinceItemProps {
-  province: ProvinceInfo;
+import { MunicipalitiesList } from "@/features/admin/electoral-constituencies/components/municipalities-list.tsx";
+export interface DistrictItemProps {
+  district: DistrictInfo;
 }
-export const ProvinceItem = (props: ProvinceItemProps) => {
+export const DistrictItem = (props: DistrictItemProps) => {
   const [expanded, setExpanded] = useState(false);
   return (
     <div>
@@ -15,11 +14,11 @@ export const ProvinceItem = (props: ProvinceItemProps) => {
         onClick={() => setExpanded(!expanded)}
       />
       <span className="text-foreground font-medium">
-        {props.province.provinceName}
+        {props.district.districtName}
         {expanded && (
           <div className="pl-8 pt-2 pb-2">
             <p className="text-muted-foreground text-sm">
-              <DistrictsList province={props.province} />
+              <MunicipalitiesList district={props.district} />
             </p>
           </div>
         )}

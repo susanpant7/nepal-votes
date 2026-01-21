@@ -7,7 +7,7 @@ export interface ScrollableTBodyProps {
 export const ScrollableTableBody = (props: ScrollableTBodyProps) => {
   return (
     <div
-      className="relative border rounded-md bg-background overflow-y-auto
+      className="relative border rounded-md bg-background overflow-y-auto [&_div]:overflow-visible
                 scroll-theme-color"
       style={{ maxHeight: props.maxHeight || "400px" }}
     >

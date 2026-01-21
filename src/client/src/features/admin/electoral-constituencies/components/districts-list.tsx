@@ -1,7 +1,7 @@
 import type { ProvinceInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { useAdminElectoralGeographyQuery } from "@/features/admin/electoral-geographies/api/admin.electoral-geographies.query.ts";
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.tsx";
-import { DistrictItem } from "@/features/admin/electoral-constituencies/components/DistrictItem.tsx";
+import { DistrictItem } from "@/features/admin/electoral-constituencies/components/district-item.tsx";
 
 export interface DistrictsListProps {
   province: ProvinceInfo;

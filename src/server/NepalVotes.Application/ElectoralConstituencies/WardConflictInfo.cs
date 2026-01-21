@@ -9,5 +9,5 @@ public class WardConflictInfo
     public int DistrictId { get; set; }
     public int MunicipalityId { get; set; }
 
-    public List<int> WardIds { get; set; } = new();
+    public List<int> WardIds { get; set; } = [];
 }

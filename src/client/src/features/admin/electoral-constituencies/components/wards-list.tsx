@@ -1,7 +1,7 @@
 import type { MunicipalityInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { useAdminElectoralGeographyQuery } from "@/features/admin/electoral-geographies/api/admin.electoral-geographies.query.ts";
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.tsx";
-import { WardItem } from "@/features/admin/electoral-constituencies/components/WardItem.tsx";
+import { WardItem } from "@/features/admin/electoral-constituencies/components/ward-item.tsx";
 
 export interface WardsListProps {
   municipality: MunicipalityInfo;

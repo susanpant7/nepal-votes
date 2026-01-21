@@ -14,7 +14,10 @@ public class ConstituencyService(
     public async Task<ApiResponse<IEnumerable<ConstituencyInfo>>> GetAllAsync()
     {
         var constituencies = await repo.GetAllAsync();
-        var info = constituencies.Select(c => c.ToInfo()).ToList();
+
+        var info = constituencies
+            .Select(c => c.ToInfo())
+            .ToList();
 
         return info.Count == 0
             ? ApiResponse<IEnumerable<ConstituencyInfo>>.SuccessResponse(info, "No constituencies found.")
