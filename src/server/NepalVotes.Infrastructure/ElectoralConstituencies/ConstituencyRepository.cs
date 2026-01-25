@@ -34,6 +34,23 @@ public class ConstituencyRepository(ApplicationDbContext context) : IConstituenc
             .FirstOrDefaultAsync(c => c.ConstituencyId == id);
     }
     
+    public async Task<bool> ExistsByNameAsync(string name)
+    {
+        var normalizedName = name.ToUpper().Trim();
+
+        return await context.Constituencies.AnyAsync(c =>
+            c.ConstituencyName.ToUpper().Trim() == normalizedName);
+    }
+
+    public async Task<bool> ExistsByNameExceptIdAsync(string name, int excludeId)
+    {
+        var normalizedName = name.ToUpper().Trim();
+
+        return await context.Constituencies.AnyAsync(c =>
+            c.ConstituencyId != excludeId &&
+            c.ConstituencyName.ToUpper().Trim() == normalizedName);
+    }
+    
     public async Task<Constituency?> GetAllGeographiesByIdAsync(int constituencyId)
     {
         return await context.Constituencies

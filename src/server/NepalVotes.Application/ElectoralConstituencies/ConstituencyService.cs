@@ -70,6 +70,11 @@ public class ConstituencyService(
     
     public async Task<ApiResponse<int>> AddAsync(AddConstituencyRequest request)
     {
+        var existing = await repo.ExistsByNameAsync(request.ConstituencyName);
+        if (existing)
+        {
+            return ApiResponse<int>.ErrorResponse($"Constituency with the name {request.ConstituencyName} already exists.");
+        }
         var wards = await wardRepo.GetByIdsAsync(request.WardIds);
 
         var constituency = new Constituency
@@ -90,6 +95,12 @@ public class ConstituencyService(
         var constituency = await repo.GetByIdAsync(request.ConstituencyId);
         if (constituency == null)
             return ApiResponse<int>.ErrorResponse("Constituency not found.");
+
+        var existing = await repo.ExistsByNameExceptIdAsync(request.ConstituencyName, request.ConstituencyId);
+        if (existing)
+        {
+            return ApiResponse<int>.ErrorResponse($"Constituency with the name {request.ConstituencyName} already exists.");
+        }
         
         var wards = await wardRepo.GetByIdsAsync(request.WardIds);
 

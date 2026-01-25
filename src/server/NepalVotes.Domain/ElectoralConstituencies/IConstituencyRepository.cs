@@ -3,6 +3,8 @@ namespace NepalVotes.Domain.ElectoralConstituencies;
 public interface IConstituencyRepository
 {
     Task<Constituency?> GetByIdAsync(int id);
+    Task<bool> ExistsByNameAsync(string name);
+    Task<bool> ExistsByNameExceptIdAsync(string name, int excludeId);
     Task<Constituency?> GetAllGeographiesByIdAsync(int constituencyId);
     Task<IEnumerable<Constituency>> GetAllAsync();
     Task AddAsync(Constituency constituency);

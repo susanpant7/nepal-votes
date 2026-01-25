@@ -1,21 +1,25 @@
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { useConstituencyStore } from "@/stores/useConstituencyStore.ts";
 import type {
+  ReassignWardRequest,
   WardIdNumber,
   WardWithConstituency,
 } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
 import type { MunicipalityInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
+import { useConfirm } from "@/components/confirm/confirm-dialogbox.provider.tsx";
+import { ReassignComponent } from "@/features/admin/electoral-constituencies/components/reassign-component.tsx";
+import { useAdminConstituencyMutation } from "@/features/admin/electoral-constituencies/api/admin.electoral-constituencies.query.ts";
+import { useNavigate } from "@tanstack/react-router";
+import { ROUTES } from "@/lib/app.routes.urls.ts";
 
 export interface WardItemProps {
   municipality: MunicipalityInfo;
   wardWithConstituency: WardWithConstituency;
-  onReassign?: (wardId: number) => void; // optional callback
 }
 
 export const WardAssignmentItem = ({
   municipality,
   wardWithConstituency,
-  onReassign,
 }: WardItemProps) => {
   const wardId = wardWithConstituency.wardId;
 
@@ -25,6 +29,12 @@ export const WardAssignmentItem = ({
   const setConstituency = useConstituencyStore(
     (store) => store.setConstituency,
   );
+
+  const confirm = useConfirm();
+
+  const { reassignWard } = useAdminConstituencyMutation();
+
+  const navigate = useNavigate();
 
   const isAssignedToOther = Boolean(
     wardWithConstituency.assignedConstituencyId &&
@@ -95,6 +105,38 @@ export const WardAssignmentItem = ({
     m.wardIdNumbers.some((w) => w.wardId === wardId),
   );
 
+  const onReassignClick = async () => {
+    if (!selectedConstituency?.constituencyId) return;
+    const isConfirmed = await confirm({
+      title: `Reassign Ward Number ${wardWithConstituency.wardNumber}?`,
+      description: (
+        <ReassignComponent
+          wardNumber={wardWithConstituency.wardNumber}
+          municipalityName={municipality.municipalityName}
+          currentConstituencyName={
+            wardWithConstituency.assignedConstituencyName!
+          }
+          newConstituencyName={selectedConstituency?.constituencyName!}
+        />
+      ),
+    });
+
+    if (isConfirmed) {
+      const request: ReassignWardRequest = {
+        wardId: wardWithConstituency.wardId,
+        constituencyId: selectedConstituency?.constituencyId!,
+        municipalityId: municipality.municipalityId,
+      };
+      const reassignResponse = await reassignWard.mutateAsync(request);
+      if (reassignResponse) {
+        await navigate({
+          to: ROUTES.ADMIN_ELECTORAL_CONSTITUENCIES_EDIT,
+          params: { constituencyId: selectedConstituency?.constituencyId },
+        });
+      }
+    }
+  };
+
   return (
     <div
       className={`flex items-center justify-between gap-3 px-3 py-2 rounded-md
@@ -131,10 +173,10 @@ export const WardAssignmentItem = ({
       </div>
 
       {/* Right side */}
-      {isAssignedToOther && (
+      {Boolean(selectedConstituency?.constituencyId && isAssignedToOther) && (
         <button
           type="button"
-          onClick={() => onReassign?.(wardWithConstituency.wardId)}
+          onClick={onReassignClick}
           className="text-xs font-medium text-primary hover:underline"
         >
           Reassign

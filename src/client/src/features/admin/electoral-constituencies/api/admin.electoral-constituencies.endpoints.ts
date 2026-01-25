@@ -9,5 +9,5 @@ export const ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS = {
     `/api/constituencies/ward-assignments?municipalityId=${municipalityId}`,
   ADD_ELECTORAL_CONSTITUENCIES: "/api/constituencies",
   EDIT_ELECTORAL_CONSTITUENCIES: "/api/constituencies",
-  REASSIGN_WARD: "/api/reassign-ward",
+  REASSIGN_WARD: "/api/constituencies/reassign-ward",
 } as const;

@@ -39,7 +39,6 @@ export const ConstituencyInfoSection = () => {
       constituencyName: constituencyDetail?.constituencyName!,
       wardIds: selectedWardIds!,
     };
-    let constId = constituencyDetail?.constituencyId;
     if (constituencyDetail?.constituencyId) {
       const updateRequest: EditConstituencyRequest = {
         ...addRequest,
@@ -48,12 +47,13 @@ export const ConstituencyInfoSection = () => {
 
       await updateConstituency.mutateAsync(updateRequest);
     } else {
-      constId = await addConstituency.mutateAsync(addRequest);
+      const constId = await addConstituency.mutateAsync(addRequest);
+      await navigate({
+        to: ROUTES.ADMIN_ELECTORAL_CONSTITUENCIES_EDIT,
+        params: { constituencyId: constId },
+        replace: true,
+      });
     }
-    await navigate({
-      to: ROUTES.ADMIN_ELECTORAL_CONSTITUENCIES_EDIT,
-      params: { constituencyId: constId },
-    });
   };
 
   return (
