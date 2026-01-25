@@ -1,15 +1,14 @@
-import type { DistrictInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { useAdminElectoralGeographyQuery } from "@/features/admin/electoral-geographies/api/admin.electoral-geographies.query.ts";
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.tsx";
 import { MunicipalityItem } from "@/features/admin/electoral-constituencies/components/municipality-item.tsx";
 
 export interface MunicipalitiesListProps {
-  district: DistrictInfo;
+  districtId: number;
 }
 export const MunicipalitiesList = (props: MunicipalitiesListProps) => {
   const { data, isLoading, isError, refetch } =
     useAdminElectoralGeographyQuery.getMunicipalitiesByDistrictId(
-      props.district.districtId,
+      props.districtId,
     );
   return (
     <QueryWrapper

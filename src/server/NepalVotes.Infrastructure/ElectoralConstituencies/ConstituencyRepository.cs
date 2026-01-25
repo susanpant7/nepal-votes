@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NepalVotes.Application.ElectoralConstituencies;
 using NepalVotes.Domain.ElectoralConstituencies;
 using NepalVotes.Infrastructure.Persistence;
 
@@ -31,6 +32,16 @@ public class ConstituencyRepository(ApplicationDbContext context) : IConstituenc
         return await context.Constituencies
             .Include(c => c.Wards)
             .FirstOrDefaultAsync(c => c.ConstituencyId == id);
+    }
+    
+    public async Task<Constituency?> GetAllGeographiesByIdAsync(int constituencyId)
+    {
+        return await context.Constituencies
+            .Include(c => c.Wards)
+            .ThenInclude(w => w.Municipality)
+            .ThenInclude(m => m.District)
+            .ThenInclude(d => d.Province)
+            .FirstOrDefaultAsync(c => c.ConstituencyId == constituencyId);
     }
 
     public async Task UpdateAsync(Constituency constituency)

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NepalVotes.Application.Authentication;
+using NepalVotes.Application.ElectoralConstituencies;
 using NepalVotes.Application.Users;
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.ElectoralConstituencies;
@@ -34,7 +35,11 @@ public static class InfrastructureConfig
         services.AddScoped<IOtpHashingService, OtpHashingService>();
         services.AddScoped<ITokenGenerator, TokenGenerator>();
         
-        // Register Repositories
+        // Register query repositories (application -> infrastructure)
+        services.AddScoped<IConstituencyQueryRepository, ConstituencyQueryRepository>();
+        
+        
+        // Register Repositories (domain -> infrastructure)
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserOtpRepository, UserOtpRepository>();
         services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();

@@ -3,19 +3,59 @@ import { AdminElectoralConstituencyApi } from "@/features/admin/electoral-consti
 import type {
   AddConstituencyRequest,
   EditConstituencyRequest,
+  ReassignWardRequest,
 } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
 
 export const ADMIN_CONSTITUENCY_KEYS = {
   getConstituencies: ["getConstituencies"] as const,
+  getConstituenciesListItemsBydDistrictId: (districtId: number) =>
+    ["getConstituencies", districtId] as const,
+  getConstituencyById: (id: number) => ["getConstituency", id] as const,
+  getWardAssignmentsByMunicipalityId: (id: number) =>
+    ["getWardAssignments", id] as const,
   addConstituency: ["addConstituency"] as const,
-  editConstituency: ["updateConstituency"] as const,
+  editConstituency: ["setConstituency"] as const,
 };
 
 export const useAdminConstituencyQuery = {
-  getConstituencies: () =>
+  // getConstituencies: () =>
+  //   useQuery({
+  //     queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituencies,
+  //     queryFn: AdminElectoralConstituencyApi.getConstituencies,
+  //     refetchOnMount: true,
+  //     staleTime: 5 * 60 * 1000,
+  //   }),
+  getConstituenciesListItemsBydDistrictId: (districtId: number | null) =>
     useQuery({
-      queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituencies,
-      queryFn: AdminElectoralConstituencyApi.getConstituencies,
+      queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituenciesListItemsBydDistrictId(
+        districtId!,
+      ),
+      queryFn: () =>
+        AdminElectoralConstituencyApi.getConstituenciesListItemsBydDistrictId(
+          districtId!,
+        ),
+      refetchOnMount: true,
+      staleTime: 5 * 60 * 1000,
+      enabled: districtId != null,
+    }),
+  getConstituencyByConstituencyId: (constituencyId: number) =>
+    useQuery({
+      queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituencyById(constituencyId),
+      queryFn: () =>
+        AdminElectoralConstituencyApi.getConstituencyById(constituencyId),
+      refetchOnMount: true,
+      staleTime: 5 * 60 * 1000,
+    }),
+  getWardAssignmentsByMunicipalityId: (municipalityId: number) =>
+    useQuery({
+      queryKey:
+        ADMIN_CONSTITUENCY_KEYS.getWardAssignmentsByMunicipalityId(
+          municipalityId,
+        ),
+      queryFn: () =>
+        AdminElectoralConstituencyApi.getWardAssignmentsByMunicipalityId(
+          municipalityId,
+        ),
       refetchOnMount: true,
       staleTime: 5 * 60 * 1000,
     }),
@@ -23,22 +63,32 @@ export const useAdminConstituencyQuery = {
 
 export const useAdminConstituencyMutation = () => {
   const invalidateConstituencies = refreshConstituencies();
+  const invalidateWardAssignments = (municipalityId: number) =>
+    refreshWardAssignmentsByMunicipalityId(municipalityId);
 
   const addConstituency = useMutation({
-    mutationFn: (party: AddConstituencyRequest) =>
-      AdminElectoralConstituencyApi.addConstituency(party),
+    mutationFn: (constituencyRequest: AddConstituencyRequest) =>
+      AdminElectoralConstituencyApi.addConstituency(constituencyRequest),
     onSuccess: invalidateConstituencies,
   });
 
   const updateConstituency = useMutation({
-    mutationFn: (party: EditConstituencyRequest) =>
-      AdminElectoralConstituencyApi.editConstituency(party),
+    mutationFn: (constituencyRequest: EditConstituencyRequest) =>
+      AdminElectoralConstituencyApi.editConstituency(constituencyRequest),
     onSuccess: invalidateConstituencies,
+  });
+
+  const reassignWard = useMutation({
+    mutationFn: (reassignRequest: ReassignWardRequest) =>
+      AdminElectoralConstituencyApi.reassignWard(reassignRequest),
+    onSuccess: (_, reassignRequest) =>
+      invalidateWardAssignments(reassignRequest.municipalityId),
   });
 
   return {
     addConstituency,
     updateConstituency,
+    reassignWard,
   };
 };
 
@@ -48,5 +98,17 @@ const refreshConstituencies = () => {
   return () =>
     queryClient.invalidateQueries({
       queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituencies,
+    });
+};
+
+const refreshWardAssignmentsByMunicipalityId = (municipalityId: number) => {
+  const queryClient = useQueryClient();
+
+  return () =>
+    queryClient.invalidateQueries({
+      queryKey:
+        ADMIN_CONSTITUENCY_KEYS.getWardAssignmentsByMunicipalityId(
+          municipalityId,
+        ),
     });
 };

@@ -7,11 +7,12 @@ namespace NepalVotes.Application.ElectoralConstituencies;
 
 public class ConstituencyService(
     IConstituencyRepository repo,
+    IConstituencyQueryRepository queryRepository,
     IUnitOfWork unitOfWork,
     IWardRepository wardRepo)
     : IConstituencyService
 {
-    public async Task<ApiResponse<IEnumerable<ConstituencyInfo>>> GetAllAsync()
+    public async Task<ApiResponse<IEnumerable<ConstituencyListItem>>> GetAllAsync()
     {
         var constituencies = await repo.GetAllAsync();
 
@@ -20,21 +21,55 @@ public class ConstituencyService(
             .ToList();
 
         return info.Count == 0
-            ? ApiResponse<IEnumerable<ConstituencyInfo>>.SuccessResponse(info, "No constituencies found.")
-            : ApiResponse<IEnumerable<ConstituencyInfo>>.SuccessResponse(info);
+            ? ApiResponse<IEnumerable<ConstituencyListItem>>.SuccessResponse(info, "No constituencies found.")
+            : ApiResponse<IEnumerable<ConstituencyListItem>>.SuccessResponse(info);
+    }
+    
+    public async Task<ApiResponse<IEnumerable<ConstituencyListItem>>> GetByAndDistrictAsync(int districtId)
+    {
+        var constituenciesInfo = await queryRepository.GetByDistrictAsync(districtId);
+
+        return constituenciesInfo.Count == 0
+            ? ApiResponse<IEnumerable<ConstituencyListItem>>
+                .SuccessResponse(constituenciesInfo, "No constituencies found.")
+            : ApiResponse<IEnumerable<ConstituencyListItem>>
+                .SuccessResponse(constituenciesInfo);
+    }
+    
+    public async Task<ApiResponse<ConstituencyDetail>> GetConstituencyDetailAsync(int constituencyId)
+    {
+        var constituency = await repo.GetAllGeographiesByIdAsync(constituencyId);
+        return constituency == null 
+            ? ApiResponse<ConstituencyDetail>.ErrorResponse("No constituency found.") 
+            : ApiResponse<ConstituencyDetail>.SuccessResponse(constituency.ToDetail());
     }
 
-    public async Task<ApiResponse<List<WardConflictInfo>>> AddAsync(AddConstituencyRequest request)
+    public async Task<ApiResponse<List<WardWithConstituency>>> GetWardsWithConstituencyByMunicipalityAsync(int municipalityId)
     {
-        var conflictingWards = await GetWardConflictsAsync(request.WardIds);
-
-        if (conflictingWards.Count != 0)
+        var wards = await wardRepo.GetWardsWithConstituencyByMunicipalityIdAsync(municipalityId);
+        if (wards.Count == 0)
         {
-            return ApiResponse<List<WardConflictInfo>>.SuccessResponse(conflictingWards,
-                "Cannot add constituency. Some wards are already assigned.", 500
-            );
+            return ApiResponse<List<WardWithConstituency>>
+                .SuccessResponse([], "No wards found for this municipality");
         }
+        var wardsWithConstituencies = wards.Select(w => w.ToWardWithConstituency()).ToList();
+        return ApiResponse<List<WardWithConstituency>>.SuccessResponse(wardsWithConstituencies);
+    }
 
+    public async Task<ApiResponse<bool>> ReassignWardAsync(int wardId, int constituencyId)
+    {
+        var ward = await wardRepo.GetByIdAsync(wardId);
+        if (ward == null)
+            return ApiResponse<bool>.ErrorResponse("Ward not found.");
+
+        ward.ConstituencyId = constituencyId;
+        await unitOfWork.SaveChangesAsync();
+
+        return ApiResponse<bool>.SuccessResponse(true);
+    }
+    
+    public async Task<ApiResponse<int>> AddAsync(AddConstituencyRequest request)
+    {
         var wards = await wardRepo.GetByIdsAsync(request.WardIds);
 
         var constituency = new Constituency
@@ -46,25 +81,15 @@ public class ConstituencyService(
         await repo.AddAsync(constituency);
         await unitOfWork.SaveChangesAsync();
 
-        return ApiResponse<List<WardConflictInfo>>.SuccessResponse([],"Constituency created successfully.");
+        return ApiResponse<int>.SuccessResponse(constituency.ConstituencyId,"Constituency created successfully.");
     }
 
 
-    public async Task<ApiResponse<List<WardConflictInfo>>> UpdateAsync(UpdateConstituencyRequest request)
+    public async Task<ApiResponse<int>> UpdateAsync(UpdateConstituencyRequest request)
     {
         var constituency = await repo.GetByIdAsync(request.ConstituencyId);
         if (constituency == null)
-            return ApiResponse<List<WardConflictInfo>>.ErrorResponse("Constituency not found.");
-        
-        var conflictingWards = await GetWardConflictsAsync(request.WardIds, request.ConstituencyId);
-
-        if (conflictingWards.Count != 0)
-        {
-            return ApiResponse<List<WardConflictInfo>>.SuccessResponse(conflictingWards,
-                "Cannot add constituency. Some wards are already assigned.",
-                500
-            );
-        }
+            return ApiResponse<int>.ErrorResponse("Constituency not found.");
         
         var wards = await wardRepo.GetByIdsAsync(request.WardIds);
 
@@ -74,52 +99,10 @@ public class ConstituencyService(
         await repo.UpdateAsync(constituency);
         await unitOfWork.SaveChangesAsync();
 
-        return ApiResponse<List<WardConflictInfo>>.SuccessResponse([], "Constituency updated successfully.");
+        return ApiResponse<int>.SuccessResponse(constituency.ConstituencyId, "Constituency updated successfully.");
     }
 
     
-    private async Task<List<WardConflictInfo>> GetWardConflictsAsync(List<int> wardIds, int? excludeConstituencyId = null)
-    {
-        var constituencies = await repo.GetConstituencyGeographiesByWardIdsAsync(wardIds);
-
-        if (excludeConstituencyId.HasValue)
-        {
-            constituencies = constituencies
-                .Where(c => c.ConstituencyId != excludeConstituencyId.Value)
-                .ToList();
-        }
-
-        var conflicts = new List<WardConflictInfo>();
-
-        foreach (var constituency in constituencies)
-        {
-            var conflictingWards = constituency.Wards
-                .Where(w => wardIds.Contains(w.WardId))
-                .ToList();
-
-            if (conflictingWards.Count == 0) continue;
-
-            var firstWard = conflictingWards.First();
-            var municipality = firstWard.Municipality;
-            var district = municipality.District;
-            var province = district.Province;
-
-            conflicts.Add(new WardConflictInfo
-            {
-                ConstituencyId = constituency.ConstituencyId,
-                ConstituencyName = constituency.ConstituencyName,
-                ProvinceId = province.ProvinceId,
-                DistrictId = district.DistrictId,
-                MunicipalityId = municipality.MunicipalityId,
-                WardIds = conflictingWards.Select(w => w.WardId).ToList()
-            });
-        }
-
-        return conflicts;
-    }
-
-
-
     public async Task<ApiResponse<bool>> DeleteAsync(int id)
     {
         var constituency = await repo.GetByIdAsync(id);

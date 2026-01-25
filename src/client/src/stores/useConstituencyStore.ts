@@ -1,19 +1,22 @@
 import { create } from "zustand";
-import type { ConstituencyInfo } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
+import type { ConstituencyDetail } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
 
 interface ConstituencyState {
   selectedWardIds: number[];
+  selectedConstituency: ConstituencyDetail | null;
+
+  setConstituency: (constituency: ConstituencyDetail) => void;
   setSelectedWardIds: (selectedWardIds: number[]) => void;
   toggleWard: (wardId: number) => void;
-  clearWards: () => void;
-  selectedConstituency: ConstituencyInfo | null;
-  changeConstituency: (constituency: ConstituencyInfo) => void;
 }
 
 export const useConstituencyStore = create<ConstituencyState>((set) => ({
   selectedWardIds: [],
   selectedConstituency: null,
 
+  setConstituency: (constituency: ConstituencyDetail) => {
+    set({ selectedConstituency: constituency });
+  },
   setSelectedWardIds: (selectedWardIds) => {
     set(() => ({
       selectedWardIds: selectedWardIds,
@@ -25,8 +28,4 @@ export const useConstituencyStore = create<ConstituencyState>((set) => ({
         ? state.selectedWardIds.filter((id) => id !== wardId)
         : [...state.selectedWardIds, wardId],
     })),
-  clearWards: () => set({ selectedWardIds: [] }),
-  changeConstituency: (constituency: ConstituencyInfo) => {
-    set({ selectedConstituency: constituency });
-  },
 }));

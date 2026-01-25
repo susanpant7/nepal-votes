@@ -10,4 +10,8 @@ public interface IWardRepository
     Task<bool> AnyByMunicipalityIdAsync(int municipalityId);
     Task DeleteAsync(Ward ward);
     Task<IEnumerable<Ward>> GetByIdsAsync(IEnumerable<int> wardIds);
+    // for the constituency page: when municipality is expanded
+    Task<List<Ward>> GetWardsWithConstituencyByMunicipalityIdAsync(int municipalityId);
+    Task<Ward?> GetWithAllGeographyByIdAsync(int wardId);
+
 }

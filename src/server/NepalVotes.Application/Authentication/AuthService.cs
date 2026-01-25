@@ -10,7 +10,7 @@ public class AuthService(IConfiguration configuration, IUserService userService,
     ITokenGenerator tokenGenerator, IUserRefreshTokenService refreshTokenService, IUnitOfWork unitOfWork)
     : IAuthService
     {
-        private const int AccessTokenExpirationInMinutes = 15;
+        private const int AccessTokenExpirationInMinutes = 1500;
         private const int RefreshTokenExpirationInDays = 7;
         
         public async Task<ApiResponse<bool>> GenerateOtpForLogin(GenerateOtpRequest request)

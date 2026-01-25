@@ -10,3 +10,7 @@ public record UpdateConstituencyRequest(
     string ConstituencyName,
     List<int> WardIds
 );
+
+public record ReassignWardRequest(
+    int WardId,
+    int ConstituencyId);

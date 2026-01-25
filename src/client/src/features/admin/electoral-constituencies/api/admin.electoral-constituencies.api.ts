@@ -1,20 +1,50 @@
 import apiClient from "@/api/api.client.ts";
 import type {
   AddConstituencyRequest,
-  ConstituencyInfo,
+  ConstituencyDetail,
+  ConstituencyListItem,
   EditConstituencyRequest,
+  ReassignWardRequest,
+  WardWithConstituency,
 } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
 import { ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS } from "@/features/admin/electoral-constituencies/api/admin.electoral-constituencies.endpoints.ts";
 
 export const AdminElectoralConstituencyApi = {
-  getConstituencies: async (): Promise<ConstituencyInfo[]> => {
+  // getConstituencies: async (): Promise<ConstituencyListItem[]> => {
+  //   return await apiClient.get(
+  //     ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_ELECTORAL_CONSTITUENCIES,
+  //   );
+  // },
+  getConstituenciesListItemsBydDistrictId: async (
+    districtId: number,
+  ): Promise<ConstituencyListItem[]> => {
     return await apiClient.get(
-      ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_ELECTORAL_CONSTITUENCIES,
+      ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_ELECTORAL_CONSTITUENCIES_LIST_ITEMS_BY_DISTRICT_ID(
+        districtId,
+      ),
+    );
+  },
+  getConstituencyById: async (
+    constituencyId: number,
+  ): Promise<ConstituencyDetail> => {
+    return await apiClient.get(
+      ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_ELECTORAL_CONSTITUENCY_BY_CONSTITUENCY_ID(
+        constituencyId,
+      ),
+    );
+  },
+  getWardAssignmentsByMunicipalityId: async (
+    municipalityId: number,
+  ): Promise<WardWithConstituency[]> => {
+    return await apiClient.get(
+      ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_WARD_ASSIGNMENTS_BY_MUNICIPALITY_ID(
+        municipalityId,
+      ),
     );
   },
   addConstituency: async (
     constituency: AddConstituencyRequest,
-  ): Promise<boolean> => {
+  ): Promise<number> => {
     return await apiClient.post(
       ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.ADD_ELECTORAL_CONSTITUENCIES,
       constituency,
@@ -26,6 +56,14 @@ export const AdminElectoralConstituencyApi = {
     return await apiClient.put(
       ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.ADD_ELECTORAL_CONSTITUENCIES,
       constituency,
+    );
+  },
+  reassignWard: async (
+    reassignWardRequest: ReassignWardRequest,
+  ): Promise<boolean> => {
+    return await apiClient.put(
+      ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.REASSIGN_WARD,
+      reassignWardRequest,
     );
   },
 };

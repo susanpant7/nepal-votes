@@ -46,4 +46,25 @@ public class WardRepository(ApplicationDbContext context) : IWardRepository
             .Where(w => wardIds.Contains(w.WardId))
             .ToListAsync();
     }
+    
+    // for the constituency page: when municipality is expanded
+    public async Task<List<Ward>> GetWardsWithConstituencyByMunicipalityIdAsync(int municipalityId)
+    {
+        return await context.Wards
+            .Include(w => w.Constituency) // includes the assigned constituency
+            .Where(w => w.MunicipalityId == municipalityId)
+            .OrderBy(w => w.WardNumber)
+            .ToListAsync();
+    }
+    
+    public async Task<Ward?> GetWithAllGeographyByIdAsync(int wardId)
+    {
+        return await context.Wards
+            .Include(w => w.Municipality)
+            .ThenInclude(m => m.District)
+            .ThenInclude(d => d.Province)
+            .Include(w => w.Constituency)
+            .FirstOrDefaultAsync(w => w.WardId == wardId);
+    }
+
 }
