@@ -17,7 +17,7 @@ public class ConstituencyService(
         var constituencies = await repo.GetAllAsync();
 
         var info = constituencies
-            .Select(c => c.ToInfo())
+            .Select(c => c.ToListItem())
             .ToList();
 
         return info.Count == 0

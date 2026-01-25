@@ -35,7 +35,7 @@ public class MunicipalityNameAndWardNumbers
 
 public static class ConstituencyListItemMapper
 {
-    public static ConstituencyListItem ToInfo(this Constituency constituency)
+    public static ConstituencyListItem ToListItem(this Constituency constituency)
     {
         var wards = constituency.Wards ?? [];
 
