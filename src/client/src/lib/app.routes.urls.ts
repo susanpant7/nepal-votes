@@ -14,4 +14,6 @@ export const ROUTES = {
   ADMIN_POLITICAL_PARTIES_EDIT: "/admin/political-parties/$partyId",
 
   ADMIN_CANDIDATES: "/admin/candidates",
+  ADMIN_CANDIDATES_ADD: "/admin/candidates/add",
+  ADMIN_CANDIDATES_ADIT: "/admin/candidates/$candidateId",
 } as const;

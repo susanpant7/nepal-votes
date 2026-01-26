@@ -1,9 +1,16 @@
 import { Button } from "@/components/ui/button.tsx";
 import { Plus } from "lucide-react";
-import { AdminCandidatesTable } from "@/features/admin/candidates/components/admin-candidates-table.tsx";
+import { CandidatesTable } from "@/features/admin/candidates/components/candidates-table.tsx";
+import { useNavigate } from "@tanstack/react-router";
+import { ROUTES } from "@/lib/app.routes.urls.ts";
 
 export const AdminCandidatesPage = () => {
-  const onAddCandidateButtonClick = () => {};
+  const navigate = useNavigate();
+  const onAddCandidateButtonClick = async () => {
+    await navigate({
+      to: ROUTES.ADMIN_CANDIDATES_ADD,
+    });
+  };
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Page Header */}
@@ -16,7 +23,7 @@ export const AdminCandidatesPage = () => {
         </Button>
       </div>
       {/* Table */}
-      <AdminCandidatesTable />
+      <CandidatesTable />
     </div>
   );
 };

@@ -12,7 +12,7 @@ import { ConstituencyDropdownSelect } from "@/features/admin/electoral-constitue
 
 export interface CandidatesTableProps {}
 
-export const AdminCandidatesTable = () => {
+export const CandidatesTable = () => {
   const onConstituencySelect = (constituency: ConstituencyDropdown) => {
     alert("selected constituency " + constituency.constituencyName);
   };

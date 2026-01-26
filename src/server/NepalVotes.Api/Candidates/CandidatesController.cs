@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NepalVotes.Api.ResponseExtensions;
 using NepalVotes.Application.Candidates;
@@ -5,7 +6,10 @@ using NepalVotes.Domain.Candidates;
 
 namespace NepalVotes.Api.Candidates;
 
-public class CandidatesController(CandidateService service) : ControllerBase
+[ApiController]
+[Authorize(Roles = "ADMIN,SUPER_ADMIN")]
+[Route("api/candidates")]
+public class CandidatesController(ICandidateService service) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAll()
