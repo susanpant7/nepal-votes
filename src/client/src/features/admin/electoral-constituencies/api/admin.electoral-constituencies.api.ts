@@ -2,19 +2,21 @@ import apiClient from "@/api/api.client.ts";
 import type {
   AddConstituencyRequest,
   ConstituencyDetail,
+  ConstituencyDropdown,
   ConstituencyListItem,
   EditConstituencyRequest,
+  ProvinceWithUnassignedWards,
   ReassignWardRequest,
   WardWithConstituency,
 } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
 import { ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS } from "@/features/admin/electoral-constituencies/api/admin.electoral-constituencies.endpoints.ts";
 
 export const AdminElectoralConstituencyApi = {
-  // getConstituencies: async (): Promise<ConstituencyListItem[]> => {
-  //   return await apiClient.get(
-  //     ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_ELECTORAL_CONSTITUENCIES,
-  //   );
-  // },
+  getConstituenciesDropdown: async (): Promise<ConstituencyDropdown[]> => {
+    return await apiClient.get(
+      ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_ELECTORAL_CONSTITUENCIES_DROPDOWN,
+    );
+  },
   getConstituenciesListItemsBydDistrictId: async (
     districtId: number,
   ): Promise<ConstituencyListItem[]> => {
@@ -40,6 +42,11 @@ export const AdminElectoralConstituencyApi = {
       ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_WARD_ASSIGNMENTS_BY_MUNICIPALITY_ID(
         municipalityId,
       ),
+    );
+  },
+  getUnassignedWards: async (): Promise<ProvinceWithUnassignedWards[]> => {
+    return await apiClient.get(
+      ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_UNASSIGNED_WARDS,
     );
   },
   addConstituency: async (

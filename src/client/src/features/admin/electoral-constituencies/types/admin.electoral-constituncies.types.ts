@@ -1,4 +1,34 @@
 //domain
+
+export interface ConstituencyDropdown {
+  constituencyId: number;
+  constituencyName: string;
+}
+
+export interface UnassignedWard {
+  wardId: number;
+  wardNumber: number;
+  wardName: string;
+}
+
+export interface MunicipalityWithUnassignedWards {
+  municipalityId: number;
+  municipalityName: string;
+  wards: UnassignedWard[];
+}
+
+export interface DistrictWithUnassignedWards {
+  districtId: number;
+  districtName: string;
+  municipalities: MunicipalityWithUnassignedWards[];
+}
+
+export interface ProvinceWithUnassignedWards {
+  provinceId: number;
+  provinceName: string;
+  districts: DistrictWithUnassignedWards[];
+}
+
 // for constituency list page
 export interface ConstituencyListItem {
   constituencyId: number;

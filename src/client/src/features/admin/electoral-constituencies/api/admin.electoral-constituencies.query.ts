@@ -8,6 +8,8 @@ import type {
 
 export const ADMIN_CONSTITUENCY_KEYS = {
   getConstituencies: ["getConstituencies"] as const,
+  getConstituenciesDropdown: ["getConstituenciesDropdown"] as const,
+  getUnassignedWards: ["getUnassignedWards"] as const,
   getConstituenciesListItemsBydDistrictId: (districtId: number) =>
     ["getConstituencies", districtId] as const,
   getConstituencyById: (id: number) => ["getConstituency", id] as const,
@@ -18,13 +20,13 @@ export const ADMIN_CONSTITUENCY_KEYS = {
 };
 
 export const useAdminConstituencyQuery = {
-  // getConstituencies: () =>
-  //   useQuery({
-  //     queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituencies,
-  //     queryFn: AdminElectoralConstituencyApi.getConstituencies,
-  //     refetchOnMount: true,
-  //     staleTime: 5 * 60 * 1000,
-  //   }),
+  getConstituenciesDropdown: () =>
+    useQuery({
+      queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituenciesDropdown,
+      queryFn: AdminElectoralConstituencyApi.getConstituenciesDropdown,
+      refetchOnMount: true,
+      staleTime: 5 * 60 * 1000,
+    }),
   getConstituenciesListItemsBydDistrictId: (districtId: number | null) =>
     useQuery({
       queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituenciesListItemsBydDistrictId(
@@ -56,6 +58,13 @@ export const useAdminConstituencyQuery = {
         AdminElectoralConstituencyApi.getWardAssignmentsByMunicipalityId(
           municipalityId,
         ),
+      refetchOnMount: true,
+      staleTime: 5 * 60 * 1000,
+    }),
+  getUnassignedWards: () =>
+    useQuery({
+      queryKey: ADMIN_CONSTITUENCY_KEYS.getUnassignedWards,
+      queryFn: AdminElectoralConstituencyApi.getUnassignedWards,
       refetchOnMount: true,
       staleTime: 5 * 60 * 1000,
     }),
@@ -102,6 +111,7 @@ const refreshConstituencies = () => {
 };
 
 const refreshWardAssignmentsByMunicipalityId = (municipalityId: number) => {
+  if (municipalityId == 0) return;
   const queryClient = useQueryClient();
 
   return () =>

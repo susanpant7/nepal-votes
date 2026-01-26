@@ -12,19 +12,28 @@ public class ConstituencyService(
     IWardRepository wardRepo)
     : IConstituencyService
 {
-    public async Task<ApiResponse<IEnumerable<ConstituencyListItem>>> GetAllAsync()
+    // public async Task<ApiResponse<IEnumerable<ConstituencyListItem>>> GetAllAsync()
+    // {
+    //     var constituencies = await repo.GetAllAsync();
+    //
+    //     var info = constituencies
+    //         .Select(c => c.ToListItem())
+    //         .ToList();
+    //
+    //     return info.Count == 0
+    //         ? ApiResponse<IEnumerable<ConstituencyListItem>>.SuccessResponse(info, "No constituencies found.")
+    //         : ApiResponse<IEnumerable<ConstituencyListItem>>.SuccessResponse(info);
+    // }
+
+    public async Task<ApiResponse<List<ConstituencyDropdown>>> GetDropdownAsync()
     {
-        var constituencies = await repo.GetAllAsync();
+        var constituencies = await repo.GetAllConstituenciesAsync();
 
-        var info = constituencies
-            .Select(c => c.ToListItem())
-            .ToList();
-
-        return info.Count == 0
-            ? ApiResponse<IEnumerable<ConstituencyListItem>>.SuccessResponse(info, "No constituencies found.")
-            : ApiResponse<IEnumerable<ConstituencyListItem>>.SuccessResponse(info);
+        return constituencies.Count == 0
+            ? ApiResponse<List<ConstituencyDropdown>>.ErrorResponse("No constituencies found.")
+            : ApiResponse<List<ConstituencyDropdown>>.SuccessResponse(constituencies.Select(x=> x.ToDropdownItems()).ToList());
     }
-    
+
     public async Task<ApiResponse<IEnumerable<ConstituencyListItem>>> GetByAndDistrictAsync(int districtId)
     {
         var constituenciesInfo = await queryRepository.GetByDistrictAsync(districtId);
@@ -56,6 +65,15 @@ public class ConstituencyService(
         return ApiResponse<List<WardWithConstituency>>.SuccessResponse(wardsWithConstituencies);
     }
 
+    public async Task<ApiResponse<List<ProvinceWithUnassignedWards>>> GetUnassignedWardsAsync()
+    {
+        var data = await queryRepository.GetUnassignedWardsGroupedAsync();
+
+        return data.Count == 0
+            ? ApiResponse<List<ProvinceWithUnassignedWards>>.ErrorResponse("No unassigned wards found.")
+            : ApiResponse<List<ProvinceWithUnassignedWards>>.SuccessResponse(data);
+    }
+
     public async Task<ApiResponse<bool>> ReassignWardAsync(int wardId, int constituencyId)
     {
         var ward = await wardRepo.GetByIdAsync(wardId);
@@ -65,7 +83,7 @@ public class ConstituencyService(
         ward.ConstituencyId = constituencyId;
         await unitOfWork.SaveChangesAsync();
 
-        return ApiResponse<bool>.SuccessResponse(true);
+        return ApiResponse<bool>.SuccessResponse(true, "Ward successfully assigned.");
     }
     
     public async Task<ApiResponse<int>> AddAsync(AddConstituencyRequest request)

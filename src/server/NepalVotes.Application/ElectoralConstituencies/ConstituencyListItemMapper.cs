@@ -2,6 +2,24 @@ using NepalVotes.Domain.ElectoralConstituencies;
 
 namespace NepalVotes.Application.ElectoralConstituencies;
 
+public class ConstituencyDropdown
+{
+    public int ConstituencyId { get; set; }
+    public string ConstituencyName { get; set; } =  string.Empty;
+}
+
+public static class ConstituencyDropdownMapper
+{
+    public static ConstituencyDropdown ToDropdownItems(this Constituency constituency)
+    {
+        return new ConstituencyDropdown
+        {
+            ConstituencyId = constituency.ConstituencyId,
+            ConstituencyName = constituency.ConstituencyName,
+        };
+    }
+}
+
 // for the constituency list page
 public class ConstituencyListItem
 {

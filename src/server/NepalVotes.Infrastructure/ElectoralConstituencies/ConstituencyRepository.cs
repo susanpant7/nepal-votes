@@ -17,13 +17,20 @@ public class ConstituencyRepository(ApplicationDbContext context) : IConstituenc
         context.Constituencies.Remove(constituency);
     }
 
-    public async Task<IEnumerable<Constituency>> GetAllAsync()
+    // public async Task<IEnumerable<Constituency>> GetAllAsync()
+    // {
+    //     return await context.Constituencies
+    //         .Include(c => c.Wards)
+    //         .ThenInclude(w => w.Municipality)
+    //         .ThenInclude(m => m.District)
+    //         .ThenInclude(d => d.Province)
+    //         .ToListAsync();
+    // }
+
+    public async Task<List<Constituency>> GetAllConstituenciesAsync()
     {
         return await context.Constituencies
-            .Include(c => c.Wards)
-            .ThenInclude(w => w.Municipality)
-            .ThenInclude(m => m.District)
-            .ThenInclude(d => d.Province)
+            .OrderBy(c => c.ConstituencyName)
             .ToListAsync();
     }
 

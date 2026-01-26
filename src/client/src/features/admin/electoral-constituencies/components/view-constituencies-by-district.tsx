@@ -1,16 +1,10 @@
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper";
 import { useState } from "react";
 import { useAdminConstituencyQuery } from "@/features/admin/electoral-constituencies/api/admin.electoral-constituencies.query.ts";
-import { Button } from "@/components/ui/button.tsx";
-import { Plus } from "lucide-react";
 import { FilterBar } from "@/features/admin/electoral-constituencies/components/filter-bar.tsx";
 import { ConstituenciesTable } from "@/features/admin/electoral-constituencies/components/constituency-table.tsx";
-import { useNavigate } from "@tanstack/react-router";
-import { ROUTES } from "@/lib/app.routes.urls.ts";
 
-export const ViewConstituencies = () => {
-  const navigate = useNavigate();
-
+export const ViewConstituenciesByDistrict = () => {
   const [provinceId, setProvinceId] = useState<number | null>(null);
   const [districtId, setDistrictId] = useState<number | null>(null);
 
@@ -32,22 +26,11 @@ export const ViewConstituencies = () => {
     setDistrictId(null);
   };
 
-  const onAddConstituency = async () => {
-    await navigate({ to: ROUTES.ADMIN_ELECTORAL_CONSTITUENCIES_ADD });
-  };
-
   return (
-    <div className="flex flex-col gap-6 p-6">
-      {/* Page Header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Constituencies</h1>
-
-        <Button onClick={onAddConstituency}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Constituency
-        </Button>
-      </div>
-
+    <div>
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-5">
+        Select province and district to view constituencies of that district
+      </h2>
       {/* Province & District Filters */}
       <FilterBar
         onProvinceChange={onProvinceChange}

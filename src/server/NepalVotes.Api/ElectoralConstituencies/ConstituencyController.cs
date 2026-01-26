@@ -16,6 +16,20 @@ public class ConstituencyController(IConstituencyService service) : ControllerBa
     //     return response.ToActionResult();
     // }
     
+    [HttpGet("dropdown")]
+    public async Task<IActionResult> GetDropdown()
+    {
+        var response = await service.GetDropdownAsync();
+        return response.ToActionResult();
+    }
+    
+    [HttpGet("unassigned-wards")]
+    public async Task<IActionResult> GetUnassignedWards()
+    {
+        var response = await service.GetUnassignedWardsAsync();
+        return response.ToActionResult();
+    }
+    
     // for the constituency list table
     [HttpGet ("list-item")]
     public async Task<IActionResult> GetListItemsByDistrict([FromQuery] int districtId)
