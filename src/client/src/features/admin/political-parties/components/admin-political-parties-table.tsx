@@ -41,12 +41,21 @@ export const AdminPoliticalPartiesTable = (
 
       <ScrollableTableBody maxHeight={"600px"}>
         <Table>
-          <TableHeader className="sticky top-0 z-10 bg-background">
-            <TableRow className="hover:bg-transparent border-b border-border/60">
-              <TableHead className="w-25 pb-4">Symbol</TableHead>
-              <TableHead className="pb-4">Party Name</TableHead>
-              <TableHead className="pb-4">Party Leader</TableHead>
-              <TableHead className="text-right pb-4">Actions</TableHead>
+          <TableHeader className="sticky top-0 z-10 bg-muted/50 backdrop-blur-sm shadow-sm">
+            <TableRow className="hover:bg-transparent border-b-2 border-border">
+              {/* Added h-14 for height and items-center/align-middle for centering */}
+              <TableHead className="w-25 h-14 align-middle font-bold text-foreground">
+                Symbol
+              </TableHead>
+              <TableHead className="h-14 align-middle font-bold text-foreground">
+                Party Name
+              </TableHead>
+              <TableHead className="h-14 align-middle font-bold text-foreground">
+                Party Leader
+              </TableHead>
+              <TableHead className="text-right h-14 align-middle font-bold text-foreground pr-6">
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

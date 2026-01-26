@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ChevronsUpDown, Loader2, Plus } from "lucide-react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,17 +18,16 @@ import {
 } from "@/components/ui/command";
 import { useAdminConstituencyQuery } from "@/features/admin/electoral-constituencies/api/admin.electoral-constituencies.query.ts";
 import type { ConstituencyDropdown } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
-import { useState } from "react";
 
 interface ConstituencyDropdownProps {
   onChange: (constituency: ConstituencyDropdown) => void;
-  disabled: boolean | false;
+  disabled?: boolean; // Removed the redundant | false
   onAddConstituency?: (name: string) => void;
 }
 
 export function ConstituencyDropdownSelect({
   onChange,
-  disabled,
+  disabled = false, // Defaulting to false so it's enabled by default
   onAddConstituency,
 }: ConstituencyDropdownProps) {
   const [open, setOpen] = useState(false);
@@ -51,7 +51,7 @@ export function ConstituencyDropdownSelect({
           {isLoading ? (
             <span className="flex items-center gap-2 text-muted-foreground">
               <Loader2 className="h-4 w-4 animate-spin" />
-              Loading constituencies…
+              Loading...
             </span>
           ) : selected ? (
             selected.constituencyName
@@ -62,7 +62,10 @@ export function ConstituencyDropdownSelect({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[320px] p-0 shadow-lg border">
+      <PopoverContent
+        align="start"
+        className="p-0 shadow-lg border w-(--radix-popover-trigger-width)"
+      >
         <Command>
           <CommandInput
             placeholder="Search constituency..."
@@ -78,18 +81,25 @@ export function ConstituencyDropdownSelect({
               </div>
             ) : (
               <>
-                <CommandEmpty className="p-0">
-                  <Button
-                    variant="ghost"
-                    className="w-full justify-start rounded-none font-normal text-primary hover:text-primary"
-                    onClick={() => {
-                      onAddConstituency?.(searchQuery);
-                      setOpen(false);
-                    }}
-                  >
-                    <Plus className="mr-2 h-4 w-4" />
-                    Add "{searchQuery}"
-                  </Button>
+                <CommandEmpty>
+                  {/* Conditional Rendering: Only show the "Add" button if the prop is provided */}
+                  {onAddConstituency ? (
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start rounded-none font-normal text-primary hover:text-primary"
+                      onClick={() => {
+                        onAddConstituency?.(searchQuery);
+                        setOpen(false);
+                      }}
+                    >
+                      <Plus className="mr-2 h-4 w-4" />
+                      Add "{searchQuery}"
+                    </Button>
+                  ) : (
+                    <div className="py-6 text-center text-sm">
+                      No constituency found.
+                    </div>
+                  )}
                 </CommandEmpty>
 
                 <CommandGroup className="max-h-64 overflow-auto">
@@ -101,7 +111,7 @@ export function ConstituencyDropdownSelect({
                         setSelected(constituency);
                         onChange(constituency);
                         setOpen(false);
-                        setSearchQuery(""); // Reset search on select
+                        setSearchQuery("");
                       }}
                     >
                       {constituency.constituencyName}
