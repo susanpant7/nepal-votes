@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using NepalVotes.Application.Authentication;
+using NepalVotes.Application.Candidates;
 using NepalVotes.Application.ElectoralConstituencies;
 using NepalVotes.Application.ElectoralGeographies;
 using NepalVotes.Application.PoliticalParties;
@@ -23,6 +24,7 @@ public static class ApplicationConfig
         services.AddScoped<IWardService, WardService>();
         services.AddScoped<IVotingPlaceService, VotingPlaceService>();
         services.AddScoped<IConstituencyService, ConstituencyService>();
+        services.AddScoped<ICandidateService, CandidateService>();
         
         return services;
     }
