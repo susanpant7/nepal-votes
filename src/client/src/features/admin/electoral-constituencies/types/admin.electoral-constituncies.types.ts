@@ -5,28 +5,30 @@ export interface ConstituencyDropdown {
   constituencyName: string;
 }
 
-export interface UnassignedWard {
+export interface WardWithConstituencyDetails {
   wardId: number;
   wardNumber: number;
   wardName: string;
+  constituencyId: number;
+  constituencyName: string;
 }
 
-export interface MunicipalityWithUnassignedWards {
+export interface MunicipalityWithWardsDetails {
   municipalityId: number;
   municipalityName: string;
-  wards: UnassignedWard[];
+  wards: WardWithConstituencyDetails[];
 }
 
-export interface DistrictWithUnassignedWards {
+export interface DistrictWithMunicipalitiesDetails {
   districtId: number;
   districtName: string;
-  municipalities: MunicipalityWithUnassignedWards[];
+  municipalities: MunicipalityWithWardsDetails[];
 }
 
-export interface ProvinceWithUnassignedWards {
+export interface ProvinceWithDistrictsDetails {
   provinceId: number;
   provinceName: string;
-  districts: DistrictWithUnassignedWards[];
+  districts: DistrictWithMunicipalitiesDetails[];
 }
 
 // for constituency list page
@@ -88,7 +90,7 @@ export interface WardWithConstituency {
 // requests
 export interface AddConstituencyRequest {
   constituencyName: string;
-  wardIds: number[];
+  wardIds: number[] | null;
 }
 export interface EditConstituencyRequest {
   constituencyId: number;

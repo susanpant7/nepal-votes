@@ -5,7 +5,7 @@ import type {
   ConstituencyDropdown,
   ConstituencyListItem,
   EditConstituencyRequest,
-  ProvinceWithUnassignedWards,
+  ProvinceWithDistrictsDetails,
   ReassignWardRequest,
   WardWithConstituency,
 } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
@@ -44,7 +44,7 @@ export const AdminElectoralConstituencyApi = {
       ),
     );
   },
-  getUnassignedWards: async (): Promise<ProvinceWithUnassignedWards[]> => {
+  getUnassignedWards: async (): Promise<ProvinceWithDistrictsDetails[]> => {
     return await apiClient.get(
       ADMIN_ELECTORAL_CONSTITUENCIES_ENDPOINTS.GET_UNASSIGNED_WARDS,
     );

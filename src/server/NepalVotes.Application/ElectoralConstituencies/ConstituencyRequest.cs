@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace NepalVotes.Application.ElectoralConstituencies;
 
 public record AddConstituencyRequest(
+    [Required]
     string ConstituencyName,
-    List<int> WardIds
+    List<int>? WardIds = null
 );
 
 public record UpdateConstituencyRequest(

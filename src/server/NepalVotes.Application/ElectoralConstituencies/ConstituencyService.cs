@@ -65,13 +65,13 @@ public class ConstituencyService(
         return ApiResponse<List<WardWithConstituency>>.SuccessResponse(wardsWithConstituencies);
     }
 
-    public async Task<ApiResponse<List<ProvinceWithUnassignedWards>>> GetUnassignedWardsAsync()
+    public async Task<ApiResponse<List<ProvinceWithDistrictsDetails>>> GetUnassignedWardsAsync()
     {
         var data = await queryRepository.GetUnassignedWardsGroupedAsync();
 
         return data.Count == 0
-            ? ApiResponse<List<ProvinceWithUnassignedWards>>.ErrorResponse("No unassigned wards found.")
-            : ApiResponse<List<ProvinceWithUnassignedWards>>.SuccessResponse(data);
+            ? ApiResponse<List<ProvinceWithDistrictsDetails>>.ErrorResponse("No unassigned wards found.")
+            : ApiResponse<List<ProvinceWithDistrictsDetails>>.SuccessResponse(data);
     }
 
     public async Task<ApiResponse<bool>> ReassignWardAsync(int wardId, int constituencyId)
@@ -91,21 +91,41 @@ public class ConstituencyService(
         var existing = await repo.ExistsByNameAsync(request.ConstituencyName);
         if (existing)
         {
-            return ApiResponse<int>.ErrorResponse($"Constituency with the name {request.ConstituencyName} already exists.");
+            return ApiResponse<int>.ErrorResponse(
+                $"Constituency with the name {request.ConstituencyName} already exists."
+            );
         }
-        var wards = await wardRepo.GetByIdsAsync(request.WardIds);
 
         var constituency = new Constituency
         {
             ConstituencyName = request.ConstituencyName,
-            Wards = wards.ToList()
+            Wards = new List<Ward>()
         };
+
+        if (request.WardIds is { Count: > 0 })
+        {
+            var wards = (await wardRepo.GetByIdsAsync(request.WardIds)).ToList();
+
+            // Optional safety check
+            if (wards.Count != request.WardIds.Count)
+            {
+                return ApiResponse<int>.ErrorResponse(
+                    "One or more wards could not be found."
+                );
+            }
+
+            constituency.Wards = wards.ToList();
+        }
 
         await repo.AddAsync(constituency);
         await unitOfWork.SaveChangesAsync();
 
-        return ApiResponse<int>.SuccessResponse(constituency.ConstituencyId,"Constituency created successfully.");
+        return ApiResponse<int>.SuccessResponse(
+            constituency.ConstituencyId,
+            "Constituency created successfully."
+        );
     }
+
 
 
     public async Task<ApiResponse<int>> UpdateAsync(UpdateConstituencyRequest request)

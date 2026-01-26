@@ -48,13 +48,9 @@ export const ConstituencyInfoSection = () => {
       await updateConstituency.mutateAsync(updateRequest);
     } else {
       await addConstituency.mutateAsync(addRequest);
-      // await navigate({
-      //   to: ROUTES.ADMIN_ELECTORAL_CONSTITUENCIES_EDIT,
-      //   params: { constituencyId: constId },
-      // });
     }
     await navigate({
-      to: ROUTES.ADMIN_ELECTORAL_CONSTITUENCIES_ADD,
+      to: ROUTES.ADMIN_ELECTORAL_CONSTITUENCIES,
     });
   };
 

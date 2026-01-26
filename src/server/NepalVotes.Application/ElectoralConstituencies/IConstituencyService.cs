@@ -13,5 +13,5 @@ public interface IConstituencyService
     Task<ApiResponse<bool>> DeleteAsync(int id);
     Task<ApiResponse<bool>> ReassignWardAsync(int wardId, int constituencyId);
     Task<ApiResponse<List<WardWithConstituency>>> GetWardsWithConstituencyByMunicipalityAsync(int municipalityId);
-    Task<ApiResponse<List<ProvinceWithUnassignedWards>>> GetUnassignedWardsAsync();
+    Task<ApiResponse<List<ProvinceWithDistrictsDetails>>> GetUnassignedWardsAsync();
 }

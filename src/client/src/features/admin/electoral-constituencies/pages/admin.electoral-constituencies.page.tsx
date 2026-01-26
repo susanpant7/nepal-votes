@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { Plus } from "lucide-react";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
 import { useNavigate } from "@tanstack/react-router";
-import { ViewUnassignedWards } from "@/features/admin/electoral-constituencies/components/view-unassigned-wards.tsx";
+import { ViewWardsHierarchy } from "@/features/admin/electoral-constituencies/components/view-wards-hierarchy.tsx";
 import {
   Tabs,
   TabsContent,
@@ -29,14 +29,14 @@ export const AdminElectoralConstituenciesPage = () => {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="unassigned" className="w-full">
+      <Tabs defaultValue="wardsHierarchy" className="w-full">
         <TabsList className="mb-4">
-          <TabsTrigger value="unassigned">Unassigned Wards</TabsTrigger>
+          <TabsTrigger value="wardsHierarchy">Wards Hierarchy</TabsTrigger>
           <TabsTrigger value="byDistrict">Constituency By District</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="unassigned">
-          <ViewUnassignedWards />
+        <TabsContent value="wardsHierarchy">
+          <ViewWardsHierarchy />
         </TabsContent>
 
         <TabsContent value="byDistrict">

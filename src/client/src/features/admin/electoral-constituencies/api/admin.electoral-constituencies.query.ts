@@ -104,10 +104,17 @@ export const useAdminConstituencyMutation = () => {
 const refreshConstituencies = () => {
   const queryClient = useQueryClient();
 
-  return () =>
-    queryClient.invalidateQueries({
-      queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituencies,
-    });
+  return async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({
+        queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituencies,
+      }),
+      queryClient.invalidateQueries({
+        queryKey: ADMIN_CONSTITUENCY_KEYS.getConstituenciesDropdown,
+      }),
+    ]);
+    console.log("All constituency data refreshed!");
+  };
 };
 
 const refreshWardAssignmentsByMunicipalityId = (municipalityId: number) => {
