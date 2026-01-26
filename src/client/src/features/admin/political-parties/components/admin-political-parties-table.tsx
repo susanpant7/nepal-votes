@@ -39,7 +39,7 @@ export const AdminPoliticalPartiesTable = (
         </Button>
       </div>
 
-      <ScrollableTableBody maxHeight={"500px"}>
+      <ScrollableTableBody maxHeight={"600px"}>
         <Table>
           <TableHeader className="sticky top-0 z-10 bg-background">
             <TableRow className="hover:bg-transparent border-b border-border/60">
