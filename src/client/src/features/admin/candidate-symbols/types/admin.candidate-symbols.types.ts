@@ -11,12 +11,12 @@ export type CandidateSymbolPagedResult = PagedResult<CandidateSymbolInfo>;
 
 // requests
 export interface AddCandidateSymbolRequest {
-  candidateSymbolFile: File; // browser File object
+  candidateSymbolFile: File | string | null; // browser File object
 }
 
 export interface UpdateCandidateSymbolRequest {
   candidateSymbolId: number;
-  candidateSymbolFile: File;
+  candidateSymbolFile: File | string | null;
 }
 
 // responses
