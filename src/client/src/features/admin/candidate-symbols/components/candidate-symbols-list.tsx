@@ -19,15 +19,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
 import { AddEditCandidateSymbolModal } from "@/features/admin/candidate-symbols/components/add-edit-candidate-symbol-modal.tsx";
+import { cn } from "@/lib/utils.ts";
 
 export interface Props {
   allowView?: boolean;
   allowEdit?: boolean;
-  allowSelection?: boolean;
   onSelectSymbol?: (symbol: CandidateSymbolInfo) => void;
 }
 export const CandidateSymbolsList = (props: Props) => {
-  const { allowView, allowEdit, allowSelection, onSelectSymbol } = props;
+  const { allowView, allowEdit, onSelectSymbol } = props;
 
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -97,11 +97,19 @@ export const CandidateSymbolsList = (props: Props) => {
               key={symbol.candidateSymbolId}
               className="group hover:shadow-xl transition-shadow flex flex-col justify-between"
             >
-              <CardContent className="p-2 flex justify-center items-center">
+              <CardContent
+                className={cn(
+                  "p-2 flex justify-center items-center cursor-pointer transition-all duration-200 ease-in-out",
+                  "hover:scale-105 hover:bg-accent/50 rounded-md",
+                  "active:scale-95",
+                  "group",
+                )}
+                onDoubleClick={() => handleSelect(symbol)}
+              >
                 <img
                   src={`data:${symbol.symbolContentType};base64,${symbol.symbolContent}`}
                   alt={symbol.symbolFileName}
-                  className="w-32 h-32 object-contain"
+                  className="w-32 h-32 object-contain transition-opacity group-hover:opacity-90"
                 />
               </CardContent>
 
@@ -149,7 +157,7 @@ export const CandidateSymbolsList = (props: Props) => {
                     </Tooltip>
                   </>
                 )}
-                {allowSelection && (
+                {onSelectSymbol && (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
@@ -160,7 +168,7 @@ export const CandidateSymbolsList = (props: Props) => {
                         Select
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>Select this symbolr</TooltipContent>
+                    <TooltipContent>Select this symbol</TooltipContent>
                   </Tooltip>
                 )}
               </CardFooter>

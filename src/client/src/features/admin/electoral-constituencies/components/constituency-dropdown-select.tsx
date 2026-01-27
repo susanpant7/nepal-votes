@@ -20,13 +20,13 @@ import { useAdminConstituencyQuery } from "@/features/admin/electoral-constituen
 import type { ConstituencyDropdown } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
 
 interface ConstituencyDropdownProps {
-  onChange: (constituency: ConstituencyDropdown) => void;
+  onSelect: (constituency: ConstituencyDropdown) => void;
   disabled?: boolean; // Removed the redundant | false
   onAddConstituency?: (name: string) => void;
 }
 
 export function ConstituencyDropdownSelect({
-  onChange,
+  onSelect,
   disabled = false, // Defaulting to false so it's enabled by default
   onAddConstituency,
 }: ConstituencyDropdownProps) {
@@ -109,7 +109,7 @@ export function ConstituencyDropdownSelect({
                       value={constituency.constituencyName}
                       onSelect={() => {
                         setSelected(constituency);
-                        onChange(constituency);
+                        onSelect(constituency);
                         setOpen(false);
                         setSearchQuery("");
                       }}

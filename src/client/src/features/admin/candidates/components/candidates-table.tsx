@@ -19,7 +19,7 @@ export const CandidatesTable = () => {
   return (
     <>
       <div className="w-64">
-        <ConstituencyDropdownSelect onChange={onConstituencySelect} />
+        <ConstituencyDropdownSelect onSelect={onConstituencySelect} />
       </div>
       <ScrollableTableBody maxHeight={"600px"}>
         <Table>

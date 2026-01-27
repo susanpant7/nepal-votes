@@ -93,7 +93,7 @@ export const WardConstituencyItem = (props: Props) => {
         <div className="w-64">
           <ConstituencyDropdownSelect
             disabled={dropdownDisabled}
-            onChange={onConstituencyAssign}
+            onSelect={onConstituencyAssign}
             onAddConstituency={onAddConstituencyClick}
           />
         </div>
