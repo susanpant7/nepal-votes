@@ -5,6 +5,7 @@ import {
   Map,
   MapPin,
   UsersRound,
+  BadgeCheck,
 } from "lucide-react";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
 
@@ -40,6 +41,11 @@ export const adminMenuItems: AdminNavItem[] = [
     label: "Political Parties",
     url: ROUTES.ADMIN_POLITICAL_PARTIES,
     icon: Flag,
+  },
+  {
+    label: "Candidate Symbols",
+    url: ROUTES.ADMIN_CANDIDATE_SYMBOLS,
+    icon: BadgeCheck,
   },
   {
     label: "Candidates",

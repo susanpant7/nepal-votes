@@ -19,6 +19,7 @@ import { Route as AdminAdminPoliticalPartiesIndexRouteImport } from './routes/_a
 import { Route as AdminAdminElectoralGeographiesIndexRouteImport } from './routes/_admin/admin/electoral-geographies/index'
 import { Route as AdminAdminElectoralConstituenciesIndexRouteImport } from './routes/_admin/admin/electoral-constituencies/index'
 import { Route as AdminAdminCandidatesIndexRouteImport } from './routes/_admin/admin/candidates/index'
+import { Route as AdminAdminCandidateSymbolsIndexRouteImport } from './routes/_admin/admin/candidate-symbols/index'
 import { Route as AdminAdminPoliticalPartiesAddRouteImport } from './routes/_admin/admin/political-parties/add'
 import { Route as AdminAdminPoliticalPartiesPartyIdRouteImport } from './routes/_admin/admin/political-parties/$partyId'
 import { Route as AdminAdminElectoralConstituenciesAddRouteImport } from './routes/_admin/admin/electoral-constituencies/add'
@@ -78,6 +79,12 @@ const AdminAdminCandidatesIndexRoute =
     path: '/admin/candidates/',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminAdminCandidateSymbolsIndexRoute =
+  AdminAdminCandidateSymbolsIndexRouteImport.update({
+    id: '/admin/candidate-symbols/',
+    path: '/admin/candidate-symbols/',
+    getParentRoute: () => AdminRoute,
+  } as any)
 const AdminAdminPoliticalPartiesAddRoute =
   AdminAdminPoliticalPartiesAddRouteImport.update({
     id: '/admin/political-parties/add',
@@ -125,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/admin/electoral-constituencies/add': typeof AdminAdminElectoralConstituenciesAddRoute
   '/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
   '/admin/political-parties/add': typeof AdminAdminPoliticalPartiesAddRoute
+  '/admin/candidate-symbols': typeof AdminAdminCandidateSymbolsIndexRoute
   '/admin/candidates': typeof AdminAdminCandidatesIndexRoute
   '/admin/electoral-constituencies': typeof AdminAdminElectoralConstituenciesIndexRoute
   '/admin/electoral-geographies': typeof AdminAdminElectoralGeographiesIndexRoute
@@ -141,6 +149,7 @@ export interface FileRoutesByTo {
   '/admin/electoral-constituencies/add': typeof AdminAdminElectoralConstituenciesAddRoute
   '/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
   '/admin/political-parties/add': typeof AdminAdminPoliticalPartiesAddRoute
+  '/admin/candidate-symbols': typeof AdminAdminCandidateSymbolsIndexRoute
   '/admin/candidates': typeof AdminAdminCandidatesIndexRoute
   '/admin/electoral-constituencies': typeof AdminAdminElectoralConstituenciesIndexRoute
   '/admin/electoral-geographies': typeof AdminAdminElectoralGeographiesIndexRoute
@@ -160,6 +169,7 @@ export interface FileRoutesById {
   '/_admin/admin/electoral-constituencies/add': typeof AdminAdminElectoralConstituenciesAddRoute
   '/_admin/admin/political-parties/$partyId': typeof AdminAdminPoliticalPartiesPartyIdRoute
   '/_admin/admin/political-parties/add': typeof AdminAdminPoliticalPartiesAddRoute
+  '/_admin/admin/candidate-symbols/': typeof AdminAdminCandidateSymbolsIndexRoute
   '/_admin/admin/candidates/': typeof AdminAdminCandidatesIndexRoute
   '/_admin/admin/electoral-constituencies/': typeof AdminAdminElectoralConstituenciesIndexRoute
   '/_admin/admin/electoral-geographies/': typeof AdminAdminElectoralGeographiesIndexRoute
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/admin/electoral-constituencies/add'
     | '/admin/political-parties/$partyId'
     | '/admin/political-parties/add'
+    | '/admin/candidate-symbols'
     | '/admin/candidates'
     | '/admin/electoral-constituencies'
     | '/admin/electoral-geographies'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/admin/electoral-constituencies/add'
     | '/admin/political-parties/$partyId'
     | '/admin/political-parties/add'
+    | '/admin/candidate-symbols'
     | '/admin/candidates'
     | '/admin/electoral-constituencies'
     | '/admin/electoral-geographies'
@@ -212,6 +224,7 @@ export interface FileRouteTypes {
     | '/_admin/admin/electoral-constituencies/add'
     | '/_admin/admin/political-parties/$partyId'
     | '/_admin/admin/political-parties/add'
+    | '/_admin/admin/candidate-symbols/'
     | '/_admin/admin/candidates/'
     | '/_admin/admin/electoral-constituencies/'
     | '/_admin/admin/electoral-geographies/'
@@ -297,6 +310,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminCandidatesIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_admin/admin/candidate-symbols/': {
+      id: '/_admin/admin/candidate-symbols/'
+      path: '/admin/candidate-symbols'
+      fullPath: '/admin/candidate-symbols'
+      preLoaderRoute: typeof AdminAdminCandidateSymbolsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/_admin/admin/political-parties/add': {
       id: '/_admin/admin/political-parties/add'
       path: '/admin/political-parties/add'
@@ -350,6 +370,7 @@ interface AdminRouteChildren {
   AdminAdminElectoralConstituenciesAddRoute: typeof AdminAdminElectoralConstituenciesAddRoute
   AdminAdminPoliticalPartiesPartyIdRoute: typeof AdminAdminPoliticalPartiesPartyIdRoute
   AdminAdminPoliticalPartiesAddRoute: typeof AdminAdminPoliticalPartiesAddRoute
+  AdminAdminCandidateSymbolsIndexRoute: typeof AdminAdminCandidateSymbolsIndexRoute
   AdminAdminCandidatesIndexRoute: typeof AdminAdminCandidatesIndexRoute
   AdminAdminElectoralConstituenciesIndexRoute: typeof AdminAdminElectoralConstituenciesIndexRoute
   AdminAdminElectoralGeographiesIndexRoute: typeof AdminAdminElectoralGeographiesIndexRoute
@@ -367,6 +388,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAdminPoliticalPartiesPartyIdRoute:
     AdminAdminPoliticalPartiesPartyIdRoute,
   AdminAdminPoliticalPartiesAddRoute: AdminAdminPoliticalPartiesAddRoute,
+  AdminAdminCandidateSymbolsIndexRoute: AdminAdminCandidateSymbolsIndexRoute,
   AdminAdminCandidatesIndexRoute: AdminAdminCandidatesIndexRoute,
   AdminAdminElectoralConstituenciesIndexRoute:
     AdminAdminElectoralConstituenciesIndexRoute,
