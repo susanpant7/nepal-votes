@@ -1,6 +1,5 @@
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.ElectoralConstituencies;
-using NepalVotes.Domain.MediaFiles;
 using NepalVotes.Domain.PoliticalParties;
 using NepalVotes.Domain.Users;
 
@@ -22,6 +21,6 @@ public class Candidate : BaseAuditableEntity
     public Constituency Constituency { get; set; } = null!;
     
     // if independent, should have own symbol
-    public int? CandidateSymbolMediaFileId { get; set; }
-    public MediaFile? CandidateSymbolMediaFile { get; set; }
+    public int? CandidateSymbolId { get; set; }
+    public CandidateSymbol? CandidateSymbol { get; set; }
 }

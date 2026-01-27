@@ -13,6 +13,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         AuditInterceptor auditInterceptor) : DbContext(options)
 {
     public DbSet<Candidate> Candidates { get; set; }
+    public DbSet<CandidateSymbol> CandidateSymbols { get; set; }
     
     public DbSet<Constituency> Constituencies { get; set; }
     public DbSet<District> Districts { get; set; }

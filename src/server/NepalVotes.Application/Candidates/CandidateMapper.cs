@@ -30,9 +30,9 @@ public static class CandidateMapper
 {
     public static CandidateListItem ToCandidateListItem(this Candidate candidate)
     {
-        // Determine if we use the Candidate's own symbol (independent) or the Party's symbol
+        // Determine if we use the Candidate's symbol (independent) or the Party's symbol
         var symbolMedia = candidate.IsIndependent 
-            ? candidate.CandidateSymbolMediaFile 
+            ? candidate.CandidateSymbol?.CandidateSymbolMediaFile 
             : candidate.PoliticalParty?.SymbolMediaFile;
 
         return new CandidateListItem
@@ -50,9 +50,9 @@ public static class CandidateMapper
     
     public static CandidateDetail ToCandidateDetail(this Candidate candidate)
     {
-        // Determine if we use the Candidate's own symbol (independent) or the Party's symbol
+        // Determine if we use the Candidate's symbol (independent) or the Party's symbol
         var symbolMedia = candidate.IsIndependent 
-            ? candidate.CandidateSymbolMediaFile 
+            ? candidate.CandidateSymbol?.CandidateSymbolMediaFile  
             : candidate.PoliticalParty?.SymbolMediaFile;
 
         return new CandidateDetail

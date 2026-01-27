@@ -27,7 +27,7 @@ public class CandidateService(ICandidateRepository repository, IUnitOfWork unitO
     public async Task<ApiResponse<bool>> CreateCandidateAsync(Candidate candidate)
     {
         // Business logic: Ensure symbol is provided if independent
-        if (candidate is { IsIndependent: true, CandidateSymbolMediaFileId: null })
+        if (candidate is { IsIndependent: true, CandidateSymbol: null })
             return ApiResponse<bool>.ErrorResponse("Independent candidates must provide a symbol.");
 
         await repository.AddAsync(candidate);

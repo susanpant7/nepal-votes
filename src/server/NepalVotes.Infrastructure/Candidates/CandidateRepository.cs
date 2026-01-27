@@ -12,7 +12,7 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
             .Include(c => c.User)
             .Include(c => c.Constituency)
             .Include(c => c.PoliticalParty).ThenInclude(p => p!.SymbolMediaFile)
-            .Include(c => c.CandidateSymbolMediaFile)
+            .Include(c => c.CandidateSymbol)
             .ToListAsync();
     }
 
@@ -22,7 +22,7 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
             .Include(c => c.User)
             .Include(c => c.Constituency)
             .Include(c => c.PoliticalParty).ThenInclude(p => p!.SymbolMediaFile)
-            .Include(c => c.CandidateSymbolMediaFile)
+            .Include(c => c.CandidateSymbol)
             .FirstOrDefaultAsync(c => c.CandidateId == id);
     }
 
