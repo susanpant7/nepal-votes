@@ -25,6 +25,7 @@ public static class ApplicationConfig
         services.AddScoped<IVotingPlaceService, VotingPlaceService>();
         services.AddScoped<IConstituencyService, ConstituencyService>();
         services.AddScoped<ICandidateService, CandidateService>();
+        services.AddScoped<ICandidateSymbolService, CandidateSymbolService>();
         
         return services;
     }

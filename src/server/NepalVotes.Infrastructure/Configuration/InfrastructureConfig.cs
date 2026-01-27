@@ -52,7 +52,8 @@ public static class InfrastructureConfig
         services.AddScoped<IWardRepository, WardRepository>();
         services.AddScoped<IVotingPlaceRepository, VotingPlaceRepository>();
         services.AddScoped<IConstituencyRepository, ConstituencyRepository>();
-        services.AddScoped<ICandidateRepository, CandidateRepository>();
+        services.AddScoped<IConstituencyRepository, ConstituencyRepository>();
+        services.AddScoped<ICandidateSymbolRepository, CandidateSymbolRepository>();
 
         // Register UnitOfWork
         services.AddScoped<IUnitOfWork, UnitOfWork>();
