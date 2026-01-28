@@ -12,10 +12,16 @@ public class VoteConfiguration : IEntityTypeConfiguration<Vote>
         builder.HasOne(v=>v.Candidate)
             .WithMany()
             .HasForeignKey(v=>v.CandidateId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
         builder.HasOne(v=>v.Constituency)
             .WithMany()
             .HasForeignKey(v=>v.ConstituencyId)
+            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(v=>v.PoliticalParty)
+            .WithMany()
+            .HasForeignKey(v=>v.PoliticalPartyId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
