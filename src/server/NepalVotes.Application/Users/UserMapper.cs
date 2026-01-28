@@ -9,6 +9,12 @@ public class UserProfile
     public string VotingPlaceAddress { get; set; }
 }
 
+public class UserDropdown
+{
+    public string FullName { get; set; }
+    public int UserId { get; set; }
+}
+
 public static class UserMapper
 {
     public static UserProfile ToUserProfile(this User user)
@@ -18,6 +24,15 @@ public static class UserMapper
             FullName = $"{user.FirstName} {user.MiddleName} {user.LastName}".Replace("  ", " ").Trim(),
             MobileNumber = user.MobileNumber,
             VotingPlaceAddress = user.VotingPlace.VotingPlaceAddress
+        };
+    }
+    
+    public static UserDropdown ToUserDropdown(this User user)
+    {
+        return new UserDropdown
+        {
+            FullName = $"{user.FirstName} {user.MiddleName} {user.LastName}".Replace("  ", " ").Trim(),
+            UserId = user.UserId
         };
     }
 }

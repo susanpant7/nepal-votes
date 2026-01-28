@@ -35,13 +35,13 @@ public class UserService(IUserRepository userRepository, IUserRefreshTokenReposi
         return await refreshTokenRepository.GetUserRefreshTokenByRefreshTokenAsync(refreshToken);
     }
     
-    public async Task<ApiResponse<List<User>>> SearchUsersAsync(string searchText)
+    public async Task<ApiResponse<List<UserDropdown>>> SearchUsersAsync(string searchText)
     {
         if (string.IsNullOrWhiteSpace(searchText))
         {
-            return ApiResponse<List<User>>.SuccessResponse([],"Empty search text");
+            return ApiResponse<List<UserDropdown>>.SuccessResponse([],"Empty search text");
         }
         var users = await userRepository.SearchUsersAsync(searchText);
-        return ApiResponse<List<User>>.SuccessResponse(users);
+        return ApiResponse<List<UserDropdown>>.SuccessResponse(users.Select(u=>u.ToUserDropdown()).ToList());
     }
 }
