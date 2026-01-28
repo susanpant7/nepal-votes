@@ -46,13 +46,19 @@ export function UserSearchDropdown({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-75 justify-between"
+          className="w-full justify-between"
         >
-          {selectedUser ? selectedUser : searchLabel || "Search users..."}
+          <span className="truncate">
+            {selectedUser ? selectedUser : searchLabel || "Search users..."}
+          </span>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-75 p-0">
+      <PopoverContent
+        className="w-(--radix-popover-trigger-width) p-0"
+        align="start"
+      >
+        {" "}
         <Command shouldFilter={false}>
           {" "}
           {/* Important: Disable client-side filtering */}
