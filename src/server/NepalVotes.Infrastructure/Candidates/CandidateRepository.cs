@@ -49,4 +49,34 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
         context.Candidates.Remove(candidate);
         await Task.CompletedTask;
     }
+    
+    public async Task<bool> ExistsByUserIdAsync(int userId, int? excludeCandidateId = null)
+    {
+        return await context.Candidates
+            .AnyAsync(c => c.UserId == userId && c.CandidateId != excludeCandidateId);
+    }
+
+    public async Task<string?> GetConstituencyNameByUserIdAsync(int userId, int? excludeId = null)
+    {
+        return await context.Candidates
+            .Where(c => c.UserId == userId && c.CandidateId != excludeId)
+            .Select(c => c.Constituency.ConstituencyName)
+            .FirstOrDefaultAsync();
+    }
+    
+    public async Task<bool> IsPartyTakenInConstituencyAsync(int constituencyId, int partyId, int? excludeCandidateId = null)
+    {
+        return await context.Candidates
+            .AnyAsync(c => c.ConstituencyId == constituencyId 
+                           && c.PoliticalPartyId == partyId 
+                           && c.CandidateId != excludeCandidateId);
+    }
+
+    public async Task<bool> IsSymbolTakenInConstituencyAsync(int constituencyId, int symbolId, int? excludeCandidateId = null)
+    {
+        return await context.Candidates
+            .AnyAsync(c => c.ConstituencyId == constituencyId 
+                           && c.CandidateSymbolId == symbolId 
+                           && c.CandidateId != excludeCandidateId);
+    }
 }

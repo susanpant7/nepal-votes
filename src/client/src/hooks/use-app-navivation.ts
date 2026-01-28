@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useGlobalStore } from "@/stores/useGlobalStore.ts";
 import { useConstituencyStore } from "@/stores/useConstituencyStore.ts";
 import { useConfirm } from "@/components/confirm/confirm-dialogbox.provider.tsx";
-import { useCandidateStore } from "@/stores/useCandidateStore.ts";
+// import { useCandidateStore } from "@/stores/useCandidateStore.ts";
 
 export const useAppNavigation = () => {
   const workInProgress = useGlobalStore((s) => s.workInProgress);
@@ -11,7 +11,7 @@ export const useAppNavigation = () => {
   const setSelectedWards = useConstituencyStore((s) => s.setSelectedWardIds);
   const navigate = useNavigate();
   const confirm = useConfirm();
-  const clearCandidateStore = useCandidateStore((s) => s.clearStore);
+  //const clearCandidateStore = useCandidateStore((s) => s.clearStore);
   const handleNavigation = async (
     url: string,
     confirmMessage = "You have unsaved changes. Are you sure you want to leave this page?",
@@ -55,7 +55,7 @@ export const useAppNavigation = () => {
   };
 
   const clearStoreValues = () => {
-    clearCandidateStore();
+    //clearCandidateStore();
   };
 
   return { handleNavigation };

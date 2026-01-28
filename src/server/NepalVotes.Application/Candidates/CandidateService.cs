@@ -29,6 +29,10 @@ public class CandidateService(ICandidateRepository repository, IUnitOfWork unitO
         var validationResult = ValidateCandidate(candidateRequest.IsIndependent, candidateRequest.PoliticalPartyId, candidateRequest.CandidateSymbolId);
         if (!validationResult.Success) return validationResult;
 
+        var uniqueCheck = await CheckUniquenessAsync(candidateRequest.UserId, candidateRequest.ConstituencyId, 
+            candidateRequest.IsIndependent, candidateRequest.PoliticalPartyId, candidateRequest.CandidateSymbolId);
+        if (!uniqueCheck.Success) return uniqueCheck;
+        
         var candidate = new Candidate
         {
             UserId = candidateRequest.UserId,
@@ -59,6 +63,10 @@ public class CandidateService(ICandidateRepository repository, IUnitOfWork unitO
         var validationResult = ValidateCandidate(candidateRequest.IsIndependent, candidateRequest.PoliticalPartyId, candidateRequest.CandidateSymbolId);
         if (!validationResult.Success) return validationResult;
 
+        var uniqueCheck = await CheckUniquenessAsync(candidateRequest.UserId, candidateRequest.ConstituencyId, 
+            candidateRequest.IsIndependent, candidateRequest.PoliticalPartyId, candidateRequest.CandidateSymbolId);
+        if (!uniqueCheck.Success) return uniqueCheck;
+        
         var existingCandidate = await repository.GetByIdAsync(candidateRequest.CandidateId);
         if (existingCandidate == null)
             return ApiResponse<bool>.ErrorResponse("Candidate not found.");
@@ -97,6 +105,37 @@ public class CandidateService(ICandidateRepository repository, IUnitOfWork unitO
             if (partyId == null)
                 return ApiResponse<bool>.ErrorResponse("Non-independent candidates must select a political party.");
         }
+
+        return ApiResponse<bool>.SuccessResponse(true);
+    }
+    
+    private async Task<ApiResponse<bool>> CheckUniquenessAsync(
+        int userId, 
+        int constituencyId, 
+        bool isIndependent, 
+        int? partyId, 
+        int? symbolId, 
+        int? excludeId = null)
+    {
+        // 1. Check User Uniqueness (Global)
+        var existingConstituencyName = await repository.GetConstituencyNameByUserIdAsync(userId, excludeId);
+        if (existingConstituencyName != null)
+        {
+            return ApiResponse<bool>.ErrorResponse($"This user is already registered as a candidate in {existingConstituencyName}."
+            );
+        }
+
+        // 2. Check Party Uniqueness (Per Constituency)
+        if (!isIndependent && partyId.HasValue)
+        {
+            if (await repository.IsPartyTakenInConstituencyAsync(constituencyId, partyId.Value, excludeId))
+                return ApiResponse<bool>.ErrorResponse("This political party already has a candidate in this constituency.");
+        }
+
+        // 3. Check Symbol Uniqueness (Per Constituency)
+        if (!isIndependent || !symbolId.HasValue) return ApiResponse<bool>.SuccessResponse(true);
+        if (await repository.IsSymbolTakenInConstituencyAsync(constituencyId, symbolId.Value, excludeId))
+            return ApiResponse<bool>.ErrorResponse("This election symbol is already taken by another independent in this constituency.");
 
         return ApiResponse<bool>.SuccessResponse(true);
     }
