@@ -10,6 +10,7 @@ using NepalVotes.Domain.ElectoralConstituencies;
 using NepalVotes.Domain.ElectoralGeographies;
 using NepalVotes.Domain.PoliticalParties;
 using NepalVotes.Domain.Users;
+using NepalVotes.Domain.VotingResults;
 using NepalVotes.Infrastructure.Authentication;
 using NepalVotes.Infrastructure.Candidates;
 using NepalVotes.Infrastructure.ElectoralConstituencies;
@@ -18,6 +19,7 @@ using NepalVotes.Infrastructure.Hashers;
 using NepalVotes.Infrastructure.Persistence;
 using NepalVotes.Infrastructure.PoliticalParties;
 using NepalVotes.Infrastructure.Users;
+using NepalVotes.Infrastructure.VotingResults;
 
 namespace NepalVotes.Infrastructure.Configuration;
 
@@ -55,6 +57,7 @@ public static class InfrastructureConfig
         services.AddScoped<IConstituencyRepository, ConstituencyRepository>();
         services.AddScoped<ICandidateRepository, CandidateRepository>();
         services.AddScoped<ICandidateSymbolRepository, CandidateSymbolRepository>();
+        services.AddScoped<IVoteRepository, VoteRepository>();
 
         // Register UnitOfWork
         services.AddScoped<IUnitOfWork, UnitOfWork>();

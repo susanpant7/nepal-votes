@@ -7,7 +7,7 @@ public static class ClaimsProperty
 {
     extension(ClaimsPrincipal user)
     {
-        public int UserId()
+        public int GetUserId()
         {
             var claimValue = user.FindFirst(ClaimField.UserId)?.Value;
     
@@ -19,17 +19,17 @@ public static class ClaimsProperty
             return userId;
         }
 
-        public string? Username()
+        public string? GetUsername()
         {
             return user.FindFirst(ClaimField.Username)?.Value;
         }
 
-        public string? MobileNumber()
+        public string? GetMobileNumber()
         {
             return user.FindFirst(ClaimField.MobileNumber)?.Value;
         }
 
-        public string? Claim(string claimType)
+        public string? GetClaim(string claimType)
         {
             return user.FindFirst(claimType)?.Value;
         }

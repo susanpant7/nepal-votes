@@ -1,3 +1,3 @@
 export const VOTING_ENDPOINTS = {
-  GET_VOTING_DETAIL: "/api/votes/detail",
+  GET_VOTER_ELIGIBILITY: "/api/votes/eligibility",
 } as const;

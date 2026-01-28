@@ -12,7 +12,7 @@ public class UsersController(IUserService userService) : ControllerBase
     [HttpGet("profile")]
     public async Task<ActionResult> GetUserProfile()
     {
-        var userId = User.UserId();
+        var userId = User.GetUserId();
         var userProfile = await userService.GetUserProfileAsync(userId);
         return userProfile.ToActionResult();
     }

@@ -26,7 +26,7 @@ export const AdminCandidateSymbolApi = {
     request: AddCandidateSymbolRequest,
   ): Promise<boolean> => {
     const formData = new FormData();
-    formData.append("candidateSymbolFile", request.candidateSymbolFile);
+    formData.append("candidateSymbolFile", request.candidateSymbolFile!);
 
     return apiClient.post(
       ADMIN_CANDIDATE_SYMBOL_ENDPOINTS.ADD_CANDIDATE_SYMBOL,
@@ -41,7 +41,7 @@ export const AdminCandidateSymbolApi = {
   ): Promise<boolean> => {
     const formData = new FormData();
     formData.append("candidateSymbolId", request.candidateSymbolId.toString());
-    formData.append("candidateSymbolFile", request.candidateSymbolFile);
+    formData.append("candidateSymbolFile", request.candidateSymbolFile!);
 
     return apiClient.put(
       ADMIN_CANDIDATE_SYMBOL_ENDPOINTS.UPDATE_CANDIDATE_SYMBOL,

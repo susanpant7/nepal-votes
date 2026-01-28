@@ -5,6 +5,7 @@ using NepalVotes.Application.ElectoralConstituencies;
 using NepalVotes.Application.ElectoralGeographies;
 using NepalVotes.Application.PoliticalParties;
 using NepalVotes.Application.Users;
+using NepalVotes.Application.VotingResults;
 
 namespace NepalVotes.Application.Configuration;
 
@@ -26,6 +27,7 @@ public static class ApplicationConfig
         services.AddScoped<IConstituencyService, ConstituencyService>();
         services.AddScoped<ICandidateService, CandidateService>();
         services.AddScoped<ICandidateSymbolService, CandidateSymbolService>();
+        services.AddScoped<IVoteService, VoteService>();
         
         return services;
     }
