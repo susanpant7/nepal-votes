@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/dialog.tsx";
 import { CandidateSymbolsList } from "@/features/admin/candidate-symbols/components/candidate-symbols-list.tsx";
 import type { UserSearchResponse } from "@/features/users/user-search/types/user-search.types.ts";
-import type { PoliticalPartyInfo } from "@/features/admin/political-parties/types/admin.political-parties.types.ts";
 import { SelectPoliticalParty } from "@/features/admin/political-parties/components/select-political-party.tsx";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { cn } from "@/lib/utils.ts";
@@ -29,11 +28,13 @@ import { useAdminCandidateMutation } from "@/features/admin/candidates/api/admin
 import { showNotification } from "@/components/toaster/toaster.utils.ts";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
 import { useCandidateStore } from "@/stores/useCandidateStore.ts";
+import type { PoliticalPartySelectInfo } from "@/features/admin/political-parties/types/admin.political-parties.types.ts";
 
 export interface Props {
   isEdit: boolean;
   candidateDetail?: CandidateDetail;
 }
+
 export const AddEditCandidate = (props: Props) => {
   const setConstituencyId = useCandidateStore((s) => s.setConstituencyId);
   const { isEdit, candidateDetail } = props;
@@ -41,18 +42,38 @@ export const AddEditCandidate = (props: Props) => {
 
   const { addCandidate, updateCandidate } = useAdminCandidateMutation();
   // --- State ---
-  const [selectedConstituency, setSelectedConstituency] =
-    useState<ConstituencyDropdown | null>(null);
-  const [selectedCandidate, setSelectedCandidate] =
-    useState<UserSearchResponse | null>(null);
+  const [selectedConstituencyId, setSelectedConstituencyId] = useState<
+    number | null
+  >(candidateDetail?.constituencyId ?? null);
+  const [selectedCandidateId, setSelectedCandidateId] = useState<number | null>(
+    candidateDetail?.candidateId ?? null,
+  );
   const [isIndependent, setIsIndependent] = useState<boolean>(
     candidateDetail?.isIndependent ?? false,
   );
-  const [selectedSymbol, setSelectedSymbol] =
-    useState<CandidateSymbolInfo | null>(null);
-  const [selectedParty, setSelectedParty] = useState<PoliticalPartyInfo | null>(
-    null,
-  );
+  const [selectedCandidateSymbol, setSelectedCandidateSymbol] =
+    useState<CandidateSymbolInfo | null>(
+      candidateDetail
+        ? {
+            candidateSymbolId: candidateDetail.candidateSymbolId ?? 0,
+            symbolContentType: candidateDetail.symbolContentType,
+            symbolContent: candidateDetail.symbolContent,
+            symbolFileName: candidateDetail.candidateSymbolFileName,
+          }
+        : null,
+    );
+  const [selectedParty, setSelectedParty] =
+    useState<PoliticalPartySelectInfo | null>(
+      candidateDetail
+        ? {
+            politicalPartyId: candidateDetail.politicalPartyId ?? 0,
+            politicalPartyName: candidateDetail.politicalPartyName ?? "",
+            symbolContentType: candidateDetail.symbolContentType,
+            symbolContent: candidateDetail.symbolContent,
+            symbolFileName: candidateDetail.candidateSymbolFileName,
+          }
+        : null,
+    );
 
   const [openSelectSymbolModal, setOpenSelectSymbolModal] =
     useState<boolean>(false);
@@ -61,38 +82,44 @@ export const AddEditCandidate = (props: Props) => {
 
   // --- Handlers ---
   const onConstituencySelect = (constituency: ConstituencyDropdown) =>
-    setSelectedConstituency(constituency);
+    setSelectedConstituencyId(constituency.constituencyId);
   const onCandidateSelect = (user: UserSearchResponse) =>
-    setSelectedCandidate(user);
+    setSelectedCandidateId(user.userId);
+
+  const onCandidacyTypeToggle = () => {
+    setIsIndependent(!isIndependent);
+    setSelectedParty(null);
+    setSelectedCandidateSymbol(null);
+  };
 
   const onSymbolSelect = (symbol: CandidateSymbolInfo) => {
-    setSelectedSymbol(symbol);
+    setSelectedCandidateSymbol(symbol);
     setOpenSelectSymbolModal(false);
   };
 
-  const onPartySelect = (party: PoliticalPartyInfo) => {
+  const onPartySelect = (party: PoliticalPartySelectInfo) => {
     setSelectedParty(party);
     setOpenSelectPartyModal(false);
   };
 
   const onSaveButtonClick = async () => {
-    if (selectedCandidate?.userId == null) {
+    if (selectedCandidateId == null) {
       showNotification.error("Select a candidate");
       return;
     }
-    if (selectedConstituency?.constituencyId == null) {
+    if (selectedConstituencyId == null) {
       showNotification.error("Select a constituency");
       return;
     }
     const addRequest: AddCandidateRequest = {
-      userId: selectedCandidate?.userId!,
-      constituencyId: selectedConstituency?.constituencyId!,
+      userId: selectedCandidateId!,
+      constituencyId: selectedConstituencyId!,
       isIndependent: isIndependent,
       politicalPartyId: isIndependent
         ? null
         : (selectedParty?.politicalPartyId ?? null),
       candidateSymbolId: isIndependent
-        ? (selectedSymbol?.candidateSymbolId ?? null)
+        ? (selectedCandidateSymbol?.candidateSymbolId ?? null)
         : null,
     };
     if (isEdit && candidateDetail?.candidateId != null) {
@@ -104,7 +131,7 @@ export const AddEditCandidate = (props: Props) => {
     } else {
       await addCandidate.mutateAsync(addRequest);
     }
-    setConstituencyId(selectedConstituency.constituencyId);
+    setConstituencyId(selectedConstituencyId);
     await navigate({
       to: ROUTES.ADMIN_CANDIDATES,
     });
@@ -112,9 +139,9 @@ export const AddEditCandidate = (props: Props) => {
 
   // --- Validation ---
   const disableSaveButton =
-    !selectedConstituency ||
-    !selectedCandidate ||
-    (isIndependent ? !selectedSymbol : !selectedParty);
+    !selectedConstituencyId ||
+    !selectedCandidateId ||
+    (isIndependent ? !selectedCandidateSymbol : !selectedParty);
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto pb-10 px-4 sm:px-0">
@@ -148,7 +175,10 @@ export const AddEditCandidate = (props: Props) => {
           <Label className="text-sm font-semibold text-foreground/80">
             Constituency
           </Label>
-          <ConstituencyDropdownSelect onSelect={onConstituencySelect} />
+          <ConstituencyDropdownSelect
+            onSelect={onConstituencySelect}
+            defaultConstituencyId={candidateDetail?.constituencyId}
+          />
         </div>
 
         <div className="sm:col-span-5 flex flex-col gap-2">
@@ -157,7 +187,7 @@ export const AddEditCandidate = (props: Props) => {
           </Label>
           <UserSearchDropdown
             onSelect={onCandidateSelect}
-            currentUserName={candidateDetail?.candidateName ?? ""}
+            currentUserName={candidateDetail?.fullName ?? ""}
             searchLabel={"Search for a candidate..."}
           />
         </div>
@@ -181,7 +211,7 @@ export const AddEditCandidate = (props: Props) => {
             <Checkbox
               id="status"
               checked={isIndependent}
-              onCheckedChange={(checked) => setIsIndependent(!!checked)}
+              onCheckedChange={onCandidacyTypeToggle}
             />
           </div>
         </div>
@@ -204,7 +234,7 @@ export const AddEditCandidate = (props: Props) => {
               className="w-full sm:w-max shadow-sm"
             >
               {isIndependent
-                ? selectedSymbol
+                ? selectedCandidateSymbol
                   ? "Change Symbol"
                   : "Select Symbol"
                 : selectedParty
@@ -214,7 +244,7 @@ export const AddEditCandidate = (props: Props) => {
           </div>
 
           {/* Inline Image Preview */}
-          {((isIndependent && selectedSymbol) ||
+          {((isIndependent && selectedCandidateSymbol) ||
             (!isIndependent && selectedParty)) && (
             <div className="flex items-center gap-4 animate-in fade-in slide-in-from-left-4 duration-300">
               <div className="h-12 w-px bg-border hidden sm:block" />
@@ -224,8 +254,8 @@ export const AddEditCandidate = (props: Props) => {
                   <img
                     src={
                       isIndependent
-                        ? `data:${selectedSymbol?.symbolContentType};base64,${selectedSymbol?.symbolContent}`
-                        : `data:${selectedParty?.partySymbolContentType};base64,${selectedParty?.partySymbolContent}`
+                        ? `data:${selectedCandidateSymbol?.symbolContentType};base64,${selectedCandidateSymbol?.symbolContent}`
+                        : `data:${selectedParty?.symbolContentType};base64,${selectedParty?.symbolContent}`
                     }
                     alt="Preview"
                     className="h-full w-full object-contain"
@@ -239,7 +269,7 @@ export const AddEditCandidate = (props: Props) => {
                 </span>
                 <span className="text-lg font-bold text-foreground">
                   {isIndependent
-                    ? selectedSymbol?.symbolFileName
+                    ? selectedCandidateSymbol?.symbolFileName
                     : selectedParty?.politicalPartyName}
                 </span>
               </div>
@@ -304,7 +334,7 @@ function renderSymbolModal(
 function renderPartyModal(
   isOpen: boolean,
   setOpen: (open: boolean) => void,
-  onSelect: (p: PoliticalPartyInfo) => void,
+  onSelect: (p: PoliticalPartySelectInfo) => void,
 ) {
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>

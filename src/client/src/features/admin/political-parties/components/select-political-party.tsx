@@ -16,10 +16,13 @@ import {
 import { Plus, User } from "lucide-react";
 import { Button } from "@/components/ui/button.tsx";
 import { ScrollableTableBody } from "@/components/table/scrollable-table-body.tsx";
-import type { PoliticalPartyInfo } from "@/features/admin/political-parties/types/admin.political-parties.types.ts";
+import type {
+  PoliticalPartyInfo,
+  PoliticalPartySelectInfo,
+} from "@/features/admin/political-parties/types/admin.political-parties.types.ts";
 
 export interface SelectPoliticalPartiesProps {
-  onPartySelect: (party: PoliticalPartyInfo) => void;
+  onPartySelect: (party: PoliticalPartySelectInfo) => void;
 }
 export const SelectPoliticalParty = ({
   onPartySelect,
@@ -30,6 +33,17 @@ export const SelectPoliticalParty = ({
     isError,
     refetch,
   } = useAdminPoliticalPartyQuery.getParties();
+
+  const onSelectClick = (party: PoliticalPartyInfo) => {
+    const partySelectInfo: PoliticalPartySelectInfo = {
+      politicalPartyId: party.politicalPartyId,
+      politicalPartyName: party.politicalPartyName,
+      symbolContent: party.partySymbolContent,
+      symbolContentType: party.partySymbolContentType,
+      symbolFileName: party.partySymbolFileName,
+    };
+    onPartySelect(partySelectInfo);
+  };
 
   return (
     <QueryWrapper isLoading={isLoading} isError={isError} refetch={refetch}>
@@ -65,7 +79,7 @@ export const SelectPoliticalParty = ({
                 <TableRow
                   key={party.politicalPartyId}
                   className="group hover:bg-muted/40 transition-colors border-b border-border/40"
-                  onDoubleClick={() => onPartySelect(party)}
+                  onDoubleClick={() => onSelectClick(party)}
                 >
                   <TableCell className="py-5">
                     <div className="relative">
@@ -107,7 +121,7 @@ export const SelectPoliticalParty = ({
                         variant="outline"
                         size="sm"
                         className="h-9 px-3 border-border/50 hover:bg-primary hover:text-primary-foreground transition-all"
-                        onClick={() => onPartySelect(party)}
+                        onClick={() => onSelectClick(party)}
                       >
                         Select
                       </Button>

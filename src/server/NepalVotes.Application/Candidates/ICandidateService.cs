@@ -7,5 +7,6 @@ public interface ICandidateService
     Task<ApiResponse<IEnumerable<CandidateListItem>>> GetCandidatesByConstituencyIdAsync(int? constituencyId);
     Task<ApiResponse<CandidateDetail>> GetCandidateByIdAsync(int id);
     Task<ApiResponse<bool>> CreateCandidateAsync(CandidateAddRequest candidate);
+    Task<ApiResponse<bool>> UpdateCandidateAsync(CandidateUpdateRequest candidateRequest);
     Task<ApiResponse<bool>> DeleteCandidateAsync(int id);
 }

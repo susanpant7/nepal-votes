@@ -12,6 +12,7 @@ public class CandidateListItem
     public string? PoliticalPartyName { get; set; }
     public byte[]? SymbolContent { get; set; }
     public string? SymbolContentType { get; set; }
+    public string? SymbolFileName { get; set; }
 }
 
 public class CandidateDetail
@@ -21,9 +22,13 @@ public class CandidateDetail
     public int ConstituencyId { get; set; }
     public string ConstituencyName { get; set; } = null!;
     public bool IsIndependent { get; set; }
+    public int? PoliticalPartyId { get; set; }
     public string? PoliticalPartyName { get; set; }
+    public int? CandidateSymbolId { get; set; }
     public byte[]? SymbolContent { get; set; }
     public string? SymbolContentType { get; set; }
+    public string? SymbolFileName { get; set; }
+
 }
 
 public static class CandidateMapper
@@ -44,7 +49,8 @@ public static class CandidateMapper
             IsIndependent = candidate.IsIndependent,
             PoliticalPartyName = candidate.IsIndependent ? "Independent" : candidate.PoliticalParty?.PoliticalPartyName,
             SymbolContent = symbolMedia?.Content,
-            SymbolContentType = symbolMedia?.ContentType
+            SymbolContentType = symbolMedia?.ContentType,
+            SymbolFileName = symbolMedia?.FileName
         };
     }
     
@@ -63,8 +69,11 @@ public static class CandidateMapper
             ConstituencyName = candidate.Constituency.ConstituencyName,
             IsIndependent = candidate.IsIndependent,
             PoliticalPartyName = candidate.IsIndependent ? "Independent" : candidate.PoliticalParty?.PoliticalPartyName,
+            PoliticalPartyId = candidate.PoliticalParty?.PoliticalPartyId,
+            CandidateSymbolId =  candidate.CandidateSymbol?.CandidateSymbolId,
             SymbolContent = symbolMedia?.Content,
-            SymbolContentType = symbolMedia?.ContentType
+            SymbolContentType = symbolMedia?.ContentType,
+            SymbolFileName = symbolMedia?.FileName
         };
     }
 }

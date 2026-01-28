@@ -30,6 +30,13 @@ public class CandidatesController(ICandidateService service) : ControllerBase
         var response = await service.CreateCandidateAsync(candidateRequest);
         return response.ToActionResult();
     }
+    
+    [HttpPut]
+    public async Task<IActionResult> Update(CandidateUpdateRequest candidateRequest) 
+    {
+        var response = await service.UpdateCandidateAsync(candidateRequest);
+        return response.ToActionResult();
+    }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)

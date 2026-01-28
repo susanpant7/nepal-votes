@@ -11,10 +11,8 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
         var query = context.Candidates
             .Include(c => c.User)
             .Include(c => c.Constituency)
-            .Include(c => c.PoliticalParty)
-            .ThenInclude(p => p!.SymbolMediaFile)
-            .Include(c => c.CandidateSymbol)
-            .ThenInclude(cs => cs!.CandidateSymbolMediaFile)
+            .Include(c => c.PoliticalParty).ThenInclude(p => p!.SymbolMediaFile)
+            .Include(c => c.CandidateSymbol).ThenInclude(cs => cs!.CandidateSymbolMediaFile)
             .AsQueryable();
 
         if (constituencyId.HasValue)
@@ -31,7 +29,7 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
             .Include(c => c.User)
             .Include(c => c.Constituency)
             .Include(c => c.PoliticalParty).ThenInclude(p => p!.SymbolMediaFile)
-            .Include(c => c.CandidateSymbol)
+            .Include(c => c.CandidateSymbol).ThenInclude(cs => cs!.CandidateSymbolMediaFile)
             .FirstOrDefaultAsync(c => c.CandidateId == id);
     }
 

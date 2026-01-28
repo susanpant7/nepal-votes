@@ -9,14 +9,16 @@ export interface CandidateListItem {
   symbolContent: string; // Base64 string
   symbolContentType: string; // e.g., "image/png"
 }
+
 export interface CandidateDetail {
   candidateId: number;
-  candidateName: string;
+  constituencyId: number;
+  fullName: string;
   userId: number;
   isIndependent: boolean;
-  partySymbolContent: string;
-  partySymbolContentType: string;
-  partySymbolFileName: string;
+  politicalPartyId: number | null;
+  politicalPartyName: string | null;
+  candidateSymbolId: number | null;
   symbolContent: string; // Base64 string
   symbolContentType: string; // e.g., "image/png"
   candidateSymbolFileName: string;
