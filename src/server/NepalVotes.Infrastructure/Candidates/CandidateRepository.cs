@@ -6,14 +6,23 @@ namespace NepalVotes.Infrastructure.Candidates;
 
 public class CandidateRepository(ApplicationDbContext context) : ICandidateRepository
 {
-    public async Task<IEnumerable<Candidate>> GetAllAsync()
+    public async Task<IEnumerable<Candidate>> GetAllByConstituencyIdAsync(int? constituencyId = null)
     {
-        return await context.Candidates
+        var query = context.Candidates
             .Include(c => c.User)
             .Include(c => c.Constituency)
-            .Include(c => c.PoliticalParty).ThenInclude(p => p!.SymbolMediaFile)
+            .Include(c => c.PoliticalParty)
+            .ThenInclude(p => p!.SymbolMediaFile)
             .Include(c => c.CandidateSymbol)
-            .ToListAsync();
+            .ThenInclude(cs => cs!.CandidateSymbolMediaFile)
+            .AsQueryable();
+
+        if (constituencyId.HasValue)
+        {
+            query = query.Where(c => c.ConstituencyId == constituencyId.Value);
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<Candidate?> GetByIdAsync(int id)
@@ -31,6 +40,12 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
         await context.Candidates.AddAsync(candidate);
     }
 
+    public Task UpdateAsync(Candidate candidate)
+    {
+        context.Candidates.Update(candidate);
+        return Task.CompletedTask;
+    }
+    
     public async Task DeleteAsync(Candidate candidate)
     {
         context.Candidates.Remove(candidate);

@@ -2,8 +2,9 @@ namespace NepalVotes.Domain.Candidates;
 
 public interface ICandidateRepository
 {
-    Task<IEnumerable<Candidate>> GetAllAsync();
+    public Task<IEnumerable<Candidate>> GetAllByConstituencyIdAsync(int? constituencyId = null);
     Task<Candidate?> GetByIdAsync(int id);
     Task AddAsync(Candidate candidate);
+    Task UpdateAsync(Candidate candidate);
     Task DeleteAsync(Candidate candidate);
 }

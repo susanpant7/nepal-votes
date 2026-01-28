@@ -1,4 +1,8 @@
-import type { CandidateDetail } from "@/features/admin/candidates/types/admin.candidates.types.ts";
+import type {
+  AddCandidateRequest,
+  CandidateDetail,
+  UpdateCandidateRequest,
+} from "@/features/admin/candidates/types/admin.candidates.types.ts";
 import { Button } from "@/components/ui/button.tsx";
 import { ChevronLeft } from "lucide-react";
 import { Label } from "@/components/ui/label.tsx";
@@ -21,21 +25,29 @@ import { SelectPoliticalParty } from "@/features/admin/political-parties/compone
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { cn } from "@/lib/utils.ts";
 import { Separator } from "@radix-ui/react-select";
+import { useAdminCandidateMutation } from "@/features/admin/candidates/api/admin.candidates.query.ts";
+import { showNotification } from "@/components/toaster/toaster.utils.ts";
+import { ROUTES } from "@/lib/app.routes.urls.ts";
+import { useCandidateStore } from "@/stores/useCandidateStore.ts";
 
 export interface Props {
   isEdit: boolean;
   candidateDetail?: CandidateDetail;
 }
 export const AddEditCandidate = (props: Props) => {
+  const setConstituencyId = useCandidateStore((s) => s.setConstituencyId);
   const { isEdit, candidateDetail } = props;
   const navigate = useNavigate();
 
+  const { addCandidate, updateCandidate } = useAdminCandidateMutation();
   // --- State ---
   const [selectedConstituency, setSelectedConstituency] =
     useState<ConstituencyDropdown | null>(null);
   const [selectedCandidate, setSelectedCandidate] =
     useState<UserSearchResponse | null>(null);
-  const [isIndependent, setIsIndependent] = useState<boolean>(false);
+  const [isIndependent, setIsIndependent] = useState<boolean>(
+    candidateDetail?.isIndependent ?? false,
+  );
   const [selectedSymbol, setSelectedSymbol] =
     useState<CandidateSymbolInfo | null>(null);
   const [selectedParty, setSelectedParty] = useState<PoliticalPartyInfo | null>(
@@ -63,13 +75,38 @@ export const AddEditCandidate = (props: Props) => {
     setOpenSelectPartyModal(false);
   };
 
-  const onSaveButtonClick = () => {
-    console.log("Saving...", {
-      selectedConstituency,
-      selectedCandidate,
-      isIndependent,
-      selectedSymbol,
-      selectedParty,
+  const onSaveButtonClick = async () => {
+    if (selectedCandidate?.userId == null) {
+      showNotification.error("Select a candidate");
+      return;
+    }
+    if (selectedConstituency?.constituencyId == null) {
+      showNotification.error("Select a constituency");
+      return;
+    }
+    const addRequest: AddCandidateRequest = {
+      userId: selectedCandidate?.userId!,
+      constituencyId: selectedConstituency?.constituencyId!,
+      isIndependent: isIndependent,
+      politicalPartyId: isIndependent
+        ? null
+        : (selectedParty?.politicalPartyId ?? null),
+      candidateSymbolId: isIndependent
+        ? (selectedSymbol?.candidateSymbolId ?? null)
+        : null,
+    };
+    if (isEdit && candidateDetail?.candidateId != null) {
+      const updateRequest: UpdateCandidateRequest = {
+        ...addRequest,
+        candidateId: candidateDetail.candidateId,
+      };
+      await updateCandidate.mutateAsync(updateRequest);
+    } else {
+      await addCandidate.mutateAsync(addRequest);
+    }
+    setConstituencyId(selectedConstituency.constituencyId);
+    await navigate({
+      to: ROUTES.ADMIN_CANDIDATES,
     });
   };
 
@@ -121,7 +158,7 @@ export const AddEditCandidate = (props: Props) => {
           <UserSearchDropdown
             onSelect={onCandidateSelect}
             currentUserName={candidateDetail?.candidateName ?? ""}
-            searchLabel={"Search for a user..."}
+            searchLabel={"Search for a candidate..."}
           />
         </div>
 

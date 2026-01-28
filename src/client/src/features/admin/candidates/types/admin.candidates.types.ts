@@ -1,5 +1,14 @@
 //domain
-export interface CandidateListItem {}
+export interface CandidateListItem {
+  candidateId: number;
+  fullName: string;
+  constituencyId: number;
+  constituencyName: string;
+  isIndependent: boolean;
+  politicalPartyName: string | null;
+  symbolContent: string; // Base64 string
+  symbolContentType: string; // e.g., "image/png"
+}
 export interface CandidateDetail {
   candidateId: number;
   candidateName: string;
@@ -8,13 +17,19 @@ export interface CandidateDetail {
   partySymbolContent: string;
   partySymbolContentType: string;
   partySymbolFileName: string;
-  candidateSymbolContent: string;
-  candidateSymbolContentType: string;
+  symbolContent: string; // Base64 string
+  symbolContentType: string; // e.g., "image/png"
   candidateSymbolFileName: string;
 }
 // requests
-export interface AddCandidateRequest {}
-export interface UpdateCandidateRequest {
+export interface AddCandidateRequest {
+  userId: number;
+  politicalPartyId: number | null;
+  isIndependent: boolean;
+  constituencyId: number;
+  candidateSymbolId: number | null;
+}
+export interface UpdateCandidateRequest extends AddCandidateRequest {
   candidateId: number;
 }
 

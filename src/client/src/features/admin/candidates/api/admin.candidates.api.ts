@@ -13,7 +13,16 @@ export const AdminCandidateApi = {
   getCandidates: async (): Promise<CandidateListItem[]> =>
     apiClient.get(ADMIN_CANDIDATE_ENDPOINTS.GET_CANDIDATES),
 
-  getCandidateDetail: async (candidateId: number): Promise<CandidateDetail[]> =>
+  getCandidatesByConstituencyId: async (
+    constituencyId: number,
+  ): Promise<CandidateListItem[]> =>
+    apiClient.get(
+      ADMIN_CANDIDATE_ENDPOINTS.GET_CANDIDATES_BY_CONSTITUENCY_ID(
+        constituencyId,
+      ),
+    ),
+
+  getCandidateDetail: async (candidateId: number): Promise<CandidateDetail> =>
     apiClient.get(ADMIN_CANDIDATE_ENDPOINTS.GET_CANDIDATE_DETAIL(candidateId)),
 
   // -------- ADD --------

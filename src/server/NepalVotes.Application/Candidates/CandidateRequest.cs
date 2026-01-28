@@ -2,13 +2,19 @@ namespace NepalVotes.Application.Candidates;
 
 public record CandidateAddRequest
 (
-    string FirstName,
-    string LastName
+    int UserId,
+    int? PoliticalPartyId,
+    bool IsIndependent,
+    int ConstituencyId,
+    int? CandidateSymbolId
 );
 
 public record CandidateUpdateRequest
 (
     int CandidateId,
-    string FirstName,
-    string LastName
+    int UserId,
+    int? PoliticalPartyId,
+    bool IsIndependent,
+    int ConstituencyId,
+    int? CandidateSymbolId
 );

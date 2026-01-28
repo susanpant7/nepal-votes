@@ -17,5 +17,5 @@ export const ROUTES = {
 
   ADMIN_CANDIDATES: "/admin/candidates",
   ADMIN_CANDIDATES_ADD: "/admin/candidates/add",
-  ADMIN_CANDIDATES_ADIT: "/admin/candidates/$candidateId",
+  ADMIN_CANDIDATES_EDIT: "/admin/candidates/$candidateId",
 } as const;

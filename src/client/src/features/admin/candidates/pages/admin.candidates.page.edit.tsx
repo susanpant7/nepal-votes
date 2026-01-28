@@ -8,7 +8,6 @@ export interface EditConstituencyProps {
 export const AdminCandidatePageEdit = (props: EditConstituencyProps) => {
   const candidateId = props.candidateId;
 
-  alert("candidate id is edited " + candidateId);
   const { data, isLoading, isError, refetch } =
     useAdminCandidateQuery.getCandidateDetail(candidateId);
 

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NepalVotes.Api.ResponseExtensions;
 using NepalVotes.Application.Candidates;
-using NepalVotes.Domain.Candidates;
 
 namespace NepalVotes.Api.Candidates;
 
@@ -12,9 +11,9 @@ namespace NepalVotes.Api.Candidates;
 public class CandidatesController(ICandidateService service) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] int? constituencyId)
     {
-        var response = await service.GetCandidatesAsync();
+        var response = await service.GetCandidatesByConstituencyIdAsync(constituencyId);
         return response.ToActionResult();
     }
     
@@ -26,9 +25,9 @@ public class CandidatesController(ICandidateService service) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Candidate candidate) 
+    public async Task<IActionResult> Create(CandidateAddRequest candidateRequest) 
     {
-        var response = await service.CreateCandidateAsync(candidate);
+        var response = await service.CreateCandidateAsync(candidateRequest);
         return response.ToActionResult();
     }
 

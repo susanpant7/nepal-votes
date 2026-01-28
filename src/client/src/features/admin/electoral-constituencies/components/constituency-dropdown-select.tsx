@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ChevronsUpDown, Loader2, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,12 +23,14 @@ interface ConstituencyDropdownProps {
   onSelect: (constituency: ConstituencyDropdown) => void;
   disabled?: boolean; // Removed the redundant | false
   onAddConstituency?: (name: string) => void;
+  defaultConstituencyId?: number | null;
 }
 
 export function ConstituencyDropdownSelect({
   onSelect,
   disabled = false, // Defaulting to false so it's enabled by default
   onAddConstituency,
+  defaultConstituencyId,
 }: ConstituencyDropdownProps) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = React.useState<ConstituencyDropdown | null>(
@@ -38,6 +40,19 @@ export function ConstituencyDropdownSelect({
 
   const { data = [], isLoading } =
     useAdminConstituencyQuery.getConstituenciesDropdown();
+
+  useEffect(() => {
+    if (defaultConstituencyId && data.length > 0) {
+      const found = data.find(
+        (c) => c.constituencyId === defaultConstituencyId,
+      );
+      if (found) {
+        setSelected(found);
+      }
+    } else if (!defaultConstituencyId) {
+      setSelected(null);
+    }
+  }, [defaultConstituencyId, data]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
