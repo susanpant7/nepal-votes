@@ -2,6 +2,7 @@ export const ROUTES = {
   HOME: "/",
   AUTH: "/auth",
   USER_PROFILE: "/user-profile",
+  VOTE: "/vote",
   ADMIN_PANEL: "/admin",
   ADMIN_DASHBOARD: "/admin",
   ADMIN_ELECTORAL_GEOGRAPHIES: "/admin/electoral-geographies",

@@ -13,6 +13,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProtectedVoteRouteImport } from './routes/_protected/vote'
 import { Route as ProtectedUserProfileRouteImport } from './routes/_protected/user-profile'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin/index'
 import { Route as AdminAdminPoliticalPartiesIndexRouteImport } from './routes/_admin/admin/political-parties/index'
@@ -44,6 +45,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ProtectedVoteRoute = ProtectedVoteRouteImport.update({
+  id: '/vote',
+  path: '/vote',
+  getParentRoute: () => ProtectedRoute,
 } as any)
 const ProtectedUserProfileRoute = ProtectedUserProfileRouteImport.update({
   id: '/user-profile',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/user-profile': typeof ProtectedUserProfileRoute
+  '/vote': typeof ProtectedVoteRoute
   '/admin': typeof AdminAdminIndexRoute
   '/admin/candidates/$candidateId': typeof AdminAdminCandidatesCandidateIdRoute
   '/admin/candidates/add': typeof AdminAdminCandidatesAddRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/user-profile': typeof ProtectedUserProfileRoute
+  '/vote': typeof ProtectedVoteRoute
   '/admin': typeof AdminAdminIndexRoute
   '/admin/candidates/$candidateId': typeof AdminAdminCandidatesCandidateIdRoute
   '/admin/candidates/add': typeof AdminAdminCandidatesAddRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/_protected': typeof ProtectedRouteWithChildren
   '/auth': typeof AuthRoute
   '/_protected/user-profile': typeof ProtectedUserProfileRoute
+  '/_protected/vote': typeof ProtectedVoteRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_admin/admin/candidates/$candidateId': typeof AdminAdminCandidatesCandidateIdRoute
   '/_admin/admin/candidates/add': typeof AdminAdminCandidatesAddRoute
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/user-profile'
+    | '/vote'
     | '/admin'
     | '/admin/candidates/$candidateId'
     | '/admin/candidates/add'
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/user-profile'
+    | '/vote'
     | '/admin'
     | '/admin/candidates/$candidateId'
     | '/admin/candidates/add'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/_protected'
     | '/auth'
     | '/_protected/user-profile'
+    | '/_protected/vote'
     | '/_admin/admin/'
     | '/_admin/admin/candidates/$candidateId'
     | '/_admin/admin/candidates/add'
@@ -267,6 +279,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_protected/vote': {
+      id: '/_protected/vote'
+      path: '/vote'
+      fullPath: '/vote'
+      preLoaderRoute: typeof ProtectedVoteRouteImport
+      parentRoute: typeof ProtectedRoute
     }
     '/_protected/user-profile': {
       id: '/_protected/user-profile'
@@ -401,10 +420,12 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface ProtectedRouteChildren {
   ProtectedUserProfileRoute: typeof ProtectedUserProfileRoute
+  ProtectedVoteRoute: typeof ProtectedVoteRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedUserProfileRoute: ProtectedUserProfileRoute,
+  ProtectedVoteRoute: ProtectedVoteRoute,
 }
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
