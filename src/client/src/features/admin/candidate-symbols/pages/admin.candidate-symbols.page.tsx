@@ -23,7 +23,9 @@ export const AdminCandidateSymbolsPage = () => {
     <div className="flex flex-col gap-6 p-6">
       {/* Page Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Candidate Symbols</h1>
+        <h1 className="text-2xl font-semibold">
+          Election Symbols For Independent Candidates
+        </h1>
         <Button onClick={onAddCandidateSymbolButtonClick}>
           <Plus className="mr-2 h-4 w-4" />
           Add Candidate Symbol
