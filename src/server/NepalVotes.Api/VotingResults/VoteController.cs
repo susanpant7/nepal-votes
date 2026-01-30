@@ -31,4 +31,15 @@ public class VoteController(IVoteService voteService) : ControllerBase
         var response = await voteService.GetVoterPartiesOptionsAsync();
         return response.ToActionResult();
     }
+    
+    [HttpPost("submit")]
+    public async Task<IActionResult> SubmitUserVote([FromBody] SubmitVoteRequest request)
+    {
+        var userId = HttpContext.User.GetUserId(); 
+        
+        //TODO: handle the user location here as well
+        
+        var response = await voteService.SubmitVoteAsync(userId,request);
+        return response.ToActionResult();
+    }
 }

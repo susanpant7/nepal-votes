@@ -6,7 +6,7 @@ namespace NepalVotes.Application.VotingResults;
 public class VoterCandidateSelectOptions
 {
     public int CandidateId { get; set; }
-    public string FullName { get; set; } = null!;
+    public string CandidateName { get; set; } = null!;
     public byte[] SymbolContent { get; set; }
     public string SymbolContentType { get; set; } = null!;
     public string SymbolFileName { get; set; } = null!;
@@ -32,7 +32,7 @@ public static class VotingMapper
         return new VoterCandidateSelectOptions
         {
             CandidateId = candidate.CandidateId,
-            FullName = candidate.User.FullName,
+            CandidateName = candidate.User.FullName,
             SymbolContent = symbolMedia?.Content ?? [],
             SymbolContentType = symbolMedia?.ContentType ?? string.Empty,
             SymbolFileName = symbolMedia?.FileName ?? string.Empty

@@ -31,6 +31,8 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     {
         return await context.Users
             .Include(u => u.VotingPlace)
+                .ThenInclude(vp => vp.Ward)
+                    .ThenInclude(w => w.Constituency)
             .FirstOrDefaultAsync(u => u.UserId == userId);
     }
     

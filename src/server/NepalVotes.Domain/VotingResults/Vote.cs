@@ -1,7 +1,6 @@
 using NepalVotes.Domain.Candidates;
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.ElectoralConstituencies;
-using NepalVotes.Domain.ElectoralGeographies;
 using NepalVotes.Domain.PoliticalParties;
 
 namespace NepalVotes.Domain.VotingResults;

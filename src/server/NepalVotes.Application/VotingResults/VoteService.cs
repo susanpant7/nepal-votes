@@ -1,5 +1,6 @@
 using NepalVotes.Application.ResponseHelpers;
 using NepalVotes.Domain.Candidates;
+using NepalVotes.Domain.Common;
 using NepalVotes.Domain.PoliticalParties;
 using NepalVotes.Domain.Users;
 using NepalVotes.Domain.VotingResults;
@@ -7,7 +8,7 @@ using NepalVotes.Domain.VotingResults;
 namespace NepalVotes.Application.VotingResults;
 
 public class VoteService(IVoteRepository repository, IUserRepository userRepository,
-    ICandidateRepository candidateRepository, IPoliticalPartyRepository partyRepository) : IVoteService
+    ICandidateRepository candidateRepository, IPoliticalPartyRepository partyRepository, IUnitOfWork unitOfWork) : IVoteService
 {
     public async Task<ApiResponse<VoteEligibilityResponse>> CheckEligibilityAsync(int userId)
     {
@@ -42,5 +43,38 @@ public class VoteService(IVoteRepository repository, IUserRepository userReposit
         var partiesResponse = parties.Select(p => p.ToVoterPartyOptions()).ToList();
 
         return ApiResponse<List<VoterPartySelectOptions>>.SuccessResponse(partiesResponse);
+    }
+    
+    public async Task<ApiResponse<bool>> SubmitVoteAsync(int userId, SubmitVoteRequest request)
+    {
+        if (await repository.HasUserVotedAsync(userId))
+        {
+            return ApiResponse<bool>.ErrorResponse("You have already cast your vote.");
+        }
+        var user = await userRepository.GetUserWithVotingPlaceByUserIdAsync(userId);
+    
+        if (user?.VotingPlace?.Ward?.ConstituencyId == null)
+        {
+            return ApiResponse<bool>.ErrorResponse("User registration data is incomplete.");
+        }
+        
+        var vote = new Vote
+        {
+            CandidateId = request.CandidateId == -1 ? null : request.CandidateId,
+            PoliticalPartyId = request.PartyId == -1 ? null : request.PartyId,
+            VotedFromLocation = request.VotedFromLocation,
+            ConstituencyId = user.VotingPlace.Ward.ConstituencyId.Value
+        };
+
+        try 
+        {
+            await repository.AddAsync(vote);
+            await unitOfWork.SaveChangesAsync();
+            return ApiResponse<bool>.SuccessResponse(true, "Your vote has been submitted.");
+        }
+        catch (Exception ex)
+        {
+            return ApiResponse<bool>.ErrorResponse("An error occurred while saving your vote.");
+        }
     }
 }

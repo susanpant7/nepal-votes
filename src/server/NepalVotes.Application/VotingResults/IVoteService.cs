@@ -7,4 +7,5 @@ public interface IVoteService
     Task<ApiResponse<VoteEligibilityResponse>> CheckEligibilityAsync(int userId);
     Task<ApiResponse<List<VoterCandidateSelectOptions>>> GetVoterCandidateOptionsAsync(int userId);
     Task<ApiResponse<List<VoterPartySelectOptions>>> GetVoterPartiesOptionsAsync();
+    Task<ApiResponse<bool>> SubmitVoteAsync(int userId, SubmitVoteRequest request);
 }

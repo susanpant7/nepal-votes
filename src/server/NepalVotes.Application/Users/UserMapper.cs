@@ -7,6 +7,7 @@ public class UserProfile
     public string FullName { get; set; }
     public string MobileNumber { get; set; }
     public string VotingPlaceAddress { get; set; }
+    public string ConstituencyName { get; set; }
 }
 
 public class UserDropdown
@@ -23,7 +24,8 @@ public static class UserMapper
         {
             FullName = $"{user.FirstName} {user.MiddleName} {user.LastName}".Replace("  ", " ").Trim(),
             MobileNumber = user.MobileNumber,
-            VotingPlaceAddress = user.VotingPlace.VotingPlaceAddress
+            VotingPlaceAddress = user.VotingPlace.VotingPlaceAddress,
+            ConstituencyName = user.VotingPlace?.Ward?.Constituency?.ConstituencyName ?? "Not Assigned"
         };
     }
     
