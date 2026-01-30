@@ -6,4 +6,8 @@ export const VotingApi = {
   // -------- GET --------
   getVoterEligibility: async (): Promise<VoterEligibility> =>
     apiClient.get(VOTING_ENDPOINTS.GET_VOTER_ELIGIBILITY),
+  getVoterCandidates: async (): Promise<VoterEligibility> =>
+    apiClient.get(VOTING_ENDPOINTS.GET_VOTER_CANDIDATES),
+  getVoterParties: async (): Promise<VoterEligibility> =>
+    apiClient.get(VOTING_ENDPOINTS.GET_VOTER_PARTIES),
 };

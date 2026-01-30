@@ -7,6 +7,7 @@ import { VotingApi } from "@/features/voting/api/voting.api.ts";
 export const QUERY_KEYS = {
   votingDetail: ["votingDetail"] as const,
   voterEligibility: ["voterEligibility"] as const,
+  voterCandidates: ["voterCandidates"] as const,
 };
 
 // --------------------------------------------------
@@ -16,6 +17,11 @@ export const useVotingQuery = {
   getVoterEligibility: () =>
     useQuery({
       queryKey: QUERY_KEYS.voterEligibility,
+      queryFn: () => VotingApi.getVoterEligibility(),
+    }),
+  getVoterCandidates: () =>
+    useQuery({
+      queryKey: QUERY_KEYS.voterCandidates,
       queryFn: () => VotingApi.getVoterEligibility(),
     }),
 };

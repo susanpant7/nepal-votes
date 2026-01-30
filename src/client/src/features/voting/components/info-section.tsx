@@ -32,10 +32,6 @@ export const InfoSection = ({ gotoSection }: Props) => {
         <ul className="space-y-3">
           <li className="flex gap-3 text-sm">
             <ShieldCheck className="h-5 w-5 text-green-600 shrink-0" />
-            Your vote is encrypted and completely anonymous.
-          </li>
-          <li className="flex gap-3 text-sm">
-            <ShieldCheck className="h-5 w-5 text-green-600 shrink-0" />
             You can only vote once. After submission, your choice is final.
           </li>
         </ul>

@@ -54,4 +54,11 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .AnyAsync(u => u.VotingPlaceId == votingPlaceId);
     }
 
+    public async Task<int?> GetUserConstituencyIdAsync(int userId)
+    {
+        return await context.Users
+            .Where(u => u.UserId == userId)
+            .Select(u => u.VotingPlace.Ward.ConstituencyId)
+            .FirstOrDefaultAsync();
+    }
 }

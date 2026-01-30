@@ -16,4 +16,19 @@ public class VoteController(IVoteService voteService) : ControllerBase
         var response = await voteService.CheckEligibilityAsync(userId);
         return response.ToActionResult();
     }
+    
+    [HttpGet("options/candidates")]
+    public async Task<IActionResult> GetVoterCandidatesOptions()
+    {
+        var userId = HttpContext.User.GetUserId(); 
+        var response = await voteService.GetVoterCandidateOptionsAsync(userId);
+        return response.ToActionResult();
+    }
+    
+    [HttpGet("options/parties")]
+    public async Task<IActionResult> GetVoterPartiesOptions()
+    {
+        var response = await voteService.GetVoterPartiesOptionsAsync();
+        return response.ToActionResult();
+    }
 }
