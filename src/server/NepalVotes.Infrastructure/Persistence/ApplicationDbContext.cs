@@ -4,6 +4,7 @@ using NepalVotes.Domain.ElectoralConstituencies;
 using NepalVotes.Domain.ElectoralGeographies;
 using NepalVotes.Domain.MediaFiles;
 using NepalVotes.Domain.PoliticalParties;
+using NepalVotes.Domain.UserRegistrations;
 using NepalVotes.Domain.Users;
 using NepalVotes.Domain.VotingResults;
 
@@ -33,6 +34,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
     
     public DbSet<Vote> Votes { get; set; }
+    
+    public DbSet<UserRegistration> UserRegistrations { get; set; }
+    public DbSet<UserRegistrationDocument> UserRegistrationDocuments { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

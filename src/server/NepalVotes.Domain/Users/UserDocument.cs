@@ -7,7 +7,6 @@ public class UserDocument : BaseAuditableEntity
 {
     public int UserDocumentId { get; set; }
     public UserDocumentType DocumentType { get; set; }
-    public string ReviewComment { get; set; }
     
     public int UserDocumentMediaFileId { get; set; }
     public MediaFile UserDocumentMediaFile { get; set; }

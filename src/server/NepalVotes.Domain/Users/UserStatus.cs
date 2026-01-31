@@ -6,4 +6,5 @@ public enum UserStatus
     Pending = 2,
     Approved = 3,
     Rejected = 4,
+    OtpPending = 5,
 }

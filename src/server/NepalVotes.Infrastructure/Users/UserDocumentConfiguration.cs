@@ -9,7 +9,6 @@ public class UserDocumentConfiguration : IEntityTypeConfiguration<UserDocument>
     public void Configure(EntityTypeBuilder<UserDocument> builder)
     {
         builder.Property(ud => ud.DocumentType).IsRequired();
-        builder.Property(ud => ud.ReviewComment).IsRequired(false);
         builder.HasOne(ud => ud.User)
             .WithMany(u => u.UserDocuments)
             .HasForeignKey(ud => ud.UserId)

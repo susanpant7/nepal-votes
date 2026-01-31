@@ -2,7 +2,8 @@ namespace NepalVotes.Domain.Users;
 
 public enum UserDocumentType
 {
-    Citizenship = 1,
-    Passport = 2,
-    NationalIdentity = 3,
+    CitizenshipFront = 1,
+    CitizenshipBack = 2,
+    Passport = 3,
+    NationalIdentity = 4,
 }
