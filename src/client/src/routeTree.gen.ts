@@ -9,10 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthIndexRouteImport } from './routes/auth/index'
+import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as ProtectedVoteRouteImport } from './routes/_protected/vote'
 import { Route as ProtectedUserProfileRouteImport } from './routes/_protected/user-profile'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin/index'
@@ -28,11 +29,6 @@ import { Route as AdminAdminElectoralConstituenciesConstituencyIdRouteImport } f
 import { Route as AdminAdminCandidatesAddRouteImport } from './routes/_admin/admin/candidates/add'
 import { Route as AdminAdminCandidatesCandidateIdRouteImport } from './routes/_admin/admin/candidates/$candidateId'
 
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
   getParentRoute: () => rootRouteImport,
@@ -44,6 +40,16 @@ const AdminRoute = AdminRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthIndexRoute = AuthIndexRouteImport.update({
+  id: '/auth/',
+  path: '/auth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignUpRoute = AuthSignUpRouteImport.update({
+  id: '/auth/sign-up',
+  path: '/auth/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProtectedVoteRoute = ProtectedVoteRouteImport.update({
@@ -129,9 +135,10 @@ const AdminAdminCandidatesCandidateIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
   '/user-profile': typeof ProtectedUserProfileRoute
   '/vote': typeof ProtectedVoteRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth': typeof AuthIndexRoute
   '/admin': typeof AdminAdminIndexRoute
   '/admin/candidates/$candidateId': typeof AdminAdminCandidatesCandidateIdRoute
   '/admin/candidates/add': typeof AdminAdminCandidatesAddRoute
@@ -147,9 +154,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
   '/user-profile': typeof ProtectedUserProfileRoute
   '/vote': typeof ProtectedVoteRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth': typeof AuthIndexRoute
   '/admin': typeof AdminAdminIndexRoute
   '/admin/candidates/$candidateId': typeof AdminAdminCandidatesCandidateIdRoute
   '/admin/candidates/add': typeof AdminAdminCandidatesAddRoute
@@ -168,9 +176,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_admin': typeof AdminRouteWithChildren
   '/_protected': typeof ProtectedRouteWithChildren
-  '/auth': typeof AuthRoute
   '/_protected/user-profile': typeof ProtectedUserProfileRoute
   '/_protected/vote': typeof ProtectedVoteRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/': typeof AuthIndexRoute
   '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_admin/admin/candidates/$candidateId': typeof AdminAdminCandidatesCandidateIdRoute
   '/_admin/admin/candidates/add': typeof AdminAdminCandidatesAddRoute
@@ -188,9 +197,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/auth'
     | '/user-profile'
     | '/vote'
+    | '/auth/sign-up'
+    | '/auth'
     | '/admin'
     | '/admin/candidates/$candidateId'
     | '/admin/candidates/add'
@@ -206,9 +216,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/auth'
     | '/user-profile'
     | '/vote'
+    | '/auth/sign-up'
+    | '/auth'
     | '/admin'
     | '/admin/candidates/$candidateId'
     | '/admin/candidates/add'
@@ -226,9 +237,10 @@ export interface FileRouteTypes {
     | '/'
     | '/_admin'
     | '/_protected'
-    | '/auth'
     | '/_protected/user-profile'
     | '/_protected/vote'
+    | '/auth/sign-up'
+    | '/auth/'
     | '/_admin/admin/'
     | '/_admin/admin/candidates/$candidateId'
     | '/_admin/admin/candidates/add'
@@ -247,18 +259,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   ProtectedRoute: typeof ProtectedRouteWithChildren
-  AuthRoute: typeof AuthRoute
+  AuthSignUpRoute: typeof AuthSignUpRoute
+  AuthIndexRoute: typeof AuthIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_protected': {
       id: '/_protected'
       path: ''
@@ -278,6 +284,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/': {
+      id: '/auth/'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/sign-up': {
+      id: '/auth/sign-up'
+      path: '/auth/sign-up'
+      fullPath: '/auth/sign-up'
+      preLoaderRoute: typeof AuthSignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_protected/vote': {
@@ -436,7 +456,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   ProtectedRoute: ProtectedRouteWithChildren,
-  AuthRoute: AuthRoute,
+  AuthSignUpRoute: AuthSignUpRoute,
+  AuthIndexRoute: AuthIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

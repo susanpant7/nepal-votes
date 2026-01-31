@@ -16,11 +16,22 @@ public class AuthService(IConfiguration configuration, IUserService userService,
         public async Task<ApiResponse<bool>> GenerateOtpForLogin(GenerateOtpRequest request)
         {
             var user = await userService.GetUserByMobileNumber(request.MobileNumber);
-            if (user == null) return ApiResponse<bool>.ErrorResponse("User not found", 404);
-
-            var result =  await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Login, user.UserId);
-            await unitOfWork.SaveChangesAsync();
-            return result;
+            if (user == null) return ApiResponse<bool>.ErrorResponse("Voter for this mobile number not found", 404);
+            switch (user.Status)
+            {
+                case UserStatus.Requested:
+                    return ApiResponse<bool>.ErrorResponse("Your registration request has not been approved.", 403);
+                case UserStatus.Pending:
+                    return ApiResponse<bool>.ErrorResponse("Your registration request is being reviewed.", 403);
+                case UserStatus.Rejected:
+                    return ApiResponse<bool>.ErrorResponse("Your registration request is rejected. Please resubmit your documents", 403);
+                case UserStatus.Approved:
+                    var result =  await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Login, user.UserId);
+                    await unitOfWork.SaveChangesAsync();
+                    return result;
+                default:
+                    return ApiResponse<bool>.ErrorResponse("Please resubmit your documents", 500);;
+            }
         }
         
         public async Task<ApiResponse<TokenResponse>> VerifyOtpForLogin(VerifyOtpRequest request)
