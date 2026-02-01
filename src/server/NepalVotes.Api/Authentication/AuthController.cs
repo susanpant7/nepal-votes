@@ -12,12 +12,12 @@ public class AuthController(IAuthService authService) : ControllerBase
 {
     private const  string RefreshTokenCookieName = "RefreshToken";
     
-    // TODO: add a logic to ensure that the user does not send too may requests to generate otp
     [AllowAnonymous]
     [HttpPost("generate-otp")]
     public async Task<ActionResult> GenerateOtp(GenerateOtpRequest request)
     {
-        var result = await authService.GenerateOtpForLogin(request);
+        var remoteIp = Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        var result = await authService.GenerateOtpForLogin(request, remoteIp);
         return result.ToActionResult();
     }
     

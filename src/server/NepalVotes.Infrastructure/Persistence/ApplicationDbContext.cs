@@ -37,7 +37,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     
     public DbSet<UserRegistration> UserRegistrations { get; set; }
     public DbSet<UserRegistrationDocument> UserRegistrationDocuments { get; set; }
-
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.AddInterceptors(auditInterceptor);

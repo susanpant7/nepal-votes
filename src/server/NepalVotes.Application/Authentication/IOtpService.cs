@@ -5,6 +5,6 @@ namespace NepalVotes.Application.Authentication;
 
 public interface IOtpService
 {
-    Task<ApiResponse<bool>> GenerateAndSaveOtp(string mobile, UserOtpType type, int userId);
-    Task<ApiResponse<bool>> VerifyOtp(string mobile, string providedOtp, UserOtpType type, int userId);
+    Task<ApiResponse<bool>> GenerateAndSaveOtp(string mobile, UserOtpType type, string ipAddress);
+    Task<ApiResponse<bool>> VerifyOtp(string mobile, string providedOtp, UserOtpType type);
 }

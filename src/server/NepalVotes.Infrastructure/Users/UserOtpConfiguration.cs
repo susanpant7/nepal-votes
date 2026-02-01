@@ -25,11 +25,13 @@ public class UserOtpConfiguration : IEntityTypeConfiguration<UserOtp>
             .IsRequired()
             .HasDefaultValue(UserOtpType.Login)
             .HasSentinel(0); // Tells EF: If value is 0, use the DB default (Login)
+        
+        builder.Property(x => x.MobileNumber)
+            .IsRequired()
+            .HasMaxLength(20);
+        
+        builder.HasIndex(x => new { x.MobileNumber, x.UserOtpType, x.IsUsed });
 
-        // One-to-Many Relationship (User -> many UserOtps)
-        builder.HasOne(x => x.User)
-            .WithMany(u => u.UserOtps)
-            .HasForeignKey(x => x.UserId)
-            .OnDelete(DeleteBehavior.Cascade); // user delete -> otps delete
+        builder.HasIndex(x => new { x.MobileNumber, x.UserOtpType, x.IsUsed, x.ExpiryDate });
     }
 }

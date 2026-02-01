@@ -1,37 +1,28 @@
-﻿using Microsoft.Extensions.Configuration;
-using NepalVotes.Application.ResponseHelpers;
+﻿using NepalVotes.Application.ResponseHelpers;
 using NepalVotes.Application.Users;
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.Users;
 
 namespace NepalVotes.Application.Authentication;
 
-public class AuthService(IConfiguration configuration, IUserService userService, IOtpService otpService,
-    ITokenGenerator tokenGenerator, IUserRefreshTokenService refreshTokenService, IUnitOfWork unitOfWork)
+public class AuthService(IUserService userService, IOtpService otpService,
+    ITokenGenerator tokenGenerator, IUserRefreshTokenService refreshTokenService,
+    IUnitOfWork unitOfWork)
     : IAuthService
     {
         private const int AccessTokenExpirationInMinutes = 1500;
         private const int RefreshTokenExpirationInDays = 7;
         
-        public async Task<ApiResponse<bool>> GenerateOtpForLogin(GenerateOtpRequest request)
+        public async Task<ApiResponse<bool>> GenerateOtpForLogin(GenerateOtpRequest request, string ipAddress)
         {
             var user = await userService.GetUserByMobileNumber(request.MobileNumber);
             if (user == null) return ApiResponse<bool>.ErrorResponse("Voter for this mobile number not found", 404);
-            switch (user.Status)
-            {
-                case UserStatus.Requested:
-                    return ApiResponse<bool>.ErrorResponse("Your registration request has not been approved.", 403);
-                case UserStatus.Pending:
-                    return ApiResponse<bool>.ErrorResponse("Your registration request is being reviewed.", 403);
-                case UserStatus.Rejected:
-                    return ApiResponse<bool>.ErrorResponse("Your registration request is rejected. Please resubmit your documents", 403);
-                case UserStatus.Approved:
-                    var result =  await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Login, user.UserId);
-                    await unitOfWork.SaveChangesAsync();
-                    return result;
-                default:
-                    return ApiResponse<bool>.ErrorResponse("Please resubmit your documents", 500);;
-            }
+            
+            var result =  await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Login, ipAddress);
+            
+            await unitOfWork.SaveChangesAsync();
+            
+            return result;
         }
         
         public async Task<ApiResponse<TokenResponse>> VerifyOtpForLogin(VerifyOtpRequest request)
@@ -39,10 +30,11 @@ public class AuthService(IConfiguration configuration, IUserService userService,
             var user = await userService.GetUserWithRolesByMobileNumber(request.MobileNumber);
             if (user == null) return ApiResponse<TokenResponse>.ErrorResponse("User not found", 404);
 
-            var otpVerityResult =  await otpService.VerifyOtp(request.MobileNumber, request.ProvidedOtp, UserOtpType.Login, user.UserId);
+            var otpVerityResult =  await otpService.VerifyOtp(request.MobileNumber, request.ProvidedOtp, UserOtpType.Login);
             if (!otpVerityResult.Success)
             {
-                return ApiResponse<TokenResponse>.ErrorResponse(otpVerityResult.Message??"Error while verifying Otp", 404);;
+                await unitOfWork.SaveChangesAsync();
+                return ApiResponse<TokenResponse>.ErrorResponse(otpVerityResult.Message??"Invalid OTP");
             }
             
             // generate jwt with refresh token

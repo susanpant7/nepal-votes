@@ -10,7 +10,6 @@ public class UserOtp
     public bool IsUsed { get; set; }
     public int AttemptCount { get; set; }
     public UserOtpType UserOtpType { get; set; } =  UserOtpType.Login;
-    
-    public User User { get; set; }
-    public int UserId { get; set; }
+    public required string MobileNumber { get; set; }
+    public string? IpAddress { get; set; }
 }
