@@ -20,6 +20,9 @@ public class UserRegistrationConfiguration : IEntityTypeConfiguration<UserRegist
             .HasMaxLength(100)
             .IsRequired();
 
+        builder.Property(u => u.DateOfBirth)
+            .IsRequired();
+        
         builder.Property(u => u.MobileNumber)
             .HasMaxLength(20)
             .IsRequired();

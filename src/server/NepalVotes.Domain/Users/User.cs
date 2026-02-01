@@ -9,6 +9,8 @@ public class User : BaseAuditableEntity
     public string FirstName { get; set; }
     public string MiddleName { get; set; }
     public string LastName { get; set; }
+    public DateOnly DateOfBirth { get; set; }
+    public int Age { get; private set; }
     public string MobileNumber { get; set; }
     public UserStatus Status { get; set; } = UserStatus.Requested;
     public DateTimeOffset RequestDate { get; set; }

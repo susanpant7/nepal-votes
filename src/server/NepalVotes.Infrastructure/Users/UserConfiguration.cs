@@ -19,7 +19,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.LastName)
             .HasMaxLength(100)
             .IsRequired();
-
+        
+        builder.Property(u => u.DateOfBirth)
+            .IsRequired();
+        
         builder.Property(u => u.MobileNumber)
             .HasMaxLength(20)
             .IsRequired();
@@ -56,5 +59,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             );
         builder.HasIndex(u => u.FullName)
             .HasDatabaseName("IX_User_FullName");
+        
+        builder.Property(u => u.Age)
+            .HasComputedColumnSql("DATEDIFF(hour, [DateOfBirth], GETDATE()) / 8766", stored: false);
     }
 }

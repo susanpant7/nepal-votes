@@ -9,6 +9,7 @@ public class UserRegistration
     public string FirstName { get; set; }
     public string? MiddleName { get; set; }
     public string LastName { get; set; }
+    public DateOnly DateOfBirth { get; set; }
     public string MobileNumber { get; set; }
     public UserStatus Status { get; set; } = UserStatus.OtpPending;
     public DateTimeOffset RequestDate { get; set; }
