@@ -15,7 +15,7 @@ public class ApiResponse<T>
     /// <summary>
     /// HTTP status code or custom status identifier
     /// </summary>
-    public int Status { get; set; }
+    public int StatusCode { get; set; }
 
     /// <summary>
     /// Collection of error messages or validation errors
@@ -40,12 +40,12 @@ public class ApiResponse<T>
     // Convenience constructors
     public ApiResponse() { }
 
-    public ApiResponse(T data, bool success = true, string? message = null, int status = 200, IEnumerable<string>? errors = null, object? meta = null)
+    public ApiResponse(T data, bool success = true, string? message = null, int statusCode = 200, IEnumerable<string>? errors = null, object? meta = null)
     {
         Data = data;
         Success = success;
         Message = message;
-        Status = status;
+        StatusCode = statusCode;
         Errors = errors;
         Meta = meta;
     }

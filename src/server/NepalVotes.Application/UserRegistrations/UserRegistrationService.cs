@@ -29,7 +29,7 @@ public class UserRegistrationService(
 
         var otpResult = await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Registration, ipAddress);
         if (!otpResult.Success)
-            return ApiResponse<RegisterUserResponse>.ErrorResponse(otpResult.Message??"Error in generating OTP", otpResult.Status);
+            return ApiResponse<RegisterUserResponse>.ErrorResponse(otpResult.Message??"Error in generating OTP", otpResult.StatusCode);
 
         if (existingUserRegistration != null) 
             await registrationRepo.DeleteAsync(existingUserRegistration);
@@ -72,7 +72,7 @@ public class UserRegistrationService(
         if (!otpResult.Success)
         {
             await unitOfWork.SaveChangesAsync();
-            return ApiResponse<bool>.ErrorResponse(otpResult.Message??"Error in Verifying OTP", otpResult.Status);
+            return ApiResponse<bool>.ErrorResponse(otpResult.Message??"Error in Verifying OTP", otpResult.StatusCode);
         }
 
         // Update Registration status to Pending (ready for Admin)

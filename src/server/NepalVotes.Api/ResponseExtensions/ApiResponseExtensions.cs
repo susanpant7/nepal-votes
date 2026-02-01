@@ -7,7 +7,7 @@ public static class ApiResponseExtensions
 {
     public static ActionResult ToActionResult<T>(this ApiResponse<T> response)
     {
-        return response.Status switch
+        return response.StatusCode switch
         {
             200 => new OkObjectResult(response),
             201 => new CreatedResult(string.Empty, response),
@@ -16,7 +16,7 @@ public static class ApiResponseExtensions
             403 => new ObjectResult(response) { StatusCode = 403 },
             404 => new NotFoundObjectResult(response),
             500 => new ObjectResult(response) { StatusCode = 500 },
-            _ => new ObjectResult(response) { StatusCode = response.Status }
+            _ => new ObjectResult(response) { StatusCode = response.StatusCode }
         };
     }
 }
