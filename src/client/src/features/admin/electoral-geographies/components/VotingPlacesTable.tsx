@@ -27,14 +27,19 @@ import {
 import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { EditDeleteAction } from "@/components/actions/edit-delete-action.tsx";
+import { Checkbox } from "@/components/ui/checkbox.tsx";
 
 export interface VotingPlacesTableProps {
   ward: WardInfo;
   goBackProps: GoBackProps;
+  allowAddEdit: boolean;
+  onSelectVotingPlace?: (votingPlaceInfo: VotingPlaceInfo) => void;
 }
 export const VotingPlacesTable = ({
   ward,
   goBackProps,
+  allowAddEdit,
+  onSelectVotingPlace,
 }: VotingPlacesTableProps) => {
   const { data, isLoading, isError, refetch } =
     useAdminElectoralGeographyQuery.getVotingPlacesByWardId(ward.wardId);
@@ -65,6 +70,14 @@ export const VotingPlacesTable = ({
       ...prev,
       votingPlaceAddress: e.target.value,
     }));
+  };
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+
+  const onVotingPlaceSelectionChange = (votingPlaceInfo: VotingPlaceInfo) => {
+    if (votingPlaceInfo.votingPlaceId === selectedId) {
+      setSelectedId(null);
+    } else setSelectedId(votingPlaceInfo.votingPlaceId);
+    onSelectVotingPlace?.(votingPlaceInfo);
   };
   const isInvalid = !addEditVotingPlace?.votingPlaceAddress?.trim();
 
@@ -111,12 +124,15 @@ export const VotingPlacesTable = ({
         module="Voting Places"
         onAdd={handleAddClick}
         goBackProps={goBackProps}
+        allowAddEdit={allowAddEdit}
       >
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow>
               <TableHead>Address</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              {allowAddEdit && (
+                <TableHead className="text-right">Actions</TableHead>
+              )}
             </TableRow>
           </TableHeader>
 
@@ -140,18 +156,30 @@ export const VotingPlacesTable = ({
                     className="cursor-pointer hover:bg-muted/30"
                   >
                     <TableCell className="font-medium">
+                      {onSelectVotingPlace && (
+                        <Checkbox
+                          className="mr-5"
+                          id={`select-${votingPlace.votingPlaceId}`}
+                          onCheckedChange={() =>
+                            onVotingPlaceSelectionChange(votingPlace)
+                          }
+                          checked={selectedId === votingPlace.votingPlaceId}
+                        />
+                      )}
                       {votingPlace.votingPlaceAddress}
                     </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <EditDeleteAction
-                          onEditClick={() => handleEditClick(votingPlace)}
-                          onDeleteClick={() =>
-                            handleDeleteClick(votingPlace.votingPlaceId)
-                          }
-                        />
-                      </div>
-                    </TableCell>
+                    {allowAddEdit && (
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <EditDeleteAction
+                            onEditClick={() => handleEditClick(votingPlace)}
+                            onDeleteClick={() =>
+                              handleDeleteClick(votingPlace.votingPlaceId)
+                            }
+                          />
+                        </div>
+                      </TableCell>
+                    )}
                   </TableRow>
                 </>
               );

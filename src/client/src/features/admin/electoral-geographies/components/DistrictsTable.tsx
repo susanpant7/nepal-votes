@@ -33,11 +33,13 @@ export interface DistrictsTableProps {
   province: ProvinceInfo;
   viewMunicipalities: (district: DistrictInfo) => void;
   goBackProps: GoBackProps;
+  allowAddEdit: boolean;
 }
 export const DistrictsTable = ({
   province,
   viewMunicipalities,
   goBackProps,
+  allowAddEdit,
 }: DistrictsTableProps) => {
   const { data, isLoading, isError, refetch } =
     useAdminElectoralGeographyQuery.getDistrictsByProvinceId(
@@ -111,13 +113,16 @@ export const DistrictsTable = ({
         module="Districts"
         onAdd={handleAddClick}
         goBackProps={goBackProps}
+        allowAddEdit={allowAddEdit}
       >
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow>
               <TableHead>District Name</TableHead>
               <TableHead className="w-20"></TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              {allowAddEdit && (
+                <TableHead className="text-right">Actions</TableHead>
+              )}
             </TableRow>
           </TableHeader>
 
@@ -152,16 +157,18 @@ export const DistrictsTable = ({
                         View Municipalities
                       </Button>
                     </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        <EditDeleteAction
-                          onEditClick={() => handleEditClick(district)}
-                          onDeleteClick={() =>
-                            handleDeleteClick(district.districtId)
-                          }
-                        />
-                      </div>
-                    </TableCell>
+                    {allowAddEdit && (
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <EditDeleteAction
+                            onEditClick={() => handleEditClick(district)}
+                            onDeleteClick={() =>
+                              handleDeleteClick(district.districtId)
+                            }
+                          />
+                        </div>
+                      </TableCell>
+                    )}
                   </TableRow>
                 </>
               );

@@ -33,11 +33,13 @@ export interface WardsTableProps {
   municipality: MunicipalityInfo;
   viewVotingPlaces: (ward: WardInfo) => void;
   goBackProps: GoBackProps;
+  allowAddEdit: boolean;
 }
 export const WardsTable = ({
   municipality,
   viewVotingPlaces,
   goBackProps,
+  allowAddEdit,
 }: WardsTableProps) => {
   const { data, isLoading, isError, refetch } =
     useAdminElectoralGeographyQuery.getWardsByMunicipalityId(
@@ -113,6 +115,7 @@ export const WardsTable = ({
         module="Wards"
         onAdd={handleAddClick}
         goBackProps={goBackProps}
+        allowAddEdit={allowAddEdit}
       >
         <Table>
           <TableHeader className="bg-muted/50">
@@ -120,7 +123,9 @@ export const WardsTable = ({
               <TableHead>Ward Name</TableHead>
               <TableHead>Ward Number</TableHead>
               <TableHead className="w-20"></TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              {allowAddEdit && (
+                <TableHead className="text-right">Actions</TableHead>
+              )}
             </TableRow>
           </TableHeader>
 
@@ -155,14 +160,16 @@ export const WardsTable = ({
                       View Voting Places
                     </Button>
                   </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <EditDeleteAction
-                        onEditClick={() => handleEditClick(ward)}
-                        onDeleteClick={() => handleDeleteClick(ward.wardId)}
-                      />
-                    </div>
-                  </TableCell>
+                  {allowAddEdit && (
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <EditDeleteAction
+                          onEditClick={() => handleEditClick(ward)}
+                          onDeleteClick={() => handleDeleteClick(ward.wardId)}
+                        />
+                      </div>
+                    </TableCell>
+                  )}
                 </TableRow>
               );
             })}

@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button.tsx";
 
 export interface ProvincesTableProps {
   onViewDistrictsClick: (province: ProvinceInfo) => void;
+  allowAddEdit: boolean;
 }
 export const ProvincesTable = (props: ProvincesTableProps) => {
   const { data, isLoading, isError, refetch } =
@@ -92,13 +93,19 @@ export const ProvincesTable = (props: ProvincesTableProps) => {
       refetch={refetch}
       errorMessage="Failed to load political parties table."
     >
-      <GeographicTableContainer module="Provinces" onAdd={handleAddClick}>
+      <GeographicTableContainer
+        module="Provinces"
+        onAdd={handleAddClick}
+        allowAddEdit={props.allowAddEdit}
+      >
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow>
               <TableHead>Province Name</TableHead>
               <TableHead className="w-20"></TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              {props.allowAddEdit && (
+                <TableHead className="text-right">Actions</TableHead>
+              )}
             </TableRow>
           </TableHeader>
 
@@ -132,14 +139,16 @@ export const ProvincesTable = (props: ProvincesTableProps) => {
                       View Districts
                     </Button>
                   </TableCell>
-                  <TableCell className="text-right">
-                    <EditDeleteAction
-                      onEditClick={() => handleEditClick(province)}
-                      onDeleteClick={() =>
-                        handleDeleteClick(province.provinceId)
-                      }
-                    />
-                  </TableCell>
+                  {props.allowAddEdit && (
+                    <TableCell className="text-right">
+                      <EditDeleteAction
+                        onEditClick={() => handleEditClick(province)}
+                        onDeleteClick={() =>
+                          handleDeleteClick(province.provinceId)
+                        }
+                      />
+                    </TableCell>
+                  )}
                 </TableRow>
               );
             })}

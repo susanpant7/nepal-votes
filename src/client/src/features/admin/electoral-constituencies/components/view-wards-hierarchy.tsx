@@ -14,7 +14,7 @@ export const ViewWardsHierarchy = () => {
   return (
     <div className="space-y-4">
       <QueryWrapper isLoading={isLoading} isError={isError} refetch={refetch}>
-        <div className="mt-4 space-y-6 h-125 overflow-y-scroll scroll-theme-color pr-2">
+        <div className="mt-4 space-y-6 h-125 overflow-y-scroll custom-scrollbar pr-2">
           {queryData?.map((province) => (
             <CollapsibleSection
               key={province.provinceId}

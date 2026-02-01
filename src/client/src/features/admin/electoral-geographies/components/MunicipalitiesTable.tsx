@@ -42,11 +42,13 @@ export interface MunicipalitiesTableProps {
   district: DistrictInfo;
   viewWards: (municipality: MunicipalityInfo) => void;
   goBackProps: GoBackProps;
+  allowAddEdit: boolean;
 }
 export const MunicipalitiesTable = ({
   district,
   viewWards,
   goBackProps,
+  allowAddEdit,
 }: MunicipalitiesTableProps) => {
   const { data, isLoading, isError, refetch } =
     useAdminElectoralGeographyQuery.getMunicipalitiesByDistrictId(
@@ -136,6 +138,7 @@ export const MunicipalitiesTable = ({
         module="Municipalities"
         onAdd={handleAddClick}
         goBackProps={goBackProps}
+        allowAddEdit={allowAddEdit}
       >
         <Table>
           <TableHeader className="bg-muted/50">
@@ -143,7 +146,9 @@ export const MunicipalitiesTable = ({
               <TableHead>Municipality Name</TableHead>
               <TableHead>Municipality Type</TableHead>
               <TableHead className="w-20"></TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              {allowAddEdit && (
+                <TableHead className="text-right">Actions</TableHead>
+              )}
             </TableRow>
           </TableHeader>
 
@@ -180,16 +185,18 @@ export const MunicipalitiesTable = ({
                       View Wards
                     </Button>
                   </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <EditDeleteAction
-                        onEditClick={() => handleEditClick(municipality)}
-                        onDeleteClick={() =>
-                          handleDeleteClick(municipality.municipalityId)
-                        }
-                      />
-                    </div>
-                  </TableCell>
+                  {allowAddEdit && (
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <EditDeleteAction
+                          onEditClick={() => handleEditClick(municipality)}
+                          onDeleteClick={() =>
+                            handleDeleteClick(municipality.municipalityId)
+                          }
+                        />
+                      </div>
+                    </TableCell>
+                  )}
                 </TableRow>
               );
             })}
