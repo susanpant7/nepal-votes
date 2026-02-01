@@ -25,7 +25,7 @@ public class UserRegistrationService(
 
         var existingUserRegistration = await registrationRepo.GetByMobileNumberAsync(request.MobileNumber);
         if (existingUserRegistration is { Status: UserStatus.Pending })
-            return ApiResponse<RegisterUserResponse>.ErrorResponse("Registration already pending admin approval.", (int)HttpStatusCode.Conflict);
+            return ApiResponse<RegisterUserResponse>.ErrorResponse("Registration already pending admin approval.", StatusCode.Conflict);
 
         var otpResult = await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Registration, ipAddress);
         if (!otpResult.Success)
