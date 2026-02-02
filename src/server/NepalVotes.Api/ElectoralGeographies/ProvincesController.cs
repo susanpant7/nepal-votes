@@ -11,6 +11,7 @@ namespace NepalVotes.Api.ElectoralGeographies;
 public class ProvincesController(IProvinceService provinceService) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetProvinces()
     {
         var response = await provinceService.GetAllAsync();

@@ -11,6 +11,7 @@ namespace NepalVotes.Api.ElectoralGeographies;
 public class VotingPlacesController(IVotingPlaceService votingPlaceService) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetVotingPlacesByWard([FromQuery] int wardId)
     {
         var response = await votingPlaceService.GetByWardIdAsync(wardId);

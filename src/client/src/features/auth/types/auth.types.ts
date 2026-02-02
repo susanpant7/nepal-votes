@@ -1,19 +1,17 @@
 // domains
 
-
-
 // requests
 export interface OtpRequest {
-    mobileNumber: string;
+  mobileNumber: string;
 }
 
 export interface LoginRequest extends OtpRequest {
-    providedOtp: string;
+  providedOtp: string;
 }
 
 //responses
 export interface TokenResponse {
-    accessToken: string;
-    refreshToken: string;
-    expiresAt: string;
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: string;
 }

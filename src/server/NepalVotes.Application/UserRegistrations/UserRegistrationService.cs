@@ -15,24 +15,24 @@ public class UserRegistrationService(
     IUnitOfWork unitOfWork)
     : IUserRegistrationService
 {
-    public async Task<ApiResponse<RegisterUserResponse>> RegisterAsync(RegisterUserRequest request, string ipAddress)
+    public async Task<ApiResponse<bool>> RegisterAsync(RegisterUserRequest request, string ipAddress)
     {
         foreach (var doc in request.Documents)
         {
             var fileValidationResponse = fileValidationService.Validate(doc.FileName, doc.FileLength, doc.DocumentType);
-            if (!fileValidationResponse.IsValid) return ApiResponse<RegisterUserResponse>.ErrorResponse(fileValidationResponse.Message);
+            if (!fileValidationResponse.IsValid) return ApiResponse<bool>.ErrorResponse(fileValidationResponse.Message);
         }
 
         var existingUserRegistration = await registrationRepo.GetByMobileNumberAsync(request.MobileNumber);
-        if (existingUserRegistration is { Status: UserStatus.Pending })
-            return ApiResponse<RegisterUserResponse>.ErrorResponse("Registration already pending admin approval.", StatusCode.Conflict);
+        // if (existingUserRegistration is { Status: UserStatus.Pending })
+        //     return ApiResponse<bool>.ErrorResponse("Registration already pending admin approval.", StatusCode.Conflict);
 
-        var otpResult = await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Registration, ipAddress);
-        if (!otpResult.Success)
-            return ApiResponse<RegisterUserResponse>.ErrorResponse(otpResult.Message??"Error in generating OTP", otpResult.StatusCode);
+        var otpResponse = await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Registration, ipAddress);
+        if (!otpResponse.Success)
+            return ApiResponse<bool>.ErrorResponse(otpResponse.Message??"Error in generating OTP", otpResponse.StatusCode);
 
-        if (existingUserRegistration != null) 
-            await registrationRepo.DeleteAsync(existingUserRegistration);
+        // if (existingUserRegistration != null) 
+        //     await registrationRepo.DeleteAsync(existingUserRegistration);
         
         var registration = new UserRegistration
         {
@@ -57,8 +57,7 @@ public class UserRegistrationService(
         
         await unitOfWork.SaveChangesAsync();
 
-        var data = new RegisterUserResponse { UserRegistrationId = registration.UserRegistrationId };
-        return ApiResponse<RegisterUserResponse>.SuccessResponse(data, "Registration initiated. OTP sent to mobile.");
+        return otpResponse;
     }
 
     public async Task<ApiResponse<bool>> VerifyOtpAsync(VerifyOtpRequest request)
@@ -74,7 +73,8 @@ public class UserRegistrationService(
             await unitOfWork.SaveChangesAsync();
             return ApiResponse<bool>.ErrorResponse(otpResult.Message??"Error in Verifying OTP", otpResult.StatusCode);
         }
-
+        await registrationRepo.DeleteOldRegistrationsExceptLatestAsync(request.MobileNumber,registration.UserRegistrationId);
+        
         // Update Registration status to Pending (ready for Admin)
         registration.Status = UserStatus.Pending;
         await registrationRepo.UpdateAsync(registration);
@@ -96,5 +96,10 @@ public class UserRegistrationService(
         
         await unitOfWork.SaveChangesAsync();
         return otpResult;
+    }
+
+    public async Task<UserRegistration?> GetByMobileNumber(string mobileNumber)
+    {
+        return await registrationRepo.GetByMobileNumberAsync(mobileNumber);
     }
 }

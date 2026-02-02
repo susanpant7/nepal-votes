@@ -4,19 +4,17 @@ import { Label } from "@/components/ui/label";
 import { KeyRound } from "lucide-react";
 import { useState, useEffect } from "react";
 import * as React from "react";
-import { useAuthStore } from "@/stores/useAuthStore";
 import { useNavigate } from "@tanstack/react-router";
 import { useOverlayStore } from "@/stores/useOverlayStore.ts";
 import { showNotification } from "@/components/toaster/toaster.utils.ts";
-import { AuthApi } from "@/features/auth/api/auth.api.ts";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
+import { UserRegistrationApi } from "@/features/users/user-registration/api/user-registration.api.ts";
 
 interface OtpProps {
   mobileNumber: string;
-  resendOtp: () => void;
 }
 
-export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
+export const RegistrationOtpForm = ({ mobileNumber }: OtpProps) => {
   const { showOverlay, hideOverlay } = useOverlayStore();
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
@@ -49,13 +47,12 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
     showOverlay();
     setLoading(true);
     try {
-      const tokenResp = await AuthApi.login({
+      await UserRegistrationApi.verifyOtp({
         mobileNumber: mobileNumber,
         providedOtp: otp,
       });
-      useAuthStore.getState().login(tokenResp.accessToken);
-      showNotification.success("Successfully logged in");
-      await navigate({ to: ROUTES.USER_PROFILE as any });
+
+      await navigate({ to: ROUTES.HOME });
     } catch (err: any) {
       setOtp("");
     } finally {
@@ -69,7 +66,7 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
 
     setLoading(true);
     try {
-      await AuthApi.getOtp({ mobileNumber: mobileNumber });
+      await UserRegistrationApi.regenerateOtp({ mobileNumber: mobileNumber });
       showNotification.success("OTP Resent!");
       setOtp("");
       setTimer(resetTimeInSeconds);
@@ -82,8 +79,8 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
 
   return (
     <div className="container mx-auto py-12 px-4 md:px-8 max-w-4xl">
-      <form onSubmit={handleSubmit} className="mx-auto space-y-8">
-        {/* Header & Security Branding */}
+      <form onSubmit={handleSubmit} className="mx-auto max-w-md space-y-8">
+        {/* Header & Security Icon */}
         <div className="space-y-4 text-center">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 border border-primary/20 shadow-sm">
             <KeyRound className="h-8 w-8 text-primary" />
@@ -92,16 +89,17 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
             <h2 className="text-3xl font-extrabold tracking-tight text-primary">
               Verify Identity
             </h2>
-            <p className="text-sm text-muted-foreground px-4">
-              A 6-digit verification code has been sent to{" "}
-              <span className="font-bold text-foreground tracking-wide">
-                {mobileNumber}
+            <p className="text-sm text-muted-foreground px-6">
+              For your security, we've sent a 6-digit verification code to your
+              device ending in{" "}
+              <span className="font-bold text-foreground">
+                {mobileNumber.slice(-4).padStart(mobileNumber.length, "•")}
               </span>
             </p>
           </div>
         </div>
 
-        {/* Input Card */}
+        {/* Input Section */}
         <div className="bg-card rounded-2xl border p-8 shadow-sm space-y-6">
           <div className="space-y-4">
             <div className="flex justify-between items-center px-1">
@@ -111,18 +109,14 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
               >
                 One Time Password
               </Label>
-              <button
-                type="button"
-                onClick={resendOtp} // Assuming this handles the redirect/reset logic
-                className="text-[10px] font-bold uppercase tracking-wider text-primary hover:text-primary/80 transition-colors"
-              >
-                Change Number?
-              </button>
+              {otp.length === 6 && (
+                <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded border border-green-100 animate-in fade-in zoom-in">
+                  READY
+                </span>
+              )}
             </div>
 
             <div className="relative group">
-              {/* We keep the icon for visual continuity with the Dashboard style */}
-              <KeyRound className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground/50 group-focus-within:text-primary transition-colors" />
               <Input
                 id="otp"
                 type="text"
@@ -132,20 +126,18 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
                 placeholder="000000"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                className="h-16 pl-12 tracking-[1em] text-center font-mono text-2xl bg-muted/30 border-2 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all rounded-xl"
+                className="h-16 tracking-[1em] text-center font-mono text-2xl bg-muted/30 border-2 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all rounded-xl"
                 required
                 disabled={loading}
                 autoFocus
               />
             </div>
-
-            {/* Helper text for user patience */}
-            <p className="text-center text-[10px] text-muted-foreground font-medium uppercase tracking-tighter opacity-60">
-              Enter the code to finalize your registration
+            <p className="text-center text-[10px] text-muted-foreground uppercase font-semibold tracking-tighter opacity-70">
+              Double check your messages if the code hasn't arrived
             </p>
           </div>
 
-          <div className="space-y-3 pt-2">
+          <div className="space-y-3">
             <Button
               type="submit"
               className="h-14 w-full text-lg font-bold shadow-lg shadow-primary/20 active:scale-[0.98] transition-all"
@@ -153,7 +145,7 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-3">
-                  <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                   <span>Verifying...</span>
                 </div>
               ) : (
@@ -164,19 +156,13 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
             <Button
               variant="ghost"
               type="button"
-              className={`w-full h-12 font-semibold transition-all ${
-                timer === 0
-                  ? "text-primary hover:bg-primary/5"
-                  : "text-muted-foreground"
-              }`}
+              className={`w-full h-12 font-semibold transition-all ${timer === 0 ? "text-primary hover:bg-primary/5" : "text-muted-foreground"}`}
               onClick={handleReset}
               disabled={loading || timer > 0}
             >
               {timer > 0 ? (
                 <span className="flex items-center justify-center gap-2">
-                  <span className="tabular-nums">
-                    Resend available in {timer}s
-                  </span>
+                  <span className="tabular-nums">Resend Code in {timer}s</span>
                 </span>
               ) : (
                 "Didn't receive a code? Resend"
@@ -185,10 +171,9 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
           </div>
         </div>
 
-        {/* Security Trust Footer */}
-        <div className="flex items-center justify-center gap-4 text-muted-foreground/40">
-          <div className="h-px w-12 bg-border" />
-          <div className="flex items-center gap-1">
+        {/* Footer Security Hint */}
+        <div className="text-center">
+          <p className="text-[11px] text-muted-foreground flex items-center justify-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="12"
@@ -200,13 +185,11 @@ export const Otp = ({ mobileNumber, resendOtp }: OtpProps) => {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
-            <span className="text-[10px] font-bold uppercase tracking-widest">
-              Secure Verification
-            </span>
-          </div>
-          <div className="h-px w-12 bg-border" />
+            Secure Multi-Factor Authentication
+          </p>
         </div>
       </form>
     </div>

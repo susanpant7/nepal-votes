@@ -11,6 +11,7 @@ namespace NepalVotes.Api.ElectoralGeographies;
 public class MunicipalitiesController(IMunicipalityService municipalityService) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetMunicipalitiesByDistrict([FromQuery] int districtId)
     {
         var response = await municipalityService.GetByDistrictIdAsync(districtId);

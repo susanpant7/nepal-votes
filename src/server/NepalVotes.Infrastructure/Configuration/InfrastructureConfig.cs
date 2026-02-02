@@ -3,21 +3,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NepalVotes.Application.Authentication;
 using NepalVotes.Application.ElectoralConstituencies;
+using NepalVotes.Application.FileValidations;
 using NepalVotes.Application.Users;
 using NepalVotes.Domain.Candidates;
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.ElectoralConstituencies;
 using NepalVotes.Domain.ElectoralGeographies;
 using NepalVotes.Domain.PoliticalParties;
+using NepalVotes.Domain.UserRegistrations;
 using NepalVotes.Domain.Users;
 using NepalVotes.Domain.VotingResults;
 using NepalVotes.Infrastructure.Authentication;
 using NepalVotes.Infrastructure.Candidates;
 using NepalVotes.Infrastructure.ElectoralConstituencies;
 using NepalVotes.Infrastructure.ElectoralGeographies;
+using NepalVotes.Infrastructure.FileValidations;
 using NepalVotes.Infrastructure.Hashers;
 using NepalVotes.Infrastructure.Persistence;
 using NepalVotes.Infrastructure.PoliticalParties;
+using NepalVotes.Infrastructure.UserRegistrations;
 using NepalVotes.Infrastructure.Users;
 using NepalVotes.Infrastructure.VotingResults;
 
@@ -42,6 +46,8 @@ public static class InfrastructureConfig
         // Register query repositories (application -> infrastructure)
         services.AddScoped<IConstituencyQueryRepository, ConstituencyQueryRepository>();
         
+        // Register validation services
+        services.AddScoped<IFileValidationService, FileValidationService>();
         
         // Register Repositories (domain -> infrastructure)
         services.AddScoped<IUserRepository, UserRepository>();
@@ -58,7 +64,9 @@ public static class InfrastructureConfig
         services.AddScoped<ICandidateRepository, CandidateRepository>();
         services.AddScoped<ICandidateSymbolRepository, CandidateSymbolRepository>();
         services.AddScoped<IVoteRepository, VoteRepository>();
-
+        services.AddScoped<IUserRegistrationRepository, UserRegistrationRepository>();
+        services.AddScoped<IUserRegistrationDocumentRepository, UserRegistrationDocumentRepository>();
+        
         // Register UnitOfWork
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

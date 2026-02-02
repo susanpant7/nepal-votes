@@ -32,6 +32,7 @@ public class DistrictsController(IDistrictService districtService) : ControllerB
     }
     
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetDistrictsByProvinceId([FromQuery] int provinceId)
     {
         var response = await districtService.GetByProvinceAsync(provinceId);

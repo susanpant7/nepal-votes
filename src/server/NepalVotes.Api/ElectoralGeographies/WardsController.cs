@@ -12,6 +12,7 @@ namespace NepalVotes.Api.ElectoralGeographies;
 public class WardsController(IWardService wardService) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetWardsByMunicipalityId([FromQuery] int municipalityId)
     {
         var response = await wardService.GetByMunicipalityIdAsync(municipalityId);

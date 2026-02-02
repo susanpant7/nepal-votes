@@ -1,4 +1,5 @@
 ﻿using NepalVotes.Application.ResponseHelpers;
+using NepalVotes.Application.UserRegistrations;
 using NepalVotes.Application.Users;
 using NepalVotes.Domain.Common;
 using NepalVotes.Domain.Users;
@@ -6,7 +7,7 @@ using NepalVotes.Domain.Users;
 namespace NepalVotes.Application.Authentication;
 
 public class AuthService(IUserService userService, IOtpService otpService,
-    ITokenGenerator tokenGenerator, IUserRefreshTokenService refreshTokenService,
+    ITokenGenerator tokenGenerator, IUserRefreshTokenService refreshTokenService, IUserRegistrationService  userRegistrationService,
     IUnitOfWork unitOfWork)
     : IAuthService
     {
@@ -16,7 +17,17 @@ public class AuthService(IUserService userService, IOtpService otpService,
         public async Task<ApiResponse<bool>> GenerateOtpForLogin(GenerateOtpRequest request, string ipAddress)
         {
             var user = await userService.GetUserByMobileNumber(request.MobileNumber);
-            if (user == null) return ApiResponse<bool>.ErrorResponse("Voter for this mobile number not found", 404);
+            if (user == null)
+            {
+                var userRegistration = await userRegistrationService.GetByMobileNumber(request.MobileNumber);
+                return userRegistration?.Status switch
+                {
+                    UserStatus.OtpPending => ApiResponse<bool>.ErrorResponse("Complete the form again", 404),
+                    UserStatus.Pending => ApiResponse<bool>.ErrorResponse(
+                        "Your status is currently under administrative review.", StatusCode.AlreadyReported),
+                    _ => ApiResponse<bool>.ErrorResponse("Voter for this mobile number not found. Please register", 404)
+                };
+            }
             
             var result =  await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Login, ipAddress);
             

@@ -6,7 +6,7 @@ using NepalVotes.Application.UserRegistrations;
 namespace NepalVotes.Api.UserRegistrations;
 
 [ApiController]
-[Route("api/register")]
+[Route("api/user-registration")]
 [AllowAnonymous]
 public class UserRegistrationController(IUserRegistrationService service): ControllerBase
 {
@@ -14,6 +14,7 @@ public class UserRegistrationController(IUserRegistrationService service): Contr
         Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
     
     [Consumes("multipart/form-data")]
+    [HttpPost("details")]
     public async Task<IActionResult> Register([FromForm] RegisterUserApiRequest apiRequest)
     {
         var request = MapToRequest(apiRequest);

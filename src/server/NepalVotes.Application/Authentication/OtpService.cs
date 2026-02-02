@@ -15,9 +15,9 @@ public class OtpService(IUserOtpRepository otpRepository, IOtpHashingService otp
     {
         var dayAgo = DateTimeOffset.UtcNow.AddDays(-1);
         var dailyCount = await otpRepository.GetCountAsync(mobile, type, dayAgo);
-        if (dailyCount >= MaxDailyLimit)
-            return ApiResponse<bool>.ErrorResponse($"Daily limit of {MaxDailyLimit} OTPs reached.", 429);
-        
+        // if (dailyCount >= MaxDailyLimit)
+        //     return ApiResponse<bool>.ErrorResponse($"Daily limit of {MaxDailyLimit} OTPs reached.", 429);
+        //
         // TODO: Confirm this logic
         // var ipDailyCount = await otpRepository.GetCountByIpAsync(ipAddress, dayAgo);
         // if (ipDailyCount >= MaxDailyIpLimit) 
@@ -25,9 +25,9 @@ public class OtpService(IUserOtpRepository otpRepository, IOtpHashingService otp
         //     return ApiResponse<bool>.ErrorResponse("Global request limit reached from this network.", 429);
         // }
         
-        var latest = await otpRepository.GetLatestOtpAsync(mobile, type);
-        if (latest != null && (DateTimeOffset.UtcNow - latest.CreatedAt).TotalSeconds < ThrottleSeconds)
-            return ApiResponse<bool>.ErrorResponse($"Please wait {ThrottleSeconds} seconds before requesting a new code.", 429);
+        // var latest = await otpRepository.GetLatestOtpAsync(mobile, type);
+        // if (latest != null && (DateTimeOffset.UtcNow - latest.CreatedAt).TotalSeconds < ThrottleSeconds)
+        //     return ApiResponse<bool>.ErrorResponse($"Please wait {ThrottleSeconds} seconds before requesting a new code.", 429);
         
         var plainOtp = new Random().Next(100000, 999999).ToString();
 

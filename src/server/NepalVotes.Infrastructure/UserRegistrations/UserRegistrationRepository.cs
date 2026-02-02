@@ -25,6 +25,16 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
             );
     }
     
+    public async Task DeleteOldRegistrationsExceptLatestAsync(string mobileNumber, int latestRegistrationId)
+    {
+        if (latestRegistrationId != 0)
+        {
+            await context.UserRegistrations
+                .Where(x => x.MobileNumber == mobileNumber && x.UserRegistrationId != latestRegistrationId)
+                .ExecuteDeleteAsync();
+        }
+    }
+    
     public async Task<UserRegistration?> GetLatestActiveRegistrationAsync(string mobileNumber)
     {
         return await context.UserRegistrations
