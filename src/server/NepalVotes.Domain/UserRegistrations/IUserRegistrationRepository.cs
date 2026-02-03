@@ -10,5 +10,6 @@ public interface IUserRegistrationRepository
     Task UpdateAsync(UserRegistration registration);
     Task DeleteAsync(UserRegistration registration);
     Task<List<UserRegistration>> GetByDistrictIdAsync(int districtId);
-    Task<UserRegistration?> GetRegistrationForReviewAsync(int id);
+    Task<UserRegistration?> GetRegistrationWithGeographicDetailsForReviewAsync(int id);
+    Task<UserRegistration?> GetRegistrationByIdAsync(int id);
 }

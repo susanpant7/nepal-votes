@@ -26,7 +26,7 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
   (response) => {
-    const { success, message, statusCode, data } = response.data;
+    const { success, message, data } = response.data;
 
     const errorMessage = message || "Some error occurred";
     if (success !== true) {
@@ -35,7 +35,7 @@ apiClient.interceptors.response.use(
     }
 
     //const requestMethod = response.config.method?.toLowerCase();
-    if (message && statusCode !== 200) {
+    if (message != "Api Request Success") {
       showNotification.success(message);
     }
 

@@ -63,4 +63,9 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .Select(u => u.VotingPlace.Ward.ConstituencyId)
             .FirstOrDefaultAsync();
     }
+    
+    public async Task AddUserAsync(User user)
+    {
+        await context.Users.AddAsync(user);
+    }
 }

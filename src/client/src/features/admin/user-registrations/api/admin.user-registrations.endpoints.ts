@@ -3,5 +3,6 @@ export const ADMIN_USER_REGISTRATION_ENDPOINTS = {
     `/api/registered-users/by-district/${districtId}`,
   GET_REGISTERED_USERS_BY_USER_REGISTRATION_ID: (userRegistrationId: number) =>
     `/api/registered-users?userRegistrationId=${userRegistrationId}`,
-  UPDATE_USER_REGISTRATION: `/api/registered-users/`,
+  APPROVE_USER_REGISTRATION: `/api/registered-users/approve`,
+  REJECT_USER_REGISTRATION: `/api/registered-users/reject`,
 } as const;

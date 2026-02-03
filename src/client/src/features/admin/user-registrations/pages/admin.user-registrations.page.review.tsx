@@ -1,6 +1,6 @@
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.tsx";
 import { useAdminUserRegistrationQuery } from "@/features/admin/user-registrations/api/admin.user-registrations.query.ts";
-import UserRegistrationReview from "@/features/admin/user-registrations/components/user-registration-review.tsx";
+import { UserRegistrationReview } from "@/features/admin/user-registrations/components/user-registration-review.tsx";
 
 export interface EditConstituencyProps {
   userRegistrationId: number;
@@ -17,7 +17,12 @@ export const AdminUserRegistrationReviewPage = (
 
   return (
     <QueryWrapper isLoading={isLoading} isError={isError} refetch={refetch}>
-      <UserRegistrationReview userReviewData={data!} />
+      {data && (
+        <UserRegistrationReview
+          userRegistrationId={userRegistrationId}
+          userReviewData={data!}
+        />
+      )}
     </QueryWrapper>
   );
 };

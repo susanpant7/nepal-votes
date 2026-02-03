@@ -66,6 +66,7 @@ public static class InfrastructureConfig
         services.AddScoped<IVoteRepository, VoteRepository>();
         services.AddScoped<IUserRegistrationRepository, UserRegistrationRepository>();
         services.AddScoped<IUserRegistrationDocumentRepository, UserRegistrationDocumentRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
         
         // Register UnitOfWork
         services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -74,7 +74,7 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
             .ToListAsync();
     }
     
-    public async Task<UserRegistration?> GetRegistrationForReviewAsync(int id)
+    public async Task<UserRegistration?> GetRegistrationWithGeographicDetailsForReviewAsync(int id)
     {
         return await context.UserRegistrations
             .Include(u => u.VotingPlace)
@@ -85,4 +85,10 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
             .Include(u => u.UserRegistrationDocuments)
             .FirstOrDefaultAsync(u => u.UserRegistrationId == id);
     }
+    
+    public async Task<UserRegistration?> GetRegistrationByIdAsync(int id)
+    {
+        return await context.UserRegistrations.FindAsync(id);
+    }
+
 }

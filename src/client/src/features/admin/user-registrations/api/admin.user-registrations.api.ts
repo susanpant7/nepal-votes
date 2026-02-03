@@ -29,11 +29,19 @@ export const AdminUserRegistrationApi = {
 
   // -------- UPDATE --------
 
-  updateUserRegistration: async (
+  approveUserRegistration: async (
     request: UserRegistrationUpdate,
   ): Promise<boolean> =>
     apiClient.put(
-      ADMIN_USER_REGISTRATION_ENDPOINTS.UPDATE_USER_REGISTRATION,
+      ADMIN_USER_REGISTRATION_ENDPOINTS.APPROVE_USER_REGISTRATION,
+      request,
+    ),
+
+  rejectUserRegistration: async (
+    request: UserRegistrationUpdate,
+  ): Promise<boolean> =>
+    apiClient.put(
+      ADMIN_USER_REGISTRATION_ENDPOINTS.REJECT_USER_REGISTRATION,
       request,
     ),
 };

@@ -43,3 +43,8 @@ public class GenerateOtpRequest
     [Phone]
     public string MobileNumber { get; set; }
 }
+
+public record UserRegistrationReviewRequest(
+    int UserRegistrationId, 
+    string? ReviewComment
+);

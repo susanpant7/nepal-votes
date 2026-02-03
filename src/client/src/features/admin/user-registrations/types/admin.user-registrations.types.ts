@@ -42,6 +42,5 @@ export interface UserRegistrationReviewDocumentDetails {
 export interface UserRegistrationUpdate {
   userRegistrationId: number;
   reviewComment: string;
-  firstName: string;
 }
 // responses

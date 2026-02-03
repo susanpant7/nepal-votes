@@ -9,4 +9,5 @@ public interface IUserRepository
     Task<List<User>> SearchUsersAsync(string searchText);
     Task<bool> AnyByVotingPlaceIdAsync(int votingPlaceId);
     Task<int?> GetUserConstituencyIdAsync(int userId);
+    Task AddUserAsync(User user);
 }

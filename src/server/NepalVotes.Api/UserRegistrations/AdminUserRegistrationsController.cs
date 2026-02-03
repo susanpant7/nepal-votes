@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using NepalVotes.Api.Authentication;
 using NepalVotes.Api.ResponseExtensions;
 using NepalVotes.Application.UserRegistrations;
 
@@ -20,5 +21,20 @@ public class UserRegistrationManagementController (IRegisteredUsersManagementSer
     {
         var response = await registrationService.GetReviewDetailsAsync(userRegistrationId);
         return response.ToActionResult();
+    }
+    
+    [HttpPut("approve")]
+    public async Task<IActionResult> Approve([FromBody] UserRegistrationReviewRequest request)
+    {
+        var approvedByUserId = HttpContext.User.GetUserId();
+        var result = await registrationService.ApproveAsync(request, approvedByUserId);
+        return StatusCode(result.StatusCode, result);
+    }
+
+    [HttpPut("reject")]
+    public async Task<IActionResult> Reject([FromBody] UserRegistrationReviewRequest request)
+    {
+        var result = await registrationService.RejectAsync(request);
+        return StatusCode(result.StatusCode, result);
     }
 }

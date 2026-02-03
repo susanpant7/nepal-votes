@@ -40,9 +40,13 @@ export const useAdminUserRegistrationQuery = {
 // --------------------------------------------------
 export const useAdminUserRegistrationMutation = () => {
   return {
-    updateRegisteredUser: useMutation({
+    approveRegisteredUser: useMutation({
       mutationFn: (request: UserRegistrationUpdate) =>
-        AdminUserRegistrationApi.updateUserRegistration(request),
+        AdminUserRegistrationApi.approveUserRegistration(request),
+    }),
+    rejectRegisteredUser: useMutation({
+      mutationFn: (request: UserRegistrationUpdate) =>
+        AdminUserRegistrationApi.rejectUserRegistration(request),
     }),
   };
 };

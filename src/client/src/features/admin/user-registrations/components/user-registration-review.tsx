@@ -8,7 +8,10 @@ import {
   CheckCircle2,
   MessageSquare,
 } from "lucide-react";
-import type { UserRegistrationReviewDetails } from "@/features/admin/user-registrations/types/admin.user-registrations.types.ts";
+import type {
+  UserRegistrationReviewDetails,
+  UserRegistrationUpdate,
+} from "@/features/admin/user-registrations/types/admin.user-registrations.types.ts";
 import { ImagePreview } from "@/components/ui/image-preview.tsx";
 import { useState } from "react";
 import { Button } from "@/components/ui/button.tsx";
@@ -16,13 +19,69 @@ import { Separator } from "@/components/ui/separator.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import { cn } from "@/lib/utils.ts";
 import { Textarea } from "@/components/ui/textarea.tsx";
+import { useAdminUserRegistrationMutation } from "@/features/admin/user-registrations/api/admin.user-registrations.query.ts";
+import { useConfirm } from "@/components/confirm/confirm-dialogbox.provider.tsx";
+import { useOverlayStore } from "@/stores/useOverlayStore.ts";
+import { useNavigate } from "@tanstack/react-router";
+import { ROUTES } from "@/lib/app.routes.urls.ts";
+import { showNotification } from "@/components/toaster/toaster.utils.ts";
 
 export interface Props {
+  userRegistrationId: number;
   userReviewData: UserRegistrationReviewDetails;
 }
 
-export const UserRegistrationReview = ({ userReviewData }: Props) => {
+export const UserRegistrationReview = ({
+  userRegistrationId,
+  userReviewData,
+}: Props) => {
+  const { approveRegisteredUser, rejectRegisteredUser } =
+    useAdminUserRegistrationMutation();
+
   const [comment, setComment] = useState(userReviewData.reviewComment || "");
+
+  const confirm = useConfirm();
+  const { showOverlay, hideOverlay } = useOverlayStore();
+  const navigate = useNavigate();
+
+  const onApproveClick = async () => {
+    await updateUserRegistration(true);
+  };
+
+  const onRejectClick = async () => {
+    if ((comment?.length ?? 0) <= 10) {
+      showNotification.error("Please add a proper comment for rejection");
+      return;
+    }
+    await updateUserRegistration(false);
+  };
+
+  const updateUserRegistration = async (isApproved: boolean) => {
+    try {
+      const isConfirm = await confirm({
+        title: `Are you sure you want to ${isApproved ? "Approve" : "Reject"} this confirmation?`,
+        description: (
+          <>This user will {isApproved ? "" : "NOT"} be eligible to vote</>
+        ),
+      });
+      if (isConfirm) {
+        showOverlay();
+        const request: UserRegistrationUpdate = {
+          userRegistrationId: userRegistrationId,
+          reviewComment: comment.trim(),
+        };
+        isApproved
+          ? await approveRegisteredUser.mutateAsync(request)
+          : await rejectRegisteredUser.mutateAsync(request);
+        await navigate({
+          to: ROUTES.ADMIN_USER_REGISTRATIONS,
+        });
+      }
+    } catch (e) {
+    } finally {
+      hideOverlay();
+    }
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto py-10 px-4 space-y-12">
@@ -40,13 +99,13 @@ export const UserRegistrationReview = ({ userReviewData }: Props) => {
           <Button
             variant="outline"
             className="text-destructive border-destructive hover:bg-destructive/10"
-            onClick={() => console.log("Rejected")}
+            onClick={onRejectClick}
           >
             <XCircle className="mr-2 h-4 w-4" /> Reject Application
           </Button>
           <Button
             className="bg-emerald-600 hover:bg-emerald-700 text-white"
-            onClick={() => console.log("Approved")}
+            onClick={onApproveClick}
           >
             <CheckCircle2 className="mr-2 h-4 w-4" /> Approve Registration
           </Button>

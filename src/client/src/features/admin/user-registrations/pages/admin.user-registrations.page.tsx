@@ -1,11 +1,20 @@
 import { DistrictDropdownSelect } from "@/features/admin/electoral-geographies/components/district-dropdown-select.tsx";
 import { useState } from "react";
-import type { DistrictDropdown } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { UserRegistrationsTable } from "@/features/admin/user-registrations/components/user-registrations-table.tsx";
+import { useGlobalStore } from "@/stores/useGlobalStore.ts";
 
 export const AdminUserRegistrationsPage = () => {
-  const [selectedDistrict, setSelectedDistrict] =
-    useState<DistrictDropdown | null>(null);
+  const defaultDistrictId = useGlobalStore((s) => s.userRegistrationDistrictId);
+  const setDefaultDistrictId = useGlobalStore(
+    (s) => s.setUserRegistrationDistrictId,
+  );
+  const [selectedDistrictId, setSelectedDistrictId] = useState<number | null>(
+    defaultDistrictId,
+  );
+  const onDistrictSelected = (districtId: number) => {
+    setSelectedDistrictId(districtId);
+    setDefaultDistrictId(districtId);
+  };
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Page Header */}
@@ -14,14 +23,13 @@ export const AdminUserRegistrationsPage = () => {
       </div>
       <div className="w-72">
         <DistrictDropdownSelect
-          onSelect={(district) => setSelectedDistrict(district)}
+          onSelect={(district) => onDistrictSelected(district.districtId)}
+          defaultDistrictId={selectedDistrictId}
         />
       </div>
       {/* Table */}
-      {selectedDistrict ? (
-        <UserRegistrationsTable
-          districtId={selectedDistrict?.districtId ?? 0}
-        />
+      {selectedDistrictId ? (
+        <UserRegistrationsTable districtId={selectedDistrictId ?? 0} />
       ) : (
         <div className="flex h-40 items-center justify-center border-2 border-dashed rounded-lg text-muted-foreground">
           Select a district to view applicants.
