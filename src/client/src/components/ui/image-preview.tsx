@@ -2,111 +2,83 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface ImagePreviewProps {
-  // Accepts a File object or a Base64/URL string
   file: File | string;
-  label: string;
-  className?: string;
-  // Optional metadata for when 'file' is a string
+  contentType?: string;
   fileName?: string;
-  fileSize?: number; // in bytes
+  className?: string;
 }
 
 export const ImagePreview = ({
   file,
-  label,
-  className,
+  contentType,
   fileName,
+  className,
 }: ImagePreviewProps) => {
   const [url, setUrl] = useState<string>("");
 
   useEffect(() => {
     if (typeof file === "string") {
-      // If it's a string (Base64), use it directly
-      setUrl(file);
-    } else if (file instanceof File) {
-      // If it's a File, create a blob URL
+      // If it's already a full Data URL or an external link, use it directly
+      if (file.startsWith("data:") || file.startsWith("http")) {
+        setUrl(file);
+      } else {
+        // Otherwise, treat it as raw Base64 and wrap it
+        // Default to image/png if contentType is missing, but better to pass it!
+        const mime = contentType || "image/png";
+        setUrl(`data:${mime};base64,${file}`);
+      }
+    } else {
+      // Handle File object from input
       const objectUrl = URL.createObjectURL(file);
       setUrl(objectUrl);
       return () => URL.revokeObjectURL(objectUrl);
     }
-  }, [file]);
+  }, [file, contentType]);
 
+  const label =
+    (typeof file === "string" ? fileName : file.name) || "Image Preview";
   const handleDoubleClick = () => {
     if (!url) return;
-
-    // If it's already an Object URL (from a File), just open it
-    if (file instanceof File) {
-      window.open(url, "_blank");
-      return;
-    }
-
-    // If it's a Base64 string, convert it to a Blob to avoid document.write
-    try {
-      const parts = url.split(",");
-      const mime = parts[0].match(/:(.*?);/)?.[1];
-      const bstr = atob(parts[1]);
-      let n = bstr.length;
-      const u8arr = new Uint8Array(n);
-
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
-
-      const blob = new Blob([u8arr], { type: mime });
-      const blobUrl = URL.createObjectURL(blob);
-
-      const newWindow = window.open(blobUrl, "_blank");
-
-      // Clean up the temporary URL after the window opens
-      if (newWindow) {
-        newWindow.onload = () => URL.revokeObjectURL(blobUrl);
-      }
-    } catch (e) {
-      console.error("Failed to open image preview", e);
-      // Fallback: try opening the raw data URL
-      window.open(url, "_blank");
+    const newTab = window.open();
+    if (newTab) {
+      newTab.document.body.style.margin = "0";
+      newTab.document.body.style.display = "flex";
+      newTab.document.body.style.justifyContent = "center";
+      newTab.document.body.innerHTML = `<img src="${url}" style="max-width:100%; height:auto;" alt="${fileName}">`;
+      newTab.document.title = label;
     }
   };
-
-  if (!url) {
-    return (
-      <div
-        className={cn(
-          "h-40 w-full animate-pulse bg-muted rounded-md",
-          className,
-        )}
-      />
-    );
-  }
-
-  // Determine metadata display
-  const displayName =
-    file instanceof File ? file.name : fileName || "Stored Document";
 
   return (
     <div className={cn("group relative space-y-2", className)}>
       <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
         {label}
       </p>
-
       <div
-        className="relative cursor-pointer overflow-hidden rounded-md border bg-muted shadow-sm transition-all hover:border-primary/50"
+        className="relative cursor-pointer overflow-hidden rounded-md border bg-slate-50"
         onDoubleClick={handleDoubleClick}
       >
-        <img
-          src={url}
-          alt={label}
-          className="h-auto w-full block transition-transform duration-300 group-hover:scale-[1.02]"
-        />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/10">
-          <span className="rounded-full bg-black/70 px-3 py-1 text-[10px] font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            Double-click to expand
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span className="text-[10px] font-medium text-white bg-black/60 px-2 py-1 rounded-full backdrop-blur-sm">
+            Double click to open
           </span>
         </div>
-      </div>
 
-      <div className="flex justify-between items-center text-[10px] text-muted-foreground italic">
-        <p className="truncate max-w-37.5">{displayName}</p>
+        {url ? (
+          <img
+            src={url}
+            alt={label}
+            className="h-auto w-full transition-transform duration-300 group-hover:scale-[1.05]"
+          />
+        ) : (
+          <div className="h-32 flex items-center justify-center text-muted-foreground text-xs">
+            Loading image...
+          </div>
+        )}
+      </div>
+      <div className="flex justify-between text-[10px] text-muted-foreground italic">
+        <p>{typeof file === "string" ? "Stored Document" : file.name}</p>
       </div>
     </div>
   );

@@ -22,6 +22,5 @@ export const ROUTES = {
   ADMIN_CANDIDATES_EDIT: "/admin/candidates/$candidateId",
 
   ADMIN_USER_REGISTRATIONS: "/admin/user-registrations",
-  ADMIN_USER_REGISTRATIONS_REVIEW:
-    "/admin/user-registrations/review/$userRegistrationId",
+  ADMIN_USER_REGISTRATIONS_REVIEW: "/admin/user-registrations/review/$id",
 } as const;

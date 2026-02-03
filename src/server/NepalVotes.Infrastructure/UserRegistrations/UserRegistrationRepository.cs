@@ -73,4 +73,16 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
             .AsNoTracking()
             .ToListAsync();
     }
+    
+    public async Task<UserRegistration?> GetRegistrationForReviewAsync(int id)
+    {
+        return await context.UserRegistrations
+            .Include(u => u.VotingPlace)
+                .ThenInclude(v=>v.Ward)
+                    .ThenInclude(m=>m.Municipality)
+                        .ThenInclude(d=>d.District)
+                            .ThenInclude(d=>d.Province)
+            .Include(u => u.UserRegistrationDocuments)
+            .FirstOrDefaultAsync(u => u.UserRegistrationId == id);
+    }
 }

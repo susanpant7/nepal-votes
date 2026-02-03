@@ -14,4 +14,11 @@ public class UserRegistrationManagementController (IRegisteredUsersManagementSer
         var response = await registrationService.GetRegisteredUsersByDistrict(districtId);
         return response.ToActionResult();
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetReviewDetails([FromQuery]int userRegistrationId)
+    {
+        var response = await registrationService.GetReviewDetailsAsync(userRegistrationId);
+        return response.ToActionResult();
+    }
 }

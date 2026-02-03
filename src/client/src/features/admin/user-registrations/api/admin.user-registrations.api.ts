@@ -1,6 +1,6 @@
 import apiClient from "@/api/api.client.ts";
 import type {
-  UserRegistrationDetails,
+  UserRegistrationReviewDetails,
   UserRegistrationListItem,
   UserRegistrationUpdate,
 } from "@/features/admin/user-registrations/types/admin.user-registrations.types.ts";
@@ -20,7 +20,7 @@ export const AdminUserRegistrationApi = {
 
   getRegisteredUsersByUserRegistrationId: async (
     userRegistrationId: number,
-  ): Promise<UserRegistrationDetails> =>
+  ): Promise<UserRegistrationReviewDetails> =>
     apiClient.get(
       ADMIN_USER_REGISTRATION_ENDPOINTS.GET_REGISTERED_USERS_BY_USER_REGISTRATION_ID(
         userRegistrationId,

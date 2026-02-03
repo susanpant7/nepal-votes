@@ -15,4 +15,13 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
         var listItems = registrations.Select(u => u.ToListItem()).ToList();
         return ApiResponse<IEnumerable<UserRegistrationListItem>>.SuccessResponse(listItems);
     }
+    
+    public async Task<ApiResponse<UserRegistrationReviewDetail>> GetReviewDetailsAsync(int id)
+    {
+        var registration = await registrationRepository.GetRegistrationForReviewAsync(id);
+
+        return registration == null 
+            ? ApiResponse<UserRegistrationReviewDetail>.ErrorResponse("User registration record not found.", 404) 
+            : ApiResponse<UserRegistrationReviewDetail>.SuccessResponse(registration.ToReviewDetails());
+    }
 }

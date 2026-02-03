@@ -45,7 +45,7 @@ public class OtpService(IUserOtpRepository otpRepository, IOtpHashingService otp
 
         await otpRepository.AddOtpAsync(otpEntry);
         
-        return ApiResponse<bool>.SuccessResponse(true, "OTP Generated Successfully: "+ plainOtp );
+        return ApiResponse<bool>.SuccessResponse(true, "OTP Generated Successfully: "+ plainOtp, StatusCode.Created );
     }
 
     public async Task<ApiResponse<bool>> VerifyOtp(string mobile, string providedOtp, UserOtpType type)
