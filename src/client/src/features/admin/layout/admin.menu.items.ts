@@ -6,6 +6,7 @@ import {
   MapPin,
   UsersRound,
   BadgeCheck,
+  ShieldCheck,
 } from "lucide-react";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
 
@@ -51,5 +52,10 @@ export const adminMenuItems: AdminNavItem[] = [
     label: "Candidates",
     url: ROUTES.ADMIN_CANDIDATES,
     icon: UsersRound,
+  },
+  {
+    label: "Registration Reviews",
+    url: ROUTES.ADMIN_USER_REGISTRATIONS,
+    icon: ShieldCheck,
   },
 ];

@@ -17,6 +17,7 @@ import { Route as SignInIndexRouteImport } from './routes/sign-in/index'
 import { Route as ProtectedVoteRouteImport } from './routes/_protected/vote'
 import { Route as ProtectedUserProfileRouteImport } from './routes/_protected/user-profile'
 import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin/index'
+import { Route as AdminAdminUserRegistrationsIndexRouteImport } from './routes/_admin/admin/user-registrations/index'
 import { Route as AdminAdminPoliticalPartiesIndexRouteImport } from './routes/_admin/admin/political-parties/index'
 import { Route as AdminAdminElectoralGeographiesIndexRouteImport } from './routes/_admin/admin/electoral-geographies/index'
 import { Route as AdminAdminElectoralConstituenciesIndexRouteImport } from './routes/_admin/admin/electoral-constituencies/index'
@@ -28,6 +29,7 @@ import { Route as AdminAdminElectoralConstituenciesAddRouteImport } from './rout
 import { Route as AdminAdminElectoralConstituenciesConstituencyIdRouteImport } from './routes/_admin/admin/electoral-constituencies/$constituencyId'
 import { Route as AdminAdminCandidatesAddRouteImport } from './routes/_admin/admin/candidates/add'
 import { Route as AdminAdminCandidatesCandidateIdRouteImport } from './routes/_admin/admin/candidates/$candidateId'
+import { Route as AdminAdminUserRegistrationsReviewIdRouteImport } from './routes/_admin/admin/user-registrations/review/$id'
 
 const ProtectedRoute = ProtectedRouteImport.update({
   id: '/_protected',
@@ -67,6 +69,12 @@ const AdminAdminIndexRoute = AdminAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAdminUserRegistrationsIndexRoute =
+  AdminAdminUserRegistrationsIndexRouteImport.update({
+    id: '/admin/user-registrations/',
+    path: '/admin/user-registrations/',
+    getParentRoute: () => AdminRoute,
+  } as any)
 const AdminAdminPoliticalPartiesIndexRoute =
   AdminAdminPoliticalPartiesIndexRouteImport.update({
     id: '/admin/political-parties/',
@@ -132,6 +140,12 @@ const AdminAdminCandidatesCandidateIdRoute =
     path: '/admin/candidates/$candidateId',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminAdminUserRegistrationsReviewIdRoute =
+  AdminAdminUserRegistrationsReviewIdRouteImport.update({
+    id: '/admin/user-registrations/review/$id',
+    path: '/admin/user-registrations/review/$id',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -151,6 +165,8 @@ export interface FileRoutesByFullPath {
   '/admin/electoral-constituencies': typeof AdminAdminElectoralConstituenciesIndexRoute
   '/admin/electoral-geographies': typeof AdminAdminElectoralGeographiesIndexRoute
   '/admin/political-parties': typeof AdminAdminPoliticalPartiesIndexRoute
+  '/admin/user-registrations': typeof AdminAdminUserRegistrationsIndexRoute
+  '/admin/user-registrations/review/$id': typeof AdminAdminUserRegistrationsReviewIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -170,6 +186,8 @@ export interface FileRoutesByTo {
   '/admin/electoral-constituencies': typeof AdminAdminElectoralConstituenciesIndexRoute
   '/admin/electoral-geographies': typeof AdminAdminElectoralGeographiesIndexRoute
   '/admin/political-parties': typeof AdminAdminPoliticalPartiesIndexRoute
+  '/admin/user-registrations': typeof AdminAdminUserRegistrationsIndexRoute
+  '/admin/user-registrations/review/$id': typeof AdminAdminUserRegistrationsReviewIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -192,6 +210,8 @@ export interface FileRoutesById {
   '/_admin/admin/electoral-constituencies/': typeof AdminAdminElectoralConstituenciesIndexRoute
   '/_admin/admin/electoral-geographies/': typeof AdminAdminElectoralGeographiesIndexRoute
   '/_admin/admin/political-parties/': typeof AdminAdminPoliticalPartiesIndexRoute
+  '/_admin/admin/user-registrations/': typeof AdminAdminUserRegistrationsIndexRoute
+  '/_admin/admin/user-registrations/review/$id': typeof AdminAdminUserRegistrationsReviewIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -213,6 +233,8 @@ export interface FileRouteTypes {
     | '/admin/electoral-constituencies'
     | '/admin/electoral-geographies'
     | '/admin/political-parties'
+    | '/admin/user-registrations'
+    | '/admin/user-registrations/review/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -232,6 +254,8 @@ export interface FileRouteTypes {
     | '/admin/electoral-constituencies'
     | '/admin/electoral-geographies'
     | '/admin/political-parties'
+    | '/admin/user-registrations'
+    | '/admin/user-registrations/review/$id'
   id:
     | '__root__'
     | '/'
@@ -253,6 +277,8 @@ export interface FileRouteTypes {
     | '/_admin/admin/electoral-constituencies/'
     | '/_admin/admin/electoral-geographies/'
     | '/_admin/admin/political-parties/'
+    | '/_admin/admin/user-registrations/'
+    | '/_admin/admin/user-registrations/review/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -319,6 +345,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminAdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/_admin/admin/user-registrations/': {
+      id: '/_admin/admin/user-registrations/'
+      path: '/admin/user-registrations'
+      fullPath: '/admin/user-registrations'
+      preLoaderRoute: typeof AdminAdminUserRegistrationsIndexRouteImport
       parentRoute: typeof AdminRoute
     }
     '/_admin/admin/political-parties/': {
@@ -398,6 +431,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminCandidatesCandidateIdRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_admin/admin/user-registrations/review/$id': {
+      id: '/_admin/admin/user-registrations/review/$id'
+      path: '/admin/user-registrations/review/$id'
+      fullPath: '/admin/user-registrations/review/$id'
+      preLoaderRoute: typeof AdminAdminUserRegistrationsReviewIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
@@ -414,6 +454,8 @@ interface AdminRouteChildren {
   AdminAdminElectoralConstituenciesIndexRoute: typeof AdminAdminElectoralConstituenciesIndexRoute
   AdminAdminElectoralGeographiesIndexRoute: typeof AdminAdminElectoralGeographiesIndexRoute
   AdminAdminPoliticalPartiesIndexRoute: typeof AdminAdminPoliticalPartiesIndexRoute
+  AdminAdminUserRegistrationsIndexRoute: typeof AdminAdminUserRegistrationsIndexRoute
+  AdminAdminUserRegistrationsReviewIdRoute: typeof AdminAdminUserRegistrationsReviewIdRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -434,6 +476,9 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAdminElectoralGeographiesIndexRoute:
     AdminAdminElectoralGeographiesIndexRoute,
   AdminAdminPoliticalPartiesIndexRoute: AdminAdminPoliticalPartiesIndexRoute,
+  AdminAdminUserRegistrationsIndexRoute: AdminAdminUserRegistrationsIndexRoute,
+  AdminAdminUserRegistrationsReviewIdRoute:
+    AdminAdminUserRegistrationsReviewIdRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)

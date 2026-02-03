@@ -26,16 +26,16 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
   (response) => {
-    const { success, message, data } = response.data;
+    const { success, message, statusCode, data } = response.data;
 
+    const errorMessage = message || "Some error occurred";
     if (success !== true) {
-      const errorMessage = message || "Some error occurred";
       showNotification.error(errorMessage);
       return Promise.reject(new Error(errorMessage));
     }
 
-    const requestMethod = response.config.method?.toLowerCase();
-    if (message && requestMethod !== "get") {
+    //const requestMethod = response.config.method?.toLowerCase();
+    if (message && statusCode !== 200) {
       showNotification.success(message);
     }
 

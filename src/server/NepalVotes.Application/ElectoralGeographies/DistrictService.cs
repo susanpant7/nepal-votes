@@ -17,6 +17,14 @@ public class DistrictService(IDistrictRepository repo, IMunicipalityRepository m
             : ApiResponse<IEnumerable<DistrictInfo>>.SuccessResponse(districtsInfo);
     }
 
+    public async Task<ApiResponse<IEnumerable<DistrictInfo>>> GetAllAsync()
+    {
+        var districts = await repo.GetAllAsync();
+        var districtsInfo = districts.Select(d => d.ToInfo()).ToList();
+
+        return ApiResponse<IEnumerable<DistrictInfo>>.SuccessResponse(districtsInfo);
+    }
+
     // GET by Id
     public async Task<ApiResponse<DistrictInfo?>> GetByIdAsync(int id)
     {

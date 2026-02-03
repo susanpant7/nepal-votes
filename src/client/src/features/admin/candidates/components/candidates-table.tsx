@@ -73,55 +73,70 @@ export const CandidatesTable = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {candidates?.map((candidate) => (
-                <TableRow key={candidate.candidateId} className="group">
-                  <TableCell className="align-middle">
-                    <div className="h-12 w-12 rounded border bg-white p-1 shadow-sm">
-                      <img
-                        src={`data:${candidate.symbolContentType};base64,${candidate.symbolContent}`}
-                        alt="Symbol"
-                        className="h-full w-full object-contain"
-                      />
-                    </div>
-                  </TableCell>
-                  <TableCell className="align-middle font-medium">
-                    {candidate.fullName}
-                  </TableCell>
-                  <TableCell className="align-middle">
-                    {candidate.isIndependent ? (
-                      <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800">
-                        Independent
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
-                        {candidate.politicalPartyName}
-                      </span>
-                    )}
-                  </TableCell>
-                  <TableCell className="align-middle text-muted-foreground">
-                    {candidate.constituencyName}
-                  </TableCell>
-                  <TableCell className="text-right align-middle pr-4">
-                    <div className="flex justify-end gap-2">
-                      <Button
-                        onClick={() => onEditButtonClick(candidate.candidateId)}
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                      >
-                        <Edit2 className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+              {candidates.length > 0 ? (
+                candidates?.map((candidate) => (
+                  <TableRow key={candidate.candidateId} className="group">
+                    <TableCell className="align-middle">
+                      <div className="h-12 w-12 rounded border bg-white p-1 shadow-sm">
+                        <img
+                          src={`data:${candidate.symbolContentType};base64,${candidate.symbolContent}`}
+                          alt="Symbol"
+                          className="h-full w-full object-contain"
+                        />
+                      </div>
+                    </TableCell>
+                    <TableCell className="align-middle font-medium">
+                      {candidate.fullName}
+                    </TableCell>
+                    <TableCell className="align-middle">
+                      {candidate.isIndependent ? (
+                        <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800">
+                          Independent
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
+                          {candidate.politicalPartyName}
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell className="align-middle text-muted-foreground">
+                      {candidate.constituencyName}
+                    </TableCell>
+                    <TableCell className="text-right align-middle pr-4">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          onClick={() =>
+                            onEditButtonClick(candidate.candidateId)
+                          }
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                        >
+                          <Edit2 className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={6}
+                    className="h-48 text-center text-muted-foreground"
+                  >
+                    <div className="flex flex-col items-center gap-2">
+                      <p>No registration records found for this district.</p>
                     </div>
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </ScrollableTableBody>

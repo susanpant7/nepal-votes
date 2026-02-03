@@ -41,6 +41,11 @@ export interface VotingPlaceInfo {
   wardId: number;
 }
 
+export interface DistrictDropdown {
+  districtId: number;
+  districtName: string;
+}
+
 // requests
 export interface AddProvinceRequest {
   provinceName: string;

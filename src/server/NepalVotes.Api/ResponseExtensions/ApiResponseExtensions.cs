@@ -7,6 +7,12 @@ public static class ApiResponseExtensions
 {
     public static ActionResult ToActionResult<T>(this ApiResponse<T> response)
     {
+        var successCodes = new[] { StatusCode.Ok,StatusCode.Created,StatusCode.Accepted,
+            StatusCode.NoContent };
+        
+        if (response.Success && !successCodes.Contains(response.StatusCode))
+            return  new OkObjectResult(response);
+        
         return response.StatusCode switch
         {
             // 2xx Success

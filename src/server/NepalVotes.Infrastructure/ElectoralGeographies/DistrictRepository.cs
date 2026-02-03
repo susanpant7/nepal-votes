@@ -8,6 +8,9 @@ public class DistrictRepository(ApplicationDbContext context) : IDistrictReposit
 {
     public async Task<IEnumerable<District>> GetByProvinceIdAsync(int provinceId) =>
         await context.Districts.AsNoTracking().Where(d => d.ProvinceId == provinceId).ToListAsync();
+    
+    public async Task<IEnumerable<District>> GetAllAsync() =>
+        await context.Districts.AsNoTracking().ToListAsync();
 
     public async Task<District?> GetByIdAsync(int id) =>
         await context.Districts.FirstOrDefaultAsync(d => d.DistrictId == id);

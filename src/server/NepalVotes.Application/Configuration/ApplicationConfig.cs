@@ -30,6 +30,7 @@ public static class ApplicationConfig
         services.AddScoped<ICandidateSymbolService, CandidateSymbolService>();
         services.AddScoped<IVoteService, VoteService>();
         services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+        services.AddScoped<IRegisteredUsersManagementService, RegisteredUsersManagementService>();
         
         return services;
     }

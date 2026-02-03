@@ -16,43 +16,39 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useAdminConstituencyQuery } from "@/features/admin/electoral-constituencies/api/admin.electoral-constituencies.query.ts";
-import type { ConstituencyDropdown } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
+import type { DistrictDropdown } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
+import { useAdminElectoralGeographyQuery } from "@/features/admin/electoral-geographies/api/admin.electoral-geographies.query.ts";
 
-interface ConstituencyDropdownProps {
-  onSelect: (constituency: ConstituencyDropdown) => void;
+interface DistrictDropdownProps {
+  onSelect: (district: DistrictDropdown) => void;
   disabled?: boolean;
-  onAddConstituency?: (name: string) => void;
-  defaultConstituencyId?: number | null;
+  onAddDistrict?: (name: string) => void;
+  defaultDistrictId?: number | null;
 }
 
-export function ConstituencyDropdownSelect({
+export const DistrictDropdownSelect = ({
   onSelect,
-  disabled = false, // Defaulting to false so it's enabled by default
-  onAddConstituency,
-  defaultConstituencyId,
-}: ConstituencyDropdownProps) {
+  disabled = false,
+  onAddDistrict,
+  defaultDistrictId,
+}: DistrictDropdownProps) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = React.useState<ConstituencyDropdown | null>(
-    null,
-  );
+  const [selected, setSelected] = React.useState<DistrictDropdown | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data = [], isLoading } =
-    useAdminConstituencyQuery.getConstituenciesDropdown();
+    useAdminElectoralGeographyQuery.getDistricts();
 
   useEffect(() => {
-    if (defaultConstituencyId && data.length > 0) {
-      const found = data.find(
-        (c) => c.constituencyId === defaultConstituencyId,
-      );
+    if (defaultDistrictId && data.length > 0) {
+      const found = data.find((d) => d.districtId === defaultDistrictId);
       if (found) {
         setSelected(found);
       }
-    } else if (!defaultConstituencyId) {
+    } else if (!defaultDistrictId) {
       setSelected(null);
     }
-  }, [defaultConstituencyId, data]);
+  }, [defaultDistrictId, data]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -69,9 +65,9 @@ export function ConstituencyDropdownSelect({
               Loading...
             </span>
           ) : selected ? (
-            selected.constituencyName
+            selected.districtName
           ) : (
-            "Select constituency"
+            "Select district"
           )}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -83,7 +79,7 @@ export function ConstituencyDropdownSelect({
       >
         <Command>
           <CommandInput
-            placeholder="Search constituency..."
+            placeholder="Search district..."
             disabled={isLoading}
             value={searchQuery}
             onValueChange={setSearchQuery}
@@ -97,13 +93,12 @@ export function ConstituencyDropdownSelect({
             ) : (
               <>
                 <CommandEmpty>
-                  {/* Conditional Rendering: Only show the "Add" button if the prop is provided */}
-                  {onAddConstituency ? (
+                  {onAddDistrict ? (
                     <Button
                       variant="ghost"
                       className="w-full justify-start rounded-none font-normal text-primary hover:text-primary"
                       onClick={() => {
-                        onAddConstituency?.(searchQuery);
+                        onAddDistrict?.(searchQuery);
                         setOpen(false);
                       }}
                     >
@@ -112,24 +107,24 @@ export function ConstituencyDropdownSelect({
                     </Button>
                   ) : (
                     <div className="py-6 text-center text-sm">
-                      No constituency found.
+                      No district found.
                     </div>
                   )}
                 </CommandEmpty>
 
                 <CommandGroup className="max-h-64 overflow-auto">
-                  {data.map((constituency) => (
+                  {data.map((district) => (
                     <CommandItem
-                      key={constituency.constituencyId}
-                      value={constituency.constituencyName}
+                      key={district.districtId}
+                      value={district.districtName}
                       onSelect={() => {
-                        setSelected(constituency);
-                        onSelect(constituency);
+                        setSelected(district);
+                        onSelect(district);
                         setOpen(false);
                         setSearchQuery("");
                       }}
                     >
-                      {constituency.constituencyName}
+                      {district.districtName}
                     </CommandItem>
                   ))}
                 </CommandGroup>
@@ -140,4 +135,4 @@ export function ConstituencyDropdownSelect({
       </PopoverContent>
     </Popover>
   );
-}
+};

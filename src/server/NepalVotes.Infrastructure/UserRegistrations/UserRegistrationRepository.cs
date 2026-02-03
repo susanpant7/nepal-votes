@@ -61,4 +61,16 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
         context.UserRegistrations.Remove(registration);
         await Task.CompletedTask;
     }
+    
+    public async Task<List<UserRegistration>> GetByDistrictIdAsync(int districtId)
+    {
+        return await context.UserRegistrations
+            .Include(u => u.VotingPlace)
+                .ThenInclude(v=>v.Ward)
+                    .ThenInclude(m=>m.Municipality)
+                        .ThenInclude(d=>d.District)
+            .Where(u => u.VotingPlace.Ward.Municipality.District.DistrictId == districtId)
+            .AsNoTracking()
+            .ToListAsync();
+    }
 }

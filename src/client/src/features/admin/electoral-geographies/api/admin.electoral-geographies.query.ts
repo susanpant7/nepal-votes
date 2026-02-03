@@ -23,6 +23,7 @@ import type {
 // --------------------------------------------------
 export const QUERY_KEYS = {
   provinces: ["provinces"] as const,
+  allDistricts: ["allDistricts"] as const,
   districts: (provinceId: number) => ["districts", provinceId] as const,
   municipalities: (districtId: number) =>
     ["municipalities", districtId] as const,
@@ -38,6 +39,13 @@ export const useAdminElectoralGeographyQuery = {
     useQuery({
       queryKey: QUERY_KEYS.provinces,
       queryFn: AdminElectoralGeographyApi.getProvinces,
+      staleTime: 5 * 60 * 1000,
+    }),
+
+  getDistricts: () =>
+    useQuery({
+      queryKey: QUERY_KEYS.allDistricts,
+      queryFn: AdminElectoralGeographyApi.getDistricts,
       staleTime: 5 * 60 * 1000,
     }),
 
