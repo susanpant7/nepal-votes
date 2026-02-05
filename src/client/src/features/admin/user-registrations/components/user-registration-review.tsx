@@ -25,6 +25,9 @@ import { useOverlayStore } from "@/stores/useOverlayStore.ts";
 import { useNavigate } from "@tanstack/react-router";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
 import { showNotification } from "@/components/toaster/toaster.utils.ts";
+import { Alert, AlertDescription } from "@/components/ui/alert.tsx";
+import { Checkbox } from "@/components/ui/checkbox.tsx";
+import { Label } from "@/components/ui/label.tsx";
 
 export interface Props {
   userRegistrationId: number;
@@ -39,6 +42,9 @@ export const UserRegistrationReview = ({
     useAdminUserRegistrationMutation();
 
   const [comment, setComment] = useState(userReviewData.reviewComment || "");
+
+  const [confirmMobileNumber, setConfirmMobileNumber] = useState(false);
+  const [confirmNationalIdNumber, setConfirmNationalIdNumber] = useState(false);
 
   const confirm = useConfirm();
   const { showOverlay, hideOverlay } = useOverlayStore();
@@ -83,6 +89,8 @@ export const UserRegistrationReview = ({
     }
   };
 
+  const disableApproveButton = !confirmMobileNumber || !confirmNationalIdNumber;
+
   return (
     <div className="w-full max-w-6xl mx-auto py-10 px-4 space-y-12">
       {/* Header Section */}
@@ -95,6 +103,7 @@ export const UserRegistrationReview = ({
             Verify citizen details and uploaded identification documents.
           </p>
         </div>
+
         <div className="flex items-center gap-3">
           <Button
             variant="outline"
@@ -104,6 +113,7 @@ export const UserRegistrationReview = ({
             <XCircle className="mr-2 h-4 w-4" /> Reject Application
           </Button>
           <Button
+            disabled={disableApproveButton}
             className="bg-emerald-600 hover:bg-emerald-700 text-white"
             onClick={onApproveClick}
           >
@@ -111,6 +121,60 @@ export const UserRegistrationReview = ({
           </Button>
         </div>
       </div>
+
+      <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10 mb-2">
+        <AlertDescription className="flex items-center gap-3">
+          <Checkbox
+            checked={confirmMobileNumber}
+            onCheckedChange={(checked: boolean) =>
+              setConfirmMobileNumber(checked)
+            }
+            className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
+          />
+          <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
+            Mobile number{" "}
+            <span className="font-bold select-all">
+              {userReviewData.mobileNumber}
+            </span>{" "}
+            is registered for the person
+            <span className="font-bold select-all">
+              {" "}
+              {userReviewData.firstName +
+                " " +
+                (userReviewData.middleName ?? "") +
+                " " +
+                userReviewData.lastName}
+            </span>
+          </Label>
+        </AlertDescription>
+      </Alert>
+
+      <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10">
+        <AlertDescription className="flex items-center gap-3">
+          <Checkbox
+            checked={confirmNationalIdNumber}
+            onCheckedChange={(checked: boolean) =>
+              setConfirmNationalIdNumber(checked)
+            }
+            className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
+          />
+          <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
+            National ID number{" "}
+            <span className="font-bold select-all">
+              {userReviewData.nationalIdNumber}
+            </span>{" "}
+            is registered for the person
+            <span className="font-bold select-all">
+              {" "}
+              {userReviewData.firstName +
+                " " +
+                (userReviewData.middleName ?? "") +
+                " " +
+                userReviewData.lastName}
+            </span>
+          </Label>
+        </AlertDescription>
+      </Alert>
 
       <Separator />
 
@@ -161,22 +225,24 @@ export const UserRegistrationReview = ({
 
           {/* Documents Section - Grid layout to fill width */}
           <section className="space-y-6">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary flex items-center gap-2">
-              <FileText className="h-4 w-4" /> Verification Documents
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary flex items-center gap-2">
+                <FileText className="h-4 w-4" /> National Id Document
+              </h2>
+
+              <Badge
+                variant="secondary"
+                className="px-4 py-1.5 font-bold tracking-widest text-[11px]"
+              >
+                {userReviewData.nationalIdNumber}
+              </Badge>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {userReviewData.reviewDocuments.map((doc, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-2 rounded-xl border shadow-sm transition-hover hover:shadow-md"
-                >
-                  <ImagePreview
-                    file={doc.documentContent}
-                    contentType={doc.documentContentType}
-                    fileName={doc.documentName}
-                  />
-                </div>
-              ))}
+              <ImagePreview
+                file={userReviewData.nationalIdDocumentContent}
+                contentType={userReviewData.nationalIdDocumentContentType}
+                fileName={userReviewData.nationalIdDocumentName}
+              />
             </div>
           </section>
         </div>

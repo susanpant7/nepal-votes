@@ -44,7 +44,9 @@ public class UserRegistrationController(IUserRegistrationService service): Contr
             FirstName = apiRequest.FirstName,
             MiddleName = apiRequest.MiddleName,
             LastName = apiRequest.LastName,
+            DateOfBirth = apiRequest.DateOfBirth,
             MobileNumber = apiRequest.MobileNumber,
+            NationalIdNumber = apiRequest.NationalIdNumber,
             VotingPlaceId = apiRequest.VotingPlaceId,
             Documents = apiRequest.Documents.Select(apiDoc => 
             {

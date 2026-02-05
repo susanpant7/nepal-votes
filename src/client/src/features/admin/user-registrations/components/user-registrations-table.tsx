@@ -66,7 +66,7 @@ export const UserRegistrationsTable = ({
                 Contact
               </TableHead>
               <TableHead className="h-14 align-middle font-bold text-foreground">
-                Voting Place
+                National ID
               </TableHead>
               <TableHead className="h-14 align-middle font-bold text-foreground">
                 Applied Date
@@ -108,7 +108,7 @@ export const UserRegistrationsTable = ({
                   <TableCell className="py-5">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <span className="text-sm whitespace-normal max-w-50 leading-tight">
-                        {user.votingPlaceName}
+                        {user.nationalIdNumber}
                       </span>
                     </div>
                   </TableCell>

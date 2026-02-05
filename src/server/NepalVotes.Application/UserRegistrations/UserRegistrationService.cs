@@ -1,4 +1,3 @@
-using System.Net;
 using NepalVotes.Application.Authentication;
 using NepalVotes.Application.FileValidations;
 using NepalVotes.Application.ResponseHelpers;
@@ -39,7 +38,9 @@ public class UserRegistrationService(
             FirstName = request.FirstName,
             MiddleName = request.MiddleName,
             LastName = request.LastName,
+            DateOfBirth = request.DateOfBirth,
             MobileNumber = request.MobileNumber,
+            NationalIdNumber = request.NationalIdNumber,
             VotingPlaceId = request.VotingPlaceId,
             Status = UserStatus.OtpPending,
             RequestDate = DateTimeOffset.UtcNow,

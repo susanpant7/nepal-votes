@@ -10,8 +10,11 @@ public class RegisterUserRequest
     public string? MiddleName { get; set; } 
 
     public required string LastName { get; set; }
+    
+    public DateOnly DateOfBirth { get; set; }
 
     public required string MobileNumber { get; set; }
+    public required string NationalIdNumber { get; set; }
 
     public int VotingPlaceId { get; set; }
 

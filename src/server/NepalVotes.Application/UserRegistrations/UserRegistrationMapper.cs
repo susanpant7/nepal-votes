@@ -1,5 +1,6 @@
 using NepalVotes.Application.ElectoralConstituencies;
 using NepalVotes.Domain.UserRegistrations;
+using NepalVotes.Domain.Users;
 
 namespace NepalVotes.Application.UserRegistrations;
 
@@ -8,9 +9,9 @@ public class UserRegistrationListItem
     public int UserRegistrationId { get; set; }
     public string FullName { get; set; } = string.Empty;
     public string MobileNumber { get; set; } = string.Empty;
+    public string NationalIdNumber { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public DateTimeOffset RequestDate { get; set; }
-    public string VotingPlaceName { get; set; } = string.Empty;
 }
 
 public class UserRegistrationReviewDetail
@@ -20,16 +21,12 @@ public class UserRegistrationReviewDetail
     public string LastName { get; set; } = string.Empty;
     public DateOnly Dob { get; set; }
     public string MobileNumber { get; set; } = string.Empty;
+    public string NationalIdNumber { get; set; } = string.Empty;
     public string VotingPlaceFullAddress { get; set; } = string.Empty;
     public string ReviewComment { get; set; } = string.Empty;
-    public List<UserRegistrationReviewDocumentDetail> ReviewDocuments { get; set; } = new();
-}
-
-public class UserRegistrationReviewDocumentDetail
-{
-    public string DocumentContent { get; set; } = string.Empty;
-    public string DocumentContentType { get; set; } = string.Empty;
-    public string DocumentName { get; set; } = string.Empty;
+    public byte[] NationalIdDocumentContent { get; set; } = [];
+    public string NationalIdDocumentContentType { get; set; } = string.Empty;
+    public string NationalIdDocumentName { get; set; } = string.Empty;
 }
 
 public static class UserRegistrationMapper
@@ -43,7 +40,7 @@ public static class UserRegistrationMapper
             MobileNumber = userRegistration.MobileNumber,
             Status = userRegistration.Status.ToString(),
             RequestDate = userRegistration.RequestDate,
-            VotingPlaceName = userRegistration.VotingPlace?.VotingPlaceAddress ?? "Unknown"
+            NationalIdNumber = userRegistration.NationalIdNumber
         };
     }
     
@@ -54,6 +51,8 @@ public static class UserRegistrationMapper
         var municipalityName = registration.VotingPlace.Ward.Municipality.MunicipalityName;
         var districtName = registration.VotingPlace.Ward.Municipality.District.DistrictName;
         var provinceName = registration.VotingPlace.Ward.Municipality.District.Province.ProvinceName;
+        var doc =
+            registration.UserRegistrationDocuments.FirstOrDefault(x => x.DocumentType == UserDocumentType.NationalIdentity)!;
         return new UserRegistrationReviewDetail
         {
             FirstName = registration.FirstName,
@@ -61,14 +60,12 @@ public static class UserRegistrationMapper
             LastName = registration.LastName,
             Dob = registration.DateOfBirth,
             MobileNumber = registration.MobileNumber,
+            NationalIdNumber = registration.NationalIdNumber,
             ReviewComment = registration.ReviewComment,
             VotingPlaceFullAddress = $"Province: {provinceName} > District: {districtName} > Mun: {municipalityName} > Ward No. {wardName} > {votingPlaceAddress}",
-            ReviewDocuments = registration.UserRegistrationDocuments?.Select(doc => new UserRegistrationReviewDocumentDetail
-            {
-                DocumentContent = Convert.ToBase64String(doc.Content),
-                DocumentContentType = doc.ContentType,
-                DocumentName = doc.FileName
-            }).ToList() ?? new List<UserRegistrationReviewDocumentDetail>()
+            NationalIdDocumentContent = doc.Content,
+            NationalIdDocumentContentType =  doc.ContentType,
+            NationalIdDocumentName = doc.FileName
         };
     }
 

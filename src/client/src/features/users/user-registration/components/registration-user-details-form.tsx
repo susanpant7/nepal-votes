@@ -91,6 +91,13 @@ export const RegistrationUserDetailsForm = ({
     }
   };
 
+  const today = new Date();
+
+  // To be at least 18 years old
+  const eighteenYearsAgo = new Date();
+  eighteenYearsAgo.setFullYear(today.getFullYear() - 18);
+  const maxDob = eighteenYearsAgo.toISOString().split("T")[0];
+
   return (
     <div className="container mx-auto py-10 px-4 md:px-8 max-w-7xl">
       <form onSubmit={handleNext} className="space-y-10">
@@ -233,6 +240,7 @@ export const RegistrationUserDetailsForm = ({
                     id="dob"
                     name="dob"
                     type="date"
+                    max={maxDob}
                     value={formData.dob}
                     onChange={handleInputChange}
                     className={

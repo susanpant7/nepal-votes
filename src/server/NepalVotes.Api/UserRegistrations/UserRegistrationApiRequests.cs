@@ -15,6 +15,9 @@ public class RegisterUserApiRequest
     [Required]
     [StringLength(100)]
     public required string LastName { get; set; }
+    
+    [Required]
+    public required DateOnly DateOfBirth { get; set; }
 
     [Required]
     [RegularExpression(@"^\+?[0-9]{10,15}$", ErrorMessage = "Invalid mobile number")]

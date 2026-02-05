@@ -38,6 +38,7 @@ export const UserRegistrationPage = () => {
     data.append("FirstName", formData.firstName);
     data.append("MiddleName", formData.middleName || "");
     data.append("LastName", formData.lastName);
+    data.append("DateOfBirth", formData.dob);
     data.append("MobileNumber", formData.mobileNumber);
     data.append("VotingPlaceId", String(formData.votingPlace?.votingPlaceId));
 

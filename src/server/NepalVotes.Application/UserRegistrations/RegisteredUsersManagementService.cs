@@ -24,9 +24,12 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
     {
         var registration = await registrationRepository.GetRegistrationWithGeographicDetailsForReviewAsync(id);
 
-        return registration == null 
-            ? ApiResponse<UserRegistrationReviewDetail>.ErrorResponse("User registration record not found.", 404) 
-            : ApiResponse<UserRegistrationReviewDetail>.SuccessResponse(registration.ToReviewDetails());
+        if(registration == null) return ApiResponse<UserRegistrationReviewDetail>.ErrorResponse("User registration record  found", 404);
+        
+        if (registration.UserRegistrationDocuments.All(x => x.DocumentType != UserDocumentType.NationalIdentity))
+            ApiResponse<UserRegistrationReviewDetail>.ErrorResponse("National Identity document not found.", 404);
+        
+        return ApiResponse<UserRegistrationReviewDetail>.SuccessResponse(registration.ToReviewDetails());
     }
     
     public async Task<ApiResponse<bool>> ApproveAsync(UserRegistrationReviewRequest request, int approvedByUserId)
@@ -44,6 +47,7 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
             LastName = registration.LastName,
             DateOfBirth = registration.DateOfBirth,
             MobileNumber = registration.MobileNumber,
+            NationalIdNumber =  registration.NationalIdNumber,
             Status = UserStatus.Approved,
             RequestDate = registration.RequestDate,
             ApprovedDate = DateTimeOffset.UtcNow,

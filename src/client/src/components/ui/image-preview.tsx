@@ -84,9 +84,6 @@ export const ImagePreview = ({
           </div>
         )}
       </div>
-      <div className="flex justify-between text-[10px] text-muted-foreground italic">
-        <p>{typeof file === "string" ? "Stored Document" : file.name}</p>
-      </div>
     </div>
   );
 };
