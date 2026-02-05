@@ -2,7 +2,10 @@ import { RegistrationUserDetailsForm } from "@/features/users/user-registration/
 import { useState } from "react";
 import { RegistrationOtpForm } from "@/features/users/user-registration/components/registration-otp-form.tsx";
 import { RegistrationReview } from "@/features/users/user-registration/components/registration-review.tsx";
-import type { UserRegistrationForm } from "@/features/users/user-registration/types/users.user-registration.types.ts";
+import {
+  UserDocumentType,
+  type UserRegistrationForm,
+} from "@/features/users/user-registration/types/users.user-registration.types.ts";
 import { useUserRegistrationMutation } from "@/features/users/user-registration/api/user-registration.query.ts";
 
 export const UserRegistrationPage = () => {
@@ -19,8 +22,8 @@ export const UserRegistrationPage = () => {
     dob: "",
     mobileNumber: "",
     votingPlace: null,
-    documentCategory: "",
-    documentFiles: {},
+    nIdNumber: "",
+    nIdDocument: null,
   });
 
   const submitUserDetails = async () => {
@@ -38,14 +41,13 @@ export const UserRegistrationPage = () => {
     data.append("MobileNumber", formData.mobileNumber);
     data.append("VotingPlaceId", String(formData.votingPlace?.votingPlaceId));
 
-    let index = 0;
-    Object.entries(formData.documentFiles).forEach(([typeId, file]) => {
-      if (file) {
-        data.append(`Documents[${index}].DocumentType`, typeId);
-        data.append(`Documents[${index}].File`, file);
-        index++;
-      }
-    });
+    data.append("NationalIdNumber", formData.nIdNumber);
+    data.append(
+      `Documents[0].DocumentType`,
+      UserDocumentType.NationalIdentity.toString(),
+    );
+    data.append(`Documents[0].File`, formData.nIdDocument!);
+
     return data;
   };
 

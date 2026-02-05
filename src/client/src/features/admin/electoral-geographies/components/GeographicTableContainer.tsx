@@ -60,9 +60,7 @@ export const GeographicTableContainer = (props: TableHeaderProps) => {
 
   const { crumbs, placeHierarchy } = getBreadcrumbs();
   return (
-    <div
-      className={`pl-6 py-6 pr-6 rounded-lg border-2 border-l-8 overflow-hidden`}
-    >
+    <div className={`pl-6 py-6 pr-6 rounded-lg overflow-hidden`}>
       <div>
         <h2 className="text-[11px] mb-5 underline font-bold tracking-[0.15em] text-muted-foreground/90 uppercase leading-relaxed wrap-break-word">
           {placeHierarchy}

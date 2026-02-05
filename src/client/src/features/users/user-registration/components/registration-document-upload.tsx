@@ -1,84 +1,73 @@
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  DOCUMENT_OPTIONS,
-  type DocumentCategory,
-  UserDocumentType,
-} from "@/features/users/user-registration/types/users.user-registration.types.ts";
 import { ImageField } from "@/components/ui/image-field.tsx";
+import { Input } from "@/components/ui/input.tsx";
+import type { ChangeEvent } from "react";
 
 interface Props {
-  selectedCategory: DocumentCategory | "";
-  onCategoryChange: (value: DocumentCategory) => void;
-  documentFiles: Record<number, File | null>;
-  onFileChange: (id: number, file: File | null) => void;
-  error?: string;
+  nationalIdNumber: string;
+  onNationalIdNumberChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  nationalIdDocument: File | null;
+  onNationalIdDocumentChange: (file: File | null) => void;
+  nationalIdNumberError?: string;
+  nationalIdDocumentError?: string;
 }
 
 export const RegistrationDocumentUpload = ({
-  selectedCategory,
-  onCategoryChange,
-  documentFiles,
-  onFileChange,
-  error,
+  nationalIdNumber,
+  onNationalIdNumberChange,
+  nationalIdDocument,
+  onNationalIdDocumentChange,
+  nationalIdNumberError,
+  nationalIdDocumentError,
 }: Props) => {
   return (
     <div
-      className={`space-y-6 p-4 border rounded-lg bg-card transition-all ${
-        error
-          ? "border-destructive ring-1 ring-destructive/20"
-          : "border-border"
+      className={`space-y-6 p-6 border rounded-xl transition-all ${
+        nationalIdNumberError || nationalIdDocumentError
+          ? "border-destructive ring-1 ring-destructive/10"
+          : "border-border shadow-sm"
       }`}
     >
-      <div className="space-y-2">
-        <Label className={error ? "text-destructive" : ""}>
-          Select Document Type
-        </Label>
-        <Select
-          onValueChange={(val) => onCategoryChange(val as DocumentCategory)}
-          value={selectedCategory}
-        >
-          <SelectTrigger className={error ? "border-destructive" : ""}>
-            <SelectValue placeholder="Choose a document type" />
-          </SelectTrigger>
-          <SelectContent>
-            {DOCUMENT_OPTIONS.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value}>
-                {opt.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        {error && (
-          <p className="text-[10px] font-medium text-destructive">{error}</p>
-        )}
-      </div>
+      <div className="flex flex-col space-y-6">
+        {/* Field 1: ID Number */}
+        <div className="space-y-2">
+          <Label
+            htmlFor="nIdNumber"
+            className={nationalIdNumberError ? "text-destructive" : ""}
+          >
+            National ID Number
+          </Label>
+          <Input
+            id="nIdNumber"
+            name="nIdNumber"
+            value={nationalIdNumber}
+            placeholder="Enter your NID"
+            className={`bg-white ${nationalIdNumberError ? "border-destructive" : ""}`}
+            onChange={onNationalIdNumberChange}
+          />
+          {nationalIdNumberError && (
+            <p className="text-[11px] font-semibold text-destructive animate-in fade-in slide-in-from-top-1">
+              {nationalIdNumberError}
+            </p>
+          )}
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {selectedCategory &&
-          DOCUMENT_OPTIONS.find(
-            (o) => o.value === selectedCategory,
-          )?.enumIds.map((id) => (
-            <ImageField
-              key={id}
-              label={
-                id === UserDocumentType.CitizenshipFront
-                  ? "Front Side"
-                  : id === UserDocumentType.CitizenshipBack
-                    ? "Back Side"
-                    : "Document Copy"
-              }
-              value={documentFiles[id] || null}
-              onChange={(file) => onFileChange(id, file)}
-              maxSizeMB={3}
-            />
-          ))}
+        {/* Field 2: Document Image */}
+        <div
+          className={`space-y-2 ${nationalIdDocumentError ? "border-destructive" : ""} `}
+        >
+          <ImageField
+            label={"National ID Document Copy"}
+            value={nationalIdDocument}
+            onChange={(file) => onNationalIdDocumentChange(file)}
+            maxSizeMB={3}
+          />
+          {nationalIdDocumentError && (
+            <p className="text-[11px] font-semibold text-destructive animate-in fade-in slide-in-from-top-1">
+              {nationalIdDocumentError}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

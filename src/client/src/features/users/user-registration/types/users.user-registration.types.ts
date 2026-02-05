@@ -9,34 +9,7 @@ export const UserDocumentType = {
 export type UserDocumentType =
   (typeof UserDocumentType)[keyof typeof UserDocumentType];
 
-export type DocumentCategory = "Citizenship" | "Passport" | "NationalIdentity";
-
-export interface DocumentOption {
-  label: string;
-  value: DocumentCategory;
-  enumIds: UserDocumentType[];
-}
-
-export const DOCUMENT_OPTIONS: DocumentOption[] = [
-  {
-    label: "Citizenship",
-    value: "Citizenship",
-    enumIds: [
-      UserDocumentType.CitizenshipFront,
-      UserDocumentType.CitizenshipBack,
-    ],
-  },
-  {
-    label: "Passport",
-    value: "Passport",
-    enumIds: [UserDocumentType.Passport],
-  },
-  {
-    label: "National Identity",
-    value: "NationalIdentity",
-    enumIds: [UserDocumentType.NationalIdentity],
-  },
-];
+export type DocumentCategory = "NationalIdentity";
 
 export interface UserRegistrationForm {
   firstName: string;
@@ -45,15 +18,11 @@ export interface UserRegistrationForm {
   dob: string;
   mobileNumber: string;
   votingPlace: { votingPlaceAddress: string; votingPlaceId: number } | null;
-  documentCategory: DocumentCategory | "";
-  documentFiles: Record<number, File | null>;
+  nIdNumber: string;
+  nIdDocument: File | null;
 }
 
 // requests
-export interface DocumentUploadRequest {
-  documentType: UserDocumentType;
-  file: File;
-}
 
 export interface VerifyOtp {
   mobileNumber: string;

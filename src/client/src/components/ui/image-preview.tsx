@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface ImagePreviewProps {
-  file: File | string;
+  file: File | string | null;
   contentType?: string;
   fileName?: string;
   className?: string;
@@ -27,7 +27,7 @@ export const ImagePreview = ({
         const mime = contentType || "image/png";
         setUrl(`data:${mime};base64,${file}`);
       }
-    } else {
+    } else if (file != null) {
       // Handle File object from input
       const objectUrl = URL.createObjectURL(file);
       setUrl(objectUrl);
@@ -36,7 +36,7 @@ export const ImagePreview = ({
   }, [file, contentType]);
 
   const label =
-    (typeof file === "string" ? fileName : file.name) || "Image Preview";
+    (typeof file === "string" ? fileName : file?.name) || "Image Preview";
   const handleDoubleClick = () => {
     if (!url) return;
     const newTab = window.open();
@@ -49,6 +49,13 @@ export const ImagePreview = ({
     }
   };
 
+  if (!file) {
+    return (
+      <div className="flex items-center text-red-800 gap-2 px-4 py-2 border-l-4 border-primary rounded-r-md">
+        <p className="text-sm">No Image To Preview.</p>
+      </div>
+    );
+  }
   return (
     <div className={cn("group relative space-y-2", className)}>
       <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">

@@ -10,11 +10,7 @@ import {
 } from "react";
 import { GeographicalDivisionPage } from "@/features/admin/electoral-geographies/components/geographical-division-page.tsx";
 import type { VotingPlaceInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
-import {
-  DOCUMENT_OPTIONS,
-  type DocumentCategory,
-  type UserRegistrationForm,
-} from "@/features/users/user-registration/types/users.user-registration.types.ts";
+import { type UserRegistrationForm } from "@/features/users/user-registration/types/users.user-registration.types.ts";
 import { RegistrationDocumentUpload } from "@/features/users/user-registration/components/registration-document-upload.tsx";
 import { Badge } from "lucide-react";
 
@@ -32,8 +28,12 @@ export const RegistrationUserDetailsForm = ({
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log("name ==> ", name);
+    console.log("value ==> ", value);
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+
+    console.log("formData ==> ", formData);
   };
 
   const onSelectVotingPlace = (votingPlaceInfo: VotingPlaceInfo) => {
@@ -47,21 +47,12 @@ export const RegistrationUserDetailsForm = ({
     if (errors.votingPlace) setErrors((prev) => ({ ...prev, votingPlace: "" }));
   };
 
-  const handleDocCategoryChange = (category: DocumentCategory) => {
+  const handleNationalIdDocumentChange = (file: File | null) => {
     setFormData((prev) => ({
       ...prev,
-      documentCategory: category,
-      documentFiles: {},
+      nIdDocument: file,
     }));
-    if (errors.documents) setErrors((prev) => ({ ...prev, documents: "" }));
-  };
-
-  const handleFileChange = (id: number, file: File | null) => {
-    setFormData((prev) => ({
-      ...prev,
-      documentFiles: { ...prev.documentFiles, [id]: file },
-    }));
-    if (errors.documents) setErrors((prev) => ({ ...prev, documents: "" }));
+    if (errors.nIdDocument) setErrors((prev) => ({ ...prev, nIdDocument: "" }));
   };
 
   const validate = () => {
@@ -81,18 +72,11 @@ export const RegistrationUserDetailsForm = ({
       newErrors.votingPlace = "Please select a voting place";
     }
 
-    if (!formData.documentCategory) {
-      newErrors.documents = "Document selection is required";
-    } else {
-      const activeOption = DOCUMENT_OPTIONS.find(
-        (o) => o.value === formData.documentCategory,
-      );
-      const allUploaded = activeOption?.enumIds.every(
-        (id) => !!formData.documentFiles[id],
-      );
-      if (!allUploaded) {
-        newErrors.documents = `Missing files for ${formData.documentCategory}`;
-      }
+    if (!formData.nIdNumber.trim())
+      newErrors.nIdNumber = "National Id Number is required";
+
+    if (!formData.nIdDocument) {
+      newErrors.nIdDocument = "National ID Document is required";
     }
 
     setErrors(newErrors);
@@ -121,8 +105,8 @@ export const RegistrationUserDetailsForm = ({
               station.
             </p>
           </div>
-          <div className="flex items-center gap-2 bg-muted p-1 rounded-lg px-3 py-2 border shadow-sm">
-            <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+          <div className="flex items-center gap-2 p-1 rounded-lg px-3 py-2 border shadow-sm">
+            <div className="h-2 w-2 rounded-full animate-pulse" />
             <span className="text-xs font-semibold uppercase tracking-wider">
               Step 1: Details
             </span>
@@ -133,9 +117,9 @@ export const RegistrationUserDetailsForm = ({
           {/* Left Column: Input Fields */}
           <div className="lg:col-span-7 space-y-8">
             {/* Section: Personal Details */}
-            <section className="bg-card rounded-xl border p-6 shadow-sm space-y-6">
+            <section className=" rounded-xl border p-6 shadow-sm space-y-6">
               <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-1 bg-primary rounded-full" />
+                <div className="h-6 w-1 rounded-full" />
                 <h3 className="text-lg font-bold">Personal Information</h3>
               </div>
 
@@ -156,7 +140,7 @@ export const RegistrationUserDetailsForm = ({
                     className={
                       errors.firstName
                         ? "border-destructive ring-destructive/20"
-                        : "bg-muted/30 focus:bg-background transition-all"
+                        : "focus:bg-background transition-all"
                     }
                   />
                   {errors.firstName && (
@@ -179,7 +163,7 @@ export const RegistrationUserDetailsForm = ({
                     placeholder="Raj"
                     value={formData.middleName}
                     onChange={handleInputChange}
-                    className="bg-muted/30 focus:bg-background transition-all"
+                    className="focus:bg-background transition-all"
                   />
                 </div>
 
@@ -199,7 +183,7 @@ export const RegistrationUserDetailsForm = ({
                     className={
                       errors.lastName
                         ? "border-destructive ring-destructive/20"
-                        : "bg-muted/30 focus:bg-background transition-all"
+                        : "focus:bg-background transition-all"
                     }
                   />
                   {errors.lastName && (
@@ -228,7 +212,7 @@ export const RegistrationUserDetailsForm = ({
                     className={
                       errors.mobileNumber
                         ? "border-destructive ring-destructive/20"
-                        : "bg-muted/30"
+                        : ""
                     }
                   />
                   {errors.mobileNumber && (
@@ -252,9 +236,7 @@ export const RegistrationUserDetailsForm = ({
                     value={formData.dob}
                     onChange={handleInputChange}
                     className={
-                      errors.dob
-                        ? "border-destructive ring-destructive/20"
-                        : "bg-muted/30"
+                      errors.dob ? "border-destructive ring-destructive/20" : ""
                     }
                   />
                   {errors.dob && (
@@ -267,17 +249,27 @@ export const RegistrationUserDetailsForm = ({
             </section>
 
             {/* Section: Documents */}
-            <section className="bg-card rounded-xl border p-6 shadow-sm">
+            <section className=" rounded-xl border p-6 shadow-sm">
               <div className="flex items-center gap-2 mb-6">
-                <div className="h-6 w-1 bg-primary rounded-full" />
+                <div className="h-6 w-1  rounded-full" />
                 <h3 className="text-lg font-bold">Document Verification</h3>
               </div>
+              <div className="flex items-center text-red-800 gap-2 px-4 py-2 border-l-4 border-primary rounded-r-md">
+                <p className="text-sm">
+                  <span className="font-bold text-primary uppercase text-[10px] tracking-widest mr-2">
+                    Notice:
+                  </span>
+                  National ID is{" "}
+                  <span className="font-semibold text-red-500">required</span>.
+                </p>
+              </div>
               <RegistrationDocumentUpload
-                selectedCategory={formData.documentCategory}
-                onCategoryChange={handleDocCategoryChange}
-                documentFiles={formData.documentFiles}
-                onFileChange={handleFileChange}
-                error={errors.documents}
+                nationalIdNumber={formData.nIdNumber}
+                onNationalIdNumberChange={handleInputChange}
+                nationalIdDocument={formData.nIdDocument}
+                onNationalIdDocumentChange={handleNationalIdDocumentChange}
+                nationalIdDocumentError={errors.nIdDocument}
+                nationalIdNumberError={errors.nIdNumber}
               />
             </section>
           </div>
@@ -285,8 +277,8 @@ export const RegistrationUserDetailsForm = ({
           {/* Right Column: Voting Place Selection */}
           <div className="lg:col-span-5">
             <div className="sticky top-10 space-y-4">
-              <div className="bg-card rounded-xl border shadow-sm overflow-hidden">
-                <div className="p-4 border-b bg-muted/20 flex justify-between items-center">
+              <div className=" rounded-xl border shadow-sm overflow-hidden">
+                <div className="p-4 border-b  flex justify-between items-center">
                   <div>
                     <h3 className="font-bold">Voting Place</h3>
                     <p className="text-[10px] text-muted-foreground uppercase font-semibold">
@@ -294,17 +286,17 @@ export const RegistrationUserDetailsForm = ({
                     </p>
                   </div>
                   {formData.votingPlace && (
-                    <Badge className="bg-primary text-primary-foreground pointer-events-none">
+                    <Badge className=" text-primary-foreground pointer-events-none">
                       SELECTED
                     </Badge>
                   )}
                 </div>
 
-                <div className="p-4 bg-background">
+                <div className="p-4 ">
                   <div
                     className={`rounded-lg border overflow-hidden transition-all ${errors.votingPlace ? "ring-2 ring-destructive border-destructive" : "border-input shadow-inner"}`}
                   >
-                    <div className="h-112.5 overflow-y-auto custom-scrollbar">
+                    <div className="max-h-112.5 overflow-y-auto custom-scrollbar">
                       <GeographicalDivisionPage
                         onSelectVotingPlace={onSelectVotingPlace}
                         allowAddEdit={false}
@@ -320,7 +312,7 @@ export const RegistrationUserDetailsForm = ({
                 </div>
 
                 {formData.votingPlace && (
-                  <div className="p-4 bg-primary/5 border-t">
+                  <div className="p-4 /5 border-t">
                     <p className="text-xs font-bold text-primary uppercase">
                       Current Selection:
                     </p>
