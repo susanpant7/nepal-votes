@@ -19,6 +19,9 @@ public class RegisterUserApiRequest
     [Required]
     [RegularExpression(@"^\+?[0-9]{10,15}$", ErrorMessage = "Invalid mobile number")]
     public required string MobileNumber { get; set; }
+    
+    [Required]
+    public required string NationalIdNumber { get; set; }
 
     [Required]
     public int VotingPlaceId { get; set; }

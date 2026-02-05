@@ -26,6 +26,16 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.MobileNumber)
             .HasMaxLength(20)
             .IsRequired();
+        
+        builder.HasIndex(x => x.MobileNumber)
+            .IsUnique();
+        
+        builder.Property(u => u.NationalIdNumber)
+            .HasMaxLength(20)
+            .IsRequired();
+        
+        builder.HasIndex(x => x.NationalIdNumber)
+            .IsUnique();
 
         builder.Property(u => u.Status)
             .HasConversion<int>() // store enum as int
