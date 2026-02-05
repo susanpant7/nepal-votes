@@ -68,4 +68,12 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     {
         await context.Users.AddAsync(user);
     }
+
+    public async Task<List<User>> GetByMobileNumberOrNationalIdAsync(string mobileNumber, string nationalId)
+    {
+        return await context.Users
+            .AsNoTracking()
+            .Where(x=> x.MobileNumber==mobileNumber || x.NationalIdNumber==nationalId)
+            .ToListAsync();
+    }
 }

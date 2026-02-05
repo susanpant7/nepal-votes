@@ -10,4 +10,5 @@ public interface IUserRepository
     Task<bool> AnyByVotingPlaceIdAsync(int votingPlaceId);
     Task<int?> GetUserConstituencyIdAsync(int userId);
     Task AddUserAsync(User user);
+    Task<List<User>> GetByMobileNumberOrNationalIdAsync(string mobileNumber, string nationalId);
 }

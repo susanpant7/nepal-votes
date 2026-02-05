@@ -56,7 +56,11 @@ export const RegistrationReview = ({
                   I hereby confirm that the{" "}
                   <span className="font-bold">mobile number</span> and the
                   <span className="font-bold"> national ID document</span>{" "}
-                  belong to the same person.
+                  belong to{" "}
+                  <span className="font-bold">
+                    {`${data.firstName} ${data.middleName || ""} ${data.lastName}`}
+                    .
+                  </span>
                 </Label>
               </AlertDescription>
             </Alert>

@@ -36,7 +36,25 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
     {
         var registration = await registrationRepository.GetByIdWithDocumentsAsync(request.UserRegistrationId);
         if (registration == null) return ApiResponse<bool>.ErrorResponse("User Registration Not found", 404);
+      
+        var existingUsers = await userRepository.GetByMobileNumberOrNationalIdAsync(registration.MobileNumber, registration.NationalIdNumber);
 
+        if (existingUsers.Count != 0)
+        {
+            var mobileConflict = existingUsers.FirstOrDefault(u => u.MobileNumber == registration.MobileNumber);
+            var nidConflict = existingUsers.FirstOrDefault(u => u.NationalIdNumber == registration.NationalIdNumber);
+
+            if (mobileConflict != null && nidConflict != null && mobileConflict.UserId != nidConflict.UserId)
+            {
+                return ApiResponse<bool>.ErrorResponse("Mobile number and National ID are already in use by different accounts.", 409);
+            }
+        
+            if (mobileConflict != null)
+                return ApiResponse<bool>.ErrorResponse($"The mobile number {registration.MobileNumber} is already registered.", 409);
+
+            if (nidConflict != null)
+                return ApiResponse<bool>.ErrorResponse($"The National ID {registration.NationalIdNumber} is already registered.", 409);
+        }
         var voterRole = await roleRepository.GetRoleByNameAsync(RoleName.Voter);
         if (voterRole == null) return ApiResponse<bool>.ErrorResponse("Voter role configuration missing", 500);
         
