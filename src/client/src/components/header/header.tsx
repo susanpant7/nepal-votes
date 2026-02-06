@@ -1,4 +1,4 @@
-import { LogOut, LogIn } from "lucide-react";
+import { LogOut, LogIn, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAuthStore } from "@/stores/useAuthStore.ts";
@@ -7,6 +7,13 @@ import { headerMenuItems } from "@/components/header/header.menu.items.ts";
 import { AuthApi } from "@/features/auth/api/auth.api.ts";
 import { ThemeTogglerButton } from "@/components/theme/theme-toggler-button.tsx";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet.tsx";
 
 export const Header = () => {
   const user = useAuthStore((state) => state.user);
@@ -34,11 +41,46 @@ export const Header = () => {
       <div className="flex h-16 items-center px-4 md:px-8">
         {/* LEFT: Logo + Nav Items */}
         <div className="flex items-center gap-6 flex-1">
+          {/* Mobile Menu Trigger */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="mr-2">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-72">
+                <SheetTitle className="text-left mb-4">Navigation</SheetTitle>
+                <nav className="flex flex-col gap-2 mt-4">
+                  {items.map((item) => (
+                    <SheetClose asChild key={item.label}>
+                      <Link
+                        to={item.href}
+                        activeProps={{
+                          className: "bg-accent text-primary font-medium",
+                        }}
+                        inactiveProps={{
+                          className:
+                            "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                        }}
+                        className="flex items-center gap-3 rounded-md px-3 py-3 transition-all"
+                      >
+                        <item.icon className="h-5 w-5" />
+                        <span className="text-base">{item.label}</span>
+                      </Link>
+                    </SheetClose>
+                  ))}
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+
           <div className="flex items-center gap-2 font-bold text-xl tracking-tight">
             <span className="text-primary">Nepal</span>Votes
           </div>
 
-          {/* Desktop Nav: Shown next to logo */}
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             {items.map((item) => (
               <Button asChild key={item.label} variant="ghost" size="sm">
@@ -63,7 +105,7 @@ export const Header = () => {
         </div>
 
         {/* RIGHT: Login/Logout + Theme */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           {isLoggedIn ? (
             <Button
               variant="ghost"
@@ -75,7 +117,6 @@ export const Header = () => {
               <span className="hidden sm:inline">Sign Out</span>
             </Button>
           ) : (
-            /* Use asChild to merge the Link and Button behaviors */
             <Button asChild variant="default" size="sm" className="gap-2">
               <Link to={ROUTES.AUTH_SIGN_IN}>
                 <LogIn className="h-4 w-4" />
@@ -83,8 +124,15 @@ export const Header = () => {
               </Link>
             </Button>
           )}
-          <div className="h-6 w-px bg-border mx-2" /> {/* Subtle Divider */}
-          {user?.userName}
+
+          <div className="hidden xs:block h-6 w-px bg-border mx-1" />
+
+          {user?.userName && (
+            <span className="hidden lg:inline text-sm font-medium text-muted-foreground">
+              {user.userName}
+            </span>
+          )}
+
           <ThemeTogglerButton />
         </div>
       </div>
