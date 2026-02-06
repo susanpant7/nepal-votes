@@ -29,7 +29,7 @@ export const CandidatesTable = () => {
     setConstituencyId(constituency.constituencyId);
   };
 
-  const candidates = data as CandidateListItem[];
+  const candidates = data ?? ([] as CandidateListItem[]);
 
   const navigate = useNavigate();
   const onEditButtonClick = async (candidateId: number) => {
