@@ -108,3 +108,72 @@ INSERT INTO VotingPlaces (VotingPlaceAddress, WardId, CreatedAt, CreatedBy) VALU
 ('Amargadhi Fort Area School', 577, GETDATE(), NULL), ('Dadeldhura Post Office', 577, GETDATE(), NULL),
 ('Tikapur Park Area School', 583, GETDATE(), NULL), ('Kailali Ward 1 Health Post', 583, GETDATE(), NULL),
 ('Bedkot Municipality Office', 587, GETDATE(), NULL), ('Shree Bhanu Secondary School', 587, GETDATE(), NULL);
+
+
+
+
+-- --------------------------------------------------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+INSERT INTO VotingPlaces (VotingPlaceId, VotingPlaceAddress, WardId, CreatedAt, CreatedBy) VALUES
+-- Damak Municipality (Wards 1-10)
+(1, 'Adarsha Secondary School, Ward 1', 1, GETDATE(), NULL),
+(2, 'Saraswati Secondary School, Ward 2', 2, GETDATE(), NULL),
+(3, 'Damak Multiple Campus, Ward 3', 3, GETDATE(), NULL),
+(4, 'Shree Krishna Secondary School, Ward 4', 4, GETDATE(), NULL),
+(5, 'Ward Office Premises, Ward 5', 5, GETDATE(), NULL),
+(6, 'Himalaya Secondary School, Ward 6', 6, GETDATE(), NULL),
+(7, 'Panchasheel Community Center, Ward 7', 7, GETDATE(), NULL),
+(8, 'Radha Krishna Temple Premises, Ward 8', 8, GETDATE(), NULL),
+(9, 'Mahendra Ratna Secondary School, Ward 9', 9, GETDATE(), NULL),
+(10, 'Health Post Building, Ward 10', 10, GETDATE(), NULL),
+
+-- Dharan Sub-Metropolitan City (Wards 11-30)
+(11, 'Dharan Higher Secondary School, Ward 1', 11, GETDATE(), NULL),
+(12, 'BP Koirala Health Science Premises, Ward 2', 12, GETDATE(), NULL),
+(13, 'Public High School, Ward 3', 13, GETDATE(), NULL),
+(14, 'Shree Shanti Niketan, Ward 4', 14, GETDATE(), NULL),
+(15, 'Sitala Community Building, Ward 5', 15, GETDATE(), NULL),
+(16, 'Ward 6 Community Hall', 16, GETDATE(), NULL),
+(17, 'Panchakanya School, Ward 11', 21, GETDATE(), NULL),
+(18, 'Yalamber Community Forest Office, Ward 15', 25, GETDATE(), NULL),
+(19, 'Sumnima Hall, Ward 18', 28, GETDATE(), NULL),
+(20, 'Koshi Campus Premises, Ward 20', 30, GETDATE(), NULL),
+
+-- Kathmandu Metropolitan City (Wards 31-62) - Selecting Key Locations
+(21, 'Durbar High School, Ward 1', 31, GETDATE(), NULL),
+(22, 'Saraswati Campus, Ward 2', 32, GETDATE(), NULL),
+(23, 'Maharajgunj Nursing Campus, Ward 3', 33, GETDATE(), NULL),
+(24, 'Bishalnagar Community Hall, Ward 4', 34, GETDATE(), NULL),
+(25, 'Ward Office Building, Ward 7', 37, GETDATE(), NULL),
+(26, 'Pashupatinath Temple Premises, Ward 8', 38, GETDATE(), NULL),
+(27, 'Ratna Rajya Campus, Ward 9', 39, GETDATE(), NULL),
+(28, 'Baneshwor Height Community Center, Ward 10', 40, GETDATE(), NULL),
+(29, 'Tri-Chandra Campus, Ward 28', 58, GETDATE(), NULL),
+(30, 'Padmodaya Secondary School, Ward 31', 61, GETDATE(), NULL),
+
+-- Lalitpur Metropolitan City (Wards 105-133)
+(31, 'Patan High School, Ward 1', 105, GETDATE(), NULL),
+(32, 'Ward 2 Community Health Center', 106, GETDATE(), NULL),
+(33, 'Pulchowk Campus Premises, Ward 3', 107, GETDATE(), NULL),
+(34, 'Labim Mall Vicinity Community Hall, Ward 4', 108, GETDATE(), NULL),
+(35, 'Jawalakhel Football Ground Premises, Ward 5', 109, GETDATE(), NULL),
+(36, 'Patan Multiple Campus, Ward 15', 119, GETDATE(), NULL),
+
+-- Pokhara Metropolitan City (Wards 134-166)
+(37, 'Prithvi Narayan Campus, Ward 1', 134, GETDATE(), NULL),
+(38, 'Bindhyabasini Temple Premises, Ward 2', 135, GETDATE(), NULL),
+(39, 'Amarsingh Secondary School, Ward 10', 143, GETDATE(), NULL),
+(40, 'Pokhara Engineering College, Ward 11', 144, GETDATE(), NULL),
+(41, 'Tourist Information Center, Ward 6', 139, GETDATE(), NULL),
+(42, 'Lakeside Community Center, Ward 17', 150, GETDATE(), NULL),
+
+-- Bhaktapur Municipality (Wards 167-176)
+(43, 'Bhaktapur Durbar Square Area, Ward 1', 167, GETDATE(), NULL),
+(44, 'Siddha Pokhari Premises, Ward 2', 168, GETDATE(), NULL),
+(45, 'Shree Padma Secondary School, Ward 3', 169, GETDATE(), NULL),
+(46, 'Ward 5 Community Hall', 171, GETDATE(), NULL),
+(47, 'Basawari Secondary School, Ward 10', 176, GETDATE(), NULL);

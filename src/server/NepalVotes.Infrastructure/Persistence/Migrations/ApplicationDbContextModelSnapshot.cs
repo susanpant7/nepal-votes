@@ -616,7 +616,7 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserRefreshTokenId")
+                    b.Property<int?>("UserRefreshTokenId")
                         .HasColumnType("int");
 
                     b.Property<string>("VoterIdNumber")
@@ -1115,8 +1115,7 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
 
                     b.Navigation("UserOtps");
 
-                    b.Navigation("UserRefreshToken")
-                        .IsRequired();
+                    b.Navigation("UserRefreshToken");
                 });
 #pragma warning restore 612, 618
         }

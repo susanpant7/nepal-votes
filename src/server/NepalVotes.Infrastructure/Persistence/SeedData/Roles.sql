@@ -13,6 +13,44 @@ INSERT INTO UserRoles (UsersUserId, RolesRoleId)
 VALUES (1, 3);
 
 
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 1. Create the User
+INSERT INTO Users (
+    UserId, FirstName, MiddleName, LastName, MobileNumber, Status,
+    RequestDate, ApprovedDate, VotingPlaceId, ApprovedByUserId,
+    CreatedAt, CreatedBy, UpdatedAt, UpdatedBy, UserRefreshTokenId,
+    FullName, DateOfBirth, Age, NationalIdNumber, VoterIdNumber
+) VALUES (
+             1,                    
+             'Susan',              
+             NULL,                 
+             'Pant',               
+             '9846514741',         
+             3,                    
+             GETDATE(),            
+             GETDATE(),            
+             21,                   
+             1,                    
+             GETDATE(),            
+             1,                    
+             GETDATE(),            
+             1,                    
+             NULL,                 
+             'User_1 Voter',       
+             '1994-01-06',         
+             '9846514741',
+             '9846514741' 
+         );
+
+-- 2. Assign SUPER_ADMIN Role (Assuming RoleId 3 is SUPER_ADMIN and Susan is UserId 1)
+INSERT INTO UserRoles (UsersUserId, RolesRoleId)
+VALUES (1, 3);
+
+
 
 /* Generate 1 Approved User for every Voting Place
    Prefixes: 984 (NTC) for even IDs, 980 (Ncell) for odd IDs

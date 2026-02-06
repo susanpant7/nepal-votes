@@ -14,50 +14,50 @@ SET IDENTITY_INSERT Provinces OFF;
 
 -- 2. DISTRICTS (All 77)
 -- Koshi Province (ID: 1)
-INSERT INTO Districts (DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
-('Bhojpur', 1, GETDATE(), NULL), ('Dhankuta', 1, GETDATE(), NULL), ('Ilam', 1, GETDATE(), NULL),
-('Jhapa', 1, GETDATE(), NULL), ('Khotang', 1, GETDATE(), NULL), ('Morang', 1, GETDATE(), NULL),
-('Okhaldhunga', 1, GETDATE(), NULL), ('Panchthar', 1, GETDATE(), NULL), ('Sankhuwasabha', 1, GETDATE(), NULL),
-('Solukhumbu', 1, GETDATE(), NULL), ('Sunsari', 1, GETDATE(), NULL), ('Taplejung', 1, GETDATE(), NULL),
-('Tehrathum', 1, GETDATE(), NULL), ('Udayapur', 1, GETDATE(), NULL);
+INSERT INTO Districts (DistrictId, DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
+(1, 'Bhojpur', 1, GETDATE(), NULL), (2, 'Dhankuta', 1, GETDATE(), NULL), (3, 'Ilam', 1, GETDATE(), NULL),
+(4, 'Jhapa', 1, GETDATE(), NULL), (5, 'Khotang', 1, GETDATE(), NULL), (6, 'Morang', 1, GETDATE(), NULL),
+(7, 'Okhaldhunga', 1, GETDATE(), NULL), (8, 'Panchthar', 1, GETDATE(), NULL), (9, 'Sankhuwasabha', 1, GETDATE(), NULL),
+(10, 'Solukhumbu', 1, GETDATE(), NULL), (11, 'Sunsari', 1, GETDATE(), NULL), (12, 'Taplejung', 1, GETDATE(), NULL),
+(13, 'Tehrathum', 1, GETDATE(), NULL), (14, 'Udayapur', 1, GETDATE(), NULL);
 
 -- Madhesh Province (ID: 2)
-INSERT INTO Districts (DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
-('Bara', 2, GETDATE(), NULL), ('Dhanusha', 2, GETDATE(), NULL), ('Mahottari', 2, GETDATE(), NULL),
-('Parsa', 2, GETDATE(), NULL), ('Rautahat', 2, GETDATE(), NULL), ('Saptari', 2, GETDATE(), NULL),
-('Sarlahi', 2, GETDATE(), NULL), ('Siraha', 2, GETDATE(), NULL);
+INSERT INTO Districts (DistrictId, DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
+(15, 'Bara', 2, GETDATE(), NULL), (16, 'Dhanusha', 2, GETDATE(), NULL), (17, 'Mahottari', 2, GETDATE(), NULL),
+(18, 'Parsa', 2, GETDATE(), NULL), (19, 'Rautahat', 2, GETDATE(), NULL), (20, 'Saptari', 2, GETDATE(), NULL),
+(21, 'Sarlahi', 2, GETDATE(), NULL), (22, 'Siraha', 2, GETDATE(), NULL);
 
 -- Bagmati Province (ID: 3)
-INSERT INTO Districts (DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
-('Bhaktapur', 3, GETDATE(), NULL), ('Chitwan', 3, GETDATE(), NULL), ('Dhading', 3, GETDATE(), NULL),
-('Dolakha', 3, GETDATE(), NULL), ('Kathmandu', 3, GETDATE(), NULL), ('Kavrepalanchok', 3, GETDATE(), NULL),
-('Lalitpur', 3, GETDATE(), NULL), ('Makwanpur', 3, GETDATE(), NULL), ('Nuwakot', 3, GETDATE(), NULL),
-('Ramechhap', 3, GETDATE(), NULL), ('Rasuwa', 3, GETDATE(), NULL), ('Sindhuli', 3, GETDATE(), NULL),
-('Sindhupalchok', 3, GETDATE(), NULL);
+INSERT INTO Districts (DistrictId, DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
+(23, 'Bhaktapur', 3, GETDATE(), NULL), (24, 'Chitwan', 3, GETDATE(), NULL), (25, 'Dhading', 3, GETDATE(), NULL),
+(26, 'Dolakha', 3, GETDATE(), NULL), (27, 'Kathmandu', 3, GETDATE(), NULL), (28, 'Kavrepalanchok', 3, GETDATE(), NULL),
+(29, 'Lalitpur', 3, GETDATE(), NULL), (30, 'Makwanpur', 3, GETDATE(), NULL), (31, 'Nuwakot', 3, GETDATE(), NULL),
+(32, 'Ramechhap', 3, GETDATE(), NULL), (33, 'Rasuwa', 3, GETDATE(), NULL), (34, 'Sindhuli', 3, GETDATE(), NULL),
+(35, 'Sindhupalchok', 3, GETDATE(), NULL);
 
 -- Gandaki Province (ID: 4)
-INSERT INTO Districts (DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
-('Baglung', 4, GETDATE(), NULL), ('Gorkha', 4, GETDATE(), NULL), ('Kaski', 4, GETDATE(), NULL),
-('Lamjung', 4, GETDATE(), NULL), ('Manang', 4, GETDATE(), NULL), ('Mustang', 4, GETDATE(), NULL),
-('Myagdi', 4, GETDATE(), NULL), ('Nawalpur', 4, GETDATE(), NULL), ('Parbat', 4, GETDATE(), NULL),
-('Syangja', 4, GETDATE(), NULL), ('Tanahun', 4, GETDATE(), NULL);
+INSERT INTO Districts (DistrictId, DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
+(36, 'Baglung', 4, GETDATE(), NULL), (37, 'Gorkha', 4, GETDATE(), NULL), (38, 'Kaski', 4, GETDATE(), NULL),
+(39, 'Lamjung', 4, GETDATE(), NULL), (40, 'Manang', 4, GETDATE(), NULL), (41, 'Mustang', 4, GETDATE(), NULL),
+(42, 'Myagdi', 4, GETDATE(), NULL), (43, 'Nawalpur', 4, GETDATE(), NULL), (44, 'Parbat', 4, GETDATE(), NULL),
+(45, 'Syangja', 4, GETDATE(), NULL), (46, 'Tanahun', 4, GETDATE(), NULL);
 
 -- Lumbini Province (ID: 5)
-INSERT INTO Districts (DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
-('Arghakhanchi', 5, GETDATE(), NULL), ('Banke', 5, GETDATE(), NULL), ('Bardiya', 5, GETDATE(), NULL),
-('Dang', 5, GETDATE(), NULL), ('Gulmi', 5, GETDATE(), NULL), ('Kapilvastu', 5, GETDATE(), NULL),
-('Parasi', 5, GETDATE(), NULL), ('Palpa', 5, GETDATE(), NULL), ('Pyuthan', 5, GETDATE(), NULL),
-('Rolpa', 5, GETDATE(), NULL), ('Rupandehi', 5, GETDATE(), NULL), ('Eastern Rukum', 5, GETDATE(), NULL);
+INSERT INTO Districts (DistrictId, DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
+(47, 'Arghakhanchi', 5, GETDATE(), NULL), (48, 'Banke', 5, GETDATE(), NULL), (49, 'Bardiya', 5, GETDATE(), NULL),
+(50, 'Dang', 5, GETDATE(), NULL), (51, 'Gulmi', 5, GETDATE(), NULL), (52, 'Kapilvastu', 5, GETDATE(), NULL),
+(53, 'Parasi', 5, GETDATE(), NULL), (54, 'Palpa', 5, GETDATE(), NULL), (55, 'Pyuthan', 5, GETDATE(), NULL),
+(56, 'Rolpa', 5, GETDATE(), NULL), (57, 'Rupandehi', 5, GETDATE(), NULL), (58, 'Eastern Rukum', 5, GETDATE(), NULL);
 
 -- Karnali Province (ID: 6)
-INSERT INTO Districts (DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
-('Dailekh', 6, GETDATE(), NULL), ('Dolpa', 6, GETDATE(), NULL), ('Humla', 6, GETDATE(), NULL),
-('Jajarkot', 6, GETDATE(), NULL), ('Jumla', 6, GETDATE(), NULL), ('Kalikot', 6, GETDATE(), NULL),
-('Mugu', 6, GETDATE(), NULL), ('Salyan', 6, GETDATE(), NULL), ('Surkhet', 6, GETDATE(), NULL),
-('Western Rukum', 6, GETDATE(), NULL);
+INSERT INTO Districts (DistrictId, DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
+(59, 'Dailekh', 6, GETDATE(), NULL), (60, 'Dolpa', 6, GETDATE(), NULL), (61, 'Humla', 6, GETDATE(), NULL),
+(62, 'Jajarkot', 6, GETDATE(), NULL), (63, 'Jumla', 6, GETDATE(), NULL), (64, 'Kalikot', 6, GETDATE(), NULL),
+(65, 'Mugu', 6, GETDATE(), NULL), (66, 'Salyan', 6, GETDATE(), NULL), (67, 'Surkhet', 6, GETDATE(), NULL),
+(68, 'Western Rukum', 6, GETDATE(), NULL);
 
 -- Sudurpashchim Province (ID: 7)
-INSERT INTO Districts (DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
-('Achham', 7, GETDATE(), NULL), ('Baitadi', 7, GETDATE(), NULL), ('Bajhang', 7, GETDATE(), NULL),
-('Bajura', 7, GETDATE(), NULL), ('Dadeldhura', 7, GETDATE(), NULL), ('Darchula', 7, GETDATE(), NULL),
-('Doti', 7, GETDATE(), NULL), ('Kailali', 7, GETDATE(), NULL), ('Kanchanpur', 7, GETDATE(), NULL);
+INSERT INTO Districts (DistrictId, DistrictName, ProvinceId, CreatedAt, CreatedBy) VALUES
+(69, 'Achham', 7, GETDATE(), NULL), (70, 'Baitadi', 7, GETDATE(), NULL), (71, 'Bajhang', 7, GETDATE(), NULL),
+(72, 'Bajura', 7, GETDATE(), NULL), (73, 'Dadeldhura', 7, GETDATE(), NULL), (74, 'Darchula', 7, GETDATE(), NULL),
+(75, 'Doti', 7, GETDATE(), NULL), (76, 'Kailali', 7, GETDATE(), NULL), (77, 'Kanchanpur', 7, GETDATE(), NULL);
