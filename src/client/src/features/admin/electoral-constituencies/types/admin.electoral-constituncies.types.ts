@@ -95,7 +95,7 @@ export interface AddConstituencyRequest {
 export interface EditConstituencyRequest {
   constituencyId: number;
   constituencyName: string;
-  wardIds: number[];
+  wardIds: number[] | null;
 }
 
 export interface ReassignWardRequest {
