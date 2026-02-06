@@ -1,0 +1,39 @@
+name: Build and deploy ASP.Net Core app to Azure Web App - NepalVotes
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.x'
+
+      - name: dotnet restore
+        # Run restore from the root if your projects depend on each other via the .sln
+        run: dotnet restore NepalVotes.sln
+
+      - name: Build API Project
+        # Explicitly build the API project
+        run: dotnet build src/server/NepalVotes.Api/NepalVotes.Api.csproj --configuration Release --no-restore
+
+      - name: dotnet publish
+        # Publish the API project to a top-level publish folder
+        run: dotnet publish src/server/NepalVotes.Api/NepalVotes.Api.csproj -c Release -o ${{ github.workspace }}/publish
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: ${{ github.workspace }}/publish
