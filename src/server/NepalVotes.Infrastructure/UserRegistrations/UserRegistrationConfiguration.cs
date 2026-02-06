@@ -26,6 +26,10 @@ public class UserRegistrationConfiguration : IEntityTypeConfiguration<UserRegist
         builder.Property(u => u.MobileNumber)
             .HasMaxLength(20)
             .IsRequired();
+        
+        builder.Property(u => u.VoterIdNumber)
+            .HasMaxLength(20)
+            .IsRequired();
 
         builder.Property(u => u.Status)
             .HasConversion<int>() // store enum as int

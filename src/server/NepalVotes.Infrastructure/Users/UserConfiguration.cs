@@ -30,6 +30,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(x => x.MobileNumber)
             .IsUnique();
         
+        builder.Property(u => u.VoterIdNumber)
+            .HasMaxLength(20)
+            .IsRequired();
+        
+        builder.HasIndex(x => x.VoterIdNumber)
+            .IsUnique();
+        
         builder.Property(u => u.NationalIdNumber)
             .HasMaxLength(20)
             .IsRequired();

@@ -12,6 +12,7 @@ public class UserRegistration
     public DateOnly DateOfBirth { get; set; }
     public string MobileNumber { get; set; }
     public string NationalIdNumber { get; set; }
+    public string VoterIdNumber { get; set; }
     public UserStatus Status { get; set; } = UserStatus.OtpPending;
     public DateTimeOffset RequestDate { get; set; }
     public string ReviewComment { get; set; }

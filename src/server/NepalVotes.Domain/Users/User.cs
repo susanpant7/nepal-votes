@@ -13,6 +13,7 @@ public class User : BaseAuditableEntity
     public int Age { get; private set; }
     public string MobileNumber { get; set; }
     public string NationalIdNumber { get; set; }
+    public string VoterIdNumber { get; set; }
     public UserStatus Status { get; set; } = UserStatus.Requested;
     public DateTimeOffset RequestDate { get; set; }
     public DateTimeOffset? ApprovedDate { get; set; }
