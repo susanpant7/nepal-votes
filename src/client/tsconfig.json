@@ -9,11 +9,5 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  }
 }
