@@ -4,7 +4,8 @@ export type VotingSection =
   | "INFO"
   | "BALLOT"
   | "CONFIRM"
-  | "SUCCESS";
+  | "SUCCESS"
+  | "ERROR";
 
 // requests
 export interface SubmitVoteRequest {
@@ -16,6 +17,7 @@ export interface SubmitVoteRequest {
 export interface VoterEligibility {
   canVote: boolean;
   message: string;
+  constituencyName: string;
 }
 
 export interface VoterCandidateSelectOptions {

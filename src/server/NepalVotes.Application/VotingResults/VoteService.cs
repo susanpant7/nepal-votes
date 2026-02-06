@@ -13,14 +13,35 @@ public class VoteService(IVoteRepository repository, IUserRepository userReposit
     public async Task<ApiResponse<VoteEligibilityResponse>> CheckEligibilityAsync(int userId)
     {
         var alreadyVoted = await repository.HasUserVotedAsync(userId);
-        
-        var eligibility = new VoteEligibilityResponse
+        VoteEligibilityResponse eligibility;
+        if (alreadyVoted)
         {
-            CanVote = !alreadyVoted,
-            Message = alreadyVoted ? "You have already cast your vote." : "You are eligible to vote.",
-            CheckedAt = DateTime.UtcNow
+            eligibility = new VoteEligibilityResponse
+            {
+                CanVote = false,
+                Message = "You have already cast your vote.",
+                CheckedAt = DateTime.UtcNow
+            };
+            return ApiResponse<VoteEligibilityResponse>.SuccessResponse(eligibility);
+        }
+        var constituencyName = await userRepository.GetUserConstituencyNameAsync(userId); 
+        if (constituencyName == null)
+        {
+            eligibility = new VoteEligibilityResponse
+            {
+                CanVote = false,
+                Message = "You do not belong to any constituency to vote. Contact administrator for more information.",
+                CheckedAt = DateTime.UtcNow
+            };
+            return ApiResponse<VoteEligibilityResponse>.SuccessResponse(eligibility);
+        }
+        eligibility = new VoteEligibilityResponse
+        {
+            CanVote = true,
+            Message = "You are eligible to vote.",
+            CheckedAt = DateTime.UtcNow,
+            ConstituencyName = constituencyName
         };
-
         return ApiResponse<VoteEligibilityResponse>.SuccessResponse(eligibility);
     }
     

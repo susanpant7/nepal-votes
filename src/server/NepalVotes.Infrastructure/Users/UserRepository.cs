@@ -63,6 +63,16 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .Select(u => u.VotingPlace.Ward.ConstituencyId)
             .FirstOrDefaultAsync();
     }
+    public async Task<string?> GetUserConstituencyNameAsync(int userId)
+    {
+        return await context.Users
+            .AsNoTracking()
+            .Where(u => u.UserId == userId)
+            .Select(u => u.VotingPlace.Ward.Constituency != null 
+                ? u.VotingPlace.Ward.Constituency.ConstituencyName 
+                : null)
+            .FirstOrDefaultAsync();
+    }
     
     public async Task AddUserAsync(User user)
     {

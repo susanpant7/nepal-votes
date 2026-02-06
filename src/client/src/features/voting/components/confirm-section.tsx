@@ -13,9 +13,10 @@ import { useVotingStore } from "@/stores/useVotingStore.ts";
 import { useOverlayStore } from "@/stores/useOverlayStore.ts";
 import { useVotingMutation } from "@/features/voting/api/voting.query.ts";
 import { getActualLocation } from "@/lib/locationHelper.ts";
+import type { VotingSection } from "@/features/voting/types/voting.types.ts";
 
 interface Props {
-  gotoSection: (section: string) => void;
+  gotoSection: (section: VotingSection) => void;
 }
 
 export const ConfirmSection = ({ gotoSection }: Props) => {

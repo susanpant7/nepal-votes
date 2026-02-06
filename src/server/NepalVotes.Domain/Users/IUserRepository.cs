@@ -9,6 +9,7 @@ public interface IUserRepository
     Task<List<User>> SearchUsersAsync(string searchText);
     Task<bool> AnyByVotingPlaceIdAsync(int votingPlaceId);
     Task<int?> GetUserConstituencyIdAsync(int userId);
+    Task<string?> GetUserConstituencyNameAsync(int userId);
     Task AddUserAsync(User user);
     Task<List<User>> GetByMobileNumberOrNationalIdAsync(string mobileNumber, string nationalId);
 }
