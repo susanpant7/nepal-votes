@@ -30,8 +30,8 @@ public class User : BaseAuditableEntity
     public int? ApprovedByUserId { get; set; }
     public User? ApprovedByUser { get; set; }
     
-    public int UserRefreshTokenId { get; set; }
-    public UserRefreshToken UserRefreshToken { get; set; }
+    public int? UserRefreshTokenId { get; set; }
+    public UserRefreshToken? UserRefreshToken { get; set; }
     
     // computed column
     public string FullName { get; private set; } = null!;
