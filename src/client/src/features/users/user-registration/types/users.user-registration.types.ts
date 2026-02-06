@@ -17,6 +17,7 @@ export interface UserRegistrationForm {
   lastName: string;
   dob: string;
   mobileNumber: string;
+  voterIdNumber: string;
   votingPlace: { votingPlaceAddress: string; votingPlaceId: number } | null;
   nIdNumber: string;
   nIdDocument: File | null;

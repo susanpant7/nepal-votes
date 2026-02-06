@@ -12,7 +12,7 @@ import { GeographicalDivisionPage } from "@/features/admin/electoral-geographies
 import type { VotingPlaceInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { type UserRegistrationForm } from "@/features/users/user-registration/types/users.user-registration.types.ts";
 import { RegistrationDocumentUpload } from "@/features/users/user-registration/components/registration-document-upload.tsx";
-import { Badge } from "lucide-react";
+import { Badge } from "@/components/ui/badge.tsx";
 
 export interface RegistrationUserDetailsFormProps {
   confirmUserDetails: () => void;
@@ -74,6 +74,9 @@ export const RegistrationUserDetailsForm = ({
 
     if (!formData.nIdNumber.trim())
       newErrors.nIdNumber = "National Id Number is required";
+
+    if (!formData.voterIdNumber.trim())
+      newErrors.voterIdNumber = "Voter Id Number is required";
 
     if (!formData.nIdDocument) {
       newErrors.nIdDocument = "National ID Document is required";
@@ -201,7 +204,7 @@ export const RegistrationUserDetailsForm = ({
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
                   <Label
                     htmlFor="mobileNumber"
@@ -284,56 +287,97 @@ export const RegistrationUserDetailsForm = ({
 
           {/* Right Column: Voting Place Selection */}
           <div className="lg:col-span-5">
-            <div className="sticky top-10 space-y-4">
-              <div className=" rounded-xl border shadow-sm overflow-hidden">
-                <div className="p-4 border-b  flex justify-between items-center">
-                  <div>
-                    <h3 className="font-bold">Voting Place</h3>
-                    <p className="text-[10px] text-muted-foreground uppercase font-semibold">
-                      Select your locality
-                    </p>
-                  </div>
-                  {formData.votingPlace && (
-                    <Badge className=" text-primary-foreground pointer-events-none">
-                      SELECTED
-                    </Badge>
-                  )}
+            <div className="sticky top-10 space-y-6">
+              <section className="rounded-xl border p-6 shadow-sm space-y-6">
+                {/* Section Header with Accent Bar */}
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-6 w-1 bg-primary rounded-full" />
+                  <h3 className="text-lg font-bold">Voter Information</h3>
                 </div>
 
-                <div className="p-4 ">
-                  <div
-                    className={`rounded-lg border overflow-hidden transition-all ${errors.votingPlace ? "ring-2 ring-destructive border-destructive" : "border-input shadow-inner"}`}
-                  >
-                    <div className="max-h-112.5 overflow-y-auto custom-scrollbar">
-                      <GeographicalDivisionPage
-                        onSelectVotingPlace={onSelectVotingPlace}
-                        allowAddEdit={false}
-                      />
+                <div className="space-y-6">
+                  {/* Voter ID Number Field - Now consistent with First Name field */}
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="voterIdNumber"
+                      className="text-xs font-bold uppercase text-muted-foreground"
+                    >
+                      Voter ID Number
+                    </Label>
+                    <Input
+                      id="voterIdNumber"
+                      name="voterIdNumber"
+                      value={formData.voterIdNumber}
+                      onChange={handleInputChange}
+                      placeholder="12345"
+                      className={
+                        errors.voterIdNumber
+                          ? "border-destructive ring-destructive/20"
+                          : "focus:bg-background transition-all"
+                      }
+                    />
+                    {errors.voterIdNumber && (
+                      <p className="text-[10px] font-bold text-destructive">
+                        {errors.voterIdNumber}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Voting Place Selection Area */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-end">
+                      <Label className="text-xs font-bold uppercase text-muted-foreground">
+                        Select Locality / Voting Place
+                      </Label>
+                      {formData.votingPlace && (
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] bg-primary/5 text-primary border-primary/20 animate-in fade-in zoom-in-95"
+                        >
+                          SELECTED
+                        </Badge>
+                      )}
                     </div>
+
+                    <div
+                      className={`rounded-lg border overflow-hidden transition-all bg-background ${
+                        errors.votingPlace
+                          ? "ring-2 ring-destructive border-destructive"
+                          : "border-input shadow-sm"
+                      }`}
+                    >
+                      <div className="max-h-112.5 overflow-y-auto custom-scrollbar">
+                        <GeographicalDivisionPage
+                          onSelectVotingPlace={onSelectVotingPlace}
+                          allowAddEdit={false}
+                        />
+                      </div>
+                    </div>
+
+                    {errors.votingPlace && (
+                      <p className="text-[10px] font-bold text-destructive uppercase tracking-tight">
+                        {errors.votingPlace}
+                      </p>
+                    )}
                   </div>
 
-                  {errors.votingPlace && (
-                    <p className="mt-2 text-[10px] font-bold text-destructive uppercase tracking-tighter">
-                      {errors.votingPlace}
-                    </p>
+                  {/* Selected Summary - Refined Footer */}
+                  {formData.votingPlace && (
+                    <div className="p-3 rounded-lg border border-primary/10 bg-primary/5 animate-in slide-in-from-bottom-2">
+                      <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">
+                        Current Selection
+                      </p>
+                      <p className="text-sm font-semibold text-foreground leading-tight">
+                        {formData.votingPlace.votingPlaceAddress}
+                      </p>
+                    </div>
                   )}
                 </div>
-
-                {formData.votingPlace && (
-                  <div className="p-4 /5 border-t">
-                    <p className="text-xs font-bold text-primary uppercase">
-                      Current Selection:
-                    </p>
-                    <p className="text-sm font-semibold truncate">
-                      {formData.votingPlace.votingPlaceAddress}
-                    </p>
-                  </div>
-                )}
-              </div>
+              </section>
 
               <Button
                 type="submit"
-                className="w-full py-6 text-lg font-bold shadow-xl shadow-primary/20 transition-all active:scale-[0.98]"
+                className="w-full py-8 text-lg font-bold shadow-xl shadow-primary/20 transition-all hover:shadow-primary/30 active:scale-[0.98]"
               >
                 Review & Confirm
               </Button>

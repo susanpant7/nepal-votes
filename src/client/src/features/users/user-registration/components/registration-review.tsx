@@ -53,10 +53,11 @@ export const RegistrationReview = ({
                   htmlFor="terms"
                   className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-none"
                 >
-                  I hereby confirm that the{" "}
-                  <span className="font-bold">mobile number</span> and the
-                  <span className="font-bold"> national ID document</span>{" "}
-                  belong to{" "}
+                  I confirm that the{" "}
+                  <span className="font-bold">mobile number,</span>
+                  <span className="font-bold">national ID number</span>
+                  {" and the "}
+                  <span className="font-bold">voter number</span>belong to{" "}
                   <span className="font-bold">
                     {`${data.firstName} ${data.middleName || ""} ${data.lastName}`}
                     .
@@ -130,14 +131,22 @@ export const RegistrationReview = ({
             {/* Voting Center Card */}
             <section className="bg-primary/5 rounded-xl border border-primary/10 p-6 shadow-sm space-y-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-primary/70">
-                Selected Voting Center
+                Voting Information
               </h3>
               <div className="space-y-1">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase">
+                  Voter Number
+                </p>
+                <p className="text-base font-bold text-primary">
+                  {data.voterIdNumber}
+                </p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase">
+                  Voting Address
+                </p>
                 <p className="text-base font-bold text-primary">
                   {data.votingPlace?.votingPlaceAddress}
-                </p>
-                <p className="text-xs text-muted-foreground italic">
-                  Code: #{data.votingPlace?.votingPlaceId}
                 </p>
               </div>
             </section>

@@ -23,6 +23,7 @@ export const UserRegistrationPage = () => {
     mobileNumber: "",
     votingPlace: null,
     nIdNumber: "",
+    voterIdNumber: "",
     nIdDocument: null,
   });
 
@@ -43,6 +44,7 @@ export const UserRegistrationPage = () => {
     data.append("VotingPlaceId", String(formData.votingPlace?.votingPlaceId));
 
     data.append("NationalIdNumber", formData.nIdNumber);
+    data.append("VoterIdNumber", formData.voterIdNumber);
     data.append(
       `Documents[0].DocumentType`,
       UserDocumentType.NationalIdentity.toString(),

@@ -45,6 +45,7 @@ export const UserRegistrationReview = ({
 
   const [confirmMobileNumber, setConfirmMobileNumber] = useState(false);
   const [confirmNationalIdNumber, setConfirmNationalIdNumber] = useState(false);
+  const [confirmVoterIdNumber, setConfirmVoterIdNumber] = useState(false);
 
   const confirm = useConfirm();
   const { showOverlay, hideOverlay } = useOverlayStore();
@@ -89,7 +90,8 @@ export const UserRegistrationReview = ({
     }
   };
 
-  const disableApproveButton = !confirmMobileNumber || !confirmNationalIdNumber;
+  const disableApproveButton =
+    !confirmMobileNumber || !confirmNationalIdNumber || !confirmVoterIdNumber;
 
   return (
     <div className="w-full max-w-6xl mx-auto py-10 px-4 space-y-12">
@@ -149,7 +151,7 @@ export const UserRegistrationReview = ({
         </AlertDescription>
       </Alert>
 
-      <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10">
+      <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10 mb-2">
         <AlertDescription className="flex items-center gap-3">
           <Checkbox
             checked={confirmNationalIdNumber}
@@ -162,6 +164,33 @@ export const UserRegistrationReview = ({
             National ID number{" "}
             <span className="font-bold select-all">
               {userReviewData.nationalIdNumber}
+            </span>{" "}
+            is registered for the person
+            <span className="font-bold select-all">
+              {" "}
+              {userReviewData.firstName +
+                " " +
+                (userReviewData.middleName ?? "") +
+                " " +
+                userReviewData.lastName}
+            </span>
+          </Label>
+        </AlertDescription>
+      </Alert>
+
+      <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10">
+        <AlertDescription className="flex items-center gap-3">
+          <Checkbox
+            checked={confirmVoterIdNumber}
+            onCheckedChange={(checked: boolean) =>
+              setConfirmVoterIdNumber(checked)
+            }
+            className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
+          />
+          <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
+            Voter ID number{" "}
+            <span className="font-bold select-all">
+              {userReviewData.voterIdNumber}
             </span>{" "}
             is registered for the person
             <span className="font-bold select-all">
@@ -216,11 +245,18 @@ export const UserRegistrationReview = ({
           {/* Address Section */}
           <section className="space-y-4">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-primary flex items-center gap-2">
-              <MapPin className="h-4 w-4" /> Voting Location
+              <MapPin className="h-4 w-4" /> Voter Inforation
             </h2>
-            <div className="p-4 rounded-xl border bg-slate-50/50 text-sm leading-relaxed shadow-sm">
-              {userReviewData.votingPlaceFullAddress}
-            </div>
+            <InfoBlock
+              label="Voter ID Number"
+              value={userReviewData.voterIdNumber}
+              uppercase
+            />
+            <InfoBlock
+              label="Voting Address"
+              value={userReviewData.votingPlaceFullAddress}
+              uppercase
+            />
           </section>
 
           {/* Documents Section - Grid layout to fill width */}

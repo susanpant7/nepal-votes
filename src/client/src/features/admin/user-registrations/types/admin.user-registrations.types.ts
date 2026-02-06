@@ -14,6 +14,7 @@ export interface UserRegistrationReviewDetails {
   lastName: string;
   dob: string;
   mobileNumber: string;
+  voterIdNumber: string;
   votingPlaceFullAddress: string; // Province > District > Municipality > Ward > Voting Place Address
   reviewComment: string;
 
