@@ -79,11 +79,11 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
         await context.Users.AddAsync(user);
     }
 
-    public async Task<List<User>> GetByMobileNumberOrNationalIdAsync(string mobileNumber, string nationalId)
+    public async Task<List<User>> GetByMobileNumberOrNationalIdOrVoterIdAsync(string mobileNumber, string nationalId, string voterId)
     {
         return await context.Users
             .AsNoTracking()
-            .Where(x=> x.MobileNumber==mobileNumber || x.NationalIdNumber==nationalId)
+            .Where(x=> x.MobileNumber==mobileNumber || x.NationalIdNumber==nationalId || x.VoterIdNumber==voterId)
             .ToListAsync();
     }
 }

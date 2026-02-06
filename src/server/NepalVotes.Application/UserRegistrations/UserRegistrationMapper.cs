@@ -10,6 +10,7 @@ public class UserRegistrationListItem
     public string FullName { get; set; } = string.Empty;
     public string MobileNumber { get; set; } = string.Empty;
     public string NationalIdNumber { get; set; } = string.Empty;
+    public string VoterIdNumber { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public DateTimeOffset RequestDate { get; set; }
 }
@@ -22,6 +23,7 @@ public class UserRegistrationReviewDetail
     public DateOnly Dob { get; set; }
     public string MobileNumber { get; set; } = string.Empty;
     public string NationalIdNumber { get; set; } = string.Empty;
+    public string VoterIdNumber { get; set; } = string.Empty;
     public string VotingPlaceFullAddress { get; set; } = string.Empty;
     public string ReviewComment { get; set; } = string.Empty;
     public byte[] NationalIdDocumentContent { get; set; } = [];
@@ -40,7 +42,8 @@ public static class UserRegistrationMapper
             MobileNumber = userRegistration.MobileNumber,
             Status = userRegistration.Status.ToString(),
             RequestDate = userRegistration.RequestDate,
-            NationalIdNumber = userRegistration.NationalIdNumber
+            NationalIdNumber = userRegistration.NationalIdNumber,
+            VoterIdNumber = userRegistration.VoterIdNumber,
         };
     }
     
@@ -61,6 +64,7 @@ public static class UserRegistrationMapper
             Dob = registration.DateOfBirth,
             MobileNumber = registration.MobileNumber,
             NationalIdNumber = registration.NationalIdNumber,
+            VoterIdNumber = registration.VoterIdNumber,
             ReviewComment = registration.ReviewComment,
             VotingPlaceFullAddress = $"Province: {provinceName} > District: {districtName} > Mun: {municipalityName} > Ward No. {wardName} > {votingPlaceAddress}",
             NationalIdDocumentContent = doc.Content,

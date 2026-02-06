@@ -25,6 +25,9 @@ public class RegisterUserApiRequest
     
     [Required]
     public required string NationalIdNumber { get; set; }
+    
+    [Required]
+    public required string VoterIdNumber { get; set; }
 
     [Required]
     public int VotingPlaceId { get; set; }

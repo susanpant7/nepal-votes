@@ -41,6 +41,7 @@ public class UserRegistrationService(
             DateOfBirth = request.DateOfBirth,
             MobileNumber = request.MobileNumber,
             NationalIdNumber = request.NationalIdNumber,
+            VoterIdNumber = request.VoterIdNumber,
             VotingPlaceId = request.VotingPlaceId,
             Status = UserStatus.OtpPending,
             RequestDate = DateTimeOffset.UtcNow,

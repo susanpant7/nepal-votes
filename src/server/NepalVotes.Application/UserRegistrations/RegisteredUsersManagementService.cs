@@ -37,23 +37,29 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
         var registration = await registrationRepository.GetByIdWithDocumentsAsync(request.UserRegistrationId);
         if (registration == null) return ApiResponse<bool>.ErrorResponse("User Registration Not found", 404);
       
-        var existingUsers = await userRepository.GetByMobileNumberOrNationalIdAsync(registration.MobileNumber, registration.NationalIdNumber);
+        var existingUsers = await userRepository.GetByMobileNumberOrNationalIdOrVoterIdAsync(registration.MobileNumber, registration.NationalIdNumber, registration.VoterIdNumber);
 
         if (existingUsers.Count != 0)
         {
             var mobileConflict = existingUsers.FirstOrDefault(u => u.MobileNumber == registration.MobileNumber);
             var nidConflict = existingUsers.FirstOrDefault(u => u.NationalIdNumber == registration.NationalIdNumber);
+            var vidConflict = existingUsers.FirstOrDefault(u => u.VoterIdNumber == registration.VoterIdNumber);
 
-            if (mobileConflict != null && nidConflict != null && mobileConflict.UserId != nidConflict.UserId)
+            var conflictingUsers = existingUsers.Select(u => u.UserId).Distinct().Count();
+            if (conflictingUsers > 1)
             {
-                return ApiResponse<bool>.ErrorResponse("Mobile number and National ID are already in use by different accounts.", 409);
+                return ApiResponse<bool>.ErrorResponse(
+                    "The provided details (Mobile, National ID, or Voter ID) conflict with multiple existing accounts.", 409);
             }
-        
+
             if (mobileConflict != null)
                 return ApiResponse<bool>.ErrorResponse($"The mobile number {registration.MobileNumber} is already registered.", 409);
 
             if (nidConflict != null)
                 return ApiResponse<bool>.ErrorResponse($"The National ID {registration.NationalIdNumber} is already registered.", 409);
+
+            if (vidConflict != null)
+                return ApiResponse<bool>.ErrorResponse($"The Voter ID {registration.VoterIdNumber} is already registered.", 409);
         }
         var voterRole = await roleRepository.GetRoleByNameAsync(RoleName.Voter);
         if (voterRole == null) return ApiResponse<bool>.ErrorResponse("Voter role configuration missing", 500);
@@ -66,6 +72,7 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
             DateOfBirth = registration.DateOfBirth,
             MobileNumber = registration.MobileNumber,
             NationalIdNumber =  registration.NationalIdNumber,
+            VoterIdNumber =  registration.VoterIdNumber,
             Status = UserStatus.Approved,
             RequestDate = registration.RequestDate,
             ApprovedDate = DateTimeOffset.UtcNow,

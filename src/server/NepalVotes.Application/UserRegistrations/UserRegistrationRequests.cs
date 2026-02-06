@@ -14,7 +14,10 @@ public class RegisterUserRequest
     public DateOnly DateOfBirth { get; set; }
 
     public required string MobileNumber { get; set; }
+    
     public required string NationalIdNumber { get; set; }
+    
+    public required string VoterIdNumber { get; set; }
 
     public int VotingPlaceId { get; set; }
 

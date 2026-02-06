@@ -11,5 +11,5 @@ public interface IUserRepository
     Task<int?> GetUserConstituencyIdAsync(int userId);
     Task<string?> GetUserConstituencyNameAsync(int userId);
     Task AddUserAsync(User user);
-    Task<List<User>> GetByMobileNumberOrNationalIdAsync(string mobileNumber, string nationalId);
+    Task<List<User>> GetByMobileNumberOrNationalIdOrVoterIdAsync(string mobileNumber, string nationalId,string voterId);
 }
