@@ -23,7 +23,7 @@ INSERT INTO Users (
     UserId, FirstName, MiddleName, LastName, MobileNumber, Status,
     RequestDate, ApprovedDate, VotingPlaceId, ApprovedByUserId,
     CreatedAt, CreatedBy, UpdatedAt, UpdatedBy, UserRefreshTokenId,
-    FullName, DateOfBirth, Age, NationalIdNumber, VoterIdNumber
+    DateOfBirth, NationalIdNumber, VoterIdNumber
 ) VALUES (
              1,                    
              'Susan',              
@@ -40,7 +40,6 @@ INSERT INTO Users (
              GETDATE(),            
              1,                    
              NULL,                 
-             'User_1 Voter',       
              '1994-01-06',         
              '9846514741',
              '9846514741' 
