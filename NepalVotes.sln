@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NepalVotes.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NepalVotes.Application", "src\server\NepalVotes.Application\NepalVotes.Application.csproj", "{A9C1E984-17F6-406F-A3A6-4E3033AAE2CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NepalVotes.Engine", "src\server\NepalVotes.Engine\NepalVotes.Engine.csproj", "{AA6F275A-B6ED-44F2-AEC2-6DC6783F2835}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{A9C1E984-17F6-406F-A3A6-4E3033AAE2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C1E984-17F6-406F-A3A6-4E3033AAE2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C1E984-17F6-406F-A3A6-4E3033AAE2CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6F275A-B6ED-44F2-AEC2-6DC6783F2835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6F275A-B6ED-44F2-AEC2-6DC6783F2835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6F275A-B6ED-44F2-AEC2-6DC6783F2835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6F275A-B6ED-44F2-AEC2-6DC6783F2835}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
