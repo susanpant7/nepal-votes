@@ -4,5 +4,5 @@ namespace NepalVotes.Engine.Repositories;
 
 public interface IGeographicDataLoadRepository
 {
-    Task SaveProvinceAsync( List<ProvinceJson> geographicData);
+    Task SaveProvinceAsync(List<ProvinceJson> englishJsonObject, List<ProvinceJson> geographicData);
 }

@@ -6,11 +6,11 @@ namespace NepalVotes.Engine.Repositories;
 
 public class GeographicDataLoadRepository (ApplicationDbContext context) : IGeographicDataLoadRepository
 {
-    public async Task SaveProvinceAsync( List<ProvinceJson> geographicData )
+    public async Task SaveProvinceAsync(List<ProvinceJson> englishJsonObject, List<ProvinceJson> nepaliJsonObject)
     {
         await using var transaction = await context.Database.BeginTransactionAsync();
 
-        foreach (var provinceJson in geographicData)
+        foreach (var provinceJson in englishJsonObject)
         {
             var province = new Province
             {

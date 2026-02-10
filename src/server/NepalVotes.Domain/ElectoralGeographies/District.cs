@@ -6,6 +6,7 @@ public class District : BaseAuditableEntity
 {
     public int DistrictId { get; set; }
     public string DistrictNameEn { get; set; }
+    public string DistrictNameNp { get; set; }
 
     public int ProvinceId { get; set; }
     public Province Province { get; set; }

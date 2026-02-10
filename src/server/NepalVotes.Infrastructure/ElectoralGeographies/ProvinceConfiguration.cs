@@ -9,5 +9,6 @@ public class ProvinceConfiguration : IEntityTypeConfiguration<Province>
     public void Configure(EntityTypeBuilder<Province> builder)
     {
         builder.Property(p=>p.ProvinceNameEn).HasMaxLength(50).IsRequired();
+        builder.Property(p=>p.ProvinceNameNp).HasMaxLength(50).IsRequired();
     }
 }

@@ -15,6 +15,8 @@ public class MunicipalityConfiguration : IEntityTypeConfiguration<Municipality>
         // municipality name should be unique per district
         builder.HasIndex(m => new { m.DistrictId, MunicipalityName = m.MunicipalityNameEn})
             .IsUnique();
+        builder.HasIndex(m => new { m.DistrictId, MunicipalityName = m.MunicipalityNameNp})
+            .IsUnique();
          
         // 1 mun 1 dis
         // 1 dis n mun

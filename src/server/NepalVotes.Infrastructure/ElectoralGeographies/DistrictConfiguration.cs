@@ -15,6 +15,8 @@ public class DistrictConfiguration : IEntityTypeConfiguration<District>
         // district name should be unique
         builder.HasIndex(d => d.DistrictNameEn)
             .IsUnique();
+        builder.HasIndex(d => d.DistrictNameNp)
+            .IsUnique();
         
         // if uniqueness required per province
         // builder.HasIndex(d => new { d.ProvinceId, d.DistrictName }).IsUnique();
