@@ -42,16 +42,16 @@ public static class ConstituencyDetailMapper
             ConstituencyId = constituency.ConstituencyId,
             ConstituencyName = constituency.ConstituencyName,
             ProvinceId = province?.ProvinceId ?? 0,
-            ProvinceName =  province?.ProvinceName ?? "",
+            ProvinceName =  province?.ProvinceNameEn ?? "",
             DistrictId = district?.DistrictId ?? 0,
-            DistrictName = district?.DistrictName ?? "",
+            DistrictName = district?.DistrictNameEn ?? "",
             WardIds = wards.Select(ward => ward.WardId).ToList(),
             MunicipalityWardInfos = wards
                 .GroupBy(w => w.Municipality)
                 .Select(munGroup => new MunicipalityWardInfo
                 {
                     MunicipalityId = munGroup.Key.MunicipalityId,
-                    MunicipalityName = munGroup.Key.MunicipalityName,
+                    MunicipalityName = munGroup.Key.MunicipalityNameEn,
                     WardIdNumbers = munGroup
                         .Select(w => new WardIdNumber
                         {

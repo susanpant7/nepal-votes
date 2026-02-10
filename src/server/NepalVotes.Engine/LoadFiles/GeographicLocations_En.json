@@ -5,2675 +5,1381 @@
     "area_sq_km": "25906",
     "website": "https:\/\/koshi.gov.np\/",
     "headquarter": "Biratnagar",
-    "districts": [
-      {
+    "districts": {
+      "1": {
         "id": 1,
         "province_id": 1,
         "name": "Bhojpur",
         "area_sq_km": "1507",
-        "website": "https:\/\/www.ddcbhojpur.gov.np",
+        "website": "https://www.ddcbhojpur.gov.np",
         "headquarter": "Bhojpur",
-        "municipalities": [
-          {
+        "municipalities": {
+          "1": {
             "id": 1,
             "district_id": 1,
             "category_id": 3,
-            "name": "Shadanand Municipality",
+            "name": "ShadanandMunicipality",
             "area_sq_km": "241.15",
-            "website": "http:\/\/www.shadanandamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14
-            ]
+            "website": "http://www.shadanandamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
           },
-          {
+          "2": {
             "id": 2,
             "district_id": 1,
             "category_id": 3,
-            "name": "Bhojpur Municipality",
+            "name": "BhojpurMunicipality",
             "area_sq_km": "159.51",
-            "website": "http:\/\/www.bhojpurmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12
-            ]
+            "website": "http://www.bhojpurmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
           },
-          {
+          "3": {
             "id": 3,
             "district_id": 1,
             "category_id": 4,
-            "name": "Hatuwagadhi Rural Municipality",
+            "name": "HatuwagadhiRuralMunicipality",
             "area_sq_km": "142.61",
-            "website": "http:\/\/www.hatuwagadhimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.hatuwagadhimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          {
+          "4": {
             "id": 4,
             "district_id": 1,
             "category_id": 4,
-            "name": "Ramprasad Rai Rural Municipality",
+            "name": "RamprasadRaiRuralMunicipality",
             "area_sq_km": "158.83",
-            "website": "http:\/\/www.ramprasadraimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.ramprasadraimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          {
+          "5": {
             "id": 5,
             "district_id": 1,
             "category_id": 4,
-            "name": "Aamchok Rural Municipality",
+            "name": "AamchokRuralMunicipality",
             "area_sq_km": "184.89",
-            "website": "http:\/\/www.aamchowkmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.aamchowkmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          {
+          "6": {
             "id": 6,
             "district_id": 1,
             "category_id": 4,
-            "name": "Tyamke Maiyum Rural Municipality",
+            "name": "TyamkeMaiyumRuralMunicipality",
             "area_sq_km": "173.41",
-            "website": "http:\/\/www.tyamkemaiyummun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.tyamkemaiyummun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          {
+          "7": {
             "id": 7,
             "district_id": 1,
             "category_id": 4,
-            "name": "Arun Rural Municipality",
+            "name": "ArunRuralMunicipality",
             "area_sq_km": "154.76",
-            "website": "http:\/\/www.arunmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.arunmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          {
+          "8": {
             "id": 8,
             "district_id": 1,
             "category_id": 4,
-            "name": "Pauwadungma Rural Municipality",
+            "name": "PauwadungmaRuralMunicipality",
             "area_sq_km": "118.86",
-            "website": "http:\/\/www.pauwadungmamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.pauwadungmamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          {
+          "9": {
             "id": 9,
             "district_id": 1,
             "category_id": 4,
-            "name": "Salpasilichho Rural Municipality",
+            "name": "SalpasilichhoRuralMunicipality",
             "area_sq_km": "193.33",
-            "website": "http:\/\/www.salpasilichhomun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.salpasilichhomun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           }
-        ]
+        }
       },
-      {
+      "2": {
         "id": 2,
         "province_id": 1,
         "name": "Dhankuta",
         "area_sq_km": "892",
-        "website": "https:\/\/www.ddcdhankuta.gov.np",
+        "website": "https://www.ddcdhankuta.gov.np",
         "headquarter": "Dhankuta",
         "municipalities": {
-          "9": {
+          "10": {
             "id": 10,
             "district_id": 2,
             "category_id": 3,
-            "name": "Dhankuta Municipality",
+            "name": "DhankutaMunicipality",
             "area_sq_km": "111",
-            "website": "http:\/\/www.dhankutamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.dhankutamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "10": {
+          "11": {
             "id": 11,
             "district_id": 2,
             "category_id": 3,
-            "name": "Pakhribas Municipality",
+            "name": "PakhribasMunicipality",
             "area_sq_km": "144.29",
-            "website": "https:\/\/pakhribasmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "https://pakhribasmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "11": {
+          "12": {
             "id": 12,
             "district_id": 2,
             "category_id": 3,
-            "name": "Mahalaxmi Municipality",
+            "name": "MahalaxmiMunicipality",
             "area_sq_km": "129.39",
-            "website": "https:\/\/mahalaxmimundhankuta.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "https://mahalaxmimundhankuta.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "12": {
+          "13": {
             "id": 13,
             "district_id": 2,
             "category_id": 4,
-            "name": "Sangurigadhi Rural Municipality",
+            "name": "SangurigadhiRuralMunicipality",
             "area_sq_km": "166.44",
-            "website": "https:\/\/sangurigadhimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "https://sangurigadhimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "13": {
+          "14": {
             "id": 14,
             "district_id": 2,
             "category_id": 4,
-            "name": "Chaubise Rural Municipality",
+            "name": "ChaubiseRuralMunicipality",
             "area_sq_km": "147.6",
-            "website": "https:\/\/choubisemun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "https://choubisemun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "14": {
+          "15": {
             "id": 15,
             "district_id": 2,
             "category_id": 4,
-            "name": "Sahidbhumi Rural Municipality",
+            "name": "SahidbhumiRuralMunicipality",
             "area_sq_km": "99.55",
-            "website": "https:\/\/shahidbhumimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "https://shahidbhumimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "15": {
+          "16": {
             "id": 16,
             "district_id": 2,
             "category_id": 4,
-            "name": "Chhathar Jorpati Rural Municipality",
+            "name": "ChhatharJorpatiRuralMunicipality",
             "area_sq_km": "102.83",
-            "website": "https:\/\/chhatharjorpatimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "https://chhatharjorpatimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           }
         }
       },
-      {
+      "3": {
         "id": 3,
         "province_id": 1,
         "name": "Ilam",
         "area_sq_km": "1703",
-        "website": "https:\/\/www.ddcilam.gov.np",
+        "website": "https://www.ddcilam.gov.np",
         "headquarter": "Ilam",
         "municipalities": {
-          "16": {
+          "17": {
             "id": 17,
             "district_id": 3,
             "category_id": 3,
-            "name": "Suryodaya Municipality",
+            "name": "SuryodayaMunicipality",
             "area_sq_km": "252.52",
-            "website": "http:\/\/www.suryodayamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14
-            ]
+            "website": "http://www.suryodayamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
           },
-          "17": {
+          "18": {
             "id": 18,
             "district_id": 3,
             "category_id": 3,
-            "name": "Ilam Municipality",
+            "name": "IlamMunicipality",
             "area_sq_km": "173.32",
-            "website": "http:\/\/www.ilammun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12
-            ]
+            "website": "http://www.ilammun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
           },
-          "18": {
+          "19": {
             "id": 19,
             "district_id": 3,
             "category_id": 3,
-            "name": "Deumai Municipality",
+            "name": "DeumaiMunicipality",
             "area_sq_km": "191.63",
-            "website": "http:\/\/www.deumaimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.deumaimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "19": {
+          "20": {
             "id": 20,
             "district_id": 3,
             "category_id": 4,
-            "name": "Maijogmai Rural Municipality",
+            "name": "MaijogmaiRuralMunicipality",
             "area_sq_km": "172.41",
-            "website": "http:\/\/www.maijogmaimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.maijogmaimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "20": {
+          "21": {
             "id": 21,
             "district_id": 3,
             "category_id": 4,
-            "name": "Phakphokthum Rural Municipality",
+            "name": "PhakphokthumRuralMunicipality",
             "area_sq_km": "108.79",
-            "website": "\u092b\u093e\u0915\u092b\u094b\u0915\u0925\u0941\u092e",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "फाकफोकथुम",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "21": {
+          "22": {
             "id": 22,
             "district_id": 3,
             "category_id": 3,
-            "name": "Mai Municipality",
+            "name": "MaiMunicipality",
             "area_sq_km": "246.11",
-            "website": "http:\/\/www.maimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.maimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "22": {
+          "23": {
             "id": 23,
             "district_id": 3,
             "category_id": 4,
-            "name": "Chulachuli Rural Municipality",
+            "name": "ChulachuliRuralMunicipality",
             "area_sq_km": "108.46",
-            "website": "http:\/\/www.chulachulimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.chulachulimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "23": {
+          "24": {
             "id": 24,
             "district_id": 3,
             "category_id": 4,
-            "name": "Rong Rural Municipality",
+            "name": "RongRuralMunicipality",
             "area_sq_km": "155.06",
-            "website": "http:\/\/www.rongmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.rongmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "24": {
+          "25": {
             "id": 25,
             "district_id": 3,
             "category_id": 4,
-            "name": "Mangsebung Rural Municipality",
+            "name": "MangsebungRuralMunicipality",
             "area_sq_km": "142.41",
-            "website": "http:\/\/www.mansebungmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.mansebungmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "25": {
+          "26": {
             "id": 26,
             "district_id": 3,
             "category_id": 4,
-            "name": "Sandakpur Rural Municipality",
+            "name": "SandakpurRuralMunicipality",
             "area_sq_km": "156.01",
-            "website": "http:\/\/www.sandakpurmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.sandakpurmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           }
         }
       },
-      {
+      "4": {
         "id": 4,
         "province_id": 1,
         "name": "Jhapa",
         "area_sq_km": "1606",
-        "website": "https:\/\/www.ddcjhapa.gov.np",
+        "website": "https://www.ddcjhapa.gov.np",
         "headquarter": "Bhadrapur",
         "municipalities": {
-          "26": {
+          "27": {
             "id": 27,
             "district_id": 4,
             "category_id": 3,
-            "name": "Mechinagar Municipality",
+            "name": "MechinagarMunicipality",
             "area_sq_km": "192.85",
-            "website": "http:\/\/www.mechinagarmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14,
-              15
-            ]
+            "website": "http://www.mechinagarmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
           },
-          "27": {
+          "28": {
             "id": 28,
             "district_id": 4,
             "category_id": 3,
-            "name": "Birtamod Municipality",
+            "name": "BirtamodMunicipality",
             "area_sq_km": "78.24",
-            "website": "http:\/\/www.birtamodmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.birtamodmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "28": {
+          "29": {
             "id": 29,
             "district_id": 4,
             "category_id": 3,
-            "name": "Damak Municipality",
+            "name": "DamakMunicipality",
             "area_sq_km": "70.76",
-            "website": "http:\/\/www.damakmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.damakmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "29": {
+          "30": {
             "id": 30,
             "district_id": 4,
             "category_id": 3,
-            "name": "Bhadrapur Municipality",
+            "name": "BhadrapurMunicipality",
             "area_sq_km": "93.35",
-            "website": "http:\/\/www.bhadrapurmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.bhadrapurmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "30": {
+          "31": {
             "id": 31,
             "district_id": 4,
             "category_id": 3,
-            "name": "Shivasatakshi Municipality",
+            "name": "ShivasatakshiMunicipality",
             "area_sq_km": "145.87",
-            "website": "http:\/\/www.shivasatakshimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.shivasatakshimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "31": {
+          "32": {
             "id": 32,
             "district_id": 4,
             "category_id": 3,
-            "name": "Arjundhara Municipality",
+            "name": "ArjundharaMunicipality",
             "area_sq_km": "109.86",
-            "website": "http:\/\/www.arjundharamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.arjundharamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "32": {
+          "33": {
             "id": 33,
             "district_id": 4,
             "category_id": 3,
-            "name": "Gauradaha Municipality",
+            "name": "GauradahaMunicipality",
             "area_sq_km": "149.86",
-            "website": "http:\/\/www.gauradahamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.gauradahamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "33": {
+          "34": {
             "id": 34,
             "district_id": 4,
             "category_id": 3,
-            "name": "Kankai Municipality",
+            "name": "KankaiMunicipality",
             "area_sq_km": "80.98",
-            "website": "http:\/\/www.kankaimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.kankaimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "34": {
+          "35": {
             "id": 35,
             "district_id": 4,
             "category_id": 4,
-            "name": "Kamal Rural Municipality",
+            "name": "KamalRuralMunicipality",
             "area_sq_km": "104.57",
-            "website": "http:\/\/www.kamalmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.kamalmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "35": {
+          "36": {
             "id": 36,
             "district_id": 4,
             "category_id": 4,
-            "name": "Buddha Shanti Rural Municipality",
+            "name": "BuddhaShantiRuralMunicipality",
             "area_sq_km": "79.78",
-            "website": "http:\/\/www.buddhashantimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.buddhashantimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "36": {
+          "37": {
             "id": 37,
             "district_id": 4,
             "category_id": 4,
-            "name": "Kachankawal Rural Municipality",
+            "name": "KachankawalRuralMunicipality",
             "area_sq_km": "109.45",
-            "website": "http:\/\/www.kachankawalmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.kachankawalmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "37": {
+          "38": {
             "id": 38,
             "district_id": 4,
             "category_id": 4,
-            "name": "Jhapa Rural Municipality",
+            "name": "JhapaRuralMunicipality",
             "area_sq_km": "94.12",
-            "website": "http:\/\/www.jhapamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.jhapamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "38": {
+          "39": {
             "id": 39,
             "district_id": 4,
             "category_id": 4,
-            "name": "Barhadashi Rural Municipality",
+            "name": "BarhadashiRuralMunicipality",
             "area_sq_km": "88.44",
-            "website": "http:\/\/www.bahradashimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.bahradashimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "39": {
+          "40": {
             "id": 40,
             "district_id": 4,
             "category_id": 4,
-            "name": "Gaurigunj Rural Municipality",
+            "name": "GaurigunjRuralMunicipality",
             "area_sq_km": "101.35",
-            "website": "http:\/\/www.gaurigunjmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.gaurigunjmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "40": {
+          "41": {
             "id": 41,
             "district_id": 4,
             "category_id": 4,
-            "name": "Haldibari Rural Municipality",
+            "name": "HaldibariRuralMunicipality",
             "area_sq_km": "117.34",
-            "website": "http:\/\/www.haldibarimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.haldibarimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           }
         }
       },
-      {
+      "5": {
         "id": 5,
         "province_id": 1,
         "name": "Khotang",
         "area_sq_km": "1591",
-        "website": "https:\/\/www.dcckhotang.gov.np",
+        "website": "https://www.dcckhotang.gov.np",
         "headquarter": "Diktel",
         "municipalities": {
-          "41": {
+          "42": {
             "id": 42,
             "district_id": 5,
             "category_id": 3,
-            "name": "Diktel Rupakot Majhuwagadhi Municipality",
+            "name": "DiktelRupakotMajhuwagadhiMunicipality",
             "area_sq_km": "246.51",
-            "website": "http:\/\/www.rupakotmajhuwagadhimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14,
-              15
-            ]
+            "website": "http://www.rupakotmajhuwagadhimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
           },
-          "42": {
+          "43": {
             "id": 43,
             "district_id": 5,
             "category_id": 3,
-            "name": "Halesi Tuwachung Municipality",
+            "name": "HalesiTuwachungMunicipality",
             "area_sq_km": "280.17",
-            "website": "http:\/\/www.halesituwachungmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.halesituwachungmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "43": {
+          "44": {
             "id": 44,
             "district_id": 5,
             "category_id": 4,
-            "name": "Khotehang Rural Municipality",
+            "name": "KhotehangRuralMunicipality",
             "area_sq_km": "164.09",
-            "website": "http:\/\/www.khotehangmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.khotehangmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "44": {
+          "45": {
             "id": 45,
             "district_id": 5,
             "category_id": 4,
-            "name": "Diprung Chuichumma Rural Municipality",
+            "name": "DiprungChuichummaRuralMunicipality",
             "area_sq_km": "136.48",
-            "website": "http:\/\/www.diprungmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.diprungmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "45": {
+          "46": {
             "id": 46,
             "district_id": 5,
             "category_id": 4,
-            "name": "Aiselukharka Rural Municipality",
+            "name": "AiselukharkaRuralMunicipality",
             "area_sq_km": "125.93",
-            "website": "http:\/\/www.aiselukharkamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.aiselukharkamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "46": {
+          "47": {
             "id": 47,
             "district_id": 5,
             "category_id": 4,
-            "name": "Jantedhunga Rural Municipality",
+            "name": "JantedhungaRuralMunicipality",
             "area_sq_km": "128.62",
-            "website": "http:\/\/www.jantedhungamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.jantedhungamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "47": {
+          "48": {
             "id": 48,
             "district_id": 5,
             "category_id": 4,
-            "name": "Kepilasgadhi Rural Municipality",
+            "name": "KepilasgadhiRuralMunicipality",
             "area_sq_km": "191.28",
-            "website": "http:\/\/www.kepilasgadhimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.kepilasgadhimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "48": {
+          "49": {
             "id": 49,
             "district_id": 5,
             "category_id": 4,
-            "name": "Barahpokhari Rural Municipality",
+            "name": "BarahpokhariRuralMunicipality",
             "area_sq_km": "141.6",
-            "website": "http:\/\/www.barahapokharimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.barahapokharimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "49": {
+          "50": {
             "id": 50,
             "district_id": 5,
             "category_id": 4,
-            "name": "Rawa Besi Rural Municipality",
+            "name": "RawaBesiRuralMunicipality",
             "area_sq_km": "97.44",
-            "website": "http:\/\/www.lamidandamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.lamidandamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "50": {
+          "51": {
             "id": 51,
             "district_id": 5,
             "category_id": 4,
-            "name": "Sakela Rural Municipality",
+            "name": "SakelaRuralMunicipality",
             "area_sq_km": "79.99",
-            "website": "http:\/\/www.sakelamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.sakelamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           }
         }
       },
-      {
+      "6": {
         "id": 6,
         "province_id": 1,
         "name": "Morang",
         "area_sq_km": "1855",
-        "website": "https:\/\/www.ddcmorang.gov.np",
+        "website": "https://www.ddcmorang.gov.np",
         "headquarter": "Biratnagar",
         "municipalities": {
-          "51": {
+          "52": {
             "id": 52,
             "district_id": 6,
             "category_id": 3,
-            "name": "Sundar Haraicha Municipality",
+            "name": "SundarHaraichaMunicipality",
             "area_sq_km": "110.16",
-            "website": "http:\/\/www.sundarharaichamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12
-            ]
+            "website": "http://www.sundarharaichamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
           },
-          "52": {
+          "53": {
             "id": 53,
             "district_id": 6,
             "category_id": 3,
-            "name": "Belbari Municipality",
+            "name": "BelbariMunicipality",
             "area_sq_km": "132.79",
-            "website": "http:\/\/www.belbarimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.belbarimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "53": {
+          "54": {
             "id": 54,
             "district_id": 6,
             "category_id": 3,
-            "name": "Pathari Shanischare Municipality",
+            "name": "PathariShanischareMunicipality",
             "area_sq_km": "79.81",
-            "website": "http:\/\/www.patharishanishcharemun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.patharishanishcharemun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "54": {
+          "55": {
             "id": 55,
             "district_id": 6,
             "category_id": 3,
-            "name": "Ratuwamai Municipality",
+            "name": "RatuwamaiMunicipality",
             "area_sq_km": "142.15",
-            "website": "http:\/\/www.ratuwamaimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.ratuwamaimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "55": {
+          "56": {
             "id": 56,
             "district_id": 6,
             "category_id": 3,
-            "name": "Urlabari Municipality",
+            "name": "UrlabariMunicipality",
             "area_sq_km": "74.62",
-            "website": "http:\/\/www.urlabarimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.urlabarimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "56": {
+          "57": {
             "id": 57,
             "district_id": 6,
             "category_id": 3,
-            "name": "Rangeli Municipality",
+            "name": "RangeliMunicipality",
             "area_sq_km": "111.78",
-            "website": "http:\/\/www.rangelimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.rangelimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "57": {
+          "58": {
             "id": 58,
             "district_id": 6,
             "category_id": 3,
-            "name": "Sunawarshi Municipality",
+            "name": "SunawarshiMunicipality",
             "area_sq_km": "106.4",
-            "website": "http:\/\/www.sunawarshimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.sunawarshimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "58": {
+          "59": {
             "id": 59,
             "district_id": 6,
             "category_id": 3,
-            "name": "Letang Municipality",
+            "name": "LetangMunicipality",
             "area_sq_km": "119.23",
-            "website": "http:\/\/www.letangmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.letangmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "59": {
+          "60": {
             "id": 60,
             "district_id": 6,
             "category_id": 1,
-            "name": "Biratnagar Metropolitan City",
+            "name": "BiratnagarMetropolitanCity",
             "area_sq_km": "77",
-            "website": "http:\/\/www.biratnagarmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14,
-              15,
-              16,
-              17,
-              18,
-              19
-            ]
+            "website": "http://www.biratnagarmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
           },
-          "60": {
+          "61": {
             "id": 61,
             "district_id": 6,
             "category_id": 4,
-            "name": "Jahada Rural Municipality",
+            "name": "JahadaRuralMunicipality",
             "area_sq_km": "62.38",
-            "website": "http:\/\/www.jahadamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.jahadamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "61": {
+          "62": {
             "id": 62,
             "district_id": 6,
             "category_id": 4,
-            "name": "Budi Ganga Rural Municipality",
+            "name": "BudiGangaRuralMunicipality",
             "area_sq_km": "56.41",
-            "website": "https:\/\/budhigangamunmorang.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "https://budhigangamunmorang.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "62": {
+          "63": {
             "id": 63,
             "district_id": 6,
             "category_id": 4,
-            "name": "Katahari Rural Municipality",
+            "name": "KatahariRuralMunicipality",
             "area_sq_km": "51.59",
-            "website": "http:\/\/www.kataharimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.kataharimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "63": {
+          "64": {
             "id": 64,
             "district_id": 6,
             "category_id": 4,
-            "name": "Dhanpalthan Rural Municipality",
+            "name": "DhanpalthanRuralMunicipality",
             "area_sq_km": "70.26",
-            "website": "http:\/\/www.dhanapalthanmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.dhanapalthanmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "64": {
+          "65": {
             "id": 65,
             "district_id": 6,
             "category_id": 4,
-            "name": "Kanepokhari Rural Municipality",
+            "name": "KanepokhariRuralMunicipality",
             "area_sq_km": "82.83",
-            "website": "http:\/\/www.kanepokharimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.kanepokharimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "65": {
+          "66": {
             "id": 66,
             "district_id": 6,
             "category_id": 4,
-            "name": "Gramthan Rural Municipality",
+            "name": "GramthanRuralMunicipality",
             "area_sq_km": "71.84",
-            "website": "http:\/\/www.gramthanmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.gramthanmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "66": {
+          "67": {
             "id": 67,
             "district_id": 6,
             "category_id": 4,
-            "name": "Kerabari Rural Municipality",
+            "name": "KerabariRuralMunicipality",
             "area_sq_km": "219.83",
-            "website": "http:\/\/www.kerabarimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.kerabarimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "67": {
+          "68": {
             "id": 68,
             "district_id": 6,
             "category_id": 4,
-            "name": "Miklajung Rural Municipality",
+            "name": "MiklajungRuralMunicipality",
             "area_sq_km": "157.98",
-            "website": "http:\/\/www.miklajungmunmorang.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.miklajungmunmorang.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           }
         }
       },
-      {
+      "7": {
         "id": 7,
         "province_id": 1,
         "name": "Okhaldhunga",
         "area_sq_km": "1074",
-        "website": "https:\/\/www.dccokhaldhunga.gov.np\/en",
+        "website": "https://www.dccokhaldhunga.gov.np/en",
         "headquarter": "Siddhicharan",
         "municipalities": {
-          "68": {
+          "69": {
             "id": 69,
             "district_id": 7,
             "category_id": 3,
-            "name": "Siddhicharan Municipality",
+            "name": "SiddhicharanMunicipality",
             "area_sq_km": "167.88",
-            "website": "http:\/\/www.siddhicharanmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12
-            ]
+            "website": "http://www.siddhicharanmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
           },
-          "69": {
+          "70": {
             "id": 70,
             "district_id": 7,
             "category_id": 4,
-            "name": "Khiji Demba Rural Municipality",
+            "name": "KhijiDembaRuralMunicipality",
             "area_sq_km": "179.77",
-            "website": "http:\/\/www.khijidembamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.khijidembamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "70": {
+          "71": {
             "id": 71,
             "district_id": 7,
             "category_id": 4,
-            "name": "Chisankhugadhi Rural Municipality",
+            "name": "ChisankhugadhiRuralMunicipality",
             "area_sq_km": "126.91",
-            "website": "http:\/\/www.chishankhugadhimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.chishankhugadhimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "71": {
+          "72": {
             "id": 72,
             "district_id": 7,
             "category_id": 4,
-            "name": "Molung Rural Municipality",
+            "name": "MolungRuralMunicipality",
             "area_sq_km": "112",
-            "website": "http:\/\/www.molungmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.molungmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "72": {
+          "73": {
             "id": 73,
             "district_id": 7,
             "category_id": 4,
-            "name": "Sunkoshi Rural Municipality",
+            "name": "SunkoshiRuralMunicipality",
             "area_sq_km": "143.75",
-            "website": "http:\/\/www.sunkoshimunokhaldhunga.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.sunkoshimunokhaldhunga.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "73": {
+          "74": {
             "id": 74,
             "district_id": 7,
             "category_id": 4,
-            "name": "Champadevi Rural Municipality",
+            "name": "ChampadeviRuralMunicipality",
             "area_sq_km": "126.91",
-            "website": "http:\/\/www.champadevimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.champadevimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "74": {
+          "75": {
             "id": 75,
             "district_id": 7,
             "category_id": 4,
-            "name": "Manebhanjyang Rural Municipality",
+            "name": "ManebhanjyangRuralMunicipality",
             "area_sq_km": "146.61",
-            "website": "http:\/\/www.manebhanjyangmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.manebhanjyangmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "75": {
+          "76": {
             "id": 76,
             "district_id": 7,
             "category_id": 4,
-            "name": "Likhu Rural Municipality",
+            "name": "LikhuRuralMunicipality",
             "area_sq_km": "88.03",
-            "website": "https:\/\/likhumunokhaldhunga.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "https://likhumunokhaldhunga.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           }
         }
       },
-      {
+      "8": {
         "id": 8,
         "province_id": 1,
         "name": "Pachthar",
         "area_sq_km": "1241",
-        "website": "https:\/\/www.ddcpanchthar.gov.np",
+        "website": "https://www.ddcpanchthar.gov.np",
         "headquarter": "Phidim",
         "municipalities": {
-          "76": {
+          "77": {
             "id": 77,
             "district_id": 8,
             "category_id": 3,
-            "name": "Phidim Municipality",
+            "name": "PhidimMunicipality",
             "area_sq_km": "192.5",
-            "website": "http:\/\/www.phidimmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14
-            ]
+            "website": "http://www.phidimmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
           },
-          "77": {
+          "78": {
             "id": 78,
             "district_id": 8,
             "category_id": 4,
-            "name": "Miklajung Rural Municipality",
+            "name": "MiklajungRuralMunicipality",
             "area_sq_km": "166.61",
-            "website": "http:\/\/www.miklajungmunpanchthar.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.miklajungmunpanchthar.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "78": {
+          "79": {
             "id": 79,
             "district_id": 8,
             "category_id": 4,
-            "name": "Phalgunanda Rural Municipality",
+            "name": "PhalgunandaRuralMunicipality",
             "area_sq_km": "107.53",
-            "website": "http:\/\/www.phalgunandamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.phalgunandamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "79": {
+          "80": {
             "id": 80,
             "district_id": 8,
             "category_id": 4,
-            "name": "Hilihang Rural Municipality",
+            "name": "HilihangRuralMunicipality",
             "area_sq_km": "123.01",
-            "website": "http:\/\/www.hilihangmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.hilihangmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "80": {
+          "81": {
             "id": 81,
             "district_id": 8,
             "category_id": 4,
-            "name": "Phalelung Rural Municipality",
+            "name": "PhalelungRuralMunicipality",
             "area_sq_km": "207.14",
-            "website": "http:\/\/www.phalelungmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.phalelungmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "81": {
+          "82": {
             "id": 82,
             "district_id": 8,
             "category_id": 4,
-            "name": "Yangwarak Rural Municipality",
+            "name": "YangwarakRuralMunicipality",
             "area_sq_km": "208.63",
-            "website": "http:\/\/www.yangwarakmunpanchthar.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.yangwarakmunpanchthar.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "82": {
+          "83": {
             "id": 83,
             "district_id": 8,
             "category_id": 4,
-            "name": "Kummayak Rural Municipality",
+            "name": "KummayakRuralMunicipality",
             "area_sq_km": "129.3",
-            "website": "http:\/\/www.kummayakmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.kummayakmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "83": {
+          "84": {
             "id": 84,
             "district_id": 8,
             "category_id": 4,
-            "name": "Tumbewa Rural Municipality",
+            "name": "TumbewaRuralMunicipality",
             "area_sq_km": "117.34",
-            "website": "http:\/\/www.tumwewamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.tumwewamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           }
         }
       },
-      {
+      "9": {
         "id": 9,
         "province_id": 1,
         "name": "Sankhuwasabha",
         "area_sq_km": "3480",
-        "website": "https:\/\/www.ddcsankhuwasabha.gov.np",
+        "website": "https://www.ddcsankhuwasabha.gov.np",
         "headquarter": "Khandbari",
         "municipalities": {
-          "84": {
+          "85": {
             "id": 85,
             "district_id": 9,
             "category_id": 3,
-            "name": "Khandbari Municipality",
+            "name": "KhandbariMunicipality",
             "area_sq_km": "122.78",
-            "website": "http:\/\/www.khandbarimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.khandbarimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "85": {
+          "86": {
             "id": 86,
             "district_id": 9,
             "category_id": 3,
-            "name": "Chainpur Municipality",
+            "name": "ChainpurMunicipality",
             "area_sq_km": "223.69",
-            "website": "http:\/\/www.chainpurmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.chainpurmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "86": {
+          "87": {
             "id": 87,
             "district_id": 9,
             "category_id": 3,
-            "name": "Dharmadevi Municipality",
+            "name": "DharmadeviMunicipality",
             "area_sq_km": "132.82",
-            "website": "http:\/\/www.dharmadevimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.dharmadevimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "87": {
+          "88": {
             "id": 88,
             "district_id": 9,
             "category_id": 3,
-            "name": "Panchkhapan Municipality",
+            "name": "PanchkhapanMunicipality",
             "area_sq_km": "148.03",
-            "website": "http:\/\/www.panchkhapanmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.panchkhapanmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "88": {
+          "89": {
             "id": 89,
             "district_id": 9,
             "category_id": 3,
-            "name": "Madi Municipality",
+            "name": "MadiMunicipality",
             "area_sq_km": "110.1",
-            "website": "http:\/\/www.madimunsankhuwasabha.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.madimunsankhuwasabha.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "89": {
+          "90": {
             "id": 90,
             "district_id": 9,
             "category_id": 4,
-            "name": "Makalu Rural Municipality",
+            "name": "MakaluRuralMunicipality",
             "area_sq_km": "519.45",
-            "website": "http:\/\/www.makalumun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.makalumun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "90": {
+          "91": {
             "id": 91,
             "district_id": 9,
             "category_id": 4,
-            "name": "Silichong Rural Municipality",
+            "name": "SilichongRuralMunicipality",
             "area_sq_km": "293.26",
-            "website": "http:\/\/www.silichongmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.silichongmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "91": {
+          "92": {
             "id": 92,
             "district_id": 9,
             "category_id": 4,
-            "name": "Sabhapokhari Rural Municipality",
+            "name": "SabhapokhariRuralMunicipality",
             "area_sq_km": "222.08",
-            "website": "http:\/\/www.savapokharimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.savapokharimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "92": {
+          "93": {
             "id": 93,
             "district_id": 9,
             "category_id": 4,
-            "name": "Chichila Rural Municipality",
+            "name": "ChichilaRuralMunicipality",
             "area_sq_km": "88.63",
-            "website": "http:\/\/www.chichilamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.chichilamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "93": {
+          "94": {
             "id": 94,
             "district_id": 9,
             "category_id": 4,
-            "name": "BhotKhola Rural Municipality",
+            "name": "BhotKholaRuralMunicipality",
             "area_sq_km": "639.01",
-            "website": "http:\/\/www.bhotkholamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.bhotkholamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           }
         }
       },
-      {
+      "10": {
         "id": 10,
         "province_id": 1,
         "name": "Solukhumbu",
         "area_sq_km": "3312",
-        "website": "https:\/\/www.ddcsolukhumbu.gov.np",
+        "website": "https://www.ddcsolukhumbu.gov.np",
         "headquarter": "Salleri",
         "municipalities": {
-          "94": {
+          "95": {
             "id": 95,
             "district_id": 10,
             "category_id": 3,
-            "name": "Solu Dudhkunda Municipality",
+            "name": "SoluDudhkundaMunicipality",
             "area_sq_km": "538.09",
-            "website": "http:\/\/www.solududhkundamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.solududhkundamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "95": {
+          "96": {
             "id": 96,
             "district_id": 10,
             "category_id": 4,
-            "name": "Mapya Dudhkoshi Rural Municipality",
+            "name": "MapyaDudhkoshiRuralMunicipality",
             "area_sq_km": "167.67",
-            "website": "http:\/\/www.dudhkoshimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.dudhkoshimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "96": {
+          "97": {
             "id": 97,
             "district_id": 10,
             "category_id": 4,
-            "name": "Necha Salyan Rural Municipality",
+            "name": "NechaSalyanRuralMunicipality",
             "area_sq_km": "94.49",
-            "website": "http:\/\/www.nechasalyanmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.nechasalyanmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "97": {
+          "98": {
             "id": 98,
             "district_id": 10,
             "category_id": 4,
-            "name": "Thulung Dudhkoshi Rural Municipality",
+            "name": "ThulungDudhkoshiRuralMunicipality",
             "area_sq_km": "144.6",
-            "website": "http:\/\/www.thulungdudhkoshimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.thulungdudhkoshimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "98": {
+          "99": {
             "id": 99,
             "district_id": 10,
             "category_id": 4,
-            "name": "Maha Kulung Rural Municipality",
+            "name": "MahaKulungRuralMunicipality",
             "area_sq_km": "648.05",
-            "website": "http:\/\/www.mahakulungmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.mahakulungmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "99": {
+          "100": {
             "id": 100,
             "district_id": 10,
             "category_id": 4,
-            "name": "Sotang Rural Municipality",
+            "name": "SotangRuralMunicipality",
             "area_sq_km": "103",
-            "website": "http:\/\/www.sotangmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.sotangmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "100": {
+          "101": {
             "id": 101,
             "district_id": 10,
             "category_id": 4,
-            "name": "Khumbu PasangLhamu Rural Municipality",
+            "name": "KhumbuPasangLhamuRuralMunicipality",
             "area_sq_km": "1539.11",
-            "website": "http:\/\/www.khumbupasanglhamumun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.khumbupasanglhamumun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "101": {
+          "102": {
             "id": 102,
             "district_id": 10,
             "category_id": 4,
-            "name": "Likhu Pike Rural Municipality",
+            "name": "LikhuPikeRuralMunicipality",
             "area_sq_km": "124.38",
-            "website": "http:\/\/www.likhupikemun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.likhupikemun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           }
         }
       },
-      {
+      "11": {
         "id": 11,
         "province_id": 1,
         "name": "Sunsari",
         "area_sq_km": "1257",
-        "website": "https:\/\/www.ddcsunsari.gov.np",
+        "website": "https://www.ddcsunsari.gov.np",
         "headquarter": "Inaruwa",
         "municipalities": {
-          "102": {
+          "103": {
             "id": 103,
             "district_id": 11,
             "category_id": 3,
-            "name": "BarahaKshetra Municipality",
+            "name": "BarahaKshetraMunicipality",
             "area_sq_km": "222.09",
-            "website": "http:\/\/www.barahamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.barahamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "103": {
+          "104": {
             "id": 104,
             "district_id": 11,
             "category_id": 3,
-            "name": "Inaruwa Municipality",
+            "name": "InaruwaMunicipality",
             "area_sq_km": "77.92",
-            "website": "http:\/\/www.inaruwamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.inaruwamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "104": {
+          "105": {
             "id": 105,
             "district_id": 11,
             "category_id": 3,
-            "name": "Duhabi Municipality",
+            "name": "DuhabiMunicipality",
             "area_sq_km": "76.67",
-            "website": "http:\/\/www.duhabimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12
-            ]
+            "website": "http://www.duhabimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
           },
-          "105": {
+          "106": {
             "id": 106,
             "district_id": 11,
             "category_id": 3,
-            "name": "Ramdhuni Municipality",
+            "name": "RamdhuniMunicipality",
             "area_sq_km": "91.69",
-            "website": "http:\/\/www.ramdhunimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.ramdhunimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "106": {
+          "107": {
             "id": 107,
             "district_id": 11,
             "category_id": 2,
-            "name": "Itahari Sub-Metropolitan City",
+            "name": "ItahariSub-MetropolitanCity",
             "area_sq_km": "93.78",
-            "website": "http:\/\/www.itaharimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14,
-              15,
-              16,
-              17,
-              18,
-              19,
-              20
-            ]
+            "website": "http://www.itaharimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
           },
-          "107": {
+          "108": {
             "id": 108,
             "district_id": 11,
             "category_id": 2,
-            "name": "Dharan Sub-Metropolitan City",
+            "name": "DharanSub-MetropolitanCity",
             "area_sq_km": "192.32",
-            "website": "http:\/\/www.dharan.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14,
-              15,
-              16,
-              17,
-              18,
-              19,
-              20
-            ]
+            "website": "http://www.dharan.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
           },
-          "108": {
+          "109": {
             "id": 109,
             "district_id": 11,
             "category_id": 4,
-            "name": "Koshi Rural Municipality",
+            "name": "KoshiRuralMunicipality",
             "area_sq_km": "75.98",
-            "website": "http:\/\/www.koshimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.koshimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "109": {
+          "110": {
             "id": 110,
             "district_id": 11,
             "category_id": 4,
-            "name": "Harinagar Rural Municipality",
+            "name": "HarinagarRuralMunicipality",
             "area_sq_km": "52.29",
-            "website": "http:\/\/www.harinagaramun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.harinagaramun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "110": {
+          "111": {
             "id": 111,
             "district_id": 11,
             "category_id": 4,
-            "name": "Bhokraha Narsingh Rural Municipality",
+            "name": "BhokrahaNarsinghRuralMunicipality",
             "area_sq_km": "63.37",
-            "website": "http:\/\/www.bhokrahamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.bhokrahamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "111": {
+          "112": {
             "id": 112,
             "district_id": 11,
             "category_id": 4,
-            "name": "Dewangunj Rural Municipality",
+            "name": "DewangunjRuralMunicipality",
             "area_sq_km": "53.56",
-            "website": "http:\/\/www.dewanganjmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.dewanganjmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "112": {
+          "113": {
             "id": 113,
             "district_id": 11,
             "category_id": 4,
-            "name": "Gadhi Rural Municipality",
+            "name": "GadhiRuralMunicipality",
             "area_sq_km": "67.7",
-            "website": "http:\/\/www.gadhimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.gadhimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "113": {
+          "114": {
             "id": 114,
             "district_id": 11,
             "category_id": 4,
-            "name": "Barju Rural Municipality",
+            "name": "BarjuRuralMunicipality",
             "area_sq_km": "69.43",
-            "website": "http:\/\/www.barjumun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.barjumun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           }
         }
       },
-      {
+      "12": {
         "id": 12,
         "province_id": 1,
         "name": "Taplejung",
         "area_sq_km": "3646",
-        "website": "https:\/\/www.ddctaplejung.gov.np",
+        "website": "https://www.ddctaplejung.gov.np",
         "headquarter": "Taplejung",
         "municipalities": {
-          "114": {
+          "115": {
             "id": 115,
             "district_id": 12,
             "category_id": 3,
-            "name": "Phungling Municipality",
+            "name": "PhunglingMunicipality",
             "area_sq_km": "125.57",
-            "website": "http:\/\/www.phunglingmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11
-            ]
+            "website": "http://www.phunglingmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
           },
-          "115": {
+          "116": {
             "id": 116,
             "district_id": 12,
             "category_id": 4,
-            "name": "Sirijangha Rural Municipality",
+            "name": "SirijanghaRuralMunicipality",
             "area_sq_km": "481.09",
-            "website": "http:\/\/www.sirijanghamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.sirijanghamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "116": {
+          "117": {
             "id": 117,
             "district_id": 12,
             "category_id": 4,
-            "name": "Aathrai Triveni Rural Municipality",
+            "name": "AathraiTriveniRuralMunicipality",
             "area_sq_km": "88.83",
-            "website": "http:\/\/www.aathraitribenimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.aathraitribenimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "117": {
+          "118": {
             "id": 118,
             "district_id": 12,
             "category_id": 4,
-            "name": "Pathibhara Yangwarak Rural Municipality",
+            "name": "PathibharaYangwarakRuralMunicipality",
             "area_sq_km": "93.76",
-            "website": "http:\/\/www.yangwarakmuntaplejung.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.yangwarakmuntaplejung.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "118": {
+          "119": {
             "id": 119,
             "district_id": 12,
             "category_id": 4,
-            "name": "Meringden Rural Municipality",
+            "name": "MeringdenRuralMunicipality",
             "area_sq_km": "210.33",
-            "website": "http:\/\/www.meringdenmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.meringdenmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "119": {
+          "120": {
             "id": 120,
             "district_id": 12,
             "category_id": 4,
-            "name": "Sidingwa Rural Municipality",
+            "name": "SidingwaRuralMunicipality",
             "area_sq_km": "206",
-            "website": "http:\/\/www.sidingbamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.sidingbamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "120": {
+          "121": {
             "id": 121,
             "district_id": 12,
             "category_id": 4,
-            "name": "Phaktanglung Rural Municipality",
+            "name": "PhaktanglungRuralMunicipality",
             "area_sq_km": "1858.51",
-            "website": "http:\/\/www.phaktanglungmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.phaktanglungmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "121": {
+          "122": {
             "id": 122,
             "district_id": 12,
             "category_id": 4,
-            "name": "Maiwa Khola Rural Municipality",
+            "name": "MaiwaKholaRuralMunicipality",
             "area_sq_km": "138",
-            "website": "http:\/\/www.maiwakholamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.maiwakholamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "122": {
+          "123": {
             "id": 123,
             "district_id": 12,
             "category_id": 4,
-            "name": "Mikwa Khola Rural Municipality",
+            "name": "MikwaKholaRuralMunicipality",
             "area_sq_km": "442.96",
-            "website": "http:\/\/www.mikwakholamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.mikwakholamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           }
         }
       },
-      {
+      "13": {
         "id": 13,
         "province_id": 1,
         "name": "Terhathum",
         "area_sq_km": "679",
-        "website": "https:\/\/www.ddctehrathum.gov.np",
+        "website": "https://www.ddctehrathum.gov.np",
         "headquarter": "Myanglung",
         "municipalities": {
-          "123": {
+          "124": {
             "id": 124,
             "district_id": 13,
             "category_id": 3,
-            "name": "Myanglung Municipality",
+            "name": "MyanglungMunicipality",
             "area_sq_km": "100.21",
-            "website": "http:\/\/www.myanglungmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.myanglungmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "124": {
+          "125": {
             "id": 125,
             "district_id": 13,
             "category_id": 3,
-            "name": "Laligurans Municipality",
+            "name": "LaliguransMunicipality",
             "area_sq_km": "90.27",
-            "website": "http:\/\/www.laliguransmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.laliguransmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "125": {
+          "126": {
             "id": 126,
             "district_id": 13,
             "category_id": 4,
-            "name": "Aathrai Rural Municipality",
+            "name": "AathraiRuralMunicipality",
             "area_sq_km": "167.07",
-            "website": "http:\/\/www.aathraimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7
-            ]
+            "website": "http://www.aathraimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7]
           },
-          "126": {
+          "127": {
             "id": 127,
             "district_id": 13,
             "category_id": 4,
-            "name": "Phedap Rural Municipality",
+            "name": "PhedapRuralMunicipality",
             "area_sq_km": "110.83",
-            "website": "http:\/\/www.phedapmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.phedapmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "127": {
+          "128": {
             "id": 128,
             "district_id": 13,
             "category_id": 4,
-            "name": "Chhathar Rural Municipality",
+            "name": "ChhatharRuralMunicipality",
             "area_sq_km": "133.93",
-            "website": "http:\/\/www.chhatharmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.chhatharmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           },
-          "128": {
+          "129": {
             "id": 129,
             "district_id": 13,
             "category_id": 4,
-            "name": "Menchayayem Rural Municipality",
+            "name": "MenchayayemRuralMunicipality",
             "area_sq_km": "70.09",
-            "website": "http:\/\/www.menchhayayemmun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ]
+            "website": "http://www.menchhayayemmun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6]
           }
         }
       },
-      {
+      "14": {
         "id": 14,
         "province_id": 1,
         "name": "Udayapur",
         "area_sq_km": "2063",
-        "website": "https:\/\/www.ddcudayapur.gov.np",
+        "website": "https://www.ddcudayapur.gov.np",
         "headquarter": "Gaighat",
         "municipalities": {
-          "129": {
+          "130": {
             "id": 130,
             "district_id": 14,
             "category_id": 3,
-            "name": "Triyuga Municipality",
+            "name": "TriyugaMunicipality",
             "area_sq_km": "547.43",
-            "website": "http:\/\/www.triyugamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14,
-              15,
-              16
-            ]
+            "website": "http://www.triyugamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
           },
-          "130": {
+          "131": {
             "id": 131,
             "district_id": 14,
             "category_id": 3,
-            "name": "Katari Municipality",
+            "name": "KatariMunicipality",
             "area_sq_km": "424.89",
-            "website": "http:\/\/www.katarimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              13,
-              14
-            ]
+            "website": "http://www.katarimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
           },
-          "131": {
+          "132": {
             "id": 132,
             "district_id": 14,
             "category_id": 3,
-            "name": "Chaudandigadhi Municipality",
+            "name": "ChaudandigadhiMunicipality",
             "area_sq_km": "283.78",
-            "website": "http:\/\/www.chaudandigadhimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10
-            ]
+            "website": "http://www.chaudandigadhimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           },
-          "132": {
+          "133": {
             "id": 133,
             "district_id": 14,
             "category_id": 3,
-            "name": "Belaka Municipality",
+            "name": "BelakaMunicipality",
             "area_sq_km": "344.73",
-            "website": "http:\/\/www.belakamun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9
-            ]
+            "website": "http://www.belakamun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8, 9]
           },
-          "133": {
+          "134": {
             "id": 134,
             "district_id": 14,
             "category_id": 4,
-            "name": "Udayapurgadhi Rural Municipality",
+            "name": "UdayapurgadhiRuralMunicipality",
             "area_sq_km": "269.51",
-            "website": "http:\/\/www.udayapurgadhimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.udayapurgadhimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "134": {
+          "135": {
             "id": 135,
             "district_id": 14,
             "category_id": 4,
-            "name": "Rautamai Rural Municipality",
+            "name": "RautamaiRuralMunicipality",
             "area_sq_km": "204.08",
-            "website": "http:\/\/www.rautamaimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8
-            ]
+            "website": "http://www.rautamaimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5, 6, 7, 8]
           },
-          "135": {
+          "136": {
             "id": 136,
             "district_id": 14,
             "category_id": 4,
-            "name": "Tapli Rural Municipality",
+            "name": "TapliRuralMunicipality",
             "area_sq_km": "119.11",
-            "website": "http:\/\/www.taplimun.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.taplimun.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           },
-          "136": {
+          "137": {
             "id": 137,
             "district_id": 14,
             "category_id": 4,
-            "name": "Limchungbung Rural Municipality",
+            "name": "LimchungbungRuralMunicipality",
             "area_sq_km": "106.8",
-            "website": "http:\/\/www.sunkoshimunudayapur.gov.np\/",
-            "wards": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "website": "http://www.sunkoshimunudayapur.gov.np/",
+            "wards": [1, 2, 3, 4, 5]
           }
         }
       }
-    ]
+    }
   },
   {
     "id": 2,

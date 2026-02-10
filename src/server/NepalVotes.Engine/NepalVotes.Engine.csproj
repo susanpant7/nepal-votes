@@ -10,8 +10,4 @@
       <ProjectReference Include="..\NepalVotes.Infrastructure\NepalVotes.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Models\" />
-    </ItemGroup>
-
 </Project>

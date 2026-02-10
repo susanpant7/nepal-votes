@@ -32,7 +32,7 @@ public class ProvinceService(IProvinceRepository repo, IDistrictRepository distr
 
         var entity = new Province
         {
-            ProvinceName = request.ProvinceName
+            ProvinceNameEn = request.ProvinceName
         };
 
         await repo.AddAsync(entity);
@@ -49,7 +49,7 @@ public class ProvinceService(IProvinceRepository repo, IDistrictRepository distr
         var entity = new Province
         {
             ProvinceId = request.ProvinceId,
-            ProvinceName = request.ProvinceName
+            ProvinceNameEn = request.ProvinceName
         };
 
         await repo.UpdateAsync(entity);

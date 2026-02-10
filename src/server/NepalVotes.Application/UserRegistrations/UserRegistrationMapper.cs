@@ -51,9 +51,9 @@ public static class UserRegistrationMapper
     {
         var votingPlaceAddress = registration.VotingPlace.VotingPlaceAddress;
         var wardName = registration.VotingPlace.Ward.WardNumber;
-        var municipalityName = registration.VotingPlace.Ward.Municipality.MunicipalityName;
-        var districtName = registration.VotingPlace.Ward.Municipality.District.DistrictName;
-        var provinceName = registration.VotingPlace.Ward.Municipality.District.Province.ProvinceName;
+        var municipalityName = registration.VotingPlace.Ward.Municipality.MunicipalityNameEn;
+        var districtName = registration.VotingPlace.Ward.Municipality.District.DistrictNameEn;
+        var provinceName = registration.VotingPlace.Ward.Municipality.District.Province.ProvinceNameEn;
         var doc =
             registration.UserRegistrationDocuments.FirstOrDefault(x => x.DocumentType == UserDocumentType.NationalIdentity)!;
         return new UserRegistrationReviewDetail

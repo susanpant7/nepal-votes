@@ -32,7 +32,7 @@ public class MunicipalityService(IMunicipalityRepository repo, IWardRepository w
 
         var entity = new Municipality
         {
-            MunicipalityName = request.MunicipalityName,
+            MunicipalityNameEn = request.MunicipalityName,
             MunicipalityType = request.MunicipalityType,
             DistrictId = request.DistrictId
         };
@@ -51,7 +51,7 @@ public class MunicipalityService(IMunicipalityRepository repo, IWardRepository w
         var entity = new Municipality
         {
             MunicipalityId = request.MunicipalityId,
-            MunicipalityName = request.MunicipalityName,
+            MunicipalityNameEn = request.MunicipalityName,
             MunicipalityType = request.MunicipalityType,
             DistrictId = request.DistrictId
         };

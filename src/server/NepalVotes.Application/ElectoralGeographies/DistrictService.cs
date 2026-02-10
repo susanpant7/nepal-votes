@@ -42,7 +42,7 @@ public class DistrictService(IDistrictRepository repo, IMunicipalityRepository m
 
         var entity = new District
         {
-            DistrictName = request.DistrictName,
+            DistrictNameEn = request.DistrictName,
             ProvinceId = request.ProvinceId
         };
 
@@ -61,7 +61,7 @@ public class DistrictService(IDistrictRepository repo, IMunicipalityRepository m
         var entity = new District
         {
             DistrictId = request.DistrictId,
-            DistrictName = request.DistrictName,
+            DistrictNameEn = request.DistrictName,
             ProvinceId = request.ProvinceId
         };
 

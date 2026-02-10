@@ -8,12 +8,12 @@ public class DistrictConfiguration : IEntityTypeConfiguration<District>
 {
     public void Configure(EntityTypeBuilder<District> builder)
     {
-        builder.Property(p=>p.DistrictName)
+        builder.Property(p=>p.DistrictNameEn)
             .HasMaxLength(50)
             .IsRequired();
         
         // district name should be unique
-        builder.HasIndex(d => d.DistrictName)
+        builder.HasIndex(d => d.DistrictNameEn)
             .IsUnique();
         
         // if uniqueness required per province

@@ -29,7 +29,7 @@ public class DistrictRepository(ApplicationDbContext context) : IDistrictReposit
 
     public async Task<bool> ExistsByNameAsync(string name, int provinceId, int? excludeId = null) =>
         await context.Districts
-            .AnyAsync(d => d.DistrictName == name && d.ProvinceId == provinceId && (!excludeId.HasValue || d.DistrictId != excludeId));
+            .AnyAsync(d => d.DistrictNameEn == name && d.ProvinceId == provinceId && (!excludeId.HasValue || d.DistrictId != excludeId));
     
     public async Task<bool> AnyByProvinceIdAsync(int provinceId)
     {

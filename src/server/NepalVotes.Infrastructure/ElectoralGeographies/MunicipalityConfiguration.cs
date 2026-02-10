@@ -8,12 +8,12 @@ public class MunicipalityConfiguration : IEntityTypeConfiguration<Municipality>
 {
     public void Configure(EntityTypeBuilder<Municipality> builder)
     {
-        builder.Property(p=>p.MunicipalityName)
+        builder.Property(p=>p.MunicipalityNameEn)
             .HasMaxLength(50)
             .IsRequired();
         
         // municipality name should be unique per district
-        builder.HasIndex(m => new { m.DistrictId, m.MunicipalityName})
+        builder.HasIndex(m => new { m.DistrictId, MunicipalityName = m.MunicipalityNameEn})
             .IsUnique();
          
         // 1 mun 1 dis

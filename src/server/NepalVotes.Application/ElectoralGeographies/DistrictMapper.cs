@@ -9,7 +9,7 @@ public static class DistrictMapper
         return new DistrictInfo
         {
             DistrictId = district.DistrictId,
-            DistrictName = district.DistrictName,
+            DistrictName = district.DistrictNameEn,
             ProvinceId = district.ProvinceId
         };
     }

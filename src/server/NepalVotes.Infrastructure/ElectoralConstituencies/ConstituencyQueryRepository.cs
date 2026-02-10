@@ -21,7 +21,7 @@ public class ConstituencyQueryRepository(ApplicationDbContext context) : IConsti
                 DistrictId = districtId,
                 TotalWards = c.Wards.Count(),
                 MunicipalityNameAndWardNumbers = c.Wards
-                    .GroupBy(w => w.Municipality.MunicipalityName)
+                    .GroupBy(w => w.Municipality.MunicipalityNameEn)
                     .Select(g => new MunicipalityNameAndWardNumbers
                     {
                         MunicipalityName = g.Key,
@@ -51,13 +51,13 @@ public class ConstituencyQueryRepository(ApplicationDbContext context) : IConsti
                 : null,
 
             MunicipalityId = w.Municipality.MunicipalityId,
-            MunicipalityName = w.Municipality.MunicipalityName,
+            MunicipalityName = w.Municipality.MunicipalityNameEn,
 
             DistrictId = w.Municipality.District.DistrictId,
-            DistrictName = w.Municipality.District.DistrictName,
+            DistrictName = w.Municipality.District.DistrictNameEn,
 
             ProvinceId = w.Municipality.District.Province.ProvinceId,
-            ProvinceName = w.Municipality.District.Province.ProvinceName
+            ProvinceName = w.Municipality.District.Province.ProvinceNameEn
         })
         .GroupBy(x => new { x.ProvinceId, x.ProvinceName })
         .Select(p => new ProvinceWithDistrictsDetails

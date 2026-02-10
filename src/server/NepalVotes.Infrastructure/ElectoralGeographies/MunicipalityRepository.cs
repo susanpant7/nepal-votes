@@ -26,7 +26,7 @@ public class MunicipalityRepository(ApplicationDbContext context) : IMunicipalit
 
     public async Task<bool> ExistsByNameAsync(string name, int districtId, int? excludeId = null) =>
         await context.Municipalities
-            .AnyAsync(m => m.MunicipalityName == name && m.DistrictId == districtId && (!excludeId.HasValue || m.MunicipalityId != excludeId));
+            .AnyAsync(m => m.MunicipalityNameEn == name && m.DistrictId == districtId && (!excludeId.HasValue || m.MunicipalityId != excludeId));
     
     public async Task<bool> AnyByDistrictIdAsync(int districtId)
     {

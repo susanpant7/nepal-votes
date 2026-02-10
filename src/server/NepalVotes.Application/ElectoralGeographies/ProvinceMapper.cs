@@ -9,7 +9,7 @@ public static class ProvinceMapper
         return new ProvinceInfo
         {
             ProvinceId = province.ProvinceId,
-            ProvinceName = province.ProvinceName
+            ProvinceName = province.ProvinceNameEn
         };
     }
 }

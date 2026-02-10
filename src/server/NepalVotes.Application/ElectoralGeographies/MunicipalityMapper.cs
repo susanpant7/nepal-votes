@@ -9,7 +9,7 @@ public static class MunicipalityMapper
         return new MunicipalityInfo
         {
             MunicipalityId = municipality.MunicipalityId,
-            MunicipalityName = municipality.MunicipalityName,
+            MunicipalityName = municipality.MunicipalityNameEn,
             MunicipalityType = municipality.MunicipalityType,
             DistrictId = municipality.DistrictId
         };

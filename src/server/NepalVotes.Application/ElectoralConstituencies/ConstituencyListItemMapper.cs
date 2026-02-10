@@ -69,7 +69,7 @@ public static class ConstituencyListItemMapper
             TotalWards = wards.Count,
 
             MunicipalityNameAndWardNumbers = wards
-                .GroupBy(w => w.Municipality.MunicipalityName)
+                .GroupBy(w => w.Municipality.MunicipalityNameEn)
                 .Select(g => new MunicipalityNameAndWardNumbers
                 {
                     MunicipalityName = g.Key,

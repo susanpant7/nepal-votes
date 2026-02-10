@@ -26,7 +26,7 @@ public class ProvinceRepository(ApplicationDbContext context) : IProvinceReposit
 
     public async Task<bool> ExistsByNameAsync(string name, int? excludeId = null) =>
         await context.Provinces
-            .AnyAsync(p => p.ProvinceName == name && (!excludeId.HasValue || p.ProvinceId != excludeId));
+            .AnyAsync(p => p.ProvinceNameEn == name && (!excludeId.HasValue || p.ProvinceId != excludeId));
     
     public Task DeleteAsync(Province province)
     {
