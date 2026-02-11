@@ -19,8 +19,8 @@ public class DataLoadService (IWebHostEnvironment env,
             "GeographicLocations_Np.json");
         var englishJson = await File.ReadAllTextAsync(englishFilePath);
         var nepaliJson = await File.ReadAllTextAsync(nepaliFilePath);
-        var englishJsonObject = JsonSerializer.Deserialize<List<ProvinceJson>>(englishJson);
-        var nepaliJsonObject = JsonSerializer.Deserialize<List<ProvinceJson>>(nepaliFilePath);
+        var englishJsonObject = JsonSerializer.Deserialize<List<ProvinceEn>>(englishJson);
+        var nepaliJsonObject = JsonSerializer.Deserialize<List<ProvinceNp>>(nepaliJson);
         if (englishJsonObject == null) throw new NullReferenceException("English Province json is null");
         if (nepaliJsonObject == null) throw new NullReferenceException("Nepali Province json is null");
         await dataLoadRepository.SaveProvinceAsync(englishJsonObject,nepaliJsonObject);
