@@ -44,7 +44,7 @@ public static class VotingMapper
         return new VoterPartySelectOptions
         {
             PartyId = party.PoliticalPartyId,
-            PartyName = party.PoliticalPartyName,
+            PartyName = party.PoliticalPartyNameEn,
             SymbolContent = party.SymbolMediaFile.Content,
             SymbolContentType = party.SymbolMediaFile?.ContentType ?? string.Empty,
             SymbolFileName = party.SymbolMediaFile?.FileName ?? string.Empty

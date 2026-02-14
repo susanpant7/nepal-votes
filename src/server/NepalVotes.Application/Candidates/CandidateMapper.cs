@@ -47,7 +47,7 @@ public static class CandidateMapper
             ConstituencyId = candidate.ConstituencyId,
             ConstituencyName = candidate.Constituency.ConstituencyName,
             IsIndependent = candidate.IsIndependent,
-            PoliticalPartyName = candidate.IsIndependent ? "Independent" : candidate.PoliticalParty?.PoliticalPartyName,
+            PoliticalPartyName = candidate.IsIndependent ? "Independent" : candidate.PoliticalParty?.PoliticalPartyNameEn,
             SymbolContent = symbolMedia?.Content,
             SymbolContentType = symbolMedia?.ContentType,
             SymbolFileName = symbolMedia?.FileName
@@ -68,7 +68,7 @@ public static class CandidateMapper
             ConstituencyId = candidate.ConstituencyId,
             ConstituencyName = candidate.Constituency.ConstituencyName,
             IsIndependent = candidate.IsIndependent,
-            PoliticalPartyName = candidate.IsIndependent ? "Independent" : candidate.PoliticalParty?.PoliticalPartyName,
+            PoliticalPartyName = candidate.IsIndependent ? "Independent" : candidate.PoliticalParty?.PoliticalPartyNameEn,
             PoliticalPartyId = candidate.PoliticalParty?.PoliticalPartyId,
             CandidateSymbolId =  candidate.CandidateSymbol?.CandidateSymbolId,
             SymbolContent = symbolMedia?.Content,

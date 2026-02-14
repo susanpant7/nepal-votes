@@ -8,7 +8,8 @@ public class PoliticalPartyConfiguration : IEntityTypeConfiguration<PoliticalPar
 {
     public void Configure(EntityTypeBuilder<PoliticalParty> builder)
     {
-        builder.Property(p=>p.PoliticalPartyName).HasMaxLength(100).IsRequired();
+        builder.Property(p=>p.PoliticalPartyNameEn).HasMaxLength(100).IsRequired();
+        builder.Property(p=>p.PoliticalPartyNameNp).HasMaxLength(100).IsRequired();
         builder.HasOne(p=>p.PartyLeader)
             .WithOne()
             .IsRequired(false)

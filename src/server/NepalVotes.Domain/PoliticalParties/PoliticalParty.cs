@@ -9,7 +9,8 @@ public class PoliticalParty : BaseAuditableEntity
 {
     public int PoliticalPartyId { get; set; }
 
-    public string PoliticalPartyName { get; set; } = null!;
+    public string PoliticalPartyNameEn { get; set; } = null!;
+    public string PoliticalPartyNameNp { get; set; } = null!;
     
     public int? PartyLeaderId { get; set; }
     public User? PartyLeader { get; set; }

@@ -40,7 +40,7 @@ public class PoliticalPartyService(IPoliticalPartyRepository repository,
 
         var party = new PoliticalParty
         {
-            PoliticalPartyName = request.PoliticalPartyName,
+            PoliticalPartyNameEn = request.PoliticalPartyName,
             PartyLeaderId = request.PartyLeaderId,
             SymbolMediaFile = symbol
         };
@@ -57,7 +57,7 @@ public class PoliticalPartyService(IPoliticalPartyRepository repository,
         if (party == null)
             return ApiResponse<bool>.ErrorResponse("No political party found to edit for the give request", 404);
 
-        party.PoliticalPartyName = request.PoliticalPartyName;
+        party.PoliticalPartyNameEn = request.PoliticalPartyName;
         party.PartyLeaderId = request.PartyLeaderId;
 
         if (request.PartySymbolContent != null 

@@ -24,7 +24,7 @@ public static class PoliticalPartyMapper
         return new PoliticalPartyInfo
         {
             PoliticalPartyId = party.PoliticalPartyId,
-            PoliticalPartyName = party.PoliticalPartyName,
+            PoliticalPartyName = party.PoliticalPartyNameEn,
             PartySymbolContent = party.SymbolMediaFile.Content,
             PartySymbolContentType = party.SymbolMediaFile.ContentType,
             PartySymbolFileName = party.SymbolMediaFile.FileName,
