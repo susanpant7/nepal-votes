@@ -19,6 +19,9 @@ public class Candidate : BaseAuditableEntity
     public int ConstituencyId { get; set; }
     public Constituency Constituency { get; set; } = null!;
     
+    //the CandidateId in the candidate json file -- to get the image
+    public int CandidateImageId { get; set; }
+    
     // if independent, should have own symbol
     public int? CandidateSymbolId { get; set; }
     public CandidateSymbol? CandidateSymbol { get; set; }
