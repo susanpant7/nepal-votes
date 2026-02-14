@@ -11,8 +11,8 @@ public class PoliticalParty : BaseAuditableEntity
 
     public string PoliticalPartyName { get; set; } = null!;
     
-    public int PartyLeaderId { get; set; }
-    public User PartyLeader { get; set; }
+    public int? PartyLeaderId { get; set; }
+    public User? PartyLeader { get; set; }
 
     // party symbol
     public int SymbolMediaFileId { get; set; }

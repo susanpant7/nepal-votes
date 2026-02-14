@@ -11,6 +11,7 @@ public class PoliticalPartyConfiguration : IEntityTypeConfiguration<PoliticalPar
         builder.Property(p=>p.PoliticalPartyName).HasMaxLength(100).IsRequired();
         builder.HasOne(p=>p.PartyLeader)
             .WithOne()
+            .IsRequired(false)
             .HasForeignKey<PoliticalParty>(p => p.PartyLeaderId)
             .OnDelete(DeleteBehavior.Restrict);
         builder.HasOne(p=>p.SymbolMediaFile)
