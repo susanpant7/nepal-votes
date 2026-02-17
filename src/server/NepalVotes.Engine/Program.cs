@@ -22,6 +22,8 @@ builder.Services.AddScoped<IPoliticalPartyDataLoadRepository, PoliticalPartyData
 
 builder.Services.AddScoped<IConstituencyDataLoadRepository, ConstituencyDataLoadRepository>();
 
+builder.Services.AddScoped<IUserDataLoadRepository, UserDataLoadRepository>();
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();

@@ -7,7 +7,8 @@ namespace NepalVotes.Engine.Services;
 public class DataLoadService (IWebHostEnvironment env, 
     IGeographicDataLoadRepository geographicDataLoadRepository,
     IPoliticalPartyDataLoadRepository politicalPartyDataLoadRepository,
-    IConstituencyDataLoadRepository constituencyDataLoadRepository) : IDataLoadService
+    IConstituencyDataLoadRepository constituencyDataLoadRepository,
+    IUserDataLoadRepository userDataLoadRepository) : IDataLoadService
 {
     public async Task<bool> LoadProvincesDistrictsMunicipalitiesWardsAsync()
     {
@@ -45,6 +46,16 @@ public class DataLoadService (IWebHostEnvironment env,
             "LoadFiles",
             "Constituencies.json");
         await constituencyDataLoadRepository.ProcessElectoralMappingAsync(filePath);
+        return true;
+    }
+    
+    public async Task<bool> LoadUsers()
+    {
+        var filePath = Path.Combine(
+            env.ContentRootPath,
+            "LoadFiles",
+            "User_En_Np.json");
+        await userDataLoadRepository.ImportUsersFromJsonAsync(filePath);
         return true;
     }
 }
