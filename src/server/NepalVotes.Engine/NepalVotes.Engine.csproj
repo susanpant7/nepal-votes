@@ -10,4 +10,8 @@
       <ProjectReference Include="..\NepalVotes.Infrastructure\NepalVotes.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="LoadFiles\ConstituenciesMap\ConstituenciesFromMap.json" />
+    </ItemGroup>
+
 </Project>
