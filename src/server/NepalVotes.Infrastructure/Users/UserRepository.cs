@@ -43,8 +43,8 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
         searchText = searchText.Trim();
 
         return await context.Users
-            .Where(u => EF.Functions.Like(u.FullName, $"%{searchText}%"))
-            .OrderBy(u => u.FullName)
+            .Where(u => EF.Functions.Like(u.FullNameEn, $"%{searchText}%"))
+            .OrderBy(u => u.FullNameEn)
             .Take(100)
             .ToListAsync();
     }

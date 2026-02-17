@@ -69,13 +69,21 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .UsingEntity(j => j.ToTable("UserRoles"));
         
         // Computed column and indexing it
-        builder.Property(u => u.FullName)
+        builder.Property(u => u.FullNameEn)
             .HasComputedColumnSql(
                 $"([{nameof(User.FirstNameEn)}] + ' ' + ISNULL([{nameof(User.MiddleNameEn)}], '') + ' ' + [{nameof(User.LastNameEn)}])", 
                 stored: true
             );
-        builder.HasIndex(u => u.FullName)
-            .HasDatabaseName("IX_User_FullName");
+        builder.HasIndex(u => u.FullNameEn)
+            .HasDatabaseName("IX_User_FullNameEn");
+        
+        builder.Property(u => u.FullNameNp)
+            .HasComputedColumnSql(
+                $"([{nameof(User.FirstNameNp)}] + ' ' + ISNULL([{nameof(User.MiddleNameNp)}], '') + ' ' + [{nameof(User.LastNameNp)}])", 
+                stored: true
+            );
+        builder.HasIndex(u => u.FullNameEn)
+            .HasDatabaseName("IX_User_FullNameNp");
         
         builder.Property(u => u.Age)
             .HasComputedColumnSql("DATEDIFF(hour, [DateOfBirth], GETDATE()) / 8766", stored: false);

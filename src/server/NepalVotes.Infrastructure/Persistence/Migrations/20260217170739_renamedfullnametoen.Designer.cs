@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NepalVotes.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using NepalVotes.Infrastructure.Persistence;
 namespace NepalVotes.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260217170739_renamedfullnametoen")]
+    partial class renamedfullnametoen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -615,38 +618,20 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("FirstNameNp")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FullNameEn")
                         .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("nvarchar(450)")
                         .HasComputedColumnSql("([FirstNameEn] + ' ' + ISNULL([MiddleNameEn], '') + ' ' + [LastNameEn])", true);
 
-                    b.Property<string>("FullNameNp")
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComputedColumnSql("([FirstNameNp] + ' ' + ISNULL([MiddleNameNp], '') + ' ' + [LastNameNp])", true);
-
                     b.Property<string>("LastNameEn")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("LastNameNp")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("MiddleNameEn")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("MiddleNameNp")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MobileNumber")
                         .IsRequired()
@@ -686,7 +671,7 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
                     b.HasIndex("ApprovedByUserId");
 
                     b.HasIndex("FullNameEn")
-                        .HasDatabaseName("IX_User_FullNameNp");
+                        .HasDatabaseName("IX_User_FullNameEn");
 
                     b.HasIndex("MobileNumber")
                         .IsUnique();

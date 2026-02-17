@@ -32,7 +32,7 @@ public static class VotingMapper
         return new VoterCandidateSelectOptions
         {
             CandidateId = candidate.CandidateId,
-            CandidateName = candidate.User.FullName,
+            CandidateName = candidate.User.FullNameEn,
             SymbolContent = symbolMedia?.Content ?? [],
             SymbolContentType = symbolMedia?.ContentType ?? string.Empty,
             SymbolFileName = symbolMedia?.FileName ?? string.Empty

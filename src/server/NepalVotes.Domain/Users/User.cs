@@ -9,6 +9,9 @@ public class User : BaseAuditableEntity
     public string FirstNameEn { get; set; }
     public string MiddleNameEn { get; set; }
     public string LastNameEn { get; set; }
+    public string FirstNameNp { get; set; }
+    public string MiddleNameNp { get; set; }
+    public string LastNameNp { get; set; }
     public DateOnly DateOfBirth { get; set; }
     public int Age { get; private set; }
     public string MobileNumber { get; set; }
@@ -34,5 +37,6 @@ public class User : BaseAuditableEntity
     public UserRefreshToken? UserRefreshToken { get; set; }
     
     // computed column
-    public string FullName { get; private set; } = null!;
+    public string FullNameEn { get; private set; } = null!;
+    public string FullNameNp { get; private set; } = null!;
 }
