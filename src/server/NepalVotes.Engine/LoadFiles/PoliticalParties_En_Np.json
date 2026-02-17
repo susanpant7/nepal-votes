@@ -1,0 +1,507 @@
+[
+  {
+    "political_party_name_en": "CPN-UML",
+    "political_party_name_np": "नेकपा(एमाले)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770710534.png"
+  },
+  {
+    "political_party_name_en": "Nepali Congress",
+    "political_party_name_np": "नेपाली काँग्रेस",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770710566.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Prajatantra Party",
+    "political_party_name_np": "राष्ट्रिय प्रजातन्त्र पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793829.png"
+  },
+  {
+    "political_party_name_en": "Janata Samjbadi Party-Nepal",
+    "political_party_name_np": "जनता समाजवादी पार्टी, नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792403.png"
+  },
+  {
+    "political_party_name_en": "Rastirya Swatantra Party",
+    "political_party_name_np": "राष्ट्रिय स्वतन्त्र पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792349.png"
+  },
+  {
+    "political_party_name_en": "Nepali Communist Party",
+    "political_party_name_np": "नेपाली कम्युनिष्ट पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793102.png"
+  },
+  {
+    "political_party_name_en": "Ujaylo Nepal Party",
+    "political_party_name_np": "उज्यालो नेपाल पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770794244.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Mukti Party Nepal (Ekal Chunab Chinha)",
+    "political_party_name_np": "राष्ट्रिय मुक्ति पार्टी नेपाल(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nagarik Unmukti Party",
+    "political_party_name_np": "नागरिक उन्मुक्ति पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Mongol National Organization",
+    "political_party_name_np": "मंगोल नेशनल अर्गनाइजेसन",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793489.png"
+  },
+  {
+    "political_party_name_en": "Sanghiya Loktantrik Rastriya Manch",
+    "political_party_name_np": "संघीय लोकतान्त्रिक राष्ट्रिय मञ्च",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793926.png"
+  },
+  {
+    "political_party_name_en": "Janata Samajbadi Party (Ekal Chunab Chinha)",
+    "political_party_name_np": "जनता समाजवादी पार्टी(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nepal Janamukti Party",
+    "political_party_name_np": "नेपाल जनमुक्ति पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Shram Sanskriti Party",
+    "political_party_name_np": "श्रम संस्कृति पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793904.png"
+  },
+  {
+    "political_party_name_en": "Nepal Communist Party (Maoist)",
+    "political_party_name_np": "नेपाल कम्युनिस्ट पार्टी (माओवादी)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770797745.png"
+  },
+  {
+    "political_party_name_en": "Nepal Majdoor Kisan Party",
+    "political_party_name_np": "नेपाल मजदुर किसान पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792272.png"
+  },
+  {
+    "political_party_name_en": "Pragatishil Loktantrik Party",
+    "political_party_name_np": "प्रगतिशील लोकतान्त्रिक पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770797797.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Pariwartan Party",
+    "political_party_name_np": "राष्ट्रिय परिवर्तन पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793782.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Janamukti Party",
+    "political_party_name_np": "राष्ट्रिय जनमुक्ति पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793745.png"
+  },
+  {
+    "political_party_name_en": "Independent",
+    "political_party_name_np": "स्वतन्त्र",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770810367.png"
+  },
+  {
+    "political_party_name_en": "Nepal Communist Party (Sainyukta)",
+    "political_party_name_np": "नेपाल कम्युनिष्ट पार्टी (संयुक्त)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792701.png"
+  },
+  {
+    "political_party_name_en": "Janamat Party",
+    "political_party_name_np": "जनमत पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792211.png"
+  },
+  {
+    "political_party_name_en": "National Republic Nepal",
+    "political_party_name_np": "नेशनल रिपब्लिक नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793215.png"
+  },
+  {
+    "political_party_name_en": "Nepal Communist Party Marxist (Pushpalal)",
+    "political_party_name_np": "नेपाल कम्युनिष्ट पार्टी मार्क्सवादी (पुष्पलाल)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792730.png"
+  },
+  {
+    "political_party_name_en": "People First Party",
+    "political_party_name_np": "पिपुल फर्ष्ट पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793234.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Janamorcha",
+    "political_party_name_np": "राष्ट्रिय जनमोर्चा",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nepali Janashramdan Sanskriti Party",
+    "political_party_name_np": "नेपाली जनश्रमदान संस्कृति पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793193.png"
+  },
+  {
+    "political_party_name_en": "Aam Janata Party (Ekal Chunab Chinha)",
+    "political_party_name_np": "आम जनता पार्टी(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792474.png"
+  },
+  {
+    "political_party_name_en": "Miteri Party Nepal",
+    "political_party_name_np": "मितेरी पार्टी नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793631.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Urjashil Party, Nepal",
+    "political_party_name_np": "राष्ट्रिय उर्जाशील पार्टी, नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793673.png"
+  },
+  {
+    "political_party_name_en": "Sainyukta Nagarik Party",
+    "political_party_name_np": "संयुक्त नागरिक पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793963.png"
+  },
+  {
+    "political_party_name_en": "Jaya Matribhumi Party",
+    "political_party_name_np": "जय मातृभूमि पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792551.png"
+  },
+  {
+    "political_party_name_en": "Nagarik Unmukti Party, Nepal (Ekal Chunab Chinha)",
+    "political_party_name_np": "नागरिक उन्मुक्ति पार्टी, नेपाल(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792624.png"
+  },
+  {
+    "political_party_name_en": "Rastra Nirman Dal Nepal",
+    "political_party_name_np": "राष्ट्र निर्माण दल नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793655.png"
+  },
+  {
+    "political_party_name_en": "CPN-UML",
+    "political_party_name_np": "नेकपा(एमाले)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770710534.png"
+  },
+  {
+    "political_party_name_en": "Nepali Congress",
+    "political_party_name_np": "नेपाली काँग्रेस",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770710566.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Prajatantra Party",
+    "political_party_name_np": "राष्ट्रिय प्रजातन्त्र पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793829.png"
+  },
+  {
+    "political_party_name_en": "Janata Samjbadi Party-Nepal",
+    "political_party_name_np": "जनता समाजवादी पार्टी, नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792403.png"
+  },
+  {
+    "political_party_name_en": "Rastirya Swatantra Party",
+    "political_party_name_np": "राष्ट्रिय स्वतन्त्र पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792349.png"
+  },
+  {
+    "political_party_name_en": "Nepali Communist Party",
+    "political_party_name_np": "नेपाली कम्युनिष्ट पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793102.png"
+  },
+  {
+    "political_party_name_en": "Ujaylo Nepal Party",
+    "political_party_name_np": "उज्यालो नेपाल पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770794244.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Mukti Party Nepal (Ekal Chunab Chinha)",
+    "political_party_name_np": "राष्ट्रिय मुक्ति पार्टी नेपाल(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nagarik Unmukti Party",
+    "political_party_name_np": "नागरिक उन्मुक्ति पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Mongol National Organization",
+    "political_party_name_np": "मंगोल नेशनल अर्गनाइजेसन",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793489.png"
+  },
+  {
+    "political_party_name_en": "Sanghiya Loktantrik Rastriya Manch",
+    "political_party_name_np": "संघीय लोकतान्त्रिक राष्ट्रिय मञ्च",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793926.png"
+  },
+  {
+    "political_party_name_en": "Janata Samajbadi Party (Ekal Chunab Chinha)",
+    "political_party_name_np": "जनता समाजवादी पार्टी(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nepal Janamukti Party",
+    "political_party_name_np": "नेपाल जनमुक्ति पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Shram Sanskriti Party",
+    "political_party_name_np": "श्रम संस्कृति पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793904.png"
+  },
+  {
+    "political_party_name_en": "Nepal Communist Party (Maoist)",
+    "political_party_name_np": "नेपाल कम्युनिस्ट पार्टी (माओवादी)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770797745.png"
+  },
+  {
+    "political_party_name_en": "Nepal Majdoor Kisan Party",
+    "political_party_name_np": "नेपाल मजदुर किसान पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792272.png"
+  },
+  {
+    "political_party_name_en": "Pragatishil Loktantrik Party",
+    "political_party_name_np": "प्रगतिशील लोकतान्त्रिक पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770797797.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Pariwartan Party",
+    "political_party_name_np": "राष्ट्रिय परिवर्तन पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793782.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Janamukti Party",
+    "political_party_name_np": "राष्ट्रिय जनमुक्ति पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793745.png"
+  },
+  {
+    "political_party_name_en": "Independent",
+    "political_party_name_np": "स्वतन्त्र",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770810367.png"
+  },
+  {
+    "political_party_name_en": "Nepal Communist Party (Sainyukta)",
+    "political_party_name_np": "नेपाल कम्युनिष्ट पार्टी (संयुक्त)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792701.png"
+  },
+  {
+    "political_party_name_en": "Janamat Party",
+    "political_party_name_np": "जनमत पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792211.png"
+  },
+  {
+    "political_party_name_en": "National Republic Nepal",
+    "political_party_name_np": "नेशनल रिपब्लिक नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793215.png"
+  },
+  {
+    "political_party_name_en": "Nepal Communist Party Marxist (Pushpalal)",
+    "political_party_name_np": "नेपाल कम्युनिष्ट पार्टी मार्क्सवादी (पुष्पलाल)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792730.png"
+  },
+  {
+    "political_party_name_en": "People First Party",
+    "political_party_name_np": "पिपुल फर्ष्ट पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793234.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Janamorcha",
+    "political_party_name_np": "राष्ट्रिय जनमोर्चा",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nepali Janashramdan Sanskriti Party",
+    "political_party_name_np": "नेपाली जनश्रमदान संस्कृति पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793193.png"
+  },
+  {
+    "political_party_name_en": "Aam Janata Party (Ekal Chunab Chinha)",
+    "political_party_name_np": "आम जनता पार्टी(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792474.png"
+  },
+  {
+    "political_party_name_en": "Miteri Party Nepal",
+    "political_party_name_np": "मितेरी पार्टी नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793631.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Urjashil Party, Nepal",
+    "political_party_name_np": "राष्ट्रिय उर्जाशील पार्टी, नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793673.png"
+  },
+  {
+    "political_party_name_en": "Sainyukta Nagarik Party",
+    "political_party_name_np": "संयुक्त नागरिक पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793963.png"
+  },
+  {
+    "political_party_name_en": "Jaya Matribhumi Party",
+    "political_party_name_np": "जय मातृभूमि पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792551.png"
+  },
+  {
+    "political_party_name_en": "Nagarik Unmukti Party, Nepal (Ekal Chunab Chinha)",
+    "political_party_name_np": "नागरिक उन्मुक्ति पार्टी, नेपाल(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792624.png"
+  },
+  {
+    "political_party_name_en": "Rastra Nirman Dal Nepal",
+    "political_party_name_np": "राष्ट्र निर्माण दल नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793655.png"
+  },
+  {
+    "political_party_name_en": "Samabeshi Samajbadi Party",
+    "political_party_name_np": "समावेशी समाजवादी पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793987.png"
+  },
+  {
+    "political_party_name_en": "Sarbhobham Nagarik Party",
+    "political_party_name_np": "सार्वभौम नागरिक पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770794010.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Sajha Party",
+    "political_party_name_np": "राष्ट्रिय साझा पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nepal Loktantrik Party",
+    "political_party_name_np": "नेपाल लोकतान्त्रिक पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792436.png"
+  },
+  {
+    "political_party_name_en": "Nepal Janata Party",
+    "political_party_name_np": "नेपाल जनता पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792760.png"
+  },
+  {
+    "political_party_name_en": "Samabeshi Samajbadi Party Nepal",
+    "political_party_name_np": "समावेशी समाजवादी पार्टी नेपाल",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nepali Janata Dal",
+    "political_party_name_np": "नेपाली जनता दल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793165.png"
+  },
+  {
+    "political_party_name_en": "Nagarik Sarwochata Party Nepal (Ekal Chunab Chinha)",
+    "political_party_name_np": "नागरिक सर्वोच्चता पार्टी नेपाल(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792647.png"
+  },
+  {
+    "political_party_name_en": "Nepal Janata Samrakchhyan Party",
+    "political_party_name_np": "नेपाल जनता संरक्षण पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792777.png"
+  },
+  {
+    "political_party_name_en": "Rastriya Ekata Dal",
+    "political_party_name_np": "राष्ट्रिय एकता दल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793698.png"
+  },
+  {
+    "political_party_name_en": "Swabhiman Party",
+    "political_party_name_np": "स्वाभिमान पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770797851.png"
+  },
+  {
+    "political_party_name_en": "Nepal Sangyhia Samajbadi Party (Ekal Chunab Chinha)",
+    "political_party_name_np": "नेपाल संघीय समाजवादी पार्टी(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793037.png"
+  },
+  {
+    "political_party_name_en": "Nepalka Lagi Nepali Party",
+    "political_party_name_np": "नेपालका लागि नेपाली पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793078.png"
+  },
+  {
+    "political_party_name_en": "Jana Adhikar Party",
+    "political_party_name_np": "जन अधिकार पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792496.png"
+  },
+  {
+    "political_party_name_en": "Janata Loktantrik Party, Nepal",
+    "political_party_name_np": "जनता लोकतान्त्रिक पार्टी, नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792521.png"
+  },
+  {
+    "political_party_name_en": "Bahujan Ekata Party Nepal (Ekal Chunab Chinha)",
+    "political_party_name_np": "बहुजन एकता पार्टी नेपाल(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Bahujan Shakti Party",
+    "political_party_name_np": "बहुजन शक्ति पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793410.png"
+  },
+  {
+    "political_party_name_en": "Itihasik Janata Party",
+    "political_party_name_np": "इतिहासिक जनता पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Janadesh Party Nepal (Ekal Chunab Chinha)",
+    "political_party_name_np": "जनादेश पार्टी नेपाल(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Rastriya Janata Party Nepal",
+    "political_party_name_np": "राष्ट्रिय जनता पार्टी नेपाल",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Rastriya Mukti Aandolan, Nepal",
+    "political_party_name_np": "राष्ट्रिय मुक्ति आन्दोलन, नेपाल",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Gatishil Loktantrik Party",
+    "political_party_name_np": "गतिशील लोकतान्त्रिक पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792333.png"
+  },
+  {
+    "political_party_name_en": "United Nepal Democratic Party",
+    "political_party_name_np": "युनाईटेड नेपाल डिमोक्रयाटीक पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Prajatantrik Party Nepal",
+    "political_party_name_np": "प्रजातान्त्रिक पार्टी नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793273.png"
+  },
+  {
+    "political_party_name_en": "Nepal Janasewa Party",
+    "political_party_name_np": "नेपाल जनसेवा पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Triumul Nepal",
+    "political_party_name_np": "त्रिमूल नेपाल",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770792598.png"
+  },
+  {
+    "political_party_name_en": "Nepal Communist Party (Marxist) (Ekal Chunab Chinha)",
+    "political_party_name_np": "नेपाल कम्युनिष्ट पार्टी (माक्र्सवादी)(एकल चुनाव चिन्ह)",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Rastriya Nagarik Party",
+    "political_party_name_np": "राष्ट्रिय नागरिक पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nepal Manabta Party",
+    "political_party_name_np": "नेपाल मानवतावादी पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Nepal Matribhoomi Party",
+    "political_party_name_np": "नेपाल मातृभूमि पार्टी",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Gandhibadi Party Nepal",
+    "political_party_name_np": "गान्धीवादी पार्टी नेपाल",
+    "political_party_symbol_image_url": "http://jcss-generalelection2082.ekantipur.com/assets/images/default-party.jpeg"
+  },
+  {
+    "political_party_name_en": "Rastriya Janamat Party",
+    "political_party_name_np": "राष्ट्रिय जनमत पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770793722.png"
+  },
+  {
+    "political_party_name_en": "Nepal Sadbhavana Party",
+    "political_party_name_np": "नेपाल सद्भावना पार्टी",
+    "political_party_symbol_image_url": "http://assets-generalelection2082.ekantipur.com/parties/party-1770710454.png"
+  }
+]

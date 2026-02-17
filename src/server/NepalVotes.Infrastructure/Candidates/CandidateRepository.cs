@@ -60,7 +60,7 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
     {
         return await context.Candidates
             .Where(c => c.UserId == userId && c.CandidateId != excludeId)
-            .Select(c => c.Constituency.ConstituencyName)
+            .Select(c => c.Constituency.ConstituencyNameEn)
             .FirstOrDefaultAsync();
     }
     

@@ -19,7 +19,7 @@ public static class ConstituencyWardMapper
             WardId = ward.WardId,
             WardNumber = ward.WardNumber.ToString(),
             AssignedConstituencyId = ward.ConstituencyId,
-            AssignedConstituencyName = ward.Constituency?.ConstituencyName
+            AssignedConstituencyName = ward.Constituency?.ConstituencyNameEn
         };
     }
 }

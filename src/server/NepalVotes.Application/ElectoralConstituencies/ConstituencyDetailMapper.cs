@@ -40,7 +40,7 @@ public static class ConstituencyDetailMapper
         return new ConstituencyDetail
         {
             ConstituencyId = constituency.ConstituencyId,
-            ConstituencyName = constituency.ConstituencyName,
+            ConstituencyName = constituency.ConstituencyNameEn,
             ProvinceId = province?.ProvinceId ?? 0,
             ProvinceName =  province?.ProvinceNameEn ?? "",
             DistrictId = district?.DistrictId ?? 0,

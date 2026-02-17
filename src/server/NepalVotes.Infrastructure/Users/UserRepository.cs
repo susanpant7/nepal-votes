@@ -69,7 +69,7 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .AsNoTracking()
             .Where(u => u.UserId == userId)
             .Select(u => u.VotingPlace.Ward.Constituency != null 
-                ? u.VotingPlace.Ward.Constituency.ConstituencyName 
+                ? u.VotingPlace.Ward.Constituency.ConstituencyNameEn 
                 : null)
             .FirstOrDefaultAsync();
     }

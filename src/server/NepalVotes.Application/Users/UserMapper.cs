@@ -25,7 +25,7 @@ public static class UserMapper
             FullName = $"{user.FirstName} {user.MiddleName} {user.LastName}".Replace("  ", " ").Trim(),
             MobileNumber = user.MobileNumber,
             VotingPlaceAddress = user.VotingPlace.VotingPlaceAddress,
-            ConstituencyName = user.VotingPlace?.Ward?.Constituency?.ConstituencyName ?? "Not Assigned"
+            ConstituencyName = user.VotingPlace?.Ward?.Constituency?.ConstituencyNameEn ?? "Not Assigned"
         };
     }
     

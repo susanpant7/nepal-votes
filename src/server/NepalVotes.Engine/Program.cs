@@ -13,8 +13,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddControllers();
 
+
 builder.Services.AddScoped<IDataLoadService, DataLoadService>();
 builder.Services.AddScoped<IGeographicDataLoadRepository, GeographicDataLoadRepository>();
+
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IPoliticalPartyDataLoadRepository, PoliticalPartyDataLoadRepository>();
+
+builder.Services.AddScoped<IConstituencyDataLoadRepository, ConstituencyDataLoadRepository>();
 
 var app = builder.Build();
 

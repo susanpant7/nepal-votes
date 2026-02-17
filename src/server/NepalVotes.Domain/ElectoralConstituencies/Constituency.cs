@@ -7,7 +7,8 @@ namespace NepalVotes.Domain.ElectoralConstituencies;
 public class Constituency : BaseAuditableEntity
 {
     public int ConstituencyId { get; set; }
-    public string ConstituencyName { get; set; }
+    public string ConstituencyNameEn { get; set; }
+    public string ConstituencyNameNp { get; set; }
 
     public ICollection<Ward> Wards { get; set; }
     public ICollection<Candidate> Candidates { get; set; }

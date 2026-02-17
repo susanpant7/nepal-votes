@@ -30,7 +30,7 @@ public class ConstituencyRepository(ApplicationDbContext context) : IConstituenc
     public async Task<List<Constituency>> GetAllConstituenciesAsync()
     {
         return await context.Constituencies
-            .OrderBy(c => c.ConstituencyName)
+            .OrderBy(c => c.ConstituencyNameEn)
             .ToListAsync();
     }
 
@@ -46,7 +46,7 @@ public class ConstituencyRepository(ApplicationDbContext context) : IConstituenc
         var normalizedName = name.ToUpper().Trim();
 
         return await context.Constituencies.AnyAsync(c =>
-            c.ConstituencyName.ToUpper().Trim() == normalizedName);
+            c.ConstituencyNameEn.ToUpper().Trim() == normalizedName);
     }
 
     public async Task<bool> ExistsByNameExceptIdAsync(string name, int excludeId)
@@ -55,7 +55,7 @@ public class ConstituencyRepository(ApplicationDbContext context) : IConstituenc
 
         return await context.Constituencies.AnyAsync(c =>
             c.ConstituencyId != excludeId &&
-            c.ConstituencyName.ToUpper().Trim() == normalizedName);
+            c.ConstituencyNameEn.ToUpper().Trim() == normalizedName);
     }
     
     public async Task<Constituency?> GetAllGeographiesByIdAsync(int constituencyId)

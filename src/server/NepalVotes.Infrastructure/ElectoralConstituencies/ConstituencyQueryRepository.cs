@@ -17,7 +17,7 @@ public class ConstituencyQueryRepository(ApplicationDbContext context) : IConsti
             .Select(c => new ConstituencyListItem
             {
                 ConstituencyId = c.ConstituencyId,
-                ConstituencyName = c.ConstituencyName,
+                ConstituencyName = c.ConstituencyNameEn,
                 DistrictId = districtId,
                 TotalWards = c.Wards.Count(),
                 MunicipalityNameAndWardNumbers = c.Wards
@@ -47,7 +47,7 @@ public class ConstituencyQueryRepository(ApplicationDbContext context) : IConsti
 
             ConstituencyId = w.ConstituencyId,
             ConstituencyName = w.Constituency != null
-                ? w.Constituency.ConstituencyName
+                ? w.Constituency.ConstituencyNameEn
                 : null,
 
             MunicipalityId = w.Municipality.MunicipalityId,

@@ -15,7 +15,7 @@ public static class ConstituencyDropdownMapper
         return new ConstituencyDropdown
         {
             ConstituencyId = constituency.ConstituencyId,
-            ConstituencyName = constituency.ConstituencyName,
+            ConstituencyName = constituency.ConstituencyNameEn,
         };
     }
 }
@@ -63,7 +63,7 @@ public static class ConstituencyListItemMapper
         return new ConstituencyListItem
         {
             ConstituencyId = constituency.ConstituencyId,
-            ConstituencyName = constituency.ConstituencyName,
+            ConstituencyName = constituency.ConstituencyNameEn,
             ProvinceId = province?.ProvinceId ?? 0,
             DistrictId = district?.DistrictId ?? 0,
             TotalWards = wards.Count,

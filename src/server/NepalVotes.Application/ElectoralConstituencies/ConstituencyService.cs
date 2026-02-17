@@ -98,7 +98,7 @@ public class ConstituencyService(
 
         var constituency = new Constituency
         {
-            ConstituencyName = request.ConstituencyName,
+            ConstituencyNameEn = request.ConstituencyName,
             Wards = new List<Ward>()
         };
 
@@ -142,7 +142,7 @@ public class ConstituencyService(
         
         var wards = await wardRepo.GetByIdsAsync(request.WardIds);
 
-        constituency.ConstituencyName = request.ConstituencyName;
+        constituency.ConstituencyNameEn = request.ConstituencyName;
         constituency.Wards = wards.ToList();
 
         await repo.UpdateAsync(constituency);
