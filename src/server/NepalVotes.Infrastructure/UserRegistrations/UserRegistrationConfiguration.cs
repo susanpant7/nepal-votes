@@ -55,9 +55,9 @@ public class UserRegistrationConfiguration : IEntityTypeConfiguration<UserRegist
             .HasDefaultValue(0);
    
         // 1 user registration has 1 voting place, fk voting place id, if voting place deleted, delete user registration as well
-        builder.HasOne(ur=>ur.VotingPlace)
+        builder.HasOne(ur=>ur.Ward)
             .WithMany()
-            .HasForeignKey(ur=>ur.VotingPlaceId)
+            .HasForeignKey(ur=>ur.WardId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

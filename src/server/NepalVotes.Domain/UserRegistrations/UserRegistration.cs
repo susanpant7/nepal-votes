@@ -26,6 +26,6 @@ public class UserRegistration
     public bool IsOtpUsed { get; set; }
     public int AttemptCount { get; set; }
 
-    public int VotingPlaceId { get; set; }
-    public VotingPlace VotingPlace { get; set; }
+    public int WardId { get; set; }
+    public Ward Ward { get; set; }
 }

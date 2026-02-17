@@ -24,8 +24,8 @@ public class User : BaseAuditableEntity
     
     public ICollection<UserOtp> UserOtps { get; set; }
 
-    public int VotingPlaceId { get; set; }
-    public VotingPlace VotingPlace { get; set; }
+    public int WardId { get; set; }
+    public Ward Ward { get; set; }
     
     public int? ApprovedByUserId { get; set; }
     public User? ApprovedByUser { get; set; }

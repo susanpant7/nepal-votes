@@ -74,7 +74,7 @@ public class VoteService(IVoteRepository repository, IUserRepository userReposit
         }
         var user = await userRepository.GetUserWithVotingPlaceByUserIdAsync(userId);
     
-        if (user?.VotingPlace?.Ward?.ConstituencyId == null)
+        if (user?.Ward?.ConstituencyId == null)
         {
             return ApiResponse<bool>.ErrorResponse("User registration data is incomplete.");
         }
@@ -84,7 +84,7 @@ public class VoteService(IVoteRepository repository, IUserRepository userReposit
             CandidateId = request.CandidateId == -1 ? null : request.CandidateId,
             PoliticalPartyId = request.PartyId == -1 ? null : request.PartyId,
             VotedFromLocation = request.VotedFromLocation,
-            ConstituencyId = user.VotingPlace.Ward.ConstituencyId.Value
+            ConstituencyId = user.Ward.ConstituencyId.Value
         };
 
         try 

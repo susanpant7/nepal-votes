@@ -30,8 +30,7 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     public async Task<User?> GetUserWithVotingPlaceByUserIdAsync(int userId)
     {
         return await context.Users
-            .Include(u => u.VotingPlace)
-                .ThenInclude(vp => vp.Ward)
+                .Include(vp => vp.Ward)
                     .ThenInclude(w => w.Constituency)
             .FirstOrDefaultAsync(u => u.UserId == userId);
     }
@@ -50,17 +49,17 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .ToListAsync();
     }
     
-    public async Task<bool> AnyByVotingPlaceIdAsync(int votingPlaceId)
+    public async Task<bool> AnyByWardIdAsync(int wardId)
     {
         return await context.Users
-            .AnyAsync(u => u.VotingPlaceId == votingPlaceId);
+            .AnyAsync(u => u.WardId == wardId);
     }
 
     public async Task<int?> GetUserConstituencyIdAsync(int userId)
     {
         return await context.Users
             .Where(u => u.UserId == userId)
-            .Select(u => u.VotingPlace.Ward.ConstituencyId)
+            .Select(u => u.Ward.ConstituencyId)
             .FirstOrDefaultAsync();
     }
     public async Task<string?> GetUserConstituencyNameAsync(int userId)
@@ -68,8 +67,8 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
         return await context.Users
             .AsNoTracking()
             .Where(u => u.UserId == userId)
-            .Select(u => u.VotingPlace.Ward.Constituency != null 
-                ? u.VotingPlace.Ward.Constituency.ConstituencyNameEn 
+            .Select(u => u.Ward.Constituency != null 
+                ? u.Ward.Constituency.ConstituencyNameEn 
                 : null)
             .FirstOrDefaultAsync();
     }

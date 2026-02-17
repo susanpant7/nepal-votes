@@ -54,9 +54,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.ApprovedDate)
             .IsRequired(false); // nullable
         
-        builder.HasOne(u => u.VotingPlace)
+        builder.HasOne(u => u.Ward)
             .WithMany()
-            .HasForeignKey(u => u.VotingPlaceId)
+            .HasForeignKey(u => u.WardId)
             .OnDelete(DeleteBehavior.Restrict); 
         
         builder.HasOne(u => u.ApprovedByUser)

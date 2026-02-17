@@ -19,7 +19,7 @@ public class RegisterUserRequest
     
     public required string VoterIdNumber { get; set; }
 
-    public int VotingPlaceId { get; set; }
+    public int WardId { get; set; }
 
     public required List<DocumentUploadRequest> Documents { get; set; }
 }

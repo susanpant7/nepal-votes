@@ -77,7 +77,7 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
             RequestDate = registration.RequestDate,
             ApprovedDate = DateTimeOffset.UtcNow,
             ApprovedByUserId = approvedByUserId,
-            VotingPlaceId = registration.VotingPlaceId,
+            WardId = registration.WardId,
             Roles = new List<Role> { voterRole },
             UserDocuments = registration.UserRegistrationDocuments.Select(regDoc => new UserDocument
             {

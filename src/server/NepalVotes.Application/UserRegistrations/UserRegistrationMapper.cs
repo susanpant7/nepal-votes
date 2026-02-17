@@ -24,7 +24,6 @@ public class UserRegistrationReviewDetail
     public string MobileNumber { get; set; } = string.Empty;
     public string NationalIdNumber { get; set; } = string.Empty;
     public string VoterIdNumber { get; set; } = string.Empty;
-    public string VotingPlaceFullAddress { get; set; } = string.Empty;
     public string ReviewComment { get; set; } = string.Empty;
     public byte[] NationalIdDocumentContent { get; set; } = [];
     public string NationalIdDocumentContentType { get; set; } = string.Empty;
@@ -49,11 +48,11 @@ public static class UserRegistrationMapper
     
     public static UserRegistrationReviewDetail ToReviewDetails(this UserRegistration registration)
     {
-        var votingPlaceAddress = registration.VotingPlace.VotingPlaceAddress;
-        var wardName = registration.VotingPlace.Ward.WardNumber;
-        var municipalityName = registration.VotingPlace.Ward.Municipality.MunicipalityNameEn;
-        var districtName = registration.VotingPlace.Ward.Municipality.District.DistrictNameEn;
-        var provinceName = registration.VotingPlace.Ward.Municipality.District.Province.ProvinceNameEn;
+        var ward = registration.Ward;
+        var wardName = registration.Ward.WardNumber;
+        var municipalityName = registration.Ward.Municipality.MunicipalityNameEn;
+        var districtName = registration.Ward.Municipality.District.DistrictNameEn;
+        var provinceName = registration.Ward.Municipality.District.Province.ProvinceNameEn;
         var doc =
             registration.UserRegistrationDocuments.FirstOrDefault(x => x.DocumentType == UserDocumentType.NationalIdentity)!;
         return new UserRegistrationReviewDetail
@@ -66,7 +65,6 @@ public static class UserRegistrationMapper
             NationalIdNumber = registration.NationalIdNumber,
             VoterIdNumber = registration.VoterIdNumber,
             ReviewComment = registration.ReviewComment,
-            VotingPlaceFullAddress = $"Province: {provinceName} > District: {districtName} > Mun: {municipalityName} > Ward No. {wardName} > {votingPlaceAddress}",
             NationalIdDocumentContent = doc.Content,
             NationalIdDocumentContentType =  doc.ContentType,
             NationalIdDocumentName = doc.FileName

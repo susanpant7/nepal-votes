@@ -30,7 +30,7 @@ public class RegisterUserApiRequest
     public required string VoterIdNumber { get; set; }
 
     [Required]
-    public int VotingPlaceId { get; set; }
+    public int WardId { get; set; }
 
     [Required]
     public required List<DocumentUploadApiRequest> Documents { get; set; }

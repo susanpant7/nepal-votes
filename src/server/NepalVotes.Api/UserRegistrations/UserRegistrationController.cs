@@ -48,7 +48,7 @@ public class UserRegistrationController(IUserRegistrationService service): Contr
             MobileNumber = apiRequest.MobileNumber,
             NationalIdNumber = apiRequest.NationalIdNumber,
             VoterIdNumber = apiRequest.VoterIdNumber,
-            VotingPlaceId = apiRequest.VotingPlaceId,
+            WardId = apiRequest.WardId,
             Documents = apiRequest.Documents.Select(apiDoc => 
             {
                 using var ms = new MemoryStream();

@@ -63,7 +63,7 @@ public class VotingPlaceService(IVotingPlaceRepository repo, IUserRepository use
 
     public async Task<ApiResponse<bool>> DeleteAsync(int votingPlaceId)
     {
-        if (await userRepository.AnyByVotingPlaceIdAsync(votingPlaceId))
+        if (await userRepository.AnyByWardIdAsync(votingPlaceId))
             return ApiResponse<bool>.ErrorResponse(
                 "Voting place cannot be deleted because users are assigned to it.");
 

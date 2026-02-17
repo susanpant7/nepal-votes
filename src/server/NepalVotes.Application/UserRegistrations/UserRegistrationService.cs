@@ -42,7 +42,7 @@ public class UserRegistrationService(
             MobileNumber = request.MobileNumber,
             NationalIdNumber = request.NationalIdNumber,
             VoterIdNumber = request.VoterIdNumber,
-            VotingPlaceId = request.VotingPlaceId,
+            WardId = request.WardId,
             Status = UserStatus.OtpPending,
             RequestDate = DateTimeOffset.UtcNow,
             UserRegistrationDocuments = request.Documents.Select(d => new UserRegistrationDocument

@@ -65,11 +65,10 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
     public async Task<List<UserRegistration>> GetByDistrictIdAsync(int districtId)
     {
         return await context.UserRegistrations
-            .Include(u => u.VotingPlace)
-                .ThenInclude(v=>v.Ward)
+            .Include(u => u.Ward)
                     .ThenInclude(m=>m.Municipality)
                         .ThenInclude(d=>d.District)
-            .Where(u => u.VotingPlace.Ward.Municipality.District.DistrictId == districtId)
+            .Where(u => u.Ward.Municipality.District.DistrictId == districtId)
             .AsNoTracking()
             .ToListAsync();
     }
@@ -77,8 +76,7 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
     public async Task<UserRegistration?> GetRegistrationWithGeographicDetailsForReviewAsync(int id)
     {
         return await context.UserRegistrations
-            .Include(u => u.VotingPlace)
-                .ThenInclude(v=>v.Ward)
+                .Include(v=>v.Ward)
                     .ThenInclude(m=>m.Municipality)
                         .ThenInclude(d=>d.District)
                             .ThenInclude(d=>d.Province)
