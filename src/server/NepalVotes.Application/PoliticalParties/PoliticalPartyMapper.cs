@@ -28,7 +28,7 @@ public static class PoliticalPartyMapper
             PartySymbolContent = party.SymbolMediaFile.Content,
             PartySymbolContentType = party.SymbolMediaFile.ContentType,
             PartySymbolFileName = party.SymbolMediaFile.FileName,
-            PartyLeaderName = party.PartyLeader.FirstName + " " + party.PartyLeader.MiddleName + " " + party.PartyLeader.LastName,
+            PartyLeaderName = party.PartyLeader.FirstNameEn + " " + party.PartyLeader.MiddleNameEn + " " + party.PartyLeader.LastNameEn,
             PartyLeaderId = party.PartyLeader.UserId
         };
     }

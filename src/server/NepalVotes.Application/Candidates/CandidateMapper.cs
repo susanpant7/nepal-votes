@@ -43,7 +43,7 @@ public static class CandidateMapper
         return new CandidateListItem
         {
             CandidateId = candidate.CandidateId,
-            FullName = $"{candidate.User.FirstName} {candidate.User.LastName}",
+            FullName = $"{candidate.User.FirstNameEn} {candidate.User.LastNameEn}",
             ConstituencyId = candidate.ConstituencyId,
             ConstituencyName = candidate.Constituency.ConstituencyNameEn,
             IsIndependent = candidate.IsIndependent,
@@ -64,7 +64,7 @@ public static class CandidateMapper
         return new CandidateDetail
         {
             CandidateId = candidate.CandidateId,
-            FullName = $"{candidate.User.FirstName} {candidate.User.LastName}",
+            FullName = $"{candidate.User.FirstNameEn} {candidate.User.LastNameEn}",
             ConstituencyId = candidate.ConstituencyId,
             ConstituencyName = candidate.Constituency.ConstituencyNameEn,
             IsIndependent = candidate.IsIndependent,

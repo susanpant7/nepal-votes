@@ -6,9 +6,9 @@ namespace NepalVotes.Domain.Users;
 public class User : BaseAuditableEntity
 {
     public int UserId { get; set; }
-    public string FirstName { get; set; }
-    public string MiddleName { get; set; }
-    public string LastName { get; set; }
+    public string FirstNameEn { get; set; }
+    public string MiddleNameEn { get; set; }
+    public string LastNameEn { get; set; }
     public DateOnly DateOfBirth { get; set; }
     public int Age { get; private set; }
     public string MobileNumber { get; set; }

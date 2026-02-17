@@ -66,9 +66,9 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
         
         var newUser = new User
         {
-            FirstName = registration.FirstName,
-            MiddleName = registration.MiddleName ?? string.Empty,
-            LastName = registration.LastName,
+            FirstNameEn = registration.FirstName,
+            MiddleNameEn = registration.MiddleName ?? string.Empty,
+            LastNameEn = registration.LastName,
             DateOfBirth = registration.DateOfBirth,
             MobileNumber = registration.MobileNumber,
             NationalIdNumber =  registration.NationalIdNumber,

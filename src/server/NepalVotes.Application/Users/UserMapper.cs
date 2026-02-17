@@ -22,7 +22,7 @@ public static class UserMapper
     {
         return new UserProfile
         {
-            FullName = $"{user.FirstName} {user.MiddleName} {user.LastName}".Replace("  ", " ").Trim(),
+            FullName = $"{user.FirstNameEn} {user.MiddleNameEn} {user.LastNameEn}".Replace("  ", " ").Trim(),
             MobileNumber = user.MobileNumber,
             VotingPlaceAddress = $"Voting Place Address For {user.WardId}",
             ConstituencyName = user.Ward?.Constituency?.ConstituencyNameEn ?? "Not Assigned"
@@ -33,7 +33,7 @@ public static class UserMapper
     {
         return new UserDropdown
         {
-            FullName = $"{user.FirstName} {user.MiddleName} {user.LastName}".Replace("  ", " ").Trim(),
+            FullName = $"{user.FirstNameEn} {user.MiddleNameEn} {user.LastNameEn}".Replace("  ", " ").Trim(),
             UserId = user.UserId
         };
     }

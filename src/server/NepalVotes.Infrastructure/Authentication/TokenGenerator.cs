@@ -15,7 +15,7 @@ public class TokenGenerator(AppSetting appSetting) : ITokenGenerator
     {
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.FirstName + " "+ user.MiddleName + " " + user.LastName),
+            new Claim(ClaimTypes.Name, user.FirstNameEn + " "+ user.MiddleNameEn + " " + user.LastNameEn),
             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
             new Claim(ClaimTypes.MobilePhone, user.MobileNumber),
         };

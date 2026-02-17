@@ -8,15 +8,15 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.Property(u => u.FirstName)
+        builder.Property(u => u.FirstNameEn)
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(u => u.MiddleName)
+        builder.Property(u => u.MiddleNameEn)
             .HasMaxLength(100)
             .IsRequired(false); // optional
 
-        builder.Property(u => u.LastName)
+        builder.Property(u => u.LastNameEn)
             .HasMaxLength(100)
             .IsRequired();
         
@@ -71,7 +71,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         // Computed column and indexing it
         builder.Property(u => u.FullName)
             .HasComputedColumnSql(
-                $"([{nameof(User.FirstName)}] + ' ' + ISNULL([{nameof(User.MiddleName)}], '') + ' ' + [{nameof(User.LastName)}])", 
+                $"([{nameof(User.FirstNameEn)}] + ' ' + ISNULL([{nameof(User.MiddleNameEn)}], '') + ' ' + [{nameof(User.LastNameEn)}])", 
                 stored: true
             );
         builder.HasIndex(u => u.FullName)
