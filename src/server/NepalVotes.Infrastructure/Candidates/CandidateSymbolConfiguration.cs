@@ -20,7 +20,7 @@ public class CandidateSymbolConfiguration : IEntityTypeConfiguration<CandidateSy
         builder.HasOne(c=> c.CandidateSymbolMediaFile)
             .WithOne()
             .HasForeignKey<CandidateSymbol>(c => c.CandidateSymbolMediaFileId)
-            .IsRequired()
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

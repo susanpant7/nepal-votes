@@ -6,4 +6,5 @@ public interface IDataLoadService
     Task<bool> LoadPoliticalPartiesAsync();
     Task<bool> LoadConstituenciesAsync();
     Task<bool> LoadUsers();
+    Task<bool> LoadCandidates();
 }

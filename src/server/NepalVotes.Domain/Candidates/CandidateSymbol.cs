@@ -10,8 +10,8 @@ public class CandidateSymbol : BaseAuditableEntity
     public string CandidateSymbolNameEn { get; set; } 
     public string CandidateSymbolNameNp { get; set; }
     
-    public int CandidateSymbolMediaFileId { get; set; }
-    public MediaFile CandidateSymbolMediaFile { get; set; }
+    public int? CandidateSymbolMediaFileId { get; set; }
+    public MediaFile? CandidateSymbolMediaFile { get; set; }
 
     public ICollection<Candidate> Candidates { get; set; } = new List<Candidate>();
 }

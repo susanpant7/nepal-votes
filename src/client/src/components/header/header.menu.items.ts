@@ -1,4 +1,4 @@
-import { ShieldCheck, User2, Home, VoteIcon } from "lucide-react";
+import { ShieldCheck, User2, Home, VoteIcon, ShieldUser } from "lucide-react";
 import type { User } from "@/stores/useAuthStore.ts";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
 
@@ -11,6 +11,7 @@ export type NavItem = {
 export const headerMenuItems = (user: User | null): NavItem[] => {
   const publicItems: NavItem[] = [
     { label: "Home", href: ROUTES.HOME, icon: Home },
+    { label: "Candidate", href: ROUTES.CANDIDATE, icon: ShieldUser },
   ];
 
   const privateItems: NavItem[] = [
