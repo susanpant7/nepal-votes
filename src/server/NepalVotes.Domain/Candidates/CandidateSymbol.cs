@@ -7,6 +7,9 @@ public class CandidateSymbol : BaseAuditableEntity
 {
     public int CandidateSymbolId { get; set; }
     
+    public string CandidateSymbolNameEn { get; set; } 
+    public string CandidateSymbolNameNp { get; set; }
+    
     public int CandidateSymbolMediaFileId { get; set; }
     public MediaFile CandidateSymbolMediaFile { get; set; }
 
