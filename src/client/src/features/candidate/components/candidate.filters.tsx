@@ -229,10 +229,12 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
                         <MultiSelect
                             options={[
                                 { label: "Independent", value: "independent" },
-                                ...parties.map((party) => ({
-                                    label: party.politicalPartyNameEn,
-                                    value: party.politicalPartyId.toString(),
-                                }))
+                                ...parties
+                                    .filter(p => p.politicalPartyNameEn.toLowerCase() !== "independent")
+                                    .map((party) => ({
+                                        label: party.politicalPartyNameEn,
+                                        value: party.politicalPartyId.toString(),
+                                    }))
                             ]}
                             selected={selectedParties}
                             onChange={setSelectedParties}
