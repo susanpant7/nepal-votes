@@ -26,6 +26,7 @@ public class ProvincesController(IProvinceService provinceService) : ControllerB
     }
 
     [HttpPost]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> AddProvince([FromBody] AddProvinceRequest request)
     {
         var response = await provinceService.AddAsync(request);
@@ -33,6 +34,7 @@ public class ProvincesController(IProvinceService provinceService) : ControllerB
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> UpdateProvince(int id, [FromBody] UpdateProvinceRequest request)
     {
         var response = await provinceService.UpdateAsync(request with { ProvinceId = id });
@@ -40,6 +42,7 @@ public class ProvincesController(IProvinceService provinceService) : ControllerB
     }
     
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> DeleteProvince(int id)
     {
         var response = await provinceService.DeleteAsync(id);

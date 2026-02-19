@@ -37,6 +37,7 @@ public class CandidatesController(ICandidateService service) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Create(CandidateAddRequest candidateRequest) 
     {
         var response = await service.CreateCandidateAsync(candidateRequest);
@@ -44,6 +45,7 @@ public class CandidatesController(ICandidateService service) : ControllerBase
     }
     
     [HttpPut]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Update(CandidateUpdateRequest candidateRequest) 
     {
         var response = await service.UpdateCandidateAsync(candidateRequest);
@@ -51,6 +53,7 @@ public class CandidatesController(ICandidateService service) : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Delete(int id)
     {
         var response = await service.DeleteCandidateAsync(id);

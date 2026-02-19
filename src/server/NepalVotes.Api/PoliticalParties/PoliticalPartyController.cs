@@ -37,6 +37,7 @@ public class PoliticalPartyController(IPoliticalPartyService partyService) : Con
     }
     
     [HttpPost]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Add([FromForm] AddEditPoliticalPartyApiRequest request)
     {
         byte[]? fileContent = null;
@@ -59,6 +60,7 @@ public class PoliticalPartyController(IPoliticalPartyService partyService) : Con
     }
     
     [HttpPut]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Edit([FromForm] EditPoliticalPartyApiRequest request)
     {
         byte[]? fileContent = null;

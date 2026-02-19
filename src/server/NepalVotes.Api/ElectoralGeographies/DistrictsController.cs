@@ -18,6 +18,7 @@ public class DistrictsController(IDistrictService districtService) : ControllerB
     }
 
     [HttpPost]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> AddDistrict([FromBody] AddDistrictRequest request)
     {
         var response = await districtService.AddAsync(request);
@@ -25,6 +26,7 @@ public class DistrictsController(IDistrictService districtService) : ControllerB
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> UpdateDistrict(int id, [FromBody] UpdateDistrictRequest request)
     {
         var response = await districtService.UpdateAsync(request with { DistrictId = id });
@@ -48,6 +50,7 @@ public class DistrictsController(IDistrictService districtService) : ControllerB
     }
     
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> DeleteDistrict(int id)
     {
         var response = await districtService.DeleteAsync(id);

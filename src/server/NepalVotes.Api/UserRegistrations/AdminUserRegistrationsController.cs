@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NepalVotes.Api.Authentication;
 using NepalVotes.Api.ResponseExtensions;
@@ -6,6 +7,7 @@ using NepalVotes.Application.UserRegistrations;
 namespace NepalVotes.Api.UserRegistrations;
 
 [ApiController]
+[Authorize(Roles = "ADMIN,SUPER_ADMIN")]
 [Route("api/registered-users")]
 public class UserRegistrationManagementController (IRegisteredUsersManagementService registrationService) : ControllerBase
 {
@@ -24,6 +26,7 @@ public class UserRegistrationManagementController (IRegisteredUsersManagementSer
     }
     
     [HttpPut("approve")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Approve([FromBody] UserRegistrationReviewRequest request)
     {
         var approvedByUserId = HttpContext.User.GetUserId();
@@ -32,6 +35,7 @@ public class UserRegistrationManagementController (IRegisteredUsersManagementSer
     }
 
     [HttpPut("reject")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Reject([FromBody] UserRegistrationReviewRequest request)
     {
         var result = await registrationService.RejectAsync(request);

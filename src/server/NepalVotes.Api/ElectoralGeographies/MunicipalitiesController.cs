@@ -26,6 +26,7 @@ public class MunicipalitiesController(IMunicipalityService municipalityService) 
     }
 
     [HttpPost]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> AddMunicipality([FromBody] AddMunicipalityRequest request)
     {
         var response = await municipalityService.AddAsync(request);
@@ -33,6 +34,7 @@ public class MunicipalitiesController(IMunicipalityService municipalityService) 
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> UpdateMunicipality(int id, [FromBody] UpdateMunicipalityRequest request)
     {
         var response = await municipalityService.UpdateAsync(request with { MunicipalityId = id });
@@ -41,6 +43,7 @@ public class MunicipalitiesController(IMunicipalityService municipalityService) 
     
         
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> DeleteMunicipality(int id)
     {
         var response = await municipalityService.DeleteAsync(id);

@@ -26,6 +26,7 @@ public class VotingPlacesController(IVotingPlaceService votingPlaceService) : Co
     }
 
     [HttpPost]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> AddVotingPlace([FromBody] AddVotingPlaceRequest request)
     {
         var response = await votingPlaceService.AddAsync(request);
@@ -33,6 +34,7 @@ public class VotingPlacesController(IVotingPlaceService votingPlaceService) : Co
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> UpdateVotingPlace(int id, [FromBody] UpdateVotingPlaceRequest request)
     {
         var response = await votingPlaceService.UpdateAsync(request with { VotingPlaceId = id });
@@ -40,6 +42,7 @@ public class VotingPlacesController(IVotingPlaceService votingPlaceService) : Co
     }
     
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> DeleteVotingPlace(int id)
     {
         var response = await votingPlaceService.DeleteAsync(id);

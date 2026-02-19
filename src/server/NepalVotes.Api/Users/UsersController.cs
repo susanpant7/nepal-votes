@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NepalVotes.Api.Authentication;
 using NepalVotes.Api.ResponseExtensions;
@@ -6,6 +7,7 @@ using NepalVotes.Application.Users;
 namespace NepalVotes.Api.Users;
 
 [ApiController]
+[Authorize(Roles = "ADMIN,SUPER_ADMIN")]
 [Route("api/users")]
 public class UsersController(IUserService userService) : ControllerBase
 {

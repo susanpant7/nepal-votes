@@ -27,6 +27,7 @@ public class WardsController(IWardService wardService) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> AddWard([FromBody] AddWardRequest request)
     {
         var response = await wardService.AddAsync(request);
@@ -34,6 +35,7 @@ public class WardsController(IWardService wardService) : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> UpdateWard(int id, [FromBody] UpdateWardRequest request)
     {
         var response = await wardService.UpdateAsync(request with { WardId = id });
@@ -41,6 +43,7 @@ public class WardsController(IWardService wardService) : ControllerBase
     }
     
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> DeleteWard(int id)
     {
         var response = await wardService.DeleteAsync(id);

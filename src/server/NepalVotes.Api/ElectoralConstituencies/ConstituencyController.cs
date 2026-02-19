@@ -62,6 +62,7 @@ public class ConstituencyController(IConstituencyService service) : ControllerBa
     }
     
     [HttpPut("reassign-ward")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> ReassignWard([FromBody] ReassignWardRequest request)
     {
         var response = await service.ReassignWardAsync(request.WardId, request.ConstituencyId);
@@ -69,6 +70,7 @@ public class ConstituencyController(IConstituencyService service) : ControllerBa
     }
 
     [HttpPost]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Add([FromBody] AddConstituencyRequest request)
     {
         var response = await service.AddAsync(request);
@@ -76,6 +78,7 @@ public class ConstituencyController(IConstituencyService service) : ControllerBa
     }
 
     [HttpPut]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Update([FromBody] UpdateConstituencyRequest request)
     {
         var response = await service.UpdateAsync(request);
@@ -83,6 +86,7 @@ public class ConstituencyController(IConstituencyService service) : ControllerBa
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "SUPER_ADMIN")]
     public async Task<IActionResult> Delete(int id)
     {
         var response = await service.DeleteAsync(id);
