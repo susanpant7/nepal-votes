@@ -6,9 +6,9 @@ public class CandidateSymbolInfo
 {
     public int CandidateSymbolId { get; set; }
 
-    public byte[] SymbolContent { get; set; } = null!;
-    public string SymbolContentType { get; set; } = null!;
-    public string SymbolFileName { get; set; } = null!;
+    public byte[] SymbolContent { get; set; }
+    public string SymbolContentType { get; set; }
+    public string SymbolFileName { get; set; }
 }
 
 public static class CandidateSymbolMapper
@@ -18,9 +18,9 @@ public static class CandidateSymbolMapper
         return new CandidateSymbolInfo
         {
             CandidateSymbolId = symbol.CandidateSymbolId,
-            SymbolContent = symbol.CandidateSymbolMediaFile.Content,
-            SymbolContentType = symbol.CandidateSymbolMediaFile.ContentType,
-            SymbolFileName = symbol.CandidateSymbolMediaFile.FileName
+            SymbolContent = symbol?.CandidateSymbolMediaFile?.Content,
+            SymbolContentType = symbol?.CandidateSymbolMediaFile?.ContentType,
+            SymbolFileName = symbol?.CandidateSymbolMediaFile?.FileName
         };
     }
 }

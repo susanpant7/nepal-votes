@@ -5,6 +5,15 @@ export interface ConstituencyDropdown {
   constituencyName: string;
 }
 
+// lightweight item returned by /api/constituencies/all-with-location
+// used by candidate filter dropdowns
+export interface ConstituencyFilterItem {
+  constituencyId: number;
+  constituencyName: string;
+  districtId: number;
+  provinceId: number;
+}
+
 export interface WardWithConstituencyDetails {
   wardId: number;
   wardNumber: number;

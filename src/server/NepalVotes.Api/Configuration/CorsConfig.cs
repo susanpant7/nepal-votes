@@ -11,7 +11,7 @@ public static class CorsConfig
             options.AddPolicy(appSettings.ClientCorsPolicy, policy =>
             {
                 policy
-                    .WithOrigins(appSettings.ClientUrl) // React dev server
+                    .WithOrigins(appSettings.ClientUrl.Split(',', StringSplitOptions.RemoveEmptyEntries)) // React dev server
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials(); // if you need cookies/auth headers

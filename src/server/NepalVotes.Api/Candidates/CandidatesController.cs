@@ -11,13 +11,25 @@ namespace NepalVotes.Api.Candidates;
 public class CandidatesController(ICandidateService service) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int? constituencyId)
+    public async Task<IActionResult> GetByConstituency([FromQuery] int? constituencyId = null)
     {
-        var response = await service.GetCandidatesByConstituencyIdAsync(constituencyId);
+        var ids = constituencyId.HasValue ? new List<int> { constituencyId.Value } : null;
+        var response = await service.GetCandidatesAsync(1, int.MaxValue, ids);
+        if (!response.Success) return response.ToActionResult();
+        var items = response.Data?.Items ?? [];
+        return Ok(new { success = true, data = items });
+    }
+
+    [HttpPost("search")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Search([FromBody] GetCandidatesRequest request)
+    {
+        var response = await service.GetCandidatesAsync(request.Page, request.PageSize, request.ConstituencyIds, request.PoliticalPartyIds, request.IsIndependent);
         return response.ToActionResult();
     }
     
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<IActionResult> Get(int id)
     {
         var response = await service.GetCandidateByIdAsync(id);

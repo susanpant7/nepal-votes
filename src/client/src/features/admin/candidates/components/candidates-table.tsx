@@ -1,146 +1,195 @@
 import { Edit2, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { useAdminCandidateQuery } from "@/features/admin/candidates/api/admin.candidates.query.ts";
-import type { ConstituencyDropdown } from "@/features/admin/electoral-constituencies/types/admin.electoral-constituncies.types.ts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useAdminCandidateMutation } from "@/features/admin/candidates/api/admin.candidates.query.ts";
 import type { CandidateListItem } from "@/features/admin/candidates/types/admin.candidates.types.ts";
-import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.tsx";
-import { ConstituencyDropdownSelect } from "@/features/admin/electoral-constituencies/components/constituency-dropdown-select.tsx";
-import { ScrollableTableBody } from "@/components/table/scrollable-table-body.tsx";
-import { useCandidateStore } from "@/stores/useCandidateStore.ts";
 import { useNavigate } from "@tanstack/react-router";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
-export const CandidatesTable = () => {
-  const constituencyId = useCandidateStore((s) => s.constituencyId);
-  const setConstituencyId = useCandidateStore((s) => s.setConstituencyId);
+interface CandidatesGridProps {
+  candidates: CandidateListItem[];
+  isLoading?: boolean;
+  showEmpty?: boolean;
+  emptyMessage?: string;
+}
 
-  const { data, isLoading, isError, refetch } =
-    useAdminCandidateQuery.getCandidatesByConstituencyId(constituencyId ?? 0);
-
-  const onConstituencySelect = (constituency: ConstituencyDropdown) => {
-    setConstituencyId(constituency.constituencyId);
-  };
-
-  const candidates = data ?? ([] as CandidateListItem[]);
-
+export const CandidatesGrid = ({
+  candidates,
+  isLoading,
+  showEmpty,
+  emptyMessage = "No candidates found matching the selected criteria.",
+}: CandidatesGridProps) => {
+  const { deleteCandidate } = useAdminCandidateMutation();
   const navigate = useNavigate();
+
   const onEditButtonClick = async (candidateId: number) => {
     await navigate({
       to: ROUTES.ADMIN_CANDIDATES_EDIT,
-      params: { candidateId: candidateId },
+      params: { candidateId },
     });
   };
-  return (
-    <QueryWrapper isLoading={isLoading} refetch={refetch} isError={isError}>
-      <div className="mb-4 w-64">
-        <ConstituencyDropdownSelect
-          onSelect={onConstituencySelect}
-          defaultConstituencyId={constituencyId}
-        />
+
+  const onDeleteConfirm = async (candidate: CandidateListItem) => {
+    await deleteCandidate.mutateAsync({
+      candidateId: candidate.candidateId,
+      constituencyId: candidate.constituencyId,
+    });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
       </div>
-      {!constituencyId ? (
-        <div className="flex h-40 items-center justify-center border-2 border-dashed rounded-lg text-muted-foreground">
-          Select a constituency to view candidates.
-        </div>
-      ) : (
-        <ScrollableTableBody maxHeight={"600px"}>
-          <Table>
-            <TableHeader className="sticky top-0 z-10 bg-muted/50 backdrop-blur-sm shadow-sm">
-              <TableRow className="hover:bg-transparent border-b-2 border-border">
-                <TableHead className="w-24 h-14 align-middle font-bold text-foreground">
-                  Symbol
-                </TableHead>
-                <TableHead className="h-14 align-middle font-bold text-foreground">
-                  Candidate Name
-                </TableHead>
-                <TableHead className="h-14 align-middle font-bold text-foreground">
-                  Party / Affiliation
-                </TableHead>
-                <TableHead className="h-14 align-middle font-bold text-foreground">
-                  Constituency
-                </TableHead>
-                <TableHead className="text-right h-14 align-middle font-bold text-foreground pr-6">
-                  Actions
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {candidates.length > 0 ? (
-                candidates?.map((candidate) => (
-                  <TableRow key={candidate.candidateId} className="group">
-                    <TableCell className="align-middle">
-                      <div className="h-12 w-12 rounded border bg-white p-1 shadow-sm">
-                        <img
-                          src={`data:${candidate.symbolContentType};base64,${candidate.symbolContent}`}
-                          alt="Symbol"
-                          className="h-full w-full object-contain"
-                        />
-                      </div>
-                    </TableCell>
-                    <TableCell className="align-middle font-medium">
-                      {candidate.fullName}
-                    </TableCell>
-                    <TableCell className="align-middle">
-                      {candidate.isIndependent ? (
-                        <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800">
-                          Independent
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
-                          {candidate.politicalPartyName}
-                        </span>
-                      )}
-                    </TableCell>
-                    <TableCell className="align-middle text-muted-foreground">
-                      {candidate.constituencyName}
-                    </TableCell>
-                    <TableCell className="text-right align-middle pr-4">
-                      <div className="flex justify-end gap-2">
-                        <Button
-                          onClick={() =>
-                            onEditButtonClick(candidate.candidateId)
-                          }
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))
+    );
+  }
+
+  if (showEmpty || candidates.length === 0) {
+    return (
+      <div className="flex h-40 items-center justify-center border-2 border-dashed rounded-lg text-muted-foreground">
+        {emptyMessage}
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {candidates.map((candidate) => (
+        <Card key={candidate.candidateId} className="h-full overflow-hidden hover:shadow-lg transition-shadow">
+          <CardHeader className="flex flex-row items-center gap-4 pb-2">
+            {/* Candidate Photo */}
+            <div className="h-16 w-16 rounded-full border bg-muted p-1 overflow-hidden shrink-0">
+              {candidate.imageContent ? (
+                <img
+                  src={`data:${candidate.imageContentType};base64,${candidate.imageContent}`}
+                  alt="Candidate"
+                  className="h-full w-full object-cover rounded-full"
+                />
+              ) : candidate.candidateImageId ? (
+                <img
+                  src={`https://result.election.gov.np/Images/Candidate/${candidate.candidateImageId}.jpg`}
+                  alt="Candidate"
+                  className="h-full w-full object-cover rounded-full"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    e.currentTarget.parentElement?.classList.add("bg-gray-200");
+                  }}
+                />
               ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={6}
-                    className="h-48 text-center text-muted-foreground"
-                  >
-                    <div className="flex flex-col items-center gap-2">
-                      <p>No registration records found for this district.</p>
-                    </div>
-                  </TableCell>
-                </TableRow>
+                <div className="h-full w-full bg-gray-200 flex items-center justify-center text-xs text-center text-muted-foreground rounded-full">
+                  No Img
+                </div>
               )}
-            </TableBody>
-          </Table>
-        </ScrollableTableBody>
-      )}
-    </QueryWrapper>
+            </div>
+
+            {/* Name + Party */}
+            <div className="flex flex-col flex-1 min-w-0">
+              <CardTitle className="text-base leading-tight truncate">
+                {candidate.fullName}
+              </CardTitle>
+              <div className="text-sm text-muted-foreground mt-1">
+                {candidate.isIndependent ? (
+                  <Badge variant="outline">Independent</Badge>
+                ) : (
+                  <span className="font-medium text-primary truncate block">
+                    {candidate.politicalPartyName}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Symbol */}
+            <div className="flex flex-col items-end shrink-0">
+              <div className="h-10 w-10" title={candidate.isIndependent ? "Independent Symbol" : "Party Symbol"}>
+                {candidate.symbolContent ? (
+                  <img
+                    src={`data:${candidate.symbolContentType};base64,${candidate.symbolContent}`}
+                    alt="Symbol"
+                    className="h-full w-full object-contain"
+                  />
+                ) : null}
+              </div>
+              {candidate.isIndependent && candidate.symbolName && (
+                <span
+                  className="text-[10px] text-muted-foreground mt-1 text-right max-w-[80px] truncate"
+                  title={candidate.symbolName}
+                >
+                  {candidate.symbolName}
+                </span>
+              )}
+            </div>
+          </CardHeader>
+
+          <CardContent>
+            <div className="text-sm space-y-1 mt-2">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Constituency:</span>
+                <span className="font-medium">{candidate.constituencyName}</span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-end gap-2 mt-4 pt-3 border-t">
+              <Button
+                onClick={() => onEditButtonClick(candidate.candidateId)}
+                variant="ghost"
+                size="sm"
+                className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+              >
+                <Edit2 className="h-4 w-4 mr-1" />
+                Edit
+              </Button>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete Candidate</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to remove{" "}
+                      <strong>{candidate.fullName}</strong> as a candidate? This
+                      action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => onDeleteConfirm(candidate)}
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
   );
 };
+
+// Keep the old name as an alias so existing imports continue to work
+export const CandidatesTable = CandidatesGrid;

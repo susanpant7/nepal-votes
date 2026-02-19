@@ -34,6 +34,25 @@ public class ConstituencyQueryRepository(ApplicationDbContext context) : IConsti
             })
             .ToListAsync();
     }
+
+    public async Task<List<ConstituencyFilterItem>> GetAllWithLocationAsync()
+    {
+        return await context.Constituencies
+            .AsNoTracking()
+            .Select(c => new ConstituencyFilterItem
+            {
+                ConstituencyId = c.ConstituencyId,
+                ConstituencyName = c.ConstituencyNameEn,
+                DistrictId = c.Wards
+                    .Select(w => w.Municipality.District.DistrictId)
+                    .FirstOrDefault(),
+                ProvinceId = c.Wards
+                    .Select(w => w.Municipality.District.Province.ProvinceId)
+                    .FirstOrDefault()
+            })
+            .OrderBy(c => c.ConstituencyName)
+            .ToListAsync();
+    }
     
     public async Task<List<ProvinceWithDistrictsDetails>> GetUnassignedWardsGroupedAsync()
 {

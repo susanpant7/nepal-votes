@@ -6,7 +6,12 @@ public record CandidateAddRequest
     int? PoliticalPartyId,
     bool IsIndependent,
     int ConstituencyId,
-    int? CandidateSymbolId
+    int? CandidateSymbolId,
+    int? CandidateImageId = null,
+    byte[]? ImageContent = null,
+    string? ImageContentType = null,
+    string? ImageFileName = null,
+    long? ImageFileSize = null
 );
 
 public record CandidateUpdateRequest
@@ -16,5 +21,10 @@ public record CandidateUpdateRequest
     int? PoliticalPartyId,
     bool IsIndependent,
     int ConstituencyId,
-    int? CandidateSymbolId
+    int? CandidateSymbolId,
+    int? CandidateImageId = null,
+    byte[]? ImageContent = null,
+    string? ImageContentType = null,
+    string? ImageFileName = null,
+    long? ImageFileSize = null
 );

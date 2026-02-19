@@ -2,7 +2,7 @@ namespace NepalVotes.Domain.Candidates;
 
 public interface ICandidateRepository
 {
-    public Task<IEnumerable<Candidate>> GetAllByConstituencyIdAsync(int? constituencyId = null);
+    Task<(IEnumerable<Candidate> Items, int TotalCount)> GetAllAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null);
     Task<Candidate?> GetByIdAsync(int id);
     Task AddAsync(Candidate candidate);
     Task UpdateAsync(Candidate candidate);
@@ -11,4 +11,6 @@ public interface ICandidateRepository
     Task<string?> GetConstituencyNameByUserIdAsync(int userId, int? excludeId = null);
     Task<bool> IsPartyTakenInConstituencyAsync(int constituencyId, int partyId, int? excludeCandidateId = null);
     Task<bool> IsSymbolTakenInConstituencyAsync(int constituencyId, int symbolId, int? excludeCandidateId = null);
+    /// <summary>Looks up the symbol media file for the political party whose name contains "independent" (case-insensitive).</summary>
+    Task<(byte[]? Content, string? ContentType)?> GetIndependentPartySymbolAsync();
 }

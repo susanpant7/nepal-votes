@@ -34,6 +34,14 @@ public class ConstituencyService(
             : ApiResponse<List<ConstituencyDropdown>>.SuccessResponse(constituencies.Select(x=> x.ToDropdownItems()).ToList());
     }
 
+    public async Task<ApiResponse<List<ConstituencyFilterItem>>> GetAllWithLocationAsync()
+    {
+        var items = await queryRepository.GetAllWithLocationAsync();
+        return items.Count == 0
+            ? ApiResponse<List<ConstituencyFilterItem>>.ErrorResponse("No constituencies found.")
+            : ApiResponse<List<ConstituencyFilterItem>>.SuccessResponse(items);
+    }
+
     public async Task<ApiResponse<IEnumerable<ConstituencyListItem>>> GetByAndDistrictAsync(int districtId)
     {
         var constituenciesInfo = await queryRepository.GetByDistrictAsync(districtId);

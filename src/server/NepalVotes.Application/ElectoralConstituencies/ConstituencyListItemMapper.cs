@@ -8,6 +8,15 @@ public class ConstituencyDropdown
     public string ConstituencyName { get; set; } =  string.Empty;
 }
 
+// lightweight DTO for candidate filter dropdowns (has provinceId + districtId)
+public class ConstituencyFilterItem
+{
+    public int ConstituencyId { get; set; }
+    public string ConstituencyName { get; set; } = string.Empty;
+    public int DistrictId { get; set; }
+    public int ProvinceId { get; set; }
+}
+
 public static class ConstituencyDropdownMapper
 {
     public static ConstituencyDropdown ToDropdownItems(this Constituency constituency)

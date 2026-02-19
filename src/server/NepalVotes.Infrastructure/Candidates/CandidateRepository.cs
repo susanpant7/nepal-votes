@@ -6,7 +6,7 @@ namespace NepalVotes.Infrastructure.Candidates;
 
 public class CandidateRepository(ApplicationDbContext context) : ICandidateRepository
 {
-    public async Task<IEnumerable<Candidate>> GetAllByConstituencyIdAsync(int? constituencyId = null)
+    public async Task<(IEnumerable<Candidate> Items, int TotalCount)> GetAllAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null)
     {
         var query = context.Candidates
             .Include(c => c.User)
@@ -15,12 +15,27 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
             .Include(c => c.CandidateSymbol).ThenInclude(cs => cs!.CandidateSymbolMediaFile)
             .AsQueryable();
 
-        if (constituencyId.HasValue)
+        if (constituencyIds != null && constituencyIds.Any())
         {
-            query = query.Where(c => c.ConstituencyId == constituencyId.Value);
+            query = query.Where(c => constituencyIds.Contains(c.ConstituencyId));
         }
 
-        return await query.ToListAsync();
+        if ((politicalPartyIds != null && politicalPartyIds.Any()) || (isIndependent.HasValue && isIndependent.Value))
+        {
+            query = query.Where(c => 
+                (politicalPartyIds != null && c.PoliticalPartyId.HasValue && politicalPartyIds.Contains(c.PoliticalPartyId.Value)) || 
+                (isIndependent.HasValue && isIndependent.Value && c.IsIndependent)
+            );
+        }
+
+        var totalCount = await query.CountAsync();
+
+        var items = await query.OrderBy(c => c.ConstituencyId)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (items, totalCount);
     }
 
     public async Task<Candidate?> GetByIdAsync(int id)
@@ -78,5 +93,16 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
             .AnyAsync(c => c.ConstituencyId == constituencyId 
                            && c.CandidateSymbolId == symbolId 
                            && c.CandidateId != excludeCandidateId);
+    }
+
+    public async Task<(byte[]? Content, string? ContentType)?> GetIndependentPartySymbolAsync()
+    {
+        var party = await context.PoliticalParties
+            .Include(p => p.SymbolMediaFile)
+            .Where(p => p.PoliticalPartyNameEn.ToLower().Contains("independent"))
+            .FirstOrDefaultAsync();
+
+        if (party?.SymbolMediaFile == null) return null;
+        return (party.SymbolMediaFile.Content, party.SymbolMediaFile.ContentType);
     }
 }

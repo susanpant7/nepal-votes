@@ -6,6 +6,7 @@ public interface IConstituencyService
 {
     // Task<ApiResponse<IEnumerable<ConstituencyListItem>>> GetAllAsync();
     Task<ApiResponse<List<ConstituencyDropdown>>> GetDropdownAsync();
+    Task<ApiResponse<List<ConstituencyFilterItem>>> GetAllWithLocationAsync();
     Task<ApiResponse<IEnumerable<ConstituencyListItem>>> GetByAndDistrictAsync(int districtId);
     Task<ApiResponse<ConstituencyDetail>> GetConstituencyDetailAsync(int constituencyId);
     Task<ApiResponse<int>> AddAsync(AddConstituencyRequest request);

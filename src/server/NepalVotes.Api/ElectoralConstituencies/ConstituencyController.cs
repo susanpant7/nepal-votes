@@ -17,9 +17,18 @@ public class ConstituencyController(IConstituencyService service) : ControllerBa
     // }
     
     [HttpGet("dropdown")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetDropdown()
     {
         var response = await service.GetDropdownAsync();
+        return response.ToActionResult();
+    }
+
+    [HttpGet("all-with-location")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetAllWithLocation()
+    {
+        var response = await service.GetAllWithLocationAsync();
         return response.ToActionResult();
     }
     

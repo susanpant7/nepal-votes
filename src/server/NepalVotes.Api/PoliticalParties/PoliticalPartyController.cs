@@ -11,9 +11,19 @@ namespace NepalVotes.Api.PoliticalParties;
 public class PoliticalPartyController(IPoliticalPartyService partyService) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetPoliticalParties()
     {
         var response = await partyService.GetPartiesAsync();
+
+        return response.ToActionResult();
+    }
+    
+    [HttpGet("dropdown")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetPoliticalPartiesDropdown()
+    {
+        var response = await partyService.GetPartiesDropdownAsync();
 
         return response.ToActionResult();
     }

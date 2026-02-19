@@ -11,6 +11,7 @@ public class CandidateSymbolRepository(ApplicationDbContext context) : ICandidat
         var query = context.CandidateSymbols
             .AsNoTracking()
             .Include(x => x.CandidateSymbolMediaFile)
+            .Where(x => x.CandidateSymbolMediaFile != null && x.CandidateSymbolMediaFile.Content != null)
             .OrderByDescending(x => x.CandidateSymbolId);
 
         var totalCount = await query.CountAsync();

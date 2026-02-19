@@ -32,4 +32,12 @@ public static class PoliticalPartyMapper
             PartyLeaderId = party.PartyLeader?.UserId??0
         };
     }
+    public static PoliticalPartyDto ToPoliticalPartyDto(this PoliticalParty party)
+    {
+        return new PoliticalPartyDto
+        {
+            PoliticalPartyId = party.PoliticalPartyId,
+            PoliticalPartyNameEn = party.PoliticalPartyNameEn
+        };
+    }
 }

@@ -18,6 +18,17 @@ public class PoliticalPartyService(IPoliticalPartyRepository repository,
             ApiResponse<IEnumerable<PoliticalPartyInfo>>.SuccessResponse(partiesInfo, "No political parties found.") 
             : ApiResponse<IEnumerable<PoliticalPartyInfo>>.SuccessResponse(partiesInfo);
     }
+
+    public async Task<ApiResponse<IEnumerable<PoliticalPartyDto>>> GetPartiesDropdownAsync()
+    {
+        var parties = await repository.GetAllPartiesAsync();
+        
+        var partiesDto = parties.Select(party => party.ToPoliticalPartyDto()).ToList();
+
+        return partiesDto.Count == 0 ? 
+            ApiResponse<IEnumerable<PoliticalPartyDto>>.SuccessResponse(partiesDto, "No political parties found.") 
+            : ApiResponse<IEnumerable<PoliticalPartyDto>>.SuccessResponse(partiesDto);
+    }
     
     public async Task<ApiResponse<PoliticalPartyInfo>> GetByIdAsync(int id)
     {

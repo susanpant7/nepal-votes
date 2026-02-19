@@ -1,27 +1,34 @@
 using NepalVotes.Application.ResponseHelpers;
 using NepalVotes.Domain.Candidates;
 using NepalVotes.Domain.Common;
+using NepalVotes.Domain.MediaFiles;
 
 namespace NepalVotes.Application.Candidates;
 
 public class CandidateService(ICandidateRepository repository, IUnitOfWork unitOfWork) : ICandidateService
 {
-    public async Task<ApiResponse<IEnumerable<CandidateListItem>>> GetCandidatesByConstituencyIdAsync(int? constituencyId = null)
+    public async Task<ApiResponse<PagedResult<CandidateListItem>>> GetCandidatesAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null)
     {
-        var candidates = await repository.GetAllByConstituencyIdAsync(constituencyId);
-        var candidateListItems = candidates.Select(c => c.ToCandidateListItem()).ToList();
+        var (candidates, totalCount) = await repository.GetAllAsync(page, pageSize, constituencyIds, politicalPartyIds, isIndependent);
+
+        // Fetch the "Independent" party symbol once to use as fallback for independent candidates
+        var independentSymbol = await repository.GetIndependentPartySymbolAsync();
+
+        var candidateListItems = candidates.Select(c => c.ToCandidateListItem(independentSymbol)).ToList();
+
+        var pagedResult = PagedResult<CandidateListItem>.Create(candidateListItems, page, pageSize, totalCount);
         
-        return candidateListItems.Count != 0
-            ? ApiResponse<IEnumerable<CandidateListItem>>.SuccessResponse(candidateListItems)
-            : ApiResponse<IEnumerable<CandidateListItem>>.SuccessResponse(candidateListItems, "No candidates found.");
+        return ApiResponse<PagedResult<CandidateListItem>>.SuccessResponse(pagedResult);
     }
 
     public async Task<ApiResponse<CandidateDetail>> GetCandidateByIdAsync(int id)
     {
         var candidate = await repository.GetByIdAsync(id);
-        return candidate == null 
-            ? ApiResponse<CandidateDetail>.ErrorResponse("Candidate not found.") 
-            : ApiResponse<CandidateDetail>.SuccessResponse(candidate.ToCandidateDetail());
+        if (candidate == null)
+            return ApiResponse<CandidateDetail>.ErrorResponse("Candidate not found.");
+
+        var independentSymbol = await repository.GetIndependentPartySymbolAsync();
+        return ApiResponse<CandidateDetail>.SuccessResponse(candidate.ToCandidateDetail(independentSymbol));
     }
 
     public async Task<ApiResponse<bool>> CreateCandidateAsync(CandidateAddRequest candidateRequest)
@@ -39,8 +46,21 @@ public class CandidateService(ICandidateRepository repository, IUnitOfWork unitO
             ConstituencyId = candidateRequest.ConstituencyId,
             IsIndependent = candidateRequest.IsIndependent,
             PoliticalPartyId = candidateRequest.IsIndependent ? null : candidateRequest.PoliticalPartyId,
-            CandidateSymbolId = candidateRequest.IsIndependent ? candidateRequest.CandidateSymbolId : null
+            CandidateSymbolId = candidateRequest.IsIndependent ? candidateRequest.CandidateSymbolId : null,
+            CandidateImageId = candidateRequest.CandidateImageId ?? 0
         };
+
+        if (candidateRequest.ImageContent != null)
+        {
+            candidate.CandidateImageMediaFile = new MediaFile
+            {
+                Content = candidateRequest.ImageContent,
+                ContentType = candidateRequest.ImageContentType ?? "image/jpeg",
+                FileName = candidateRequest.ImageFileName ?? "candidate.jpg",
+                Size = candidateRequest.ImageFileSize ?? candidateRequest.ImageContent.Length
+            };
+            candidate.CandidateImageId = 0;
+        }
 
         try 
         {
@@ -76,6 +96,36 @@ public class CandidateService(ICandidateRepository repository, IUnitOfWork unitO
         existingCandidate.IsIndependent = candidateRequest.IsIndependent;
         existingCandidate.PoliticalPartyId = candidateRequest.IsIndependent ? null : candidateRequest.PoliticalPartyId;
         existingCandidate.CandidateSymbolId = candidateRequest.IsIndependent ? candidateRequest.CandidateSymbolId : null;
+        existingCandidate.CandidateImageId = candidateRequest.CandidateImageId ?? 0;
+
+        if (candidateRequest.ImageContent != null)
+        {
+            if (existingCandidate.CandidateImageMediaFile != null)
+            {
+                existingCandidate.CandidateImageMediaFile.Content = candidateRequest.ImageContent;
+                existingCandidate.CandidateImageMediaFile.ContentType = candidateRequest.ImageContentType ?? "image/jpeg";
+                existingCandidate.CandidateImageMediaFile.FileName = candidateRequest.ImageFileName ?? "candidate.jpg";
+                existingCandidate.CandidateImageMediaFile.Size = candidateRequest.ImageFileSize ?? candidateRequest.ImageContent.Length;
+            }
+            else
+            {
+                existingCandidate.CandidateImageMediaFile = new MediaFile
+                {
+                    Content = candidateRequest.ImageContent,
+                    ContentType = candidateRequest.ImageContentType ?? "image/jpeg",
+                    FileName = candidateRequest.ImageFileName ?? "candidate.jpg",
+                    Size = candidateRequest.ImageFileSize ?? candidateRequest.ImageContent.Length
+                };
+            }
+            existingCandidate.CandidateImageId = 0;
+        }
+        else if (candidateRequest.CandidateImageId.HasValue)
+        {
+            // If they provided a new ID but no new upload, we might want to clear the old upload
+            // but for now let's assume if ImageId is provided it takes precedence if ImageContent is null
+            existingCandidate.CandidateImageMediaFile = null;
+            existingCandidate.CandidateImageMediaFileId = null;
+        }
 
         try
         {

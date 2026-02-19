@@ -52,7 +52,8 @@ public class VoteService(IVoteRepository repository, IUserRepository userReposit
         if (constituencyId == null)
             return ApiResponse<List<VoterCandidateSelectOptions>>.ErrorResponse("User geographical data not found.");
 
-        var candidates = (await candidateRepository.GetAllByConstituencyIdAsync(constituencyId.Value)).ToList();
+        var result = await candidateRepository.GetAllAsync(constituencyIds: [constituencyId.Value], pageSize: int.MaxValue);
+        var candidates = result.Items.ToList();
         var voterCandidateOptions = candidates.Select(c => c.ToVoterCandidateOptions()).ToList();
         
         return ApiResponse<List<VoterCandidateSelectOptions>>.SuccessResponse(voterCandidateOptions);

@@ -33,6 +33,9 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
                     b.Property<int>("CandidateImageId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CandidateImageMediaFileId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CandidateSymbolId")
                         .HasColumnType("int");
 
@@ -61,6 +64,8 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CandidateId");
+
+                    b.HasIndex("CandidateImageMediaFileId");
 
                     b.HasIndex("CandidateSymbolId");
 
@@ -905,6 +910,10 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("NepalVotes.Domain.Candidates.Candidate", b =>
                 {
+                    b.HasOne("NepalVotes.Domain.MediaFiles.MediaFile", "CandidateImageMediaFile")
+                        .WithMany()
+                        .HasForeignKey("CandidateImageMediaFileId");
+
                     b.HasOne("NepalVotes.Domain.Candidates.CandidateSymbol", "CandidateSymbol")
                         .WithMany("Candidates")
                         .HasForeignKey("CandidateSymbolId")
@@ -926,6 +935,8 @@ namespace NepalVotes.Infrastructure.Persistence.Migrations
                         .HasForeignKey("NepalVotes.Domain.Candidates.Candidate", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("CandidateImageMediaFile");
 
                     b.Navigation("CandidateSymbol");
 
