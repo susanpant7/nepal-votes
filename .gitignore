@@ -23,5 +23,6 @@ Thumbs.db
 
 # Environment and Logs
 .env*
+appsettings.Production.json
 src/server/NepalVotes.Engine/loadfiles/
 src/server/NepalVotes.Api/build_log*.txt
