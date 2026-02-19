@@ -18,6 +18,7 @@ export interface CandidateDetail {
   candidateId: number;
   candidateImageId: number | null;
   constituencyId: number;
+  constituencyName: string;
   fullName: string;
   userId: number;
   isIndependent: boolean;

@@ -82,17 +82,7 @@ export const CandidateDetailPage = () => {
                                 <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
                                     <MapPin className="h-5 w-5 text-primary mt-0.5" />
                                     <div>
-                                        <h3 className="font-medium">Constituency</h3>
-                                        {/* Note: constituencyName might not be in CandidateDetail based on current type definition. 
-                        If not, we might need to fetch it or update the backend DTO. 
-                        Assuming it's available or we can derive it. 
-                        Checking the type definition again, CandidateDetail has constituencyId but not Name.
-                        The list item had constituencyName. 
-                        Let's check if we can get it or if we need to fetch constituency details separately or update backend.
-                        For now, I'll display ID and maybe subsequent update to backend is needed if name is missing.
-                        Wait, CandidateDetail usually has basic info. Let's check the type file again.
-                    */}
-                                        <p className="text-muted-foreground">Constituency ID: {candidate.constituencyId}</p>
+                                        <p className="text-muted-foreground">{candidate.constituencyName}</p>
                                     </div>
                                 </div>
 
