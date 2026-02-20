@@ -10,6 +10,12 @@ public class VoterCandidateSelectOptions
     public byte[] SymbolContent { get; set; }
     public string SymbolContentType { get; set; } = null!;
     public string SymbolFileName { get; set; } = null!;
+    
+    public byte[]? CandidateImageContent { get; set; }
+    public string? CandidateImageContentType { get; set; }
+    public string? CandidateImageFileName { get; set; }
+    
+    public int CandidateImageId { get; set; }
 }
 
 public class VoterPartySelectOptions
@@ -35,7 +41,11 @@ public static class VotingMapper
             CandidateName = candidate.User.FullNameEn,
             SymbolContent = symbolMedia?.Content ?? [],
             SymbolContentType = symbolMedia?.ContentType ?? string.Empty,
-            SymbolFileName = symbolMedia?.FileName ?? string.Empty
+            SymbolFileName = symbolMedia?.FileName ?? string.Empty,
+            CandidateImageContent = candidate.CandidateImageMediaFile?.Content,
+            CandidateImageContentType = candidate.CandidateImageMediaFile?.ContentType,
+            CandidateImageFileName = candidate.CandidateImageMediaFile?.FileName,
+            CandidateImageId = candidate.CandidateImageId
         };
     }
 

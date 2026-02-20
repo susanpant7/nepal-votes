@@ -13,6 +13,7 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
             .Include(c => c.Constituency)
             .Include(c => c.PoliticalParty).ThenInclude(p => p!.SymbolMediaFile)
             .Include(c => c.CandidateSymbol).ThenInclude(cs => cs!.CandidateSymbolMediaFile)
+            .Include(c => c.CandidateImageMediaFile)
             .AsQueryable();
 
         if (constituencyIds != null && constituencyIds.Any())
@@ -45,6 +46,7 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
             .Include(c => c.Constituency)
             .Include(c => c.PoliticalParty).ThenInclude(p => p!.SymbolMediaFile)
             .Include(c => c.CandidateSymbol).ThenInclude(cs => cs!.CandidateSymbolMediaFile)
+            .Include(c => c.CandidateImageMediaFile)
             .FirstOrDefaultAsync(c => c.CandidateId == id);
     }
 

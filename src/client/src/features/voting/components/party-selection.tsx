@@ -3,7 +3,7 @@ import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.t
 import type { VoterPartySelectOptions } from "@/features/voting/types/voting.types.ts";
 import { Card, CardContent } from "@/components/ui/card.tsx";
 import { cn } from "@/lib/utils.ts";
-import { Ban, CheckCircle2 } from "lucide-react";
+import { Ban } from "lucide-react";
 import { useVotingStore } from "@/stores/useVotingStore.ts";
 
 export const PartySelection = () => {
@@ -44,8 +44,8 @@ export const PartySelection = () => {
             >
               {/* Selected Badge */}
               {isSelected && (
-                <div className="absolute top-2 right-2 z-10">
-                  <CheckCircle2 className="w-6 h-6 text-primary fill-white" />
+                <div className="absolute top-2 right-2 z-10 bg-white/80 rounded-full p-1 shadow-sm backdrop-blur-sm">
+                  <img src="https://assets-generalelection2082.ekantipur.com/parties/party-1770810367.png" alt="Selected" className="w-8 h-8 object-contain drop-shadow-md" />
                 </div>
               )}
 
@@ -84,8 +84,8 @@ export const PartySelection = () => {
           )}
         >
           {selectedParty?.partyId === -1 && (
-            <div className="absolute top-2 right-2 z-10">
-              <CheckCircle2 className="w-6 h-6 text-destructive fill-white" />
+            <div className="absolute top-2 right-2 z-10 bg-white/80 rounded-full p-1 shadow-sm backdrop-blur-sm">
+              <img src="https://assets-generalelection2082.ekantipur.com/parties/party-1770810367.png" alt="Selected" className="w-8 h-8 object-contain drop-shadow-md grayscale opacity-80" />
             </div>
           )}
 

@@ -26,6 +26,10 @@ export interface VoterCandidateSelectOptions {
   symbolContent: string;
   symbolContentType: string;
   symbolFileName: string;
+  candidateImageContent?: string;
+  candidateImageContentType?: string;
+  candidateImageFileName?: string;
+  candidateImageId: number;
 }
 export interface VoterPartySelectOptions {
   partyId: number;

@@ -3,7 +3,7 @@ import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.t
 import { Card, CardContent } from "@/components/ui/card.tsx";
 import { cn } from "@/lib/utils.ts";
 import type { VoterCandidateSelectOptions } from "@/features/voting/types/voting.types.ts";
-import { Ban, CheckCircle2 } from "lucide-react";
+import { Ban, User } from "lucide-react";
 import { useVotingStore } from "@/stores/useVotingStore.ts";
 
 export const CandidateSelection = () => {
@@ -19,6 +19,10 @@ export const CandidateSelection = () => {
       symbolContent: "",
       symbolContentType: "",
       symbolFileName: "No Vote",
+      candidateImageContent: "",
+      candidateImageContentType: "",
+      candidateImageFileName: "",
+      candidateImageId: -1,
     });
   };
   const { data, isLoading, isError, refetch } =
@@ -44,30 +48,69 @@ export const CandidateSelection = () => {
             >
               {/* Selected Badge */}
               {isSelected && (
-                <div className="absolute top-2 right-2 z-10">
-                  <CheckCircle2 className="w-6 h-6 text-primary fill-white" />
+                <div className="absolute top-2 right-2 z-10 bg-white/80 rounded-full p-1 shadow-sm backdrop-blur-sm">
+                  <img src="https://assets-generalelection2082.ekantipur.com/parties/party-1770810367.png" alt="Selected" className="w-8 h-8 object-contain drop-shadow-md" />
                 </div>
               )}
 
-              <CardContent className="p-6 flex flex-col items-center justify-center">
-                <div className="relative w-full aspect-square flex items-center justify-center bg-white rounded-lg p-2">
-                  <img
-                    src={`data:${candidate.symbolContentType};base64,${candidate.symbolContent}`}
-                    alt={candidate.symbolFileName}
-                    className={cn(
-                      "max-w-full max-h-full object-contain transition-transform duration-300",
-                      isSelected ? "scale-110" : "group-hover:scale-105",
+              <CardContent className="p-6 flex flex-col items-center justify-center relative">
+                <div className="relative w-32 h-32 sm:w-40 sm:h-40 mb-4 flex-shrink-0">
+                  {/* Candidate Portrait */}
+                  <div className={cn(
+                    "w-full h-full rounded-full border-4 shadow-md overflow-hidden bg-muted flex items-center justify-center transition-all duration-300",
+                    isSelected ? "border-primary" : "border-background"
+                  )}>
+                    {candidate.candidateImageContent ? (
+                      <img
+                        src={`data:${candidate.candidateImageContentType};base64,${candidate.candidateImageContent}`}
+                        alt={candidate.candidateName}
+                        className={cn(
+                          "w-full h-full object-cover transition-transform duration-500",
+                          isSelected ? "scale-110" : "group-hover:scale-105"
+                        )}
+                      />
+                    ) : candidate.candidateImageId && candidate.candidateImageId > 0 ? (
+                      <img
+                        src={`https://result.election.gov.np/Images/Candidate/${candidate.candidateImageId}.jpg`}
+                        alt={candidate.candidateName}
+                        className={cn(
+                          "w-full h-full object-cover transition-transform duration-500",
+                          isSelected ? "scale-110" : "group-hover:scale-105"
+                        )}
+                        onError={(e) => {
+                          // Fallback if the external image doesn't exist
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.parentElement?.classList.add('flex', 'items-center', 'justify-center');
+                          const fallbackIcon = document.createElement('div');
+                          fallbackIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground/30"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+                          e.currentTarget.parentElement?.appendChild(fallbackIcon.firstChild as Node);
+                        }}
+                      />
+                    ) : (
+                      <User className="w-12 h-12 text-muted-foreground/30" />
                     )}
-                  />
+                  </div>
+
+                  {/* Party Symbol floating badge */}
+                  {candidate.symbolContent && (
+                    <div className="absolute -bottom-2 -right-2 z-10 w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-full border-2 border-muted shadow-lg p-1.5 flex items-center justify-center transition-transform hover:scale-110">
+                      <img
+                        src={`data:${candidate.symbolContentType};base64,${candidate.symbolContent}`}
+                        alt={candidate.symbolFileName}
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                  )}
                 </div>
-                <p
+
+                <h3
                   className={cn(
-                    "mt-4 font-bold text-center transition-colors",
-                    isSelected ? "text-primary" : "text-foreground",
+                    "mt-2 text-lg font-bold text-center leading-tight transition-colors",
+                    isSelected ? "text-primary" : "text-foreground"
                   )}
                 >
                   {candidate.candidateName}
-                </p>
+                </h3>
               </CardContent>
             </Card>
           );
@@ -84,8 +127,8 @@ export const CandidateSelection = () => {
           )}
         >
           {selectedCandidate?.candidateId === -1 && (
-            <div className="absolute top-2 right-2 z-10">
-              <CheckCircle2 className="w-6 h-6 text-destructive fill-white" />
+            <div className="absolute top-2 right-2 z-10 bg-white/80 rounded-full p-1 shadow-sm backdrop-blur-sm">
+              <img src="https://assets-generalelection2082.ekantipur.com/parties/party-1770810367.png" alt="Selected" className="w-8 h-8 object-contain drop-shadow-md grayscale opacity-80" />
             </div>
           )}
 
