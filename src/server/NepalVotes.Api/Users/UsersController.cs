@@ -7,7 +7,6 @@ using NepalVotes.Application.Users;
 namespace NepalVotes.Api.Users;
 
 [ApiController]
-[Authorize(Roles = "ADMIN,SUPER_ADMIN")]
 [Route("api/users")]
 public class UsersController(IUserService userService) : ControllerBase
 {
@@ -19,6 +18,7 @@ public class UsersController(IUserService userService) : ControllerBase
         return userProfile.ToActionResult();
     }
     
+    [Authorize(Roles = "ADMIN,SUPER_ADMIN")]
     [HttpGet("search")]
     public async Task<IActionResult> Search([FromQuery] string query)
     {
