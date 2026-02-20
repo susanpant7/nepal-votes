@@ -146,8 +146,8 @@ export const RegistrationUserDetailsForm = ({
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-xs font-bold uppercase text-muted-foreground">First Name</Label>
-                  <Input id="firstName" name="firstName" placeholder="Janak" value={formData.firstName} onChange={handleInputChange} className={errors.firstName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  <Label htmlFor="firstName" className="text-xs font-bold uppercase text-muted-foreground">First Name <span className="text-destructive">*</span></Label>
+                  <Input id="firstName" name="firstName" required placeholder="Janak" value={formData.firstName} onChange={handleInputChange} className={errors.firstName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
                   {errors.firstName && <p className="text-[10px] font-bold text-destructive">{errors.firstName}</p>}
                 </div>
 
@@ -157,8 +157,8 @@ export const RegistrationUserDetailsForm = ({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-xs font-bold uppercase text-muted-foreground">Last Name</Label>
-                  <Input id="lastName" name="lastName" placeholder="Panta" value={formData.lastName} onChange={handleInputChange} className={errors.lastName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  <Label htmlFor="lastName" className="text-xs font-bold uppercase text-muted-foreground">Last Name <span className="text-destructive">*</span></Label>
+                  <Input id="lastName" name="lastName" required placeholder="Panta" value={formData.lastName} onChange={handleInputChange} className={errors.lastName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
                   {errors.lastName && <p className="text-[10px] font-bold text-destructive">{errors.lastName}</p>}
                 </div>
               </div>
@@ -166,8 +166,8 @@ export const RegistrationUserDetailsForm = ({
               {/* Nepali Names Row */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="firstNameNp" className="text-xs font-bold uppercase text-muted-foreground">FirstName (Nepali)</Label>
-                  <Input id="firstNameNp" name="firstNameNp" placeholder="जनक" value={formData.firstNameNp} onChange={handleInputChange} className={errors.firstNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  <Label htmlFor="firstNameNp" className="text-xs font-bold uppercase text-muted-foreground">FirstName (Nepali) <span className="text-destructive">*</span></Label>
+                  <Input id="firstNameNp" name="firstNameNp" required placeholder="जनक" value={formData.firstNameNp} onChange={handleInputChange} className={errors.firstNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
                   {errors.firstNameNp && <p className="text-[10px] font-bold text-destructive">{errors.firstNameNp}</p>}
                 </div>
 
@@ -177,8 +177,8 @@ export const RegistrationUserDetailsForm = ({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="lastNameNp" className="text-xs font-bold uppercase text-muted-foreground">LastName (Nepali)</Label>
-                  <Input id="lastNameNp" name="lastNameNp" placeholder="पन्त" value={formData.lastNameNp} onChange={handleInputChange} className={errors.lastNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  <Label htmlFor="lastNameNp" className="text-xs font-bold uppercase text-muted-foreground">LastName (Nepali) <span className="text-destructive">*</span></Label>
+                  <Input id="lastNameNp" name="lastNameNp" required placeholder="पन्त" value={formData.lastNameNp} onChange={handleInputChange} className={errors.lastNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
                   {errors.lastNameNp && <p className="text-[10px] font-bold text-destructive">{errors.lastNameNp}</p>}
                 </div>
               </div>

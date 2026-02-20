@@ -50,7 +50,10 @@ export interface PaginatedResponse<T> {
 
 export interface UserRegistrationSearchQuery {
   districtId?: number;
-  searchTerm?: string;
+  fullName?: string;
+  nationalIdNumber?: string;
+  voterIdNumber?: string;
+  mobileNumber?: string;
   pageNumber?: number;
   pageSize?: number;
 }

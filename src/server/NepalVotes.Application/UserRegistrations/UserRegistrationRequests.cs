@@ -57,3 +57,13 @@ public record UserRegistrationReviewRequest(
     int UserRegistrationId, 
     string? ReviewComment
 );
+
+public record SearchUserRegistrationsRequest(
+    int? DistrictId,
+    string? FullName,
+    string? NationalIdNumber,
+    string? VoterIdNumber,
+    string? MobileNumber,
+    int PageNumber = 1,
+    int PageSize = 10
+);

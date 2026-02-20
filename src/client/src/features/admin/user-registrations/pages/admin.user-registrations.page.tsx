@@ -1,5 +1,5 @@
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { Search, X } from "lucide-react";
+import { X } from "lucide-react";
 import { UserRegistrationsTable } from "@/features/admin/user-registrations/components/user-registrations-table.tsx";
 import { DistrictDropdownSelect } from "@/features/admin/electoral-geographies/components/district-dropdown-select.tsx";
 import { useAdminUserRegistrationQuery } from "@/features/admin/user-registrations/api/admin.user-registrations.query.ts";
@@ -12,29 +12,41 @@ export const AdminUserRegistrationsPage = () => {
   const search = useSearch({ from: "/_admin/admin/user-registrations/" });
 
   const districtId = search.districtId ? Number(search.districtId) : undefined;
-  const searchTerm = search.searchTerm || "";
+  const fullName = search.fullName || "";
+  const nationalIdNumber = search.nationalIdNumber || "";
+  const voterIdNumber = search.voterIdNumber || "";
+  const mobileNumber = search.mobileNumber || "";
   const pageNumber = search.pageNumber ? Number(search.pageNumber) : 1;
 
-  const [localSearchTerm, setLocalSearchTerm] = useState(searchTerm);
+  const [localDistrictId, setLocalDistrictId] = useState<number | undefined>(districtId);
+  const [localFullName, setLocalFullName] = useState(fullName);
+  const [localNationalId, setLocalNationalId] = useState(nationalIdNumber);
+  const [localVoterId, setLocalVoterId] = useState(voterIdNumber);
+  const [localMobile, setLocalMobile] = useState(mobileNumber);
 
   const { data, isLoading, isError, refetch } =
     useAdminUserRegistrationQuery.useSearchRegistrations({
       districtId,
-      searchTerm,
+      fullName,
+      nationalIdNumber,
+      voterIdNumber,
+      mobileNumber,
       pageNumber,
       pageSize: 10,
     });
 
-  const onDistrictSelected = (id: number | undefined) => {
-    navigate({
-      search: (old: any) => ({ ...old, districtId: id, pageNumber: 1 }),
-    });
-  };
-
   const onSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     navigate({
-      search: (old: any) => ({ ...old, searchTerm: localSearchTerm, pageNumber: 1 }),
+      search: (old: any) => ({
+        ...old,
+        districtId: localDistrictId,
+        fullName: localFullName || undefined,
+        nationalIdNumber: localNationalId || undefined,
+        voterIdNumber: localVoterId || undefined,
+        mobileNumber: localMobile || undefined,
+        pageNumber: 1,
+      }),
     });
   };
 
@@ -45,9 +57,13 @@ export const AdminUserRegistrationsPage = () => {
   };
 
   const clearFilters = () => {
-    setLocalSearchTerm("");
+    setLocalDistrictId(undefined);
+    setLocalFullName("");
+    setLocalNationalId("");
+    setLocalVoterId("");
+    setLocalMobile("");
     navigate({
-      search: () => ({ districtId: undefined, searchTerm: "", pageNumber: 1 }),
+      search: () => ({ pageNumber: 1 }),
     });
   };
 
@@ -62,48 +78,81 @@ export const AdminUserRegistrationsPage = () => {
       </div>
 
       {/* Filters Area */}
-      <div className="flex flex-wrap items-end gap-4 bg-muted/30 p-6 rounded-xl border border-border/50">
-        <div className="w-72 space-y-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
-            Filter by District
-          </label>
-          <DistrictDropdownSelect
-            onSelect={(district) => onDistrictSelected(district.districtId)}
-            defaultDistrictId={districtId}
-          />
-        </div>
-
-        <form onSubmit={onSearchSubmit} className="flex-1 min-w-[300px] space-y-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
-            Search Applicants
-          </label>
-          <div className="relative group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-            <Input
-              placeholder="Search by name, mobile, or ID number..."
-              value={localSearchTerm}
-              onChange={(e) => setLocalSearchTerm(e.target.value)}
-              className="pl-10 h-10 border-border/60 focus-visible:ring-primary/20 transition-all"
+      <div className="bg-muted/30 p-6 rounded-xl border border-border/50">
+        <form onSubmit={onSearchSubmit} className="flex flex-wrap items-end gap-4">
+          <div className="w-72 space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+              Filter by District
+            </label>
+            <DistrictDropdownSelect
+              onSelect={(district) => setLocalDistrictId(district.districtId)}
+              defaultDistrictId={localDistrictId}
             />
           </div>
-        </form>
 
-        <div className="flex items-center gap-2">
-          <Button type="submit" onClick={onSearchSubmit} className="h-10 px-6 font-semibold shadow-sm">
-            Search
-          </Button>
-          {(districtId || searchTerm) && (
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={clearFilters}
-              className="h-10 w-10 border-border/60 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-all"
-              title="Clear all filters"
-            >
-              <X className="h-4 w-4" />
+          <div className="flex-1 min-w-[200px] space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+              Full Name
+            </label>
+            <Input
+              placeholder="e.g. Janak Panta"
+              value={localFullName}
+              onChange={(e) => setLocalFullName(e.target.value)}
+              className="h-10 transition-all font-medium"
+            />
+          </div>
+          <div className="w-[180px] space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+              National ID
+            </label>
+            <Input
+              placeholder="e.g. 123456"
+              value={localNationalId}
+              onChange={(e) => setLocalNationalId(e.target.value)}
+              className="h-10 transition-all"
+            />
+          </div>
+          <div className="w-[180px] space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+              Voter ID
+            </label>
+            <Input
+              placeholder="e.g. 987654"
+              value={localVoterId}
+              onChange={(e) => setLocalVoterId(e.target.value)}
+              className="h-10 transition-all"
+            />
+          </div>
+          <div className="w-[180px] space-y-2">
+            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+              Mobile Number
+            </label>
+            <Input
+              placeholder="e.g. 9840000000"
+              value={localMobile}
+              onChange={(e) => setLocalMobile(e.target.value)}
+              className="h-10 transition-all"
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button type="submit" onClick={onSearchSubmit} className="h-10 px-6 font-semibold shadow-sm">
+              Search
             </Button>
-          )}
-        </div>
+            {(districtId || fullName || nationalIdNumber || voterIdNumber || mobileNumber) && (
+              <Button
+                variant="outline"
+                type="button"
+                size="icon"
+                onClick={clearFilters}
+                className="h-10 w-10 border-border/60 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-all"
+                title="Clear all filters"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        </form>
       </div>
 
       {/* Table Container */}

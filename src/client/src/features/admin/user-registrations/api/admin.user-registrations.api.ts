@@ -14,9 +14,7 @@ export const AdminUserRegistrationApi = {
   searchRegistrations: async (
     query: UserRegistrationSearchQuery,
   ): Promise<PaginatedResponse<UserRegistrationListItem>> =>
-    apiClient.get(ADMIN_USER_REGISTRATION_ENDPOINTS.SEARCH_REGISTERED_USERS, {
-      params: query,
-    }),
+    apiClient.post(ADMIN_USER_REGISTRATION_ENDPOINTS.SEARCH_REGISTERED_USERS, query),
 
   getRegisteredUsersByDistrictId: async (
     districtId: number,

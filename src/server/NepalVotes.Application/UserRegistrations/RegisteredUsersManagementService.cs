@@ -9,12 +9,19 @@ namespace NepalVotes.Application.UserRegistrations;
 public class RegisteredUsersManagementService (IUserRegistrationRepository registrationRepository, IRoleRepository roleRepository, 
     IUserRepository userRepository, IUnitOfWork unitOfWork) : IRegisteredUsersManagementService
 {
-    public async Task<ApiResponse<PagedResult<UserRegistrationListItem>>> GetPaginatedRegistrations(int? districtId, string? searchTerm, int pageNumber, int pageSize)
+    public async Task<ApiResponse<PagedResult<UserRegistrationListItem>>> GetPaginatedRegistrations(SearchUserRegistrationsRequest request)
     {
-        var (items, totalCount) = await registrationRepository.GetPaginatedRegistrationsAsync(districtId, searchTerm, pageNumber, pageSize);
+        var (items, totalCount) = await registrationRepository.GetPaginatedRegistrationsAsync(
+            request.DistrictId, 
+            request.FullName, 
+            request.NationalIdNumber, 
+            request.VoterIdNumber, 
+            request.MobileNumber, 
+            request.PageNumber, 
+            request.PageSize);
 
         var listItems = items.Select(u => u.ToListItem()).ToList();
-        var pagedResult = PagedResult<UserRegistrationListItem>.Create(listItems, pageNumber, pageSize, totalCount);
+        var pagedResult = PagedResult<UserRegistrationListItem>.Create(listItems, request.PageNumber, request.PageSize, totalCount);
 
         return ApiResponse<PagedResult<UserRegistrationListItem>>.SuccessResponse(pagedResult);
     }

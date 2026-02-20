@@ -11,21 +11,17 @@ namespace NepalVotes.Api.UserRegistrations;
 [Route("api/registered-users")]
 public class UserRegistrationManagementController (IRegisteredUsersManagementService registrationService) : ControllerBase
 {
-    [HttpGet("search")]
-    public async Task<IActionResult> Search(
-        [FromQuery] int? districtId, 
-        [FromQuery] string? searchTerm, 
-        [FromQuery] int pageNumber = 1, 
-        [FromQuery] int pageSize = 10)
+    [HttpPost("search")]
+    public async Task<IActionResult> Search([FromBody] SearchUserRegistrationsRequest request)
     {
-        var response = await registrationService.GetPaginatedRegistrations(districtId, searchTerm, pageNumber, pageSize);
+        var response = await registrationService.GetPaginatedRegistrations(request);
         return response.ToActionResult();
     }
 
     [HttpGet("by-district/{districtId:int}")]
     public async Task<IActionResult> GetByDistrict(int districtId)
     {
-        var response = await registrationService.GetPaginatedRegistrations(districtId, null, 1, 1000);
+        var response = await registrationService.GetPaginatedRegistrations(new SearchUserRegistrationsRequest(districtId, null, null, null, null, 1, 1000));
         return response.ToActionResult();
     }
     

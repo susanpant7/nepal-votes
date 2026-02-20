@@ -89,7 +89,7 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
         return await context.UserRegistrations.FindAsync(id);
     }
 
-    public async Task<(List<UserRegistration> Items, int TotalCount)> GetPaginatedRegistrationsAsync(int? districtId, string? searchTerm, int pageNumber, int pageSize)
+    public async Task<(List<UserRegistration> Items, int TotalCount)> GetPaginatedRegistrationsAsync(int? districtId, string? fullName, string? nationalIdNumber, string? voterIdNumber, string? mobileNumber, int pageNumber, int pageSize)
     {
         var query = context.UserRegistrations
             .Include(u => u.Ward)
@@ -102,20 +102,35 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
             query = query.Where(u => u.Ward.Municipality.DistrictId == districtId);
         }
 
-        if (!string.IsNullOrWhiteSpace(searchTerm))
+        if (!string.IsNullOrWhiteSpace(fullName))
         {
-            var term = searchTerm.Trim().ToLower();
+            var term = fullName.Trim().ToLower();
             query = query.Where(u =>
                 u.FirstNameEn.ToLower().Contains(term) ||
                 (u.MiddleNameEn != null && u.MiddleNameEn.ToLower().Contains(term)) ||
                 u.LastNameEn.ToLower().Contains(term) ||
                 u.FirstNameNp.Contains(term) ||
                 (u.MiddleNameNp != null && u.MiddleNameNp.Contains(term)) ||
-                u.LastNameNp.Contains(term) ||
-                u.MobileNumber.Contains(term) ||
-                u.NationalIdNumber.Contains(term) ||
-                u.VoterIdNumber.Contains(term)
+                u.LastNameNp.Contains(term)
             );
+        }
+
+        if (!string.IsNullOrWhiteSpace(nationalIdNumber))
+        {
+            var term = nationalIdNumber.Trim();
+            query = query.Where(u => u.NationalIdNumber.Contains(term));
+        }
+
+        if (!string.IsNullOrWhiteSpace(voterIdNumber))
+        {
+            var term = voterIdNumber.Trim();
+            query = query.Where(u => u.VoterIdNumber.Contains(term));
+        }
+
+        if (!string.IsNullOrWhiteSpace(mobileNumber))
+        {
+            var term = mobileNumber.Trim();
+            query = query.Where(u => u.MobileNumber.Contains(term));
         }
 
         var totalCount = await query.CountAsync();

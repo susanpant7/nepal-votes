@@ -41,9 +41,9 @@ export const UserRegistrationPage = () => {
   const prepareFormData = () => {
     const data = new FormData();
 
-    data.append("FirstName", formData.firstName);
-    data.append("MiddleName", formData.middleName || "");
-    data.append("LastName", formData.lastName);
+    data.append("FirstNameEn", formData.firstName);
+    data.append("MiddleNameEn", formData.middleName || "");
+    data.append("LastNameEn", formData.lastName);
     data.append("FirstNameNp", formData.firstNameNp);
     data.append("MiddleNameNp", formData.middleNameNp || "");
     data.append("LastNameNp", formData.lastNameNp);
