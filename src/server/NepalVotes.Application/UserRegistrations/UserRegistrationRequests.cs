@@ -18,9 +18,9 @@ public class RegisterUserRequest
 
     public required string MobileNumber { get; set; }
     
-    public string? NationalIdNumber { get; set; }
+    public required string NationalIdNumber { get; set; }
     
-    public string? VoterIdNumber { get; set; }
+    public required string VoterIdNumber { get; set; }
 
     public int WardId { get; set; }
 

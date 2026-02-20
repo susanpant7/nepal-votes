@@ -22,24 +22,24 @@ public class UserRegistrationService(
         bool hasVoterIdDoc = request.Documents.Any(d => d.DocumentType == UserDocumentType.VoterIdentity);
         bool hasNationalIdDoc = request.Documents.Any(d => d.DocumentType == UserDocumentType.NationalIdentity);
 
-        if (!hasVoterIdNum && !hasNationalIdNum)
+        if (string.IsNullOrWhiteSpace(request.VoterIdNumber))
         {
-            return ApiResponse<bool>.ErrorResponse("Either a Voter ID or National ID number is required.");
+            return ApiResponse<bool>.ErrorResponse("Voter ID number is required.");
         }
 
-        if (hasVoterIdNum && !hasVoterIdDoc)
+        if (string.IsNullOrWhiteSpace(request.NationalIdNumber))
         {
-            return ApiResponse<bool>.ErrorResponse("Voter ID document is required since a number was provided.");
+            return ApiResponse<bool>.ErrorResponse("National ID number is required.");
         }
 
-        if (hasNationalIdNum && !hasNationalIdDoc)
+        if (!hasVoterIdDoc)
         {
-            return ApiResponse<bool>.ErrorResponse("National ID document is required since a number was provided.");
+            return ApiResponse<bool>.ErrorResponse("Voter ID document is required.");
         }
 
-        if (!hasVoterIdDoc && !hasNationalIdDoc)
+        if (!hasNationalIdDoc)
         {
-            return ApiResponse<bool>.ErrorResponse("At least one identity document (Voter or National) is required.");
+            return ApiResponse<bool>.ErrorResponse("National ID document is required.");
         }
 
         foreach (var doc in request.Documents)

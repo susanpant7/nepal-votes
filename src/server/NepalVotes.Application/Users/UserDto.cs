@@ -27,4 +27,6 @@ public class UserDto
     public List<string> Roles { get; set; } = new();
     public string Status { get; set; } = string.Empty;
     public DateTimeOffset RequestDate { get; set; }
+    
+    public List<DocumentUploadRequest> Documents { get; set; } = new();
 }

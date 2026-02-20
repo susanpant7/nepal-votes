@@ -24,6 +24,8 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     {
         return await context.Users
             .Include(u => u.Roles)
+            .Include(u => u.UserDocuments)
+                .ThenInclude(d => d.UserDocumentMediaFile)
             .FirstOrDefaultAsync(u => u.UserId == userId);
     }
     
@@ -31,6 +33,8 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     {
         return await context.Users
                 .Include(u => u.Roles)
+                .Include(u => u.UserDocuments)
+                    .ThenInclude(d => d.UserDocumentMediaFile)
                 .Include(vp => vp.Ward)
                     .ThenInclude(w => w.Municipality)
                         .ThenInclude(m => m.District)

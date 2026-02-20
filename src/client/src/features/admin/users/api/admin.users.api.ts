@@ -48,13 +48,13 @@ export const adminUsersApi = {
             formData.append("Roles", role);
         });
 
-        if (user.nationalIdCardFile) {
+        if (user.nationalIdCardFile && typeof user.nationalIdCardFile !== "string") {
             formData.append("NationalIdCardFile", user.nationalIdCardFile);
         }
-        if (user.voterCardFile) {
+        if (user.voterCardFile && typeof user.voterCardFile !== "string") {
             formData.append("VoterCardFile", user.voterCardFile);
         }
-        if (user.passportFile) {
+        if (user.passportFile && typeof user.passportFile !== "string") {
             formData.append("PassportFile", user.passportFile);
         }
 
@@ -83,13 +83,13 @@ export const adminUsersApi = {
             formData.append("Roles", role);
         });
 
-        if (user.nationalIdCardFile) {
+        if (user.nationalIdCardFile && typeof user.nationalIdCardFile !== "string") {
             formData.append("NationalIdCardFile", user.nationalIdCardFile);
         }
-        if (user.voterCardFile) {
+        if (user.voterCardFile && typeof user.voterCardFile !== "string") {
             formData.append("VoterCardFile", user.voterCardFile);
         }
-        if (user.passportFile) {
+        if (user.passportFile && typeof user.passportFile !== "string") {
             formData.append("PassportFile", user.passportFile);
         }
 

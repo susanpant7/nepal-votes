@@ -7,6 +7,7 @@ export interface ImageFieldProps {
   value: File | string | null;
   onChange: (file: File | null) => void;
   maxSizeMB?: number;
+  errorMessage?: string;
 }
 
 export const ImageField: React.FC<ImageFieldProps> = ({
@@ -14,6 +15,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
   value,
   onChange,
   maxSizeMB = 3,
+  errorMessage,
 }) => {
   const [previewUrl, setPreviewUrl] = useState("");
   const [error, setError] = useState("");
@@ -90,9 +92,8 @@ export const ImageField: React.FC<ImageFieldProps> = ({
       <div
         tabIndex={0}
         onPaste={handlePaste}
-        className={`relative flex min-h-45 flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed p-4 text-center focus:border-primary focus:outline-none ${
-          error ? "border-destructive" : "border-muted"
-        }`}
+        className={`relative flex min-h-45 flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed p-4 text-center focus:border-primary focus:outline-none transition-all ${error || errorMessage ? "border-destructive bg-destructive/5" : "border-muted"
+          }`}
       >
         {/* Preview inside box */}
         {previewUrl ? (
@@ -148,7 +149,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
       </div>
 
       {/* Error */}
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {(error || errorMessage) && <p className="text-[10px] font-bold text-destructive">{error || errorMessage}</p>}
     </div>
   );
 };

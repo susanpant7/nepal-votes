@@ -12,9 +12,16 @@ export interface AddUserRequest {
     wardId: number;
     roles: string[];
     status?: string;
-    nationalIdCardFile: File | null;
-    voterCardFile: File | null;
-    passportFile: File | null;
+    nationalIdCardFile: File | string | null;
+    voterCardFile: File | string | null;
+    passportFile: File | string | null;
+}
+
+export interface DocumentUploadDetails {
+    documentType: number;
+    content: string;
+    fileName: string;
+    contentType: string;
 }
 
 export interface RoleInfo {
@@ -46,6 +53,7 @@ export interface UserListItem {
     roles: string[];
     status: string;
     requestDate: string;
+    documents?: DocumentUploadDetails[];
 }
 
 export interface UserFilters {

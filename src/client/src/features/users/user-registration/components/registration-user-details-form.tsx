@@ -49,12 +49,12 @@ export const RegistrationUserDetailsForm = ({
 
   const handleNationalIdDocumentChange = (file: File | null) => {
     setFormData((prev) => ({ ...prev, nIdDocument: file }));
-    if (errors.idVerification) setErrors((prev) => ({ ...prev, idVerification: "" }));
+    setErrors((prev) => ({ ...prev, idVerification: "", nIdDocument: "" }));
   };
 
   const handleVoterIdDocumentChange = (file: File | null) => {
     setFormData((prev) => ({ ...prev, voterIdDocument: file }));
-    if (errors.idVerification) setErrors((prev) => ({ ...prev, idVerification: "" }));
+    setErrors((prev) => ({ ...prev, idVerification: "", voterIdDocument: "" }));
   };
 
   const handlePassportDocumentChange = (file: File | null) => {
@@ -82,15 +82,21 @@ export const RegistrationUserDetailsForm = ({
     const hasVoterIdNum = formData.voterIdNumber.trim();
     const hasNationalIdNum = formData.nIdNumber.trim();
 
-    if (!hasVoterIdNum && !hasNationalIdNum) {
-      newErrors.idVerification = "Either Voter ID or National ID (with image) is required";
-    } else {
-      if (hasVoterIdNum && !formData.voterIdDocument) {
-        newErrors.idVerification = "Voter ID document is required since a number was entered";
-      }
-      if (hasNationalIdNum && !formData.nIdDocument) {
-        newErrors.idVerification = "National ID document is required since a number was entered";
-      }
+    if (!hasVoterIdNum) {
+      newErrors.voterIdNumber = "Voter ID number is required";
+    }
+    if (!hasNationalIdNum) {
+      newErrors.nIdNumber = "National ID number is required";
+    }
+    if (!formData.voterIdDocument) {
+      newErrors.voterIdDocument = "Voter ID document image is required";
+    }
+    if (!formData.nIdDocument) {
+      newErrors.nIdDocument = "National ID document image is required";
+    }
+
+    if (!hasVoterIdNum || !hasNationalIdNum || !formData.voterIdDocument || !formData.nIdDocument) {
+      newErrors.idVerification = "Please provide both Voter ID and National ID details.";
     }
 
     setErrors(newErrors);
@@ -146,8 +152,8 @@ export const RegistrationUserDetailsForm = ({
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-xs font-bold uppercase text-muted-foreground">First Name <span className="text-destructive">*</span></Label>
-                  <Input id="firstName" name="firstName" required placeholder="Janak" value={formData.firstName} onChange={handleInputChange} className={errors.firstName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  <Label htmlFor="firstName" className={`text-xs font-bold uppercase transition-colors ${errors.firstName ? "text-destructive" : "text-muted-foreground"}`}>First Name <span className="text-destructive">*</span></Label>
+                  <Input id="firstName" name="firstName" placeholder="Janak" value={formData.firstName} onChange={handleInputChange} className={errors.firstName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
                   {errors.firstName && <p className="text-[10px] font-bold text-destructive">{errors.firstName}</p>}
                 </div>
 
@@ -157,8 +163,8 @@ export const RegistrationUserDetailsForm = ({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-xs font-bold uppercase text-muted-foreground">Last Name <span className="text-destructive">*</span></Label>
-                  <Input id="lastName" name="lastName" required placeholder="Panta" value={formData.lastName} onChange={handleInputChange} className={errors.lastName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  <Label htmlFor="lastName" className={`text-xs font-bold uppercase transition-colors ${errors.lastName ? "text-destructive" : "text-muted-foreground"}`}>Last Name <span className="text-destructive">*</span></Label>
+                  <Input id="lastName" name="lastName" placeholder="Panta" value={formData.lastName} onChange={handleInputChange} className={errors.lastName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
                   {errors.lastName && <p className="text-[10px] font-bold text-destructive">{errors.lastName}</p>}
                 </div>
               </div>
@@ -166,8 +172,8 @@ export const RegistrationUserDetailsForm = ({
               {/* Nepali Names Row */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="firstNameNp" className="text-xs font-bold uppercase text-muted-foreground">FirstName (Nepali) <span className="text-destructive">*</span></Label>
-                  <Input id="firstNameNp" name="firstNameNp" required placeholder="जनक" value={formData.firstNameNp} onChange={handleInputChange} className={errors.firstNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  <Label htmlFor="firstNameNp" className={`text-xs font-bold uppercase transition-colors ${errors.firstNameNp ? "text-destructive" : "text-muted-foreground"}`}>FirstName (Nepali) <span className="text-destructive">*</span></Label>
+                  <Input id="firstNameNp" name="firstNameNp" placeholder="जनक" value={formData.firstNameNp} onChange={handleInputChange} className={errors.firstNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
                   {errors.firstNameNp && <p className="text-[10px] font-bold text-destructive">{errors.firstNameNp}</p>}
                 </div>
 
@@ -177,8 +183,8 @@ export const RegistrationUserDetailsForm = ({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="lastNameNp" className="text-xs font-bold uppercase text-muted-foreground">LastName (Nepali) <span className="text-destructive">*</span></Label>
-                  <Input id="lastNameNp" name="lastNameNp" required placeholder="पन्त" value={formData.lastNameNp} onChange={handleInputChange} className={errors.lastNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  <Label htmlFor="lastNameNp" className={`text-xs font-bold uppercase transition-colors ${errors.lastNameNp ? "text-destructive" : "text-muted-foreground"}`}>LastName (Nepali) <span className="text-destructive">*</span></Label>
+                  <Input id="lastNameNp" name="lastNameNp" placeholder="पन्त" value={formData.lastNameNp} onChange={handleInputChange} className={errors.lastNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
                   {errors.lastNameNp && <p className="text-[10px] font-bold text-destructive">{errors.lastNameNp}</p>}
                 </div>
               </div>
@@ -187,7 +193,7 @@ export const RegistrationUserDetailsForm = ({
                 <div className="space-y-2">
                   <Label
                     htmlFor="mobileNumber"
-                    className="text-xs font-bold uppercase text-muted-foreground"
+                    className={`text-xs font-bold uppercase transition-colors ${errors.mobileNumber ? "text-destructive" : "text-muted-foreground"}`}
                   >
                     Mobile Number
                   </Label>
@@ -214,7 +220,7 @@ export const RegistrationUserDetailsForm = ({
                 <div className="space-y-2">
                   <Label
                     htmlFor="dob"
-                    className="text-xs font-bold uppercase text-muted-foreground"
+                    className={`text-xs font-bold uppercase transition-colors ${errors.dob ? "text-destructive" : "text-muted-foreground"}`}
                   >
                     Date of Birth
                   </Label>
@@ -247,7 +253,7 @@ export const RegistrationUserDetailsForm = ({
               <div className="flex items-center text-red-800 gap-2 px-4 py-2 border-l-4 border-primary rounded-r-md bg-destructive/5 mb-4">
                 <p className="text-sm">
                   <span className="font-bold text-primary uppercase text-[10px] tracking-widest mr-2">Notice:</span>
-                  Either **Voter ID** or **National ID** (with associated image) is <span className="font-semibold text-red-500 uppercase">required</span>. Passport is optional.
+                  Both **Voter ID** and **National ID** (with associated images) are <span className="font-semibold text-red-500 uppercase">required</span>. Passport is optional.
                 </p>
               </div>
 
@@ -268,6 +274,7 @@ export const RegistrationUserDetailsForm = ({
                 onVoterIdDocumentChange={handleVoterIdDocumentChange}
                 passportDocument={formData.passportDocument}
                 onPassportDocumentChange={handlePassportDocumentChange}
+                errors={errors}
               />
             </section>
           </div>
@@ -286,7 +293,7 @@ export const RegistrationUserDetailsForm = ({
                   {/* Ward Selection Area */}
                   <div className="space-y-3">
                     <div className="flex justify-between items-end">
-                      <Label className="text-xs font-bold uppercase text-muted-foreground">Select Your Ward</Label>
+                      <Label className={`text-xs font-bold uppercase transition-colors ${errors.ward ? "text-destructive" : "text-muted-foreground"}`}>Select Your Ward</Label>
                       {formData.ward && (
                         <Badge variant="outline" className="text-[10px] bg-primary/5 text-primary border-primary/20 animate-in fade-in zoom-in-95">SELECTED</Badge>
                       )}

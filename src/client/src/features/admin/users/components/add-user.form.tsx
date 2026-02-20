@@ -59,6 +59,19 @@ const AddUserForm = ({ userId }: Props) => {
 
     useEffect(() => {
         if (existingUser) {
+            let natIdStr: string | null = null;
+            let votIdStr: string | null = null;
+            let passportStr: string | null = null;
+
+            if (existingUser.documents && existingUser.documents.length > 0) {
+                existingUser.documents.forEach(doc => {
+                    const dataUrl = `data:${doc.contentType};base64,${doc.content}`;
+                    if (doc.documentType === 4) natIdStr = dataUrl; // National Identity
+                    else if (doc.documentType === 5) votIdStr = dataUrl; // Voter Identity
+                    else if (doc.documentType === 3) passportStr = dataUrl; // Passport
+                });
+            }
+
             setFormData({
                 firstNameEn: existingUser.firstNameEn,
                 middleNameEn: existingUser.middleNameEn || "",
@@ -73,9 +86,9 @@ const AddUserForm = ({ userId }: Props) => {
                 wardId: existingUser.wardId,
                 roles: existingUser.roles,
                 status: existingUser.status,
-                nationalIdCardFile: null,
-                voterCardFile: null,
-                passportFile: null,
+                nationalIdCardFile: natIdStr,
+                voterCardFile: votIdStr,
+                passportFile: passportStr,
             });
 
             setSelectedWard({

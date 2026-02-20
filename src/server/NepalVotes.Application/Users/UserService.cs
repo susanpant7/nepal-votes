@@ -230,7 +230,15 @@ public class UserService(IUserRepository userRepository,
             ProvinceName = fullUser.Ward?.Municipality?.District?.Province?.ProvinceNameEn,
             Roles = fullUser.Roles?.Select(r => r.RoleName).ToList() ?? new List<string>(),
             Status = fullUser.Status.ToString(),
-            RequestDate = fullUser.RequestDate
+            RequestDate = fullUser.RequestDate,
+            Documents = fullUser.UserDocuments?.Select(d => new DocumentUploadRequest
+            {
+                DocumentType = d.DocumentType,
+                Content = d.UserDocumentMediaFile.Content,
+                ContentType = d.UserDocumentMediaFile.ContentType,
+                FileName = d.UserDocumentMediaFile.FileName,
+                FileLength = d.UserDocumentMediaFile.Size
+            }).ToList() ?? new List<DocumentUploadRequest>()
         };
 
         return ApiResponse<UserDto>.SuccessResponse(dto);
@@ -280,9 +288,32 @@ public class UserService(IUserRepository userRepository,
             if (role != null) user.Roles.Add(role);
         }
 
-        // Documents: In a full implementation, we'd handle document updates here.
-        // For simplicity, we'll assume documents are added during creation. 
-        // If needed later, we can add logic to append or replace documents.
+        // Update documents
+        if (request.Documents != null)
+        {
+            foreach (var doc in request.Documents)
+            {
+                // Remove existing document of the same type if it exists
+                var existingDoc = user.UserDocuments.FirstOrDefault(d => d.DocumentType == doc.DocumentType);
+                if (existingDoc != null)
+                {
+                    user.UserDocuments.Remove(existingDoc);
+                }
+
+                // Add the new document
+                user.UserDocuments.Add(new UserDocument
+                {
+                    DocumentType = doc.DocumentType,
+                    UserDocumentMediaFile = new MediaFile
+                    {
+                        Content = doc.Content,
+                        ContentType = doc.ContentType,
+                        FileName = doc.FileName,
+                        Size = doc.FileLength
+                    }
+                });
+            }
+        }
 
         await userRepository.UpdateUserAsync(user);
         await unitOfWork.SaveChangesAsync();
