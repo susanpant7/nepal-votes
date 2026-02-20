@@ -46,5 +46,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+        // Seeding Roles
+        modelBuilder.Entity<Role>().HasData(
+            new Role { RoleId = (int)UserRole.Voter, RoleName = RoleName.Voter },
+            new Role { RoleId = (int)UserRole.Admin, RoleName = RoleName.Admin },
+            new Role { RoleId = (int)UserRole.SuperAdmin, RoleName = RoleName.SuperAdmin }
+        );
     }
 }

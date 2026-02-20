@@ -7,6 +7,7 @@ import {
   UsersRound,
   BadgeCheck,
   ShieldCheck,
+  UserPlus,
 } from "lucide-react";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
 
@@ -57,5 +58,10 @@ export const adminMenuItems: AdminNavItem[] = [
     label: "Registration Reviews",
     url: ROUTES.ADMIN_USER_REGISTRATIONS,
     icon: ShieldCheck,
+  },
+  {
+    label: "Users",
+    url: ROUTES.ADMIN_USERS,
+    icon: UserPlus,
   },
 ];

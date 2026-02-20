@@ -21,11 +21,11 @@ public class User : BaseAuditableEntity
     public DateTimeOffset RequestDate { get; set; }
     public DateTimeOffset? ApprovedDate { get; set; }
 
-    public ICollection<Role> Roles { get; set; }
+    public ICollection<Role> Roles { get; set; } = new List<Role>();
     
-    public ICollection<UserDocument> UserDocuments { get; set; }
+    public ICollection<UserDocument> UserDocuments { get; set; } = new List<UserDocument>();
     
-    public ICollection<UserOtp> UserOtps { get; set; }
+    public ICollection<UserOtp> UserOtps { get; set; } = new List<UserOtp>();
 
     public int WardId { get; set; }
     public Ward Ward { get; set; }

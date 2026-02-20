@@ -3,4 +3,5 @@ namespace NepalVotes.Domain.Users;
 public interface IRoleRepository
 {
     Task<Role?> GetRoleByNameAsync(string roleName);
+    Task<List<Role>> GetAllAsync();
 }

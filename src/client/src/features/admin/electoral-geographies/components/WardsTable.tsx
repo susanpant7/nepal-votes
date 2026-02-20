@@ -34,12 +34,18 @@ export interface WardsTableProps {
   viewVotingPlaces: (ward: WardInfo) => void;
   goBackProps: GoBackProps;
   allowAddEdit: boolean;
+  onSelectWard?: (ward: WardInfo) => void;
+  hideViewVotingPlaces?: boolean;
+  selectedWardId?: number;
 }
 export const WardsTable = ({
   municipality,
   viewVotingPlaces,
   goBackProps,
   allowAddEdit,
+  onSelectWard,
+  hideViewVotingPlaces,
+  selectedWardId,
 }: WardsTableProps) => {
   const { data, isLoading, isError, refetch } =
     useAdminElectoralGeographyQuery.getWardsByMunicipalityId(
@@ -145,20 +151,43 @@ export const WardsTable = ({
               return (
                 <TableRow
                   key={index}
-                  className="cursor-pointer hover:bg-muted/30"
+                  className={`cursor-pointer hover:bg-muted/30 ${ward.wardId === selectedWardId ? "bg-primary/10" : ""
+                    }`}
                 >
                   <TableCell className="font-medium">{ward.wardName}</TableCell>
                   <TableCell className="font-medium">
                     {ward.wardNumber}
                   </TableCell>
                   <TableCell className="font-medium">
-                    <Button
-                      variant="link"
-                      className="h-auto p-0 text-blue-600 hover:text-blue-800"
-                      onClick={() => onViewVotingPlaces(ward)}
-                    >
-                      View Voting Places
-                    </Button>
+                    <div className="flex gap-2">
+                      {!hideViewVotingPlaces && (
+                        <Button
+                          variant="link"
+                          className="h-auto p-0 text-blue-600 hover:text-blue-800"
+                          onClick={() => onViewVotingPlaces(ward)}
+                        >
+                          View Voting Places
+                        </Button>
+                      )}
+                      {onSelectWard && (
+                        <Button
+                          variant={
+                            ward.wardId === selectedWardId
+                              ? "default"
+                              : "secondary"
+                          }
+                          size="sm"
+                          onClick={() => onSelectWard(ward)}
+                          className={
+                            ward.wardId === selectedWardId
+                              ? "bg-green-600 hover:bg-green-700 text-white"
+                              : ""
+                          }
+                        >
+                          {ward.wardId === selectedWardId ? "Selected" : "Select"}
+                        </Button>
+                      )}
+                    </div>
                   </TableCell>
                   {allowAddEdit && (
                     <TableCell className="text-right">

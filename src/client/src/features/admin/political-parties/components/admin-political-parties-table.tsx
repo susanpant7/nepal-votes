@@ -23,23 +23,8 @@ export const AdminPoliticalPartiesTable = (
   props: PoliticalPartiesTableProps,
 ) => {
   return (
-    <div className="w-full space-y-6">
-      {/* Header Section with more padding */}
-      <div className="flex items-center justify-between px-1">
-        <div className="space-y-1">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground">
-            Political Parties
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            A total of {props.parties.length} registered organizations.
-          </p>
-        </div>
-        <Button onClick={props.onAdd} className="shadow-md">
-          <Plus className="mr-2 h-4 w-4" /> Add New Party
-        </Button>
-      </div>
-
-      <ScrollableTableBody maxHeight={"600px"}>
+    <div className="w-full">
+      <ScrollableTableBody maxHeight={"calc(100vh - 250px)"}>
         <Table>
           <TableHeader className="sticky top-0 z-10 bg-muted/50 backdrop-blur-sm shadow-sm">
             <TableRow className="hover:bg-transparent border-b-2 border-border">

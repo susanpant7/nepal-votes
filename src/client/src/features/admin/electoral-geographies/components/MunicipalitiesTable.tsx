@@ -43,12 +43,14 @@ export interface MunicipalitiesTableProps {
   viewWards: (municipality: MunicipalityInfo) => void;
   goBackProps: GoBackProps;
   allowAddEdit: boolean;
+  hideMunicipalityType?: boolean;
 }
 export const MunicipalitiesTable = ({
   district,
   viewWards,
   goBackProps,
   allowAddEdit,
+  hideMunicipalityType,
 }: MunicipalitiesTableProps) => {
   const { data, isLoading, isError, refetch } =
     useAdminElectoralGeographyQuery.getMunicipalitiesByDistrictId(
@@ -144,7 +146,7 @@ export const MunicipalitiesTable = ({
           <TableHeader className="bg-muted/50">
             <TableRow>
               <TableHead>Municipality Name</TableHead>
-              <TableHead>Municipality Type</TableHead>
+              {!hideMunicipalityType && <TableHead>Municipality Type</TableHead>}
               <TableHead className="w-20"></TableHead>
               {allowAddEdit && (
                 <TableHead className="text-right">Actions</TableHead>
@@ -173,9 +175,11 @@ export const MunicipalitiesTable = ({
                   <TableCell className="font-medium">
                     {municipality.municipalityName}
                   </TableCell>
-                  <TableCell className="font-medium">
-                    {MunicipalityTypeLabels[municipality.municipalityType]}
-                  </TableCell>
+                  {!hideMunicipalityType && (
+                    <TableCell className="font-medium">
+                      {MunicipalityTypeLabels[municipality.municipalityType]}
+                    </TableCell>
+                  )}
                   <TableCell className="font-medium">
                     <Button
                       variant="link"

@@ -30,6 +30,11 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     public async Task<User?> GetUserWithVotingPlaceByUserIdAsync(int userId)
     {
         return await context.Users
+                .Include(u => u.Roles)
+                .Include(vp => vp.Ward)
+                    .ThenInclude(w => w.Municipality)
+                        .ThenInclude(m => m.District)
+                            .ThenInclude(d => d.Province)
                 .Include(vp => vp.Ward)
                     .ThenInclude(w => w.Constituency)
             .FirstOrDefaultAsync(u => u.UserId == userId);
@@ -84,5 +89,104 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .AsNoTracking()
             .Where(x=> x.MobileNumber==mobileNumber || x.NationalIdNumber==nationalId || x.VoterIdNumber==voterId)
             .ToListAsync();
+    }
+
+    public async Task<(List<User> Users, int TotalCount)> GetFilteredUsersAsync(
+        int? userId,
+        string? mobileNumber,
+        string? nationalId,
+        string? voterId,
+        int? provinceId, 
+        int? districtId, 
+        int? municipalityId,
+        string? role,
+        int? roleId,
+        UserStatus? status,
+        int page,
+        int pageSize)
+    {
+        var query = context.Users
+            .Include(u => u.Roles)
+            .Include(u => u.Ward)
+                .ThenInclude(w => w.Municipality)
+                    .ThenInclude(m => m.District)
+                        .ThenInclude(d => d.Province)
+            .AsQueryable();
+
+        // Specific Field Filters
+        if (userId.HasValue)
+        {
+            query = query.Where(u => u.UserId == userId.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(mobileNumber))
+        {
+            query = query.Where(u => u.MobileNumber.Contains(mobileNumber.Trim()));
+        }
+
+        if (!string.IsNullOrWhiteSpace(nationalId))
+        {
+            query = query.Where(u => u.NationalIdNumber.Contains(nationalId.Trim()));
+        }
+
+        if (!string.IsNullOrWhiteSpace(voterId))
+        {
+            query = query.Where(u => u.VoterIdNumber.Contains(voterId.Trim()));
+        }
+
+        // Geography Filters
+        if (provinceId.HasValue)
+        {
+            query = query.Where(u => u.Ward.Municipality.District.ProvinceId == provinceId.Value);
+        }
+
+        if (districtId.HasValue)
+        {
+            query = query.Where(u => u.Ward.Municipality.DistrictId == districtId.Value);
+        }
+
+        if (municipalityId.HasValue)
+        {
+            query = query.Where(u => u.Ward.MunicipalityId == municipalityId.Value);
+        }
+
+        if (roleId.HasValue)
+        {
+            query = query.Where(u => u.Roles.Any(r => r.RoleId == roleId.Value));
+        }
+
+        // Role & Status Filters
+        if (!string.IsNullOrWhiteSpace(role))
+        {
+            var normalizedRole = role.Trim().ToLower();
+            query = query.Where(u => u.Roles.Any(r => r.RoleName.Trim().ToLower() == normalizedRole));
+        }
+
+        if (status.HasValue)
+        {
+            query = query.Where(u => u.Status == status.Value);
+        }
+
+        var totalCount = await query.CountAsync();
+        
+        var users = await query
+            .OrderByDescending(u => u.RequestDate)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (users, totalCount);
+    }
+
+    public async Task UpdateUserAsync(User user)
+    {
+        context.Users.Update(user);
+        await Task.CompletedTask;
+    }
+
+    public async Task DeleteUserAsync(User user)
+    {
+        context.Users.Remove(user);
+        await Task.CompletedTask;
     }
 }

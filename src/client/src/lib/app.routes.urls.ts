@@ -24,4 +24,8 @@ export const ROUTES = {
 
   ADMIN_USER_REGISTRATIONS: "/admin/user-registrations",
   ADMIN_USER_REGISTRATIONS_REVIEW: "/admin/user-registrations/review/$id",
+
+  ADMIN_USERS: "/admin/users",
+  ADMIN_USERS_ADD: "/admin/users/add",
+  ADMIN_USERS_EDIT: "/admin/users/edit/$userId",
 } as const;

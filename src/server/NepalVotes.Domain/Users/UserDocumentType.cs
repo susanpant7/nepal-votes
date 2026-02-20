@@ -12,4 +12,6 @@ public enum UserDocumentType
     Passport = 3,
     [DocumentMetadata(3145728, ".jpg", ".jpeg", ".png")]
     NationalIdentity = 4,
+    [DocumentMetadata(3145728, ".jpg", ".jpeg", ".png")]
+    VoterIdentity = 5,
 }

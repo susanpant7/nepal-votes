@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button.tsx";
-import { Plus } from "lucide-react";
+import { Plus, Users2 } from "lucide-react";
 import { CandidatesGrid } from "@/features/admin/candidates/components/candidates-table.tsx";
 import { useNavigate } from "@tanstack/react-router";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
 import { CandidateFilters, type CandidateFilterValues } from "@/features/candidate/components/candidate.filters.tsx";
 import { useState, useMemo } from "react";
 import { useCandidateQuery } from "@/features/candidate/api/candidate.query.ts";
+import { AdminPage, AdminPageContent, AdminPageHeader } from "@/features/admin/layout/components/admin-page-layout.tsx";
 
 export const AdminCandidatesPage = () => {
   const navigate = useNavigate();
@@ -64,63 +65,70 @@ export const AdminCandidatesPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6 p-6">
-      {/* Page Header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Candidates</h1>
-        <Button onClick={onAddCandidateButtonClick}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Candidate
-        </Button>
-      </div>
-
-      {/* Filters — same component as the public candidate page */}
-      <CandidateFilters
-        onFilterChange={(newFilters) => {
-          setFilters(newFilters);
-          setPage(1);
-        }}
-      />
-
-      {/* Grid */}
-      <CandidatesGrid
-        candidates={candidateItems}
-        isLoading={isLoading}
-        showEmpty={!hasAnyFilter && candidateItems.length === 0 && !isLoading}
-        emptyMessage={
-          hasAnyFilter
-            ? "No candidates found matching the selected criteria."
-            : "Use the filters above to find candidates."
+    <AdminPage>
+      <AdminPageHeader
+        title="Candidates"
+        description="Manage political candidates and their profiles."
+        icon={<Users2 className="h-8 w-8" />}
+        actions={
+          <Button onClick={onAddCandidateButtonClick} size="sm" className="shadow-sm">
+            <Plus className="mr-2 h-4 w-4" />
+            Add Candidate
+          </Button>
         }
       />
 
-      {/* Pagination */}
-      {(pagedResult?.totalPages ?? 0) > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-4">
-          <Button
-            variant="outline"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1 || isLoading}
-          >
-            Previous
-          </Button>
-          <span className="text-sm">
-            Page {pagedResult?.pageNumber ?? 1} of {pagedResult?.totalPages ?? 1}
-            {pagedResult && (
-              <span className="ml-2 text-muted-foreground">
-                ({pagedResult.totalCount} candidates)
+      <AdminPageContent>
+        <div className="space-y-6 pb-6">
+          {/* Filters — same component as the public candidate page */}
+          <CandidateFilters
+            onFilterChange={(newFilters) => {
+              setFilters(newFilters);
+              setPage(1);
+            }}
+          />
+
+          {/* Grid */}
+          <CandidatesGrid
+            candidates={candidateItems}
+            isLoading={isLoading}
+            showEmpty={!hasAnyFilter && candidateItems.length === 0 && !isLoading}
+            emptyMessage={
+              hasAnyFilter
+                ? "No candidates found matching the selected criteria."
+                : "Use the filters above to find candidates."
+            }
+          />
+
+          {/* Pagination */}
+          {(pagedResult?.totalPages ?? 0) > 1 && (
+            <div className="flex justify-center items-center gap-4 mt-4">
+              <Button
+                variant="outline"
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1 || isLoading}
+              >
+                Previous
+              </Button>
+              <span className="text-sm">
+                Page {pagedResult?.pageNumber ?? 1} of {pagedResult?.totalPages ?? 1}
+                {pagedResult && (
+                  <span className="ml-2 text-muted-foreground">
+                    ({pagedResult.totalCount} candidates)
+                  </span>
+                )}
               </span>
-            )}
-          </span>
-          <Button
-            variant="outline"
-            onClick={() => setPage((p) => p + 1)}
-            disabled={!pagedResult?.hasNextPage || isLoading}
-          >
-            Next
-          </Button>
+              <Button
+                variant="outline"
+                onClick={() => setPage((p) => p + 1)}
+                disabled={!pagedResult?.hasNextPage || isLoading}
+              >
+                Next
+              </Button>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </AdminPageContent>
+    </AdminPage>
   );
 };

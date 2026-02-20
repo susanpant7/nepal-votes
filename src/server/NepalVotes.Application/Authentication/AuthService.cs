@@ -29,6 +29,12 @@ public class AuthService(IUserService userService, IOtpService otpService,
                 };
             }
             
+            if (user.Status != UserStatus.Approved)
+            {
+                return ApiResponse<bool>.ErrorResponse(
+                    "Your account is not approved. Please contact the administrator.", 403);
+            }
+            
             var result =  await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Login, ipAddress);
             
             await unitOfWork.SaveChangesAsync();
@@ -44,10 +50,9 @@ public class AuthService(IUserService userService, IOtpService otpService,
             var otpVerityResult =  await otpService.VerifyOtp(request.MobileNumber, request.ProvidedOtp, UserOtpType.Login);
             if (!otpVerityResult.Success)
             {
-                await unitOfWork.SaveChangesAsync();
                 return ApiResponse<TokenResponse>.ErrorResponse(otpVerityResult.Message??"Invalid OTP");
             }
-            
+
             // generate jwt with refresh token
             var tokenResponse = await CreateTokenResponse(user);
             await unitOfWork.SaveChangesAsync();

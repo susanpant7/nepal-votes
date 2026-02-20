@@ -16,10 +16,18 @@ import { VotingPlacesTable } from "@/features/admin/electoral-geographies/compon
 export interface Props {
   allowAddEdit: boolean;
   onSelectVotingPlace?: (votingPlaceInfo: VotingPlaceInfo) => void;
+  onSelectWard?: (wardInfo: WardInfo) => void;
+  hideViewVotingPlaces?: boolean;
+  hideMunicipalityType?: boolean;
+  selectedWardId?: number;
 }
 export const GeographicalDivisionPage = ({
   allowAddEdit,
   onSelectVotingPlace,
+  onSelectWard,
+  hideViewVotingPlaces,
+  hideMunicipalityType,
+  selectedWardId,
 }: Props) => {
   const [showTable, setShowTable] = useState<"P" | "D" | "M" | "W" | "VP">("P");
   const [selectedProvince, setSelectedProvince] = useState<ProvinceInfo>();
@@ -95,6 +103,7 @@ export const GeographicalDivisionPage = ({
           viewWards={handleOnViewWardsClick}
           goBackProps={goBackPropsInMunicipality}
           allowAddEdit={allowAddEdit}
+          hideMunicipalityType={hideMunicipalityType}
         />
       )}
       {showTable == "W" && (
@@ -103,6 +112,9 @@ export const GeographicalDivisionPage = ({
           viewVotingPlaces={handleOnViewVotingPlacesClick}
           goBackProps={goBackPropsInWard}
           allowAddEdit={allowAddEdit}
+          onSelectWard={onSelectWard}
+          hideViewVotingPlaces={hideViewVotingPlaces}
+          selectedWardId={selectedWardId}
         />
       )}
       {showTable == "VP" && (

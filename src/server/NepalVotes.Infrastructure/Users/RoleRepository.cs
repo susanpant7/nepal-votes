@@ -10,4 +10,9 @@ public class RoleRepository(ApplicationDbContext context) : IRoleRepository
     {
         return await context.Roles.FirstOrDefaultAsync(r => r.RoleName == roleName);
     }
+
+    public async Task<List<Role>> GetAllAsync()
+    {
+        return await context.Roles.ToListAsync();
+    }
 }
