@@ -73,6 +73,7 @@ export const GeographicTableContainer = (props: TableHeaderProps) => {
               {crumbs.map((crumb, index) => (
                 <React.Fragment key={index}>
                   <button
+                    type="button"
                     onClick={crumb.action}
                     className="hover:text-primary hover:underline transition-colors wrap-break-word text-left"
                   >
@@ -102,6 +103,7 @@ export const GeographicTableContainer = (props: TableHeaderProps) => {
         {allowAddEdit && (
           <div className="flex justify-end">
             <Button
+              type="button"
               onClick={props.onAdd}
               className="
             shrink-0 h-11 px-6 gap-2 

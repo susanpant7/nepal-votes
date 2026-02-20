@@ -150,6 +150,7 @@ export const DistrictsTable = ({
                     </TableCell>
                     <TableCell className="font-medium">
                       <Button
+                        type="button"
                         variant="link"
                         className="h-auto p-0 text-blue-600 hover:text-blue-800"
                         onClick={() => onViewMunicipalities(district)}

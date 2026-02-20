@@ -162,6 +162,7 @@ export const WardsTable = ({
                     <div className="flex gap-2">
                       {!hideViewVotingPlaces && (
                         <Button
+                          type="button"
                           variant="link"
                           className="h-auto p-0 text-blue-600 hover:text-blue-800"
                           onClick={() => onViewVotingPlaces(ward)}
@@ -171,6 +172,7 @@ export const WardsTable = ({
                       )}
                       {onSelectWard && (
                         <Button
+                          type="button"
                           variant={
                             ward.wardId === selectedWardId
                               ? "default"
