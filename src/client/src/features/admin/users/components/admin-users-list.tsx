@@ -12,6 +12,7 @@ import type { UserListItem } from "../types/admin.users.types";
 import { User, Phone, IdCard, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import { useConfirm } from "@/components/confirm/confirm-dialogbox.provider";
 import { Button } from "@/components/ui/button";
+import { usePermissions } from "@/hooks/use-permissions.ts";
 
 interface Props {
     users: UserListItem[];
@@ -32,6 +33,7 @@ export const AdminUsersList = ({
     onEdit,
     onDelete
 }: Props) => {
+    const { isSuperAdmin } = usePermissions();
     const confirm = useConfirm();
 
     const totalPages = Math.ceil(totalCount / pageSize);
@@ -121,10 +123,12 @@ export const AdminUsersList = ({
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <EditDeleteAction
-                                            onEditClick={() => onEdit(user)}
-                                            onDeleteClick={() => handleDelete(user.userId)}
-                                        />
+                                        {isSuperAdmin && (
+                                            <EditDeleteAction
+                                                onEditClick={() => onEdit(user)}
+                                                onDeleteClick={() => handleDelete(user.userId)}
+                                            />
+                                        )}
                                     </TableCell>
                                 </TableRow>
                             ))

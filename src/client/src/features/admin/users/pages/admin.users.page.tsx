@@ -9,6 +9,7 @@ import { useAdminUserQuery } from "../api/admin.users.query";
 import type { UserFilters, UserListItem } from "../types/admin.users.types";
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper";
 import { AdminPage, AdminPageContent, AdminPageHeader } from "@/features/admin/layout/components/admin-page-layout.tsx";
+import { RestrictTo } from "@/components/auth/restrict-to.tsx";
 
 export const AdminUsersPage = () => {
     const navigate = useNavigate();
@@ -67,9 +68,11 @@ export const AdminUsersPage = () => {
                 description="Search, filter, and manage all registered users and their roles."
                 icon={<UserCog className="h-8 w-8 text-primary" />}
                 actions={
-                    <Button onClick={handleAddUserClick} size="sm" className="shadow-sm">
-                        <Plus className="mr-2 h-4 w-4" /> Add New User
-                    </Button>
+                    <RestrictTo>
+                        <Button onClick={handleAddUserClick} size="sm" className="shadow-sm">
+                            <Plus className="mr-2 h-4 w-4" /> Add New User
+                        </Button>
+                    </RestrictTo>
                 }
             />
 

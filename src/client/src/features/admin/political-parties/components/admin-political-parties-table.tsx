@@ -80,7 +80,7 @@ export const AdminPoliticalPartiesTable = (
                         <User className="h-4 w-4 text-muted-foreground" />
                       </div>
                       <span className="text-sm font-medium text-muted-foreground">
-                        {party.partyLeaderName}
+                        {party.partyLeaderName?.trim() || "N/A"}
                       </span>
                     </div>
                   </TableCell>

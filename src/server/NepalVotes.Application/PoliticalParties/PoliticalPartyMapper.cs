@@ -28,8 +28,10 @@ public static class PoliticalPartyMapper
             PartySymbolContent = party.SymbolMediaFile.Content,
             PartySymbolContentType = party.SymbolMediaFile.ContentType,
             PartySymbolFileName = party.SymbolMediaFile.FileName,
-            PartyLeaderName = party.PartyLeader?.FirstNameEn + " " + party.PartyLeader?.MiddleNameEn + " " + party.PartyLeader?.LastNameEn,
-            PartyLeaderId = party.PartyLeader?.UserId??0
+            PartyLeaderName = party.PartyLeader != null 
+                ? $"{party.PartyLeader.FirstNameEn} {party.PartyLeader.MiddleNameEn} {party.PartyLeader.LastNameEn}".Replace("  ", " ").Trim() 
+                : string.Empty,
+            PartyLeaderId = party.PartyLeader?.UserId ?? 0
         };
     }
     public static PoliticalPartyDto ToPoliticalPartyDto(this PoliticalParty party)

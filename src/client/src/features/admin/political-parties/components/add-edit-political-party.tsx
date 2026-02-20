@@ -127,7 +127,7 @@ const AddEditPoliticalParty = (props: AddEditPoliticalPartyProps) => {
                 </Label>
                 <UserSearchDropdown
                   onSelect={onPartyLeaderSelected}
-                  currentUserName={politicalPartyInfo?.partyLeaderName ?? ""}
+                  currentUserName={politicalPartyInfo?.partyLeaderName?.trim() ?? ""}
                   searchLabel="Search for a leader..."
                 />
               </div>
