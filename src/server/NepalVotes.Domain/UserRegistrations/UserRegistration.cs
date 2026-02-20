@@ -6,9 +6,12 @@ namespace NepalVotes.Domain.UserRegistrations;
 public class UserRegistration
 {
     public int UserRegistrationId { get; set; }
-    public string FirstName { get; set; }
-    public string? MiddleName { get; set; }
-    public string LastName { get; set; }
+    public string FirstNameEn { get; set; }
+    public string? MiddleNameEn { get; set; }
+    public string LastNameEn { get; set; }
+    public string FirstNameNp { get; set; }
+    public string? MiddleNameNp { get; set; }
+    public string LastNameNp { get; set; }
     public DateOnly DateOfBirth { get; set; }
     public string MobileNumber { get; set; }
     public string NationalIdNumber { get; set; }

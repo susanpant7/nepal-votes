@@ -89,4 +89,44 @@ public class UserRegistrationRepository(ApplicationDbContext context) : IUserReg
         return await context.UserRegistrations.FindAsync(id);
     }
 
+    public async Task<(List<UserRegistration> Items, int TotalCount)> GetPaginatedRegistrationsAsync(int? districtId, string? searchTerm, int pageNumber, int pageSize)
+    {
+        var query = context.UserRegistrations
+            .Include(u => u.Ward)
+                .ThenInclude(w => w.Municipality)
+                    .ThenInclude(m => m.District)
+            .AsQueryable();
+
+        if (districtId.HasValue && districtId != 0)
+        {
+            query = query.Where(u => u.Ward.Municipality.DistrictId == districtId);
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var term = searchTerm.Trim().ToLower();
+            query = query.Where(u =>
+                u.FirstNameEn.ToLower().Contains(term) ||
+                (u.MiddleNameEn != null && u.MiddleNameEn.ToLower().Contains(term)) ||
+                u.LastNameEn.ToLower().Contains(term) ||
+                u.FirstNameNp.Contains(term) ||
+                (u.MiddleNameNp != null && u.MiddleNameNp.Contains(term)) ||
+                u.LastNameNp.Contains(term) ||
+                u.MobileNumber.Contains(term) ||
+                u.NationalIdNumber.Contains(term) ||
+                u.VoterIdNumber.Contains(term)
+            );
+        }
+
+        var totalCount = await query.CountAsync();
+        var items = await query
+            .OrderByDescending(u => u.RequestDate)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .AsNoTracking()
+            .ToListAsync();
+
+        return (items, totalCount);
+    }
+
 }

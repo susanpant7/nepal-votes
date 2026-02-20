@@ -6,27 +6,52 @@ export interface UserRegistrationListItem {
   status: string;
   requestDate: string;
   nationalIdNumber: string;
+  voterIdNumber: string;
 }
 
 export interface UserRegistrationReviewDetails {
   firstName: string;
   middleName?: string;
   lastName: string;
+  firstNameNp: string;
+  middleNameNp?: string;
+  lastNameNp: string;
   dob: string;
   mobileNumber: string;
   voterIdNumber: string;
-  votingPlaceFullAddress: string; // Province > District > Municipality > Ward > Voting Place Address
-  reviewComment: string;
-
   nationalIdNumber: string;
-  nationalIdDocumentContent: string;
-  nationalIdDocumentContentType: string;
-  nationalIdDocumentName: string;
+  wardFullAddress: string;
+  reviewComment: string;
+  documents: DocumentReviewDetail[];
+}
+
+export interface DocumentReviewDetail {
+  documentType: number;
+  content: string;
+  contentType: string;
+  fileName: string;
 }
 
 // requests
 export interface UserRegistrationUpdate {
   userRegistrationId: number;
   reviewComment: string;
+}
+
+export interface PaginatedResponse<T> {
+  items: T[];
+  pageNumber: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
+
+export interface UserRegistrationSearchQuery {
+  districtId?: number;
+  searchTerm?: string;
+  pageNumber?: number;
+  pageSize?: number;
 }
 // responses

@@ -8,15 +8,27 @@ public class UserRegistrationConfiguration : IEntityTypeConfiguration<UserRegist
 {
     public void Configure(EntityTypeBuilder<UserRegistration> builder)
     {
-        builder.Property(u => u.FirstName)
+        builder.Property(u => u.FirstNameEn)
             .HasMaxLength(100)
             .IsRequired();
 
-        builder.Property(u => u.MiddleName)
+        builder.Property(u => u.MiddleNameEn)
             .HasMaxLength(100)
             .IsRequired(false); // optional
 
-        builder.Property(u => u.LastName)
+        builder.Property(u => u.LastNameEn)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(u => u.FirstNameNp)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(u => u.MiddleNameNp)
+            .HasMaxLength(100)
+            .IsRequired(false); // optional
+
+        builder.Property(u => u.LastNameNp)
             .HasMaxLength(100)
             .IsRequired();
 

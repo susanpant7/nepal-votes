@@ -16,6 +16,32 @@ public class UserRegistrationService(
 {
     public async Task<ApiResponse<bool>> RegisterAsync(RegisterUserRequest request, string ipAddress)
     {
+        // 1. Validate Documents & Required IDs
+        bool hasVoterIdNum = !string.IsNullOrWhiteSpace(request.VoterIdNumber);
+        bool hasNationalIdNum = !string.IsNullOrWhiteSpace(request.NationalIdNumber);
+        bool hasVoterIdDoc = request.Documents.Any(d => d.DocumentType == UserDocumentType.VoterIdentity);
+        bool hasNationalIdDoc = request.Documents.Any(d => d.DocumentType == UserDocumentType.NationalIdentity);
+
+        if (!hasVoterIdNum && !hasNationalIdNum)
+        {
+            return ApiResponse<bool>.ErrorResponse("Either a Voter ID or National ID number is required.");
+        }
+
+        if (hasVoterIdNum && !hasVoterIdDoc)
+        {
+            return ApiResponse<bool>.ErrorResponse("Voter ID document is required since a number was provided.");
+        }
+
+        if (hasNationalIdNum && !hasNationalIdDoc)
+        {
+            return ApiResponse<bool>.ErrorResponse("National ID document is required since a number was provided.");
+        }
+
+        if (!hasVoterIdDoc && !hasNationalIdDoc)
+        {
+            return ApiResponse<bool>.ErrorResponse("At least one identity document (Voter or National) is required.");
+        }
+
         foreach (var doc in request.Documents)
         {
             var fileValidationResponse = fileValidationService.Validate(doc.FileName, doc.FileLength, doc.DocumentType);
@@ -23,21 +49,21 @@ public class UserRegistrationService(
         }
 
         var existingUserRegistration = await registrationRepo.GetByMobileNumberAsync(request.MobileNumber);
-        // if (existingUserRegistration is { Status: UserStatus.Pending })
-        //     return ApiResponse<bool>.ErrorResponse("Registration already pending admin approval.", StatusCode.Conflict);
-
+        
+        // 2. Process OTP
         var otpResponse = await otpService.GenerateAndSaveOtp(request.MobileNumber, UserOtpType.Registration, ipAddress);
         if (!otpResponse.Success)
             return ApiResponse<bool>.ErrorResponse(otpResponse.Message??"Error in generating OTP", otpResponse.StatusCode);
 
-        // if (existingUserRegistration != null) 
-        //     await registrationRepo.DeleteAsync(existingUserRegistration);
-        
+        // 3. Map & Save Registration
         var registration = new UserRegistration
         {
-            FirstName = request.FirstName,
-            MiddleName = request.MiddleName,
-            LastName = request.LastName,
+            FirstNameEn = request.FirstNameEn,
+            MiddleNameEn = request.MiddleNameEn,
+            LastNameEn = request.LastNameEn,
+            FirstNameNp = request.FirstNameNp,
+            MiddleNameNp = request.MiddleNameNp,
+            LastNameNp = request.LastNameNp,
             DateOfBirth = request.DateOfBirth,
             MobileNumber = request.MobileNumber,
             NationalIdNumber = request.NationalIdNumber,

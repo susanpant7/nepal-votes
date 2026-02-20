@@ -1,11 +1,16 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AdminUserRegistrationApi } from "@/features/admin/user-registrations/api/admin.user-registrations.api.ts";
-import type { UserRegistrationUpdate } from "@/features/admin/user-registrations/types/admin.user-registrations.types.ts";
+import type {
+  UserRegistrationUpdate,
+  UserRegistrationSearchQuery,
+} from "@/features/admin/user-registrations/types/admin.user-registrations.types.ts";
 
 // --------------------------------------------------
 // QUERY KEYS
 // --------------------------------------------------
 export const QUERY_KEYS = {
+  userRegistrationsSearch: (query: UserRegistrationSearchQuery) =>
+    ["userRegistrationsSearch", query] as const,
   userRegistrationsByDistrictId: (districtId: number) =>
     ["userRegistrationsByDistrictId", districtId] as const,
   registeredUsersByUserRegistrationId: (userRegistrationId: number) =>
@@ -16,6 +21,11 @@ export const QUERY_KEYS = {
 // QUERIES (params passed at function level)
 // --------------------------------------------------
 export const useAdminUserRegistrationQuery = {
+  useSearchRegistrations: (query: UserRegistrationSearchQuery) =>
+    useQuery({
+      queryKey: QUERY_KEYS.userRegistrationsSearch(query),
+      queryFn: () => AdminUserRegistrationApi.searchRegistrations(query),
+    }),
   getRegisteredUsersByDistrictId: (districtId: number) =>
     useQuery({
       queryKey: QUERY_KEYS.userRegistrationsByDistrictId(districtId),

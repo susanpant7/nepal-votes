@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { GeographicalDivisionPage } from "@/features/admin/electoral-geographies/components/geographical-division-page.tsx";
-import type { VotingPlaceInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
+import type { WardInfo } from "@/features/admin/electoral-geographies/types/admin.electoral-geographies.types.ts";
 import { type UserRegistrationForm } from "@/features/users/user-registration/types/users.user-registration.types.ts";
 import { RegistrationDocumentUpload } from "@/features/users/user-registration/components/registration-document-upload.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
@@ -36,31 +36,38 @@ export const RegistrationUserDetailsForm = ({
     console.log("formData ==> ", formData);
   };
 
-  const onSelectVotingPlace = (votingPlaceInfo: VotingPlaceInfo) => {
+  const onSelectWard = (wardInfo: WardInfo) => {
     const isDeselecting =
-      formData.votingPlace?.votingPlaceId === votingPlaceInfo.votingPlaceId;
+      formData.ward?.wardId === wardInfo.wardId;
     setFormData((prev) => ({
       ...prev,
-      votingPlace: isDeselecting ? null : votingPlaceInfo,
+      ward: isDeselecting ? null : wardInfo,
     }));
 
-    if (errors.votingPlace) setErrors((prev) => ({ ...prev, votingPlace: "" }));
+    if (errors.ward) setErrors((prev) => ({ ...prev, ward: "" }));
   };
 
   const handleNationalIdDocumentChange = (file: File | null) => {
-    setFormData((prev) => ({
-      ...prev,
-      nIdDocument: file,
-    }));
-    if (errors.nIdDocument) setErrors((prev) => ({ ...prev, nIdDocument: "" }));
+    setFormData((prev) => ({ ...prev, nIdDocument: file }));
+    if (errors.idVerification) setErrors((prev) => ({ ...prev, idVerification: "" }));
+  };
+
+  const handleVoterIdDocumentChange = (file: File | null) => {
+    setFormData((prev) => ({ ...prev, voterIdDocument: file }));
+    if (errors.idVerification) setErrors((prev) => ({ ...prev, idVerification: "" }));
+  };
+
+  const handlePassportDocumentChange = (file: File | null) => {
+    setFormData((prev) => ({ ...prev, passportDocument: file }));
   };
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.firstName.trim())
-      newErrors.firstName = "First name is required";
+    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
     if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!formData.firstNameNp.trim()) newErrors.firstNameNp = "First name (Nepali) is required";
+    if (!formData.lastNameNp.trim()) newErrors.lastNameNp = "Last name (Nepali) is required";
     if (!formData.dob) newErrors.dob = "Date of birth is required";
 
     const phoneRegex = /^\d{10}$/;
@@ -68,18 +75,22 @@ export const RegistrationUserDetailsForm = ({
       newErrors.mobileNumber = "Enter a valid 10-digit number";
     }
 
-    if (!formData.votingPlace) {
-      newErrors.votingPlace = "Please select a voting place";
+    if (!formData.ward) {
+      newErrors.ward = "Please select a ward";
     }
 
-    if (!formData.nIdNumber.trim())
-      newErrors.nIdNumber = "National Id Number is required";
+    const hasVoterIdNum = formData.voterIdNumber.trim();
+    const hasNationalIdNum = formData.nIdNumber.trim();
 
-    if (!formData.voterIdNumber.trim())
-      newErrors.voterIdNumber = "Voter Id Number is required";
-
-    if (!formData.nIdDocument) {
-      newErrors.nIdDocument = "National ID Document is required";
+    if (!hasVoterIdNum && !hasNationalIdNum) {
+      newErrors.idVerification = "Either Voter ID or National ID (with image) is required";
+    } else {
+      if (hasVoterIdNum && !formData.voterIdDocument) {
+        newErrors.idVerification = "Voter ID document is required since a number was entered";
+      }
+      if (hasNationalIdNum && !formData.nIdDocument) {
+        newErrors.idVerification = "National ID document is required since a number was entered";
+      }
     }
 
     setErrors(newErrors);
@@ -135,72 +146,40 @@ export const RegistrationUserDetailsForm = ({
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <Label
-                    htmlFor="firstName"
-                    className="text-xs font-bold uppercase text-muted-foreground"
-                  >
-                    First Name
-                  </Label>
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    placeholder="Janak"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    className={
-                      errors.firstName
-                        ? "border-destructive ring-destructive/20"
-                        : "focus:bg-background transition-all"
-                    }
-                  />
-                  {errors.firstName && (
-                    <p className="text-[10px] font-bold text-destructive">
-                      {errors.firstName}
-                    </p>
-                  )}
+                  <Label htmlFor="firstName" className="text-xs font-bold uppercase text-muted-foreground">First Name</Label>
+                  <Input id="firstName" name="firstName" placeholder="Janak" value={formData.firstName} onChange={handleInputChange} className={errors.firstName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  {errors.firstName && <p className="text-[10px] font-bold text-destructive">{errors.firstName}</p>}
                 </div>
 
                 <div className="space-y-2">
-                  <Label
-                    htmlFor="middleName"
-                    className="text-xs font-bold uppercase text-muted-foreground"
-                  >
-                    Middle Name
-                  </Label>
-                  <Input
-                    id="middleName"
-                    name="middleName"
-                    placeholder="Raj"
-                    value={formData.middleName}
-                    onChange={handleInputChange}
-                    className="focus:bg-background transition-all"
-                  />
+                  <Label htmlFor="middleName" className="text-xs font-bold uppercase text-muted-foreground">Middle Name</Label>
+                  <Input id="middleName" name="middleName" placeholder="Raj" value={formData.middleName} onChange={handleInputChange} className="focus:bg-background transition-all" />
                 </div>
 
                 <div className="space-y-2">
-                  <Label
-                    htmlFor="lastName"
-                    className="text-xs font-bold uppercase text-muted-foreground"
-                  >
-                    Last Name
-                  </Label>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Panta"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    className={
-                      errors.lastName
-                        ? "border-destructive ring-destructive/20"
-                        : "focus:bg-background transition-all"
-                    }
-                  />
-                  {errors.lastName && (
-                    <p className="text-[10px] font-bold text-destructive">
-                      {errors.lastName}
-                    </p>
-                  )}
+                  <Label htmlFor="lastName" className="text-xs font-bold uppercase text-muted-foreground">Last Name</Label>
+                  <Input id="lastName" name="lastName" placeholder="Panta" value={formData.lastName} onChange={handleInputChange} className={errors.lastName ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  {errors.lastName && <p className="text-[10px] font-bold text-destructive">{errors.lastName}</p>}
+                </div>
+              </div>
+
+              {/* Nepali Names Row */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="firstNameNp" className="text-xs font-bold uppercase text-muted-foreground">FirstName (Nepali)</Label>
+                  <Input id="firstNameNp" name="firstNameNp" placeholder="जनक" value={formData.firstNameNp} onChange={handleInputChange} className={errors.firstNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  {errors.firstNameNp && <p className="text-[10px] font-bold text-destructive">{errors.firstNameNp}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="middleNameNp" className="text-xs font-bold uppercase text-muted-foreground">MiddleName (Nepali)</Label>
+                  <Input id="middleNameNp" name="middleNameNp" placeholder="राज" value={formData.middleNameNp} onChange={handleInputChange} className="focus:bg-background transition-all" />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="lastNameNp" className="text-xs font-bold uppercase text-muted-foreground">LastName (Nepali)</Label>
+                  <Input id="lastNameNp" name="lastNameNp" placeholder="पन्त" value={formData.lastNameNp} onChange={handleInputChange} className={errors.lastNameNp ? "border-destructive ring-destructive/20" : "focus:bg-background transition-all"} />
+                  {errors.lastNameNp && <p className="text-[10px] font-bold text-destructive">{errors.lastNameNp}</p>}
                 </div>
               </div>
 
@@ -265,22 +244,30 @@ export const RegistrationUserDetailsForm = ({
                 <div className="h-6 w-1  rounded-full" />
                 <h3 className="text-lg font-bold">Document Verification</h3>
               </div>
-              <div className="flex items-center text-red-800 gap-2 px-4 py-2 border-l-4 border-primary rounded-r-md">
+              <div className="flex items-center text-red-800 gap-2 px-4 py-2 border-l-4 border-primary rounded-r-md bg-destructive/5 mb-4">
                 <p className="text-sm">
-                  <span className="font-bold text-primary uppercase text-[10px] tracking-widest mr-2">
-                    Notice:
-                  </span>
-                  National ID is{" "}
-                  <span className="font-semibold text-red-500">required</span>.
+                  <span className="font-bold text-primary uppercase text-[10px] tracking-widest mr-2">Notice:</span>
+                  Either **Voter ID** or **National ID** (with associated image) is <span className="font-semibold text-red-500 uppercase">required</span>. Passport is optional.
                 </p>
               </div>
+
+              {errors.idVerification && (
+                <p className="text-sm font-bold text-destructive mb-4 p-3 bg-destructive/10 rounded-md">
+                  {errors.idVerification}
+                </p>
+              )}
+
               <RegistrationDocumentUpload
                 nationalIdNumber={formData.nIdNumber}
                 onNationalIdNumberChange={handleInputChange}
                 nationalIdDocument={formData.nIdDocument}
                 onNationalIdDocumentChange={handleNationalIdDocumentChange}
-                nationalIdDocumentError={errors.nIdDocument}
-                nationalIdNumberError={errors.nIdNumber}
+                voterIdNumber={formData.voterIdNumber}
+                onVoterIdNumberChange={handleInputChange}
+                voterIdDocument={formData.voterIdDocument}
+                onVoterIdDocumentChange={handleVoterIdDocumentChange}
+                passportDocument={formData.passportDocument}
+                onPassportDocumentChange={handlePassportDocumentChange}
               />
             </section>
           </div>
@@ -296,80 +283,35 @@ export const RegistrationUserDetailsForm = ({
                 </div>
 
                 <div className="space-y-6">
-                  {/* Voter ID Number Field - Now consistent with First Name field */}
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="voterIdNumber"
-                      className="text-xs font-bold uppercase text-muted-foreground"
-                    >
-                      Voter ID Number
-                    </Label>
-                    <Input
-                      id="voterIdNumber"
-                      name="voterIdNumber"
-                      value={formData.voterIdNumber}
-                      onChange={handleInputChange}
-                      placeholder="12345"
-                      className={
-                        errors.voterIdNumber
-                          ? "border-destructive ring-destructive/20"
-                          : "focus:bg-background transition-all"
-                      }
-                    />
-                    {errors.voterIdNumber && (
-                      <p className="text-[10px] font-bold text-destructive">
-                        {errors.voterIdNumber}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Voting Place Selection Area */}
+                  {/* Ward Selection Area */}
                   <div className="space-y-3">
                     <div className="flex justify-between items-end">
-                      <Label className="text-xs font-bold uppercase text-muted-foreground">
-                        Select Locality / Voting Place
-                      </Label>
-                      {formData.votingPlace && (
-                        <Badge
-                          variant="outline"
-                          className="text-[10px] bg-primary/5 text-primary border-primary/20 animate-in fade-in zoom-in-95"
-                        >
-                          SELECTED
-                        </Badge>
+                      <Label className="text-xs font-bold uppercase text-muted-foreground">Select Your Ward</Label>
+                      {formData.ward && (
+                        <Badge variant="outline" className="text-[10px] bg-primary/5 text-primary border-primary/20 animate-in fade-in zoom-in-95">SELECTED</Badge>
                       )}
                     </div>
 
-                    <div
-                      className={`rounded-lg border overflow-hidden transition-all bg-background ${
-                        errors.votingPlace
-                          ? "ring-2 ring-destructive border-destructive"
-                          : "border-input shadow-sm"
-                      }`}
-                    >
+                    <div className={`rounded-lg border overflow-hidden transition-all bg-background ${errors.ward ? "ring-2 ring-destructive border-destructive" : "border-input shadow-sm"}`}>
                       <div className="max-h-112.5 overflow-y-auto custom-scrollbar">
                         <GeographicalDivisionPage
-                          onSelectVotingPlace={onSelectVotingPlace}
+                          onSelectWard={onSelectWard}
                           allowAddEdit={false}
+                          hideViewVotingPlaces={true}
                         />
                       </div>
                     </div>
 
-                    {errors.votingPlace && (
-                      <p className="text-[10px] font-bold text-destructive uppercase tracking-tight">
-                        {errors.votingPlace}
-                      </p>
+                    {errors.ward && (
+                      <p className="text-[10px] font-bold text-destructive uppercase tracking-tight">{errors.ward}</p>
                     )}
                   </div>
 
                   {/* Selected Summary - Refined Footer */}
-                  {formData.votingPlace && (
+                  {formData.ward && (
                     <div className="p-3 rounded-lg border border-primary/10 bg-primary/5 animate-in slide-in-from-bottom-2">
-                      <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">
-                        Current Selection
-                      </p>
-                      <p className="text-sm font-semibold text-foreground leading-tight">
-                        {formData.votingPlace.votingPlaceAddress}
-                      </p>
+                      <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Current Selection</p>
+                      <p className="text-sm font-semibold text-foreground leading-tight">Ward: {formData.ward.wardName}</p>
                     </div>
                   )}
                 </div>

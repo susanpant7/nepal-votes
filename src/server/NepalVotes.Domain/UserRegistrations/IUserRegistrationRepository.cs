@@ -12,4 +12,5 @@ public interface IUserRegistrationRepository
     Task<List<UserRegistration>> GetByDistrictIdAsync(int districtId);
     Task<UserRegistration?> GetRegistrationWithGeographicDetailsForReviewAsync(int id);
     Task<UserRegistration?> GetRegistrationByIdAsync(int id);
+    Task<(List<UserRegistration> Items, int TotalCount)> GetPaginatedRegistrationsAsync(int? districtId, string? searchTerm, int pageNumber, int pageSize);
 }

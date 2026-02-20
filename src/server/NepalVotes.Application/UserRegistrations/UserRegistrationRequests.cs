@@ -5,19 +5,22 @@ namespace NepalVotes.Application.UserRegistrations;
 
 public class RegisterUserRequest
 {
-    public required string FirstName { get; set; }
+    public required string FirstNameEn { get; set; }
 
-    public string? MiddleName { get; set; } 
+    public string? MiddleNameEn { get; set; } 
 
-    public required string LastName { get; set; }
+    public required string LastNameEn { get; set; }
+    public required string FirstNameNp { get; set; }
+    public string? MiddleNameNp { get; set; }
+    public required string LastNameNp { get; set; }
     
     public DateOnly DateOfBirth { get; set; }
 
     public required string MobileNumber { get; set; }
     
-    public required string NationalIdNumber { get; set; }
+    public string? NationalIdNumber { get; set; }
     
-    public required string VoterIdNumber { get; set; }
+    public string? VoterIdNumber { get; set; }
 
     public int WardId { get; set; }
 

@@ -41,9 +41,12 @@ public class UserRegistrationController(IUserRegistrationService service): Contr
     {
         return new RegisterUserRequest
         {
-            FirstName = apiRequest.FirstName,
-            MiddleName = apiRequest.MiddleName,
-            LastName = apiRequest.LastName,
+            FirstNameEn = apiRequest.FirstNameEn,
+            MiddleNameEn = apiRequest.MiddleNameEn,
+            LastNameEn = apiRequest.LastNameEn,
+            FirstNameNp = apiRequest.FirstNameNp,
+            MiddleNameNp = apiRequest.MiddleNameNp,
+            LastNameNp = apiRequest.LastNameNp,
             DateOfBirth = apiRequest.DateOfBirth,
             MobileNumber = apiRequest.MobileNumber,
             NationalIdNumber = apiRequest.NationalIdNumber,

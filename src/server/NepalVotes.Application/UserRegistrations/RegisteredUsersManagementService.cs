@@ -9,15 +9,14 @@ namespace NepalVotes.Application.UserRegistrations;
 public class RegisteredUsersManagementService (IUserRegistrationRepository registrationRepository, IRoleRepository roleRepository, 
     IUserRepository userRepository, IUnitOfWork unitOfWork) : IRegisteredUsersManagementService
 {
-    public async Task<ApiResponse<IEnumerable<UserRegistrationListItem>>> GetRegisteredUsersByDistrict(int districtId)
+    public async Task<ApiResponse<PagedResult<UserRegistrationListItem>>> GetPaginatedRegistrations(int? districtId, string? searchTerm, int pageNumber, int pageSize)
     {
-        var registrations = await registrationRepository.GetByDistrictIdAsync(districtId);
+        var (items, totalCount) = await registrationRepository.GetPaginatedRegistrationsAsync(districtId, searchTerm, pageNumber, pageSize);
 
-        if (registrations.Count==0)
-            return ApiResponse<IEnumerable<UserRegistrationListItem>>.SuccessResponse([],"No records found for this district.", 404);
+        var listItems = items.Select(u => u.ToListItem()).ToList();
+        var pagedResult = PagedResult<UserRegistrationListItem>.Create(listItems, pageNumber, pageSize, totalCount);
 
-        var listItems = registrations.Select(u => u.ToListItem()).ToList();
-        return ApiResponse<IEnumerable<UserRegistrationListItem>>.SuccessResponse(listItems);
+        return ApiResponse<PagedResult<UserRegistrationListItem>>.SuccessResponse(pagedResult);
     }
     
     public async Task<ApiResponse<UserRegistrationReviewDetail>> GetReviewDetailsAsync(int id)
@@ -25,9 +24,6 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
         var registration = await registrationRepository.GetRegistrationWithGeographicDetailsForReviewAsync(id);
 
         if(registration == null) return ApiResponse<UserRegistrationReviewDetail>.ErrorResponse("User registration record  found", 404);
-        
-        if (registration.UserRegistrationDocuments.All(x => x.DocumentType != UserDocumentType.NationalIdentity))
-            ApiResponse<UserRegistrationReviewDetail>.ErrorResponse("National Identity document not found.", 404);
         
         return ApiResponse<UserRegistrationReviewDetail>.SuccessResponse(registration.ToReviewDetails());
     }
@@ -66,9 +62,12 @@ public class RegisteredUsersManagementService (IUserRegistrationRepository regis
         
         var newUser = new User
         {
-            FirstNameEn = registration.FirstName,
-            MiddleNameEn = registration.MiddleName ?? string.Empty,
-            LastNameEn = registration.LastName,
+            FirstNameEn = registration.FirstNameEn,
+            MiddleNameEn = registration.MiddleNameEn ?? string.Empty,
+            LastNameEn = registration.LastNameEn,
+            FirstNameNp = registration.FirstNameNp,
+            MiddleNameNp = registration.MiddleNameNp ?? string.Empty,
+            LastNameNp = registration.LastNameNp,
             DateOfBirth = registration.DateOfBirth,
             MobileNumber = registration.MobileNumber,
             NationalIdNumber =  registration.NationalIdNumber,

@@ -1,4 +1,3 @@
-import { useAdminUserRegistrationQuery } from "@/features/admin/user-registrations/api/admin.user-registrations.query.ts";
 import { QueryWrapper } from "@/components/loading-error-wrapper/query-wrapper.tsx";
 import { ScrollableTableBody } from "@/components/table/scrollable-table-body.tsx";
 import {
@@ -10,22 +9,29 @@ import {
   TableRow,
 } from "@/components/ui/table.tsx";
 
-import { Edit } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { ChevronLeft, ChevronRight, Edit } from "lucide-react";
+import type { UserRegistrationListItem, PaginatedResponse } from "@/features/admin/user-registrations/types/admin.user-registrations.types.ts";
 import { Button } from "@/components/ui/button.tsx";
 import { formatToLocalTime } from "@/lib/date-formatter.ts";
 import type { VariantProps } from "class-variance-authority";
 import { Badge, type badgeVariants } from "@/components/ui/badge.tsx";
 import { ROUTES } from "@/lib/app.routes.urls.ts";
-import { useNavigate } from "@tanstack/react-router";
 
 export interface UserRegistrationsTableProps {
-  districtId: number;
+  data: PaginatedResponse<UserRegistrationListItem> | undefined;
+  isLoading: boolean;
+  isError: boolean;
+  refetch: () => void;
+  onPageChange: (page: number) => void;
 }
 export const UserRegistrationsTable = ({
-  districtId,
+  data,
+  isLoading,
+  isError,
+  refetch,
+  onPageChange,
 }: UserRegistrationsTableProps) => {
-  const { data, isLoading, isError, refetch } =
-    useAdminUserRegistrationQuery.getRegisteredUsersByDistrictId(districtId);
 
   type BadgeVariant = VariantProps<typeof badgeVariants>["variant"];
 
@@ -42,7 +48,7 @@ export const UserRegistrationsTable = ({
     }
   };
 
-  const users = data ?? [];
+  const users = data?.items ?? [];
 
   const navigate = useNavigate();
 
@@ -67,6 +73,9 @@ export const UserRegistrationsTable = ({
               </TableHead>
               <TableHead className="h-14 align-middle font-bold text-foreground">
                 National ID
+              </TableHead>
+              <TableHead className="h-14 align-middle font-bold text-foreground">
+                Voter ID
               </TableHead>
               <TableHead className="h-14 align-middle font-bold text-foreground">
                 Applied Date
@@ -104,11 +113,20 @@ export const UserRegistrationsTable = ({
                     </div>
                   </TableCell>
 
-                  {/* Voting Place */}
+                  {/* National ID */}
                   <TableCell className="py-5">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <span className="text-sm whitespace-normal max-w-50 leading-tight">
-                        {user.nationalIdNumber}
+                        {user.nationalIdNumber || "N/A"}
+                      </span>
+                    </div>
+                  </TableCell>
+
+                  {/* Voter ID */}
+                  <TableCell className="py-5">
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <span className="text-sm whitespace-normal max-w-50 leading-tight">
+                        {user.voterIdNumber || "N/A"}
                       </span>
                     </div>
                   </TableCell>
@@ -148,7 +166,7 @@ export const UserRegistrationsTable = ({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={6}
+                  colSpan={7}
                   className="h-48 text-center text-muted-foreground"
                 >
                   <div className="flex flex-col items-center gap-2">
@@ -160,6 +178,40 @@ export const UserRegistrationsTable = ({
           </TableBody>
         </Table>
       </ScrollableTableBody>
+      {/* Pagination Controls */}
+      {data && data.totalPages > 1 && (
+        <div className="flex items-center justify-between px-6 py-4 border-t border-border bg-muted/20">
+          <div className="text-sm text-muted-foreground font-medium">
+            Showing <span className="text-foreground">{users.length}</span> of{" "}
+            <span className="text-foreground">{data.totalCount}</span> registrations
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onPageChange(data.pageNumber - 1)}
+              disabled={!data.hasPreviousPage}
+              className="h-9 px-3 border-border/50"
+            >
+              <ChevronLeft className="h-4 w-4 mr-1" />
+              Previous
+            </Button>
+            <div className="flex items-center justify-center min-w-[3rem] text-sm font-semibold">
+              {data.pageNumber} / {data.totalPages}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onPageChange(data.pageNumber + 1)}
+              disabled={!data.hasNextPage}
+              className="h-9 px-3 border-border/50"
+            >
+              Next
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </Button>
+          </div>
+        </div>
+      )}
     </QueryWrapper>
   );
 };

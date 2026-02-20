@@ -3,11 +3,20 @@ import type {
   UserRegistrationReviewDetails,
   UserRegistrationListItem,
   UserRegistrationUpdate,
+  UserRegistrationSearchQuery,
+  PaginatedResponse,
 } from "@/features/admin/user-registrations/types/admin.user-registrations.types.ts";
 import { ADMIN_USER_REGISTRATION_ENDPOINTS } from "@/features/admin/user-registrations/api/admin.user-registrations.endpoints.ts";
 
 export const AdminUserRegistrationApi = {
   // -------- GET --------
+
+  searchRegistrations: async (
+    query: UserRegistrationSearchQuery,
+  ): Promise<PaginatedResponse<UserRegistrationListItem>> =>
+    apiClient.get(ADMIN_USER_REGISTRATION_ENDPOINTS.SEARCH_REGISTERED_USERS, {
+      params: query,
+    }),
 
   getRegisteredUsersByDistrictId: async (
     districtId: number,

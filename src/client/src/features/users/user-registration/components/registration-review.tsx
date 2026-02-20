@@ -54,14 +54,23 @@ export const RegistrationReview = ({
                   className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-none"
                 >
                   I confirm that the{" "}
-                  <span className="font-bold">mobile number,</span>
-                  <span className="font-bold">national ID number</span>
-                  {" and the "}
-                  <span className="font-bold">voter number</span>belong to{" "}
+                  <span className="font-bold">mobile number</span>
+                  {data.nIdNumber && (
+                    <>
+                      , <span className="font-bold">national ID number</span>
+                    </>
+                  )}
+                  {data.voterIdNumber && (
+                    <>
+                      {" and the "}
+                      <span className="font-bold">voter number</span>
+                    </>
+                  )}
+                  {" belong to "}
                   <span className="font-bold">
-                    {`${data.firstName} ${data.middleName || ""} ${data.lastName}`}
-                    .
+                    {`${data.firstName} ${data.middleName || ""} ${data.lastName}`} / {`${data.firstNameNp} ${data.middleNameNp || ""} ${data.lastNameNp}`}
                   </span>
+                  .
                 </Label>
               </AlertDescription>
             </Alert>
@@ -110,6 +119,9 @@ export const RegistrationReview = ({
                   <p className="font-semibold text-lg leading-tight">
                     {`${data.firstName} ${data.middleName || ""} ${data.lastName}`}
                   </p>
+                  <p className="font-semibold text-lg leading-tight text-primary/80">
+                    {`${data.firstNameNp} ${data.middleNameNp || ""} ${data.lastNameNp}`}
+                  </p>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -138,15 +150,15 @@ export const RegistrationReview = ({
                   Voter Number
                 </p>
                 <p className="text-base font-bold text-primary">
-                  {data.voterIdNumber}
+                  {data.voterIdNumber || "N/A"}
                 </p>
               </div>
               <div className="space-y-1">
                 <p className="text-[10px] font-bold text-muted-foreground uppercase">
-                  Voting Address
+                  Assigned Ward
                 </p>
                 <p className="text-base font-bold text-primary">
-                  {data.votingPlace?.votingPlaceAddress}
+                  {data.ward?.wardName || "N/A"}
                 </p>
               </div>
             </section>
@@ -166,42 +178,45 @@ export const RegistrationReview = ({
           {/* Right Column: Documents Grid */}
           <div className="lg:col-span-8 space-y-6">
             <section className="bg-card rounded-xl border p-8 shadow-sm space-y-6">
-              <div className="flex items-center justify-between border-b pb-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-muted-foreground"
-                    >
-                      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                      <polyline points="14 2 14 8 20 8" />
-                    </svg>
+              {/* Documents Display */}
+              <div className="space-y-8">
+                {/* National ID */}
+                {data.nIdDocument && (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between border-b pb-2">
+                      <h4 className="font-bold text-lg">National ID</h4>
+                      <Badge variant="secondary" className="px-3 py-1 font-bold text-[10px]">ID: {data.nIdNumber}</Badge>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <ImagePreview file={data.nIdDocument} fileName="National ID Card" />
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-xl">National Id</h3>
-                  </div>
-                </div>
-                <Badge
-                  variant="secondary"
-                  className="px-4 py-1.5 font-bold tracking-widest text-[11px]"
-                >
-                  National ID: {data.nIdNumber}
-                </Badge>
-              </div>
+                )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
-                <ImagePreview
-                  file={data.nIdDocument}
-                  fileName="National ID Card"
-                />
+                {/* Voter ID */}
+                {data.voterIdDocument && (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between border-b pb-2">
+                      <h4 className="font-bold text-lg">Voter ID</h4>
+                      <Badge variant="secondary" className="px-3 py-1 font-bold text-[10px]">ID: {data.voterIdNumber}</Badge>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <ImagePreview file={data.voterIdDocument} fileName="Voter ID Card" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Passport */}
+                {data.passportDocument && (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between border-b pb-2">
+                      <h4 className="font-bold text-lg">Passport</h4>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <ImagePreview file={data.passportDocument} fileName="Passport Document" />
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
 

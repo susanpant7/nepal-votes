@@ -7,14 +7,25 @@ public class RegisterUserApiRequest
 {
     [Required]
     [StringLength(100)]
-    public required string FirstName { get; set; }
+    public required string FirstNameEn { get; set; }
 
     [StringLength(100)]
-    public string? MiddleName { get; set; } 
+    public string? MiddleNameEn { get; set; } 
 
     [Required]
     [StringLength(100)]
-    public required string LastName { get; set; }
+    public required string LastNameEn { get; set; }
+
+    [Required]
+    [StringLength(100)]
+    public required string FirstNameNp { get; set; }
+
+    [StringLength(100)]
+    public string? MiddleNameNp { get; set; }
+
+    [Required]
+    [StringLength(100)]
+    public required string LastNameNp { get; set; }
     
     [Required]
     public required DateOnly DateOfBirth { get; set; }
@@ -23,11 +34,9 @@ public class RegisterUserApiRequest
     [RegularExpression(@"^\+?[0-9]{10,15}$", ErrorMessage = "Invalid mobile number")]
     public required string MobileNumber { get; set; }
     
-    [Required]
-    public required string NationalIdNumber { get; set; }
+    public string? NationalIdNumber { get; set; }
     
-    [Required]
-    public required string VoterIdNumber { get; set; }
+    public string? VoterIdNumber { get; set; }
 
     [Required]
     public int WardId { get; set; }

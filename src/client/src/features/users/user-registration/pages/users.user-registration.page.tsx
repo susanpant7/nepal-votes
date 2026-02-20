@@ -19,12 +19,17 @@ export const UserRegistrationPage = () => {
     firstName: "",
     middleName: "",
     lastName: "",
+    firstNameNp: "",
+    middleNameNp: "",
+    lastNameNp: "",
     dob: "",
     mobileNumber: "",
-    votingPlace: null,
+    ward: null,
     nIdNumber: "",
     voterIdNumber: "",
     nIdDocument: null,
+    voterIdDocument: null,
+    passportDocument: null,
   });
 
   const submitUserDetails = async () => {
@@ -39,17 +44,32 @@ export const UserRegistrationPage = () => {
     data.append("FirstName", formData.firstName);
     data.append("MiddleName", formData.middleName || "");
     data.append("LastName", formData.lastName);
+    data.append("FirstNameNp", formData.firstNameNp);
+    data.append("MiddleNameNp", formData.middleNameNp || "");
+    data.append("LastNameNp", formData.lastNameNp);
     data.append("DateOfBirth", formData.dob);
     data.append("MobileNumber", formData.mobileNumber);
-    data.append("VotingPlaceId", String(formData.votingPlace?.votingPlaceId));
+    data.append("WardId", String(formData.ward?.wardId));
 
-    data.append("NationalIdNumber", formData.nIdNumber);
-    data.append("VoterIdNumber", formData.voterIdNumber);
-    data.append(
-      `Documents[0].DocumentType`,
-      UserDocumentType.NationalIdentity.toString(),
-    );
-    data.append(`Documents[0].File`, formData.nIdDocument!);
+    data.append("NationalIdNumber", formData.nIdNumber || "");
+    data.append("VoterIdNumber", formData.voterIdNumber || "");
+
+    let docIndex = 0;
+    if (formData.nIdDocument) {
+      data.append(`Documents[${docIndex}].DocumentType`, UserDocumentType.NationalIdentity.toString());
+      data.append(`Documents[${docIndex}].File`, formData.nIdDocument);
+      docIndex++;
+    }
+    if (formData.voterIdDocument) {
+      data.append(`Documents[${docIndex}].DocumentType`, UserDocumentType.VoterIdentity.toString());
+      data.append(`Documents[${docIndex}].File`, formData.voterIdDocument);
+      docIndex++;
+    }
+    if (formData.passportDocument) {
+      data.append(`Documents[${docIndex}].DocumentType`, UserDocumentType.Passport.toString());
+      data.append(`Documents[${docIndex}].File`, formData.passportDocument);
+      docIndex++;
+    }
 
     return data;
   };
@@ -71,7 +91,7 @@ export const UserRegistrationPage = () => {
         data={formData}
         onEdit={() => setRegistrationStep("Form")}
         onConfirm={submitUserDetails}
-        isSubmitting={false}
+        isSubmitting={submitDetails.isPending}
       />
     );
   }

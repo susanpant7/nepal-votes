@@ -91,7 +91,9 @@ export const UserRegistrationReview = ({
   };
 
   const disableApproveButton =
-    !confirmMobileNumber || !confirmNationalIdNumber || !confirmVoterIdNumber;
+    !confirmMobileNumber ||
+    (!!userReviewData.nationalIdNumber && !confirmNationalIdNumber) ||
+    (!!userReviewData.voterIdNumber && !confirmVoterIdNumber);
 
   return (
     <div className="w-full max-w-6xl mx-auto py-10 px-4 space-y-12">
@@ -124,86 +126,93 @@ export const UserRegistrationReview = ({
         </div>
       </div>
 
-      <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10 mb-2">
-        <AlertDescription className="flex items-center gap-3">
-          <Checkbox
-            checked={confirmMobileNumber}
-            onCheckedChange={(checked: boolean) =>
-              setConfirmMobileNumber(checked)
-            }
-            className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
-          />
-          <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
-            Mobile number{" "}
-            <span className="font-bold select-all">
-              {userReviewData.mobileNumber}
-            </span>{" "}
-            is registered for the person
-            <span className="font-bold select-all">
-              {" "}
-              {userReviewData.firstName +
-                " " +
-                (userReviewData.middleName ?? "") +
-                " " +
-                userReviewData.lastName}
-            </span>
-          </Label>
-        </AlertDescription>
-      </Alert>
+      {userReviewData.mobileNumber && (
+        <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10 mb-2">
+          <AlertDescription className="flex items-center gap-3">
+            <Checkbox
+              checked={confirmMobileNumber}
+              onCheckedChange={(checked: boolean) =>
+                setConfirmMobileNumber(checked)
+              }
+              className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
+            />
+            <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
+              Mobile number{" "}
+              <span className="font-bold select-all">
+                {userReviewData.mobileNumber}
+              </span>{" "}
+              is registered for the person
+              <span className="font-bold select-all">
+                {" "}
+                {userReviewData.firstName +
+                  " " +
+                  (userReviewData.middleName ?? "") +
+                  " " +
+                  userReviewData.lastName} /{" "}
+                {userReviewData.firstNameNp || ""} {userReviewData.middleNameNp || ""} {userReviewData.lastNameNp || ""}
+              </span>
+            </Label>
+          </AlertDescription>
+        </Alert>
+      )}
 
-      <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10 mb-2">
-        <AlertDescription className="flex items-center gap-3">
-          <Checkbox
-            checked={confirmNationalIdNumber}
-            onCheckedChange={(checked: boolean) =>
-              setConfirmNationalIdNumber(checked)
-            }
-            className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
-          />
-          <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
-            National ID number{" "}
-            <span className="font-bold select-all">
-              {userReviewData.nationalIdNumber}
-            </span>{" "}
-            is registered for the person
-            <span className="font-bold select-all">
-              {" "}
-              {userReviewData.firstName +
-                " " +
-                (userReviewData.middleName ?? "") +
-                " " +
-                userReviewData.lastName}
-            </span>
-          </Label>
-        </AlertDescription>
-      </Alert>
+      {userReviewData.nationalIdNumber && (
+        <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10 mb-2">
+          <AlertDescription className="flex items-center gap-3">
+            <Checkbox
+              checked={confirmNationalIdNumber}
+              onCheckedChange={(checked: boolean) =>
+                setConfirmNationalIdNumber(checked)
+              }
+              className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
+            />
+            <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
+              National ID number{" "}
+              <span className="font-bold select-all">
+                {userReviewData.nationalIdNumber}
+              </span>{" "}
+              is registered for the person
+              <span className="font-bold select-all">
+                {" "}
+                {userReviewData.firstName +
+                  " " +
+                  (userReviewData.middleName ?? "") +
+                  " " +
+                  userReviewData.lastName}
+              </span>
+            </Label>
+          </AlertDescription>
+        </Alert>
+      )}
 
-      <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10">
-        <AlertDescription className="flex items-center gap-3">
-          <Checkbox
-            checked={confirmVoterIdNumber}
-            onCheckedChange={(checked: boolean) =>
-              setConfirmVoterIdNumber(checked)
-            }
-            className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
-          />
-          <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
-            Voter ID number{" "}
-            <span className="font-bold select-all">
-              {userReviewData.voterIdNumber}
-            </span>{" "}
-            is registered for the person
-            <span className="font-bold select-all">
-              {" "}
-              {userReviewData.firstName +
-                " " +
-                (userReviewData.middleName ?? "") +
-                " " +
-                userReviewData.lastName}
-            </span>
-          </Label>
-        </AlertDescription>
-      </Alert>
+      {userReviewData.voterIdNumber && (
+        <Alert className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/10">
+          <AlertDescription className="flex items-center gap-3">
+            <Checkbox
+              checked={confirmVoterIdNumber}
+              onCheckedChange={(checked: boolean) =>
+                setConfirmVoterIdNumber(checked)
+              }
+              className="h-5 w-5 data-[state=checked]:bg-amber-600 data-[state=checked]:border-amber-600"
+            />
+            <Label className="text-sm font-medium leading-tight text-amber-900 dark:text-amber-200 cursor-pointer select-text">
+              Voter ID number{" "}
+              <span className="font-bold select-all">
+                {userReviewData.voterIdNumber}
+              </span>{" "}
+              is registered for the person
+              <span className="font-bold select-all">
+                {" "}
+                {userReviewData.firstName +
+                  " " +
+                  (userReviewData.middleName ?? "") +
+                  " " +
+                  userReviewData.lastName}
+              </span>
+            </Label>
+          </AlertDescription>
+        </Alert>
+      )}
 
       <Separator />
 
@@ -217,9 +226,13 @@ export const UserRegistrationReview = ({
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
               <InfoBlock
-                label="Full Name"
-                value={`${userReviewData.firstName} ${userReviewData.middleName ?? ""} ${userReviewData.lastName}`}
-                uppercase
+                label="Full Name (EN/NP)"
+                value={
+                  <div className="flex flex-col">
+                    <span>{`${userReviewData.firstName} ${userReviewData.middleName ?? ""} ${userReviewData.lastName}`}</span>
+                    <span className="text-primary/70">{`${userReviewData.firstNameNp || ""} ${userReviewData.middleNameNp ?? ""} ${userReviewData.lastNameNp || ""}`}</span>
+                  </div>
+                }
               />
               <InfoBlock
                 label="Date of Birth"
@@ -249,36 +262,42 @@ export const UserRegistrationReview = ({
             </h2>
             <InfoBlock
               label="Voter ID Number"
-              value={userReviewData.voterIdNumber}
+              value={userReviewData.voterIdNumber || "N/A"}
               uppercase
             />
             <InfoBlock
-              label="Voting Address"
-              value={userReviewData.votingPlaceFullAddress}
+              label="Assigned Ward Address"
+              value={userReviewData.wardFullAddress}
               uppercase
             />
           </section>
 
-          {/* Documents Section - Grid layout to fill width */}
+          {/* Documents Section */}
           <section className="space-y-6">
-            <div className="flex items-center gap-2">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary flex items-center gap-2">
-                <FileText className="h-4 w-4" /> National Id Document
-              </h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary flex items-center gap-2">
+              <FileText className="h-4 w-4" /> Identification Documents
+            </h2>
 
-              <Badge
-                variant="secondary"
-                className="px-4 py-1.5 font-bold tracking-widest text-[11px]"
-              >
-                {userReviewData.nationalIdNumber}
-              </Badge>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <ImagePreview
-                file={userReviewData.nationalIdDocumentContent}
-                contentType={userReviewData.nationalIdDocumentContentType}
-                fileName={userReviewData.nationalIdDocumentName}
-              />
+            <div className="space-y-8">
+              {(userReviewData.documents || []).map((doc, idx) => (
+                <div key={idx} className="space-y-3">
+                  <div className="flex items-center justify-between border-b pb-2">
+                    <span className="text-sm font-bold">
+                      {doc.documentType === 4 ? "National ID" :
+                        doc.documentType === 5 ? "Voter ID" :
+                          doc.documentType === 3 ? "Passport" : "Document"}
+                    </span>
+                    <Badge variant="secondary" className="text-[10px] font-bold">{doc.fileName}</Badge>
+                  </div>
+                  <div className="max-w-md">
+                    <ImagePreview
+                      file={doc.content}
+                      contentType={doc.contentType}
+                      fileName={doc.fileName}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         </div>
