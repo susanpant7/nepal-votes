@@ -96,8 +96,8 @@ export const AddEditCandidate = (props: Props) => {
   // --- Handlers ---
   const onConstituencySelect = (constituency: ConstituencyDropdown) =>
     setSelectedConstituencyId(constituency.constituencyId);
-  const onCandidateSelect = (user: UserSearchResponse) =>
-    setSelectedCandidateId(user.userId);
+  const onCandidateSelect = (user: UserSearchResponse | null) =>
+    setSelectedCandidateId(user?.userId ?? null);
 
   const onCandidacyTypeToggle = () => {
     setIsIndependent(!isIndependent);
