@@ -17,6 +17,7 @@ export const AdminCandidatesPage = () => {
     constituencyIds: [],
     politicalPartyIds: [],
     isIndependent: false,
+    name: "",
   });
 
   const [page, setPage] = useState(1);
@@ -49,6 +50,7 @@ export const AdminCandidatesPage = () => {
     constituencyIds: effectiveConstituencyIds.length > 0 ? effectiveConstituencyIds : undefined,
     politicalPartyIds: filters.politicalPartyIds.length > 0 ? filters.politicalPartyIds : undefined,
     isIndependent: filters.isIndependent || undefined,
+    searchTerm: filters.name || undefined,
   });
 
   const hasAnyFilter =
@@ -56,7 +58,8 @@ export const AdminCandidatesPage = () => {
     filters.districtIds.length > 0 ||
     filters.constituencyIds.length > 0 ||
     filters.politicalPartyIds.length > 0 ||
-    filters.isIndependent;
+    filters.isIndependent ||
+    filters.name.trim().length > 0;
 
   const candidateItems = pagedResult?.items ?? [];
 
