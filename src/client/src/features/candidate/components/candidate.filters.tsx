@@ -1,7 +1,7 @@
 
 import { useCandidateQuery } from "@/features/candidate/api/candidate.query";
 import { MultiSelect } from "@/components/ui/multi-select";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Search, X, SlidersHorizontal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -16,31 +16,14 @@ export interface CandidateFilterValues {
 
 interface CandidateFiltersProps {
     onFilterChange: (filters: CandidateFilterValues) => void;
-    initialFilters?: CandidateFilterValues;
+    disabled?: boolean;
 }
 
-const SESSION_KEY = "candidateFilters";
-
-function loadFromSession(): {
-    provinces: string[];
-    districts: string[];
-    constituencies: string[];
-    parties: string[];
-} {
-    try {
-        const raw = sessionStorage.getItem(SESSION_KEY);
-        if (raw) return JSON.parse(raw);
-    } catch { }
-    return { provinces: [], districts: [], constituencies: [], parties: [] };
-}
-
-export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
-    const saved = loadFromSession();
-
-    const [selectedProvinces, setSelectedProvinces] = useState<string[]>(saved.provinces);
-    const [selectedDistricts, setSelectedDistricts] = useState<string[]>(saved.districts);
-    const [selectedConstituencies, setSelectedConstituencies] = useState<string[]>(saved.constituencies);
-    const [selectedParties, setSelectedParties] = useState<string[]>(saved.parties);
+export const CandidateFilters = ({ onFilterChange, disabled }: CandidateFiltersProps) => {
+    const [selectedProvinces, setSelectedProvinces] = useState<string[]>([]);
+    const [selectedDistricts, setSelectedDistricts] = useState<string[]>([]);
+    const [selectedConstituencies, setSelectedConstituencies] = useState<string[]>([]);
+    const [selectedParties, setSelectedParties] = useState<string[]>([]);
 
     // --- Queries ---
     const { data: provinces = [] } = useCandidateQuery.useGetProvinces();
@@ -48,23 +31,6 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
     const { data: allConstituencies = [] } = useCandidateQuery.useGetAllConstituencies();
     const { data: parties = [] } = useCandidateQuery.useGetParties();
 
-    // Persist to sessionStorage whenever selections change
-    useEffect(() => {
-        sessionStorage.setItem(SESSION_KEY, JSON.stringify({
-            provinces: selectedProvinces,
-            districts: selectedDistricts,
-            constituencies: selectedConstituencies,
-            parties: selectedParties,
-        }));
-    }, [selectedProvinces, selectedDistricts, selectedConstituencies, selectedParties]);
-
-    // On first mount, trigger the filter with saved values so results are shown immediately
-    useEffect(() => {
-        if (saved.provinces.length || saved.districts.length || saved.constituencies.length || saved.parties.length) {
-            triggerFind(saved.provinces, saved.districts, saved.constituencies, saved.parties);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     // --- Derived Options ---
     const filteredDistricts =
@@ -111,7 +77,6 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
         setSelectedDistricts([]);
         setSelectedConstituencies([]);
         setSelectedParties([]);
-        sessionStorage.removeItem(SESSION_KEY);
         onFilterChange({ provinceIds: [], districtIds: [], constituencyIds: [], politicalPartyIds: [], isIndependent: false });
     };
 
@@ -130,9 +95,10 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
                         </Badge>
                     )}
                 </div>
-                {hasActiveFilters && (
+                {hasActiveFilters && !disabled && (
                     <button
                         onClick={handleClearAll}
+                        disabled={disabled}
                         className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-destructive transition-colors"
                     >
                         <X className="h-3 w-3" />
@@ -173,6 +139,7 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
                                 }
                             }}
                             placeholder="All provinces"
+                            disabled={disabled}
                         />
                     </div>
 
@@ -204,6 +171,7 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
                                 }
                             }}
                             placeholder="All districts"
+                            disabled={disabled}
                         />
                     </div>
 
@@ -218,6 +186,7 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
                             selected={selectedConstituencies}
                             onChange={setSelectedConstituencies}
                             placeholder="All constituencies"
+                            disabled={disabled}
                         />
                     </div>
                 </div>
@@ -239,6 +208,7 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
                             selected={selectedParties}
                             onChange={setSelectedParties}
                             placeholder="All parties"
+                            disabled={disabled}
                         />
                     </div>
 
@@ -247,6 +217,7 @@ export const CandidateFilters = ({ onFilterChange }: CandidateFiltersProps) => {
                         <Button
                             onClick={() => triggerFind()}
                             className="w-full gap-2 font-semibold"
+                            disabled={disabled}
                         >
                             <Search className="h-4 w-4" />
                             Find Candidates

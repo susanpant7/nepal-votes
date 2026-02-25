@@ -4,6 +4,7 @@ import { CandidateList } from "@/features/candidate/components/candidate.list";
 import { useCandidateQuery } from "@/features/candidate/api/candidate.query";
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
 
 export const CandidatePage = () => {
   const [filters, setFilters] = useState<CandidateFilterValues>({
@@ -16,10 +17,15 @@ export const CandidatePage = () => {
 
   const [page, setPage] = useState(1);
   const pageSize = 20;
+  const [hasSearched, setHasSearched] = useState(false);
 
-  // Load all constituencies with their districtId + provinceId so we can translate
-  // province/district selections into constituency IDs for the backend query
-  const { data: allConstituencies = [] } = useCandidateQuery.useGetAllConstituencies();
+  // Load metadata and geographic data
+  const { data: _provinces = [], isLoading: isProvincesLoading } = useCandidateQuery.useGetProvinces();
+  const { data: _allDistricts = [], isLoading: isDistrictsLoading } = useCandidateQuery.useGetAllDistricts();
+  const { data: allConstituencies = [], isLoading: isGeogLoading } = useCandidateQuery.useGetAllConstituencies();
+  const { data: _parties = [], isLoading: isPartiesLoading } = useCandidateQuery.useGetParties();
+
+  const isMetadataLoading = isProvincesLoading || isDistrictsLoading || isGeogLoading || isPartiesLoading;
 
   // Derive effective constituency IDs from whichever geographic filters are set:
   // - specific constituencies selected → use those directly
@@ -54,6 +60,7 @@ export const CandidatePage = () => {
     constituencyIds: effectiveConstituencyIds.length > 0 ? effectiveConstituencyIds : undefined,
     politicalPartyIds: filters.politicalPartyIds.length > 0 ? filters.politicalPartyIds : undefined,
     isIndependent: filters.isIndependent || undefined,
+    enabled: hasSearched,
   });
 
   const candidateItems = pagedResult?.items || [];
@@ -62,40 +69,56 @@ export const CandidatePage = () => {
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold mb-8">Candidates</h1>
 
-      <CandidateFilters onFilterChange={(newFilters) => {
-        setFilters(newFilters);
-        setPage(1);
-      }} />
+      <CandidateFilters
+        onFilterChange={(newFilters) => {
+          setFilters(newFilters);
+          setPage(1);
+          setHasSearched(true);
+        }}
+        disabled={isQueryLoading || isMetadataLoading}
+      />
 
       {isQueryLoading ? (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      ) : !hasSearched ? (
+        <div className="flex flex-col justify-center items-center h-64 bg-muted/20 rounded-2xl border-2 border-dashed border-border/50">
+          <div className="p-4 rounded-full bg-primary/10 mb-4">
+            <Search className="h-8 w-8 text-primary" />
+          </div>
+          <h2 className="text-xl font-semibold mb-2">Search for Candidates</h2>
+          <p className="text-muted-foreground text-center max-w-md">
+            Select filters above and click "Find Candidates" to see the list of candidates in your area.
+          </p>
         </div>
       ) : (
         <>
           <CandidateList candidates={candidateItems} />
 
           {/* Pagination Controls */}
-          <div className="flex justify-center items-center gap-4 mt-8">
-            <Button
-              variant="outline"
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              disabled={page === 1 || isQueryLoading}
-            >
-              Previous
-            </Button>
-            <span className="text-sm">
-              Page {pagedResult?.pageNumber || 1} of {pagedResult?.totalPages || 1}
-              {pagedResult && <span className="ml-2 text-muted-foreground">({pagedResult.totalCount} candidates)</span>}
-            </span>
-            <Button
-              variant="outline"
-              onClick={() => setPage(p => p + 1)}
-              disabled={!pagedResult?.hasNextPage || isQueryLoading}
-            >
-              Next
-            </Button>
-          </div>
+          {candidateItems.length > 0 && (
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <Button
+                variant="outline"
+                onClick={() => setPage(p => Math.max(1, p - 1))}
+                disabled={page === 1 || isQueryLoading}
+              >
+                Previous
+              </Button>
+              <span className="text-sm">
+                Page {pagedResult?.pageNumber || 1} of {pagedResult?.totalPages || 1}
+                {pagedResult && <span className="ml-2 text-muted-foreground">({pagedResult.totalCount} candidates)</span>}
+              </span>
+              <Button
+                variant="outline"
+                onClick={() => setPage(p => p + 1)}
+                disabled={!pagedResult?.hasNextPage || isQueryLoading}
+              >
+                Next
+              </Button>
+            </div>
+          )}
         </>
       )}
     </div>

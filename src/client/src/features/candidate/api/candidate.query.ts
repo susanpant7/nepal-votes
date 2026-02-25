@@ -53,11 +53,12 @@ export const useCandidateQuery = {
       enabled: !!districtId,
     }),
 
-  useGetCandidates: (params?: { page?: number; pageSize?: number; constituencyIds?: number[]; politicalPartyIds?: number[]; isIndependent?: boolean }) =>
+  useGetCandidates: (params?: { page?: number; pageSize?: number; constituencyIds?: number[]; politicalPartyIds?: number[]; isIndependent?: boolean; enabled?: boolean }) =>
     useQuery({
       queryKey: ["candidates", params],
       queryFn: () => CandidateApi.getCandidates(params),
       placeholderData: (previousData) => previousData,
+      enabled: params?.enabled ?? true,
     }),
 
   useGetCandidateById: (id: number) =>

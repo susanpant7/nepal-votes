@@ -16,6 +16,7 @@ interface MultiSelectProps {
   onChange: (selected: string[]) => void;
   placeholder?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export function MultiSelect({
@@ -24,6 +25,7 @@ export function MultiSelect({
   onChange,
   placeholder = "Select items...",
   className,
+  disabled,
 }: MultiSelectProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
@@ -58,19 +60,20 @@ export function MultiSelect({
   return (
     <Command
       onKeyDown={handleKeyDown}
-      className={`overflow-visible bg-transparent ${className}`}
+      className={`overflow-visible bg-transparent ${className} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
     >
-      <div className="group border border-input px-3 py-2 text-sm ring-offset-background rounded-md focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+      <div className={`group border border-input px-3 py-2 text-sm ring-offset-background rounded-md ${!disabled && "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2"}`}>
         <div className="flex gap-1 flex-wrap">
           {selected.map((val) => {
             const option = options.find((o) => o.value === val);
-             // Verify option exists, if not finding it, perhaps handle gracefully or show value
+            // Verify option exists, if not finding it, perhaps handle gracefully or show value
             const label = option?.label || val;
             return (
               <Badge key={val} variant="secondary">
                 {label}
                 <button
-                  className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed"
+                  disabled={disabled}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleUnselect(val);
@@ -93,9 +96,10 @@ export function MultiSelect({
             value={inputValue}
             onValueChange={setInputValue}
             onBlur={() => setOpen(false)}
-            onFocus={() => setOpen(true)}
-            placeholder={placeholder}
-            className="ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1 min-w-[50px]"
+            onFocus={() => !disabled && setOpen(true)}
+            placeholder={disabled ? "" : placeholder}
+            disabled={disabled}
+            className="ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1 min-w-[50px] disabled:cursor-not-allowed"
           />
         </div>
       </div>
