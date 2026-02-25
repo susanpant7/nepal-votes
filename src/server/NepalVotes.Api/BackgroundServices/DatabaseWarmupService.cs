@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NepalVotes.Application.Configuration;
 using NepalVotes.Infrastructure.Persistence;
 
 namespace NepalVotes.Api.BackgroundServices;
@@ -6,11 +7,14 @@ namespace NepalVotes.Api.BackgroundServices;
 public class DatabaseWarmupService(
     IServiceProvider serviceProvider, 
     ILogger<DatabaseWarmupService> logger,
-    IConfiguration configuration)
+    IConfiguration configuration,
+    AppSetting appSetting)
     : BackgroundService
 {
     private readonly TimeSpan _interval = TimeSpan.FromMinutes(
-        configuration.GetValue<int>("DatabaseWarmup:IntervalInMinutes", 30));
+        appSetting.DatabaseWarmup.IntervalInMinutes > 0 
+            ? appSetting.DatabaseWarmup.IntervalInMinutes 
+            : 30);
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {

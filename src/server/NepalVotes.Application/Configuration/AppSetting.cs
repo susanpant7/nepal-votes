@@ -8,4 +8,10 @@ public class AppSetting
     public string ClientUrl { get; set; } = "*";
     public string ClientCorsPolicy { get; set; } = "*";
     public AuthSetting AuthSetting { get; set; } = new();
+    public DatabaseWarmup DatabaseWarmup { get; set; } = new();
+}
+
+public class DatabaseWarmup
+{
+    public int IntervalInMinutes  { get; set; }
 }
