@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Authorization;
+using NepalVotes.Api.BackgroundServices;
 using NepalVotes.Application.Configuration;
 
 namespace NepalVotes.Api.Configuration;
@@ -20,6 +21,8 @@ public static class ApiConfig
         });
         
         services.AddCorsPolicy(appSettings);
+        
+        services.AddHostedService<DatabaseWarmupService>();
 
         return services;
     }
