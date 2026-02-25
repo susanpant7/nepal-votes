@@ -53,7 +53,7 @@ export const useCandidateQuery = {
       enabled: !!districtId,
     }),
 
-  useGetCandidates: (params?: { page?: number; pageSize?: number; constituencyIds?: number[]; politicalPartyIds?: number[]; isIndependent?: boolean; enabled?: boolean }) =>
+  useGetCandidates: (params?: { page?: number; pageSize?: number; constituencyIds?: number[]; politicalPartyIds?: number[]; isIndependent?: boolean; searchTerm?: string; enabled?: boolean }) =>
     useQuery({
       queryKey: ["candidates", params],
       queryFn: () => CandidateApi.getCandidates(params),

@@ -53,7 +53,8 @@ export const CandidateApi = {
       pageSize?: number;
       constituencyIds?: number[];
       politicalPartyIds?: number[];
-      isIndependent?: boolean
+      isIndependent?: boolean;
+      searchTerm?: string;
     }
   ): Promise<PagedResult<CandidateListItem>> =>
     apiClient.post(`${ADMIN_CANDIDATE_ENDPOINTS.GET_CANDIDATES}/search`, {

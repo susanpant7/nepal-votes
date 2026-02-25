@@ -7,4 +7,5 @@ public class GetCandidatesRequest
     public List<int>? ConstituencyIds { get; set; }
     public List<int>? PoliticalPartyIds { get; set; }
     public bool? IsIndependent { get; set; }
+    public string? SearchTerm { get; set; }
 }

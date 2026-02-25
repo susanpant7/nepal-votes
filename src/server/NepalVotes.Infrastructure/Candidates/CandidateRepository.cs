@@ -6,7 +6,7 @@ namespace NepalVotes.Infrastructure.Candidates;
 
 public class CandidateRepository(ApplicationDbContext context) : ICandidateRepository
 {
-    public async Task<(IEnumerable<Candidate> Items, int TotalCount)> GetAllAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null)
+    public async Task<(IEnumerable<Candidate> Items, int TotalCount)> GetAllAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null, string? searchTerm = null)
     {
         var query = context.Candidates
             .Include(c => c.User)
@@ -26,6 +26,19 @@ public class CandidateRepository(ApplicationDbContext context) : ICandidateRepos
             query = query.Where(c => 
                 (politicalPartyIds != null && c.PoliticalPartyId.HasValue && politicalPartyIds.Contains(c.PoliticalPartyId.Value)) || 
                 (isIndependent.HasValue && isIndependent.Value && c.IsIndependent)
+            );
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var term = searchTerm.ToLower();
+            query = query.Where(c => 
+                c.User.FirstNameEn.ToLower().Contains(term) || 
+                c.User.MiddleNameEn.ToLower().Contains(term) || 
+                c.User.LastNameEn.ToLower().Contains(term) ||
+                c.User.FirstNameNp.Contains(searchTerm) || 
+                c.User.MiddleNameNp.Contains(searchTerm) || 
+                c.User.LastNameNp.Contains(searchTerm)
             );
         }
 

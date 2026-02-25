@@ -12,6 +12,7 @@ export interface CandidateFilterValues {
     constituencyIds: number[];
     politicalPartyIds: number[];
     isIndependent: boolean;
+    name: string;
 }
 
 interface CandidateFiltersProps {
@@ -24,6 +25,7 @@ export const CandidateFilters = ({ onFilterChange, disabled }: CandidateFiltersP
     const [selectedDistricts, setSelectedDistricts] = useState<string[]>([]);
     const [selectedConstituencies, setSelectedConstituencies] = useState<string[]>([]);
     const [selectedParties, setSelectedParties] = useState<string[]>([]);
+    const [candidateName, setCandidateName] = useState<string>("");
 
     // --- Queries ---
     const { data: provinces = [] } = useCandidateQuery.useGetProvinces();
@@ -49,17 +51,20 @@ export const CandidateFilters = ({ onFilterChange, disabled }: CandidateFiltersP
         selectedProvinces.length > 0 ||
         selectedDistricts.length > 0 ||
         selectedConstituencies.length > 0 ||
-        selectedParties.length > 0;
+        selectedParties.length > 0 ||
+        candidateName.trim().length > 0;
 
     const activeFilterCount =
         selectedProvinces.length + selectedDistricts.length +
-        selectedConstituencies.length + selectedParties.length;
+        selectedConstituencies.length + selectedParties.length +
+        (candidateName.trim().length > 0 ? 1 : 0);
 
     const triggerFind = (
         provs = selectedProvinces,
         dists = selectedDistricts,
         consts = selectedConstituencies,
         prts = selectedParties,
+        name = candidateName,
     ) => {
         const independentSelected = prts.includes("independent");
         const partyIds = prts.filter(p => p !== "independent").map(Number);
@@ -69,6 +74,7 @@ export const CandidateFilters = ({ onFilterChange, disabled }: CandidateFiltersP
             constituencyIds: consts.map(Number),
             politicalPartyIds: partyIds,
             isIndependent: independentSelected,
+            name: name,
         });
     };
 
@@ -77,7 +83,8 @@ export const CandidateFilters = ({ onFilterChange, disabled }: CandidateFiltersP
         setSelectedDistricts([]);
         setSelectedConstituencies([]);
         setSelectedParties([]);
-        onFilterChange({ provinceIds: [], districtIds: [], constituencyIds: [], politicalPartyIds: [], isIndependent: false });
+        setCandidateName("");
+        onFilterChange({ provinceIds: [], districtIds: [], constituencyIds: [], politicalPartyIds: [], isIndependent: false, name: "" });
     };
 
     return (
@@ -191,9 +198,29 @@ export const CandidateFilters = ({ onFilterChange, disabled }: CandidateFiltersP
                     </div>
                 </div>
 
-                {/* Political Party row + Find button — same 3-col grid as above */}
+                {/* Second Row: Name, Party, Find Button */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="md:col-span-2 space-y-1.5">
+                    {/* Name Filter */}
+                    <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Candidate Name</label>
+                        <div className="relative">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <input
+                                type="text"
+                                value={candidateName}
+                                onChange={(e) => setCandidateName(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") triggerFind();
+                                }}
+                                disabled={disabled}
+                                placeholder="Search by name..."
+                                className="w-full pl-9 pr-4 py-2 text-sm bg-background border border-input rounded-md ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Political Party */}
+                    <div className="space-y-1.5">
                         <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Political Party / Affiliation</label>
                         <MultiSelect
                             options={[
@@ -212,6 +239,7 @@ export const CandidateFilters = ({ onFilterChange, disabled }: CandidateFiltersP
                         />
                     </div>
 
+                    {/* Find Button */}
                     <div className="space-y-1.5">
                         <label className="text-xs font-medium text-transparent uppercase tracking-wide select-none">Find</label>
                         <Button

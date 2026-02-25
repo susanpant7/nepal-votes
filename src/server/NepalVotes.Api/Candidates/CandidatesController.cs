@@ -24,7 +24,7 @@ public class CandidatesController(ICandidateService service) : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> Search([FromBody] GetCandidatesRequest request)
     {
-        var response = await service.GetCandidatesAsync(request.Page, request.PageSize, request.ConstituencyIds, request.PoliticalPartyIds, request.IsIndependent);
+        var response = await service.GetCandidatesAsync(request.Page, request.PageSize, request.ConstituencyIds, request.PoliticalPartyIds, request.IsIndependent, request.SearchTerm);
         return response.ToActionResult();
     }
     

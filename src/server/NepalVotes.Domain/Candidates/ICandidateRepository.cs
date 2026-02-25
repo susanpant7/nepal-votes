@@ -2,7 +2,7 @@ namespace NepalVotes.Domain.Candidates;
 
 public interface ICandidateRepository
 {
-    Task<(IEnumerable<Candidate> Items, int TotalCount)> GetAllAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null);
+    Task<(IEnumerable<Candidate> Items, int TotalCount)> GetAllAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null, string? searchTerm = null);
     Task<Candidate?> GetByIdAsync(int id);
     Task AddAsync(Candidate candidate);
     Task UpdateAsync(Candidate candidate);

@@ -13,6 +13,7 @@ export const CandidatePage = () => {
     constituencyIds: [],
     politicalPartyIds: [],
     isIndependent: false,
+    name: "",
   });
 
   const [page, setPage] = useState(1);
@@ -60,6 +61,7 @@ export const CandidatePage = () => {
     constituencyIds: effectiveConstituencyIds.length > 0 ? effectiveConstituencyIds : undefined,
     politicalPartyIds: filters.politicalPartyIds.length > 0 ? filters.politicalPartyIds : undefined,
     isIndependent: filters.isIndependent || undefined,
+    searchTerm: filters.name || undefined,
     enabled: hasSearched,
   });
 

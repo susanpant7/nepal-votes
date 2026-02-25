@@ -7,9 +7,9 @@ namespace NepalVotes.Application.Candidates;
 
 public class CandidateService(ICandidateRepository repository, IUnitOfWork unitOfWork) : ICandidateService
 {
-    public async Task<ApiResponse<PagedResult<CandidateListItem>>> GetCandidatesAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null)
+    public async Task<ApiResponse<PagedResult<CandidateListItem>>> GetCandidatesAsync(int page = 1, int pageSize = 20, List<int>? constituencyIds = null, List<int>? politicalPartyIds = null, bool? isIndependent = null, string? searchTerm = null)
     {
-        var (candidates, totalCount) = await repository.GetAllAsync(page, pageSize, constituencyIds, politicalPartyIds, isIndependent);
+        var (candidates, totalCount) = await repository.GetAllAsync(page, pageSize, constituencyIds, politicalPartyIds, isIndependent, searchTerm);
 
         // Fetch the "Independent" party symbol once to use as fallback for independent candidates
         var independentSymbol = await repository.GetIndependentPartySymbolAsync();
