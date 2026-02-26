@@ -1,12 +1,13 @@
-import {useOverlayStore} from "@/stores/useOverlayStore.ts";
-import {Loader2} from "lucide-react";
-import {useEffect} from "react";
+import { useOverlayStore } from "@/stores/useOverlayStore.ts";
+import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 export const ScreenOverlay = () => {
-    const showOverlay = useOverlayStore(store=>store.overlayVisible)
-    
+    const isVisible = useOverlayStore(store => store.overlayVisible);
+    const message = useOverlayStore(store => store.overlayMessage);
+
     useEffect(() => {
-        if (showOverlay) {
+        if (isVisible) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "";
@@ -15,9 +16,9 @@ export const ScreenOverlay = () => {
         return () => {
             document.body.style.overflow = "";
         };
-    }, [showOverlay]);
+    }, [isVisible]);
 
-    if (!showOverlay) return null;
+    if (!isVisible) return null;
 
     return (
         <div
@@ -31,7 +32,7 @@ export const ScreenOverlay = () => {
             <div className="flex flex-col items-center gap-3">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 <span className="text-sm text-muted-foreground">
-                    Please wait…
+                    {message || "Please wait…"}
                 </span>
             </div>
         </div>
