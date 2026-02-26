@@ -22,7 +22,7 @@ public static class ApiConfig
         
         services.AddCorsPolicy(appSettings);
         
-        services.AddHostedService<DatabaseWarmupService>();
+        //services.AddHostedService<DatabaseWarmupService>();
 
         return services;
     }
